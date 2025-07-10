@@ -1,0 +1,14 @@
+acer Chromebook Spin 513 2-in-1 Laptop (13.3" FHD Touchscreen, Qualcomm CPU, 4GB RAM, 192GB Storage(64GB eMMC+128GB SD Card)) Home & Student, Webcam, Backlit, IST Pen, SD Card Reader, Chrome OS, Gray 
+
+Brand 	acer
+Model Name 	Spin 513
+Screen Size 	13.3 Inches
+Color 	Gray
+Hard Disk Size 	192 GB
+CPU Model 	Qualcomm Snapdragon S4 MSM8270
+Ram Memory Installed Size 	4 GB
+Operating System 	Chrome OS
+Special Feature 	Touchscreen, Backlit Keyboard, Support Stylus
+Graphics Card Description 	Integrated
+
+Price - $299.98

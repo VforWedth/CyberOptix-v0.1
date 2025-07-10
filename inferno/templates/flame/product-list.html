@@ -1,0 +1,1128 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+  <style>
+    :root {
+      --primary-dark: #4A5C6A;
+      --primary-light: #95A1A1;
+      --dark-bg: #2D363D;
+      --darker-bg: #1E252B;
+      --card-bg: #3A4754;
+      --text-light: #F0F3F5;
+      --text-muted: #B8C2C2;
+      --accent-color: #FF6B6B;
+    }
+    
+    main {
+      background-color: var(--primary-light);
+      font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text-light);
+      overflow-x: hidden;
+    }
+    
+    .top-banner {
+      background: linear-gradient(rgba(74, 92, 106, 0.8), rgba(74, 92, 106, 0.8)), 
+                  url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center;
+      background-size: cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--primary-dark);
+    }
+    
+    .top-banner h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 0;
+      color: var(--text-light);
+      position: relative;
+      padding-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .top-banner h1::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+    
+    .nyc-subtitle {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--primary-light);
+    }
+    /* Add this */
+    #brand-filters {
+      display: grid;
+      grid-template-columns: repeat(5, auto);
+      justify-content: center;
+      column-gap: 10px;
+      row-gap: 10px;           /* in case it wraps on small screens */
+    }
+    #brand-filters .btn {
+      flex: 1 1 auto;          /* grow, shrink, auto-basis */
+      max-width: 150px;        /* or whatever min width you like */
+    }
+    
+    
+    .filter-group {
+      text-align: center;
+      margin: 40px 0;
+      position: relative;
+    }
+    
+    .filter-group h5 {
+      color: var(--primary-light);
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+    }
+    
+    .filter-group button {
+      margin: 5px;
+      font-weight: 500;
+      border-radius: 4px;
+      border: none;
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+      padding: 8px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid var(--primary-light);
+    }
+    
+    .filter-group button:hover {
+      transform: translateY(-3px);
+      background-color: var(--card-bg);
+      color: var(--primary-light);
+      box-shadow: 0 5px 15px rgba(149, 161, 161, 0.2);
+    }
+    
+    .filter-group button.active-filter {
+      background-color: var(--dark-bg);
+      color: var(--primary-light);
+      font-weight: 600;
+      border: 1px solid var(--primary-dark);
+    }
+    
+    .product-card {
+      background-color: var(--card-bg);
+      border: none;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+      border-top: 4px solid var(--primary-light);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(149, 161, 161, 0.3);
+    }
+    
+    .product-image {
+      height: 220px;
+      width: 100%;
+      object-fit: contain;
+      background-color: var(--darker-bg);
+      padding: 20px;
+    }
+    
+    .card-body {
+      padding: 20px;
+      border-top: 1px solid rgba(149, 161, 161, 0.2);
+    }
+    
+    .card-title {
+      color: var(--primary-light);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .card-text {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+    }
+    
+    .price {
+      font-size: 1.3rem;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-top: 15px;
+    }
+    
+    .no-results {
+      color: var(--text-muted);
+      text-align: center;
+      padding: 50px 0;
+      font-size: 1.2rem;
+    }
+    
+    .no-results i {
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+    }
+    
+    .nyc-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--accent-color);
+      color: var(--text-light);
+      font-weight: 700;
+      padding: 3px 10px;
+      font-size: 0.8rem;
+      z-index: 2;
+      border-radius: 4px;
+    }
+    
+    /* NYC Skyline divider */
+    .skyline-divider {
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to right, var(--card-bg), var(--primary-dark), var(--card-bg));
+      margin: 40px 0;
+      opacity: 0.8;
+    }
+    .container{
+            background: linear-gradient(to right, var(--primary-dark), var(--card-bg), var(--dark-bg));
+
+    }
+    .btn-cart {
+      background-color: var(--accent-color);
+      color: var(--text-light);
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-cart:hover {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+    
+    @media (max-width: 768px) {
+      .top-banner h1 {
+        font-size: 2.5rem;
+      }
+      
+      .nyc-subtitle {
+        position: static;
+        text-align: center;
+        margin-top: 15px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .top-banner h1 {
+        font-size: 2rem;
+      }
+      
+      .filter-group button {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .card {
+        margin: 15px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s;
+        border-radius: 12px;
+        overflow: hidden;
+        background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        width: 100%;
+        max-width: 300px;
+        border: 1px solid #e0e0e0;
+        padding: 10px;
+        flex: 0 0 auto;
+        margin: 10px;
+        position: relative;
+    }
+
+    .card img {
+        height: 173px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 2px solid #ddd;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(145deg, #f9f9f9, #ffffff);
+    }
+
+    .card-body {
+        padding: 15px 20px;
+        text-align: center;
+        background-color: white;
+    }
+
+    .card-footer .price {
+        font-weight: bold;
+        font-size: 1.2em;
+        color: #c0392b;
+    }
+    
+    .old-price {
+        text-decoration: line-through;
+        color: #95a5a6;
+        font-size: 0.9em;
+        margin-right: 5px;
+    }
+    
+    .card-title {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin: 10px 0;
+        color: #2c3e50;
+        text-transform: capitalize;
+    }
+
+    .card-text {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .card-footer {
+        padding: 15px;
+        border-top: 2px solid #ddd;
+        background-color: #CCD0CF;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .price-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .current-price {
+        font-weight: bold;
+        color: #c0392b;
+        font-size: 1.2em;
+    }
+    
+    .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    
+    .favorite-btn:hover {
+        background: rgba(231, 76, 60, 0.2);
+    }
+    
+    .favorite-btn.active {
+        color: #e74c3c;
+    }
+    
+    .favorite-btn i {
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+    }
+    
+    .favorite-btn:hover i {
+        transform: scale(1.2);
+    }
+
+    .shop-card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .shop-card {
+        display: flex;
+        align-items: center;
+        background-color: #F5F5F5;
+        border: 1px solid #DDD;
+        border-radius: 15px;
+        padding: 10px;
+        font-weight:bold;
+        width: calc(25% - 20px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .shop-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .shop-card img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .shop-card:hover img {
+        transform: rotate(3deg);
+    }
+
+    .shop-info h5 {
+        font-size: 1.9em;
+        margin: 0;
+        color: #4A5C6A;
+        font-weight: bold;
+        font-family:Times New Roman;
+        transition: color 0.3s ease;
+    }
+
+    .shop-info h5:hover {
+        color: #2C3E50;
+    }
+
+    .shop-info a {
+        display: inline-block;
+        margin-top: 5px;
+        font-size: 1.5em;
+        text-decoration: none;
+        color: #4A5C6A;
+        font-weight: bold;
+        font-family:Times New Roman;
+        transition: color 0.3s ease;
+    }
+
+    .shop-info a:hover {
+        color: #2C3E50;
+    }
+
+    .btn {
+        background-color: #4A5C6A;
+        color: white;
+        padding: 8px 15px;
+        font-size: 0.9em;
+        border-radius: 20px;
+        text-transform: uppercase;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .card-footer .btn:hover {
+        background-color: #354451;
+        transform: scale(1.1);
+    }
+
+    .search-cart input {
+        padding: 5px;
+        margin-right: 10px;
+        border-radius: 20px;
+    }
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item {
+        min-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1000;
+    }
+
+    .carousel-btn.left {
+        left: 10px;
+    }
+
+    .carousel-btn.right {
+        right: 10px;
+    }
+
+    .carousel-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+ 
+    .social-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .social-icons a {
+        margin-right: 15px;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+        color: #ddd;
+    }
+
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .social-icons {
+            justify-content: center;
+        }
+    }
+    .carousel-btn.left {
+        left: 10px;
+    }
+
+    .carousel-btn.right {
+        right: 10px;
+    }
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    .carousel-btn:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .carousel-container {
+        display: flex;
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+          display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        
+    }
+
+   /* make all containers full-width */
+/* Modern Search Bar Styles */
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 600px;           /* adjust as needed */
+  margin: 0 auto 1.5rem;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: rgba(149, 161, 161, 0.2);
+  border: 1px solid rgba(149, 161, 161, 0.3);
+  border-radius: 50px;
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.search-container:focus-within {
+  border-color: var(--primary-light);
+  box-shadow: 0 4px 20px rgba(149, 161, 161, 0.3);
+  transform: translateY(-2px);
+}
+
+.search-input {
+  flex: 1;
+  height: 52px;
+  padding: 0 0.75rem;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;                /* your “distinct” text color */
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.search-input,
+.search-input:focus {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.search-icon-container {
+  padding: 0 0.75rem;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #aaa);
+  cursor: default;
+}
+
+.search-icon {
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within .search-icon {
+  color: var(--primary-light, #96cac3);
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #ccc);
+  font-size: 1.2rem;
+  padding: initial;
+  cursor: pointer;
+  margin-right:7px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.clear-btn:hover {
+  color: var(--accent-color, #96cac3);
+  transform: scale(1.1);
+}
+
+.search-btn {
+  background: var(--primary-dark);
+  color: white;
+  border: none;
+  border-radius: 50px !important;
+  padding: 10px 20px;
+  height: 42px;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.search-btn:hover {
+  background: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.search-input::placeholder {
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  opacity: 1;
+}
+
+.search-suggestions {
+  position: absolute;
+  width: 100%;
+  background: var(--darker-bg);
+  border-radius: 10px;
+  z-index: 100;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid rgba(149, 161, 161, 0.2);
+}
+
+.search-suggestions.show {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-btn { padding: 0 0.75rem; font-size: 0.8rem; }
+}
+
+  </style>      
+
+<main>
+
+<div class="top-banner">
+    {% if active_brand  %}
+
+    <h1> {{ active_brand }}&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
+   {% elif active_filter %}
+    <h1> {{ active_filter }} Items&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
+
+{% elif active_category %}
+    <h1> {{ active_category }}&nbsp;<i class="fas fa-laptop me-2"></i></h1>
+{% else %}
+<h1> Products Available in CyberOptix</h1>
+{% endif %}  <div class="nyc-subtitle">Premium laptops for professionals</div>
+</div>
+
+<div class="skyline-divider"></div>
+
+<div class="container" style="border:1px solid white;">
+
+  <div class="filter-group">
+    <h5><i class="fas fa-tag me-2"></i>Shops</h5>
+    <div id="brand-filters">
+      <button class="btn active-filter" data-shop="all">All Shops</button>
+      <button class="btn" data-shop="unique"><i class="fas fa-laptop me-2"></i>Unique</button>
+      <button class="btn" data-shop="ict"><i class="fas fa-laptop me-2"></i>ICT</button>
+      <button class="btn" data-shop="citicom"><i class="fas fa-laptop me-2"></i>Citicom</button>
+      <button class="btn" data-shop="innwa"><i class="fas fa-laptop me-2"></i>Innwa</button>
+    </div>
+  </div>
+
+  <!-- Enhanced Search Bar -->
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="search-bar">
+        <div class="input-group search-container shadow-sm">
+          <span class="input-group-text search-icon-container bg-transparent border-0 pe-0">
+            <i class="fas fa-search search-icon"></i>
+          </span>
+          <input 
+            type="text" 
+            class="form-control search-input border-0 ps-2" 
+            placeholder="Try 'MacBook Pro' or '32GB RAM'..." 
+            id="search-input"
+            oninput="searchProducts()"
+            aria-label="Search products"
+          >
+          <button 
+            class="btn clear-btn" 
+            type="button"
+            onclick="resetSearch()"
+            id="clear-search"
+            style="opacity: 0;"
+            aria-label="Clear search"
+          >
+            <i class="fas fa-times-circle"></i>
+          </button>
+          <button 
+            class="btn search-btn" 
+            type="button"
+            onclick="executeSearch()"
+            aria-label="Submit search"
+          >
+            Search
+          </button>
+        </div>
+        <div class="search-suggestions mt-2 shadow" id="search-suggestions"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-group" >
+    <div class="d-flex flex-column align-items-center" >
+        <h5><i class="fas fa-tag me-2"></i>Price</h5>
+        
+        <div class="price-filter-container" style="width: 250px;">
+            {% comment %} <!-- Price Range Slider -->
+            <div class="price-slider-container mb-3">
+                <input type="range" 
+                       class="form-range price-slider" 
+                       id="range" 
+                       name="min_price" 
+                       value="{{ min_max_price.price__min|floatformat:2 }}" 
+                       min="{{ min_max_price.price__min }}" 
+                       max="{{ min_max_price.price__max }}" 
+                       oninput="updatePriceDisplay(this.value)">
+            </div> {% endcomment %}
+            
+            <!-- Price Display -->
+            <div class="price-display d-flex justify-content-between mb-2">
+                <div class="price-min">
+                    <span class="price-value" id="slider-range-value1">${{ min_max_price.price__min|floatformat:2 }}</span>
+                </div>
+                <div class="price-max">
+                    <span class="price-value" id="slider-range-value2">${{ min_max_price.price__max|floatformat:2 }}</span>
+                </div>
+            </div>
+            
+            <!-- Current Price Input -->
+            <div class="current-price-input-container mb-3">
+                <input type="number" 
+                       class="form-control current-price-input" 
+                       id="max_price" 
+                       value="{{ min_max_price.price__min|floatformat:2 }}" 
+                       min="{{ min_max_price.price__min }}" 
+                       max="{{ min_max_price.price__max }}" 
+                       placeholder="Custom price"
+                       style="width: 100px; padding: 5px 10px;"
+                       onkeyup="updateSlider(this.value)">
+            </div>
+            
+            <!-- Apply Button -->
+            <div class="price-filter-actions">
+                <button class="btn-filter-apply" type="button" id="price-filter-btn" style="padding: 5px 15px; font-size: 0.8rem;">
+                    Apply
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+  
+    /* Compact Price Filter Styles */
+    .price-filter-container {
+        background-color: var(--card-bg);
+        border-radius: 20px;
+        padding: 15px;
+        width:500%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(149, 161, 161, 0.2);
+    }
+    
+    .price-slider-container {
+        padding: 0 5px;
+    }
+    
+    .price-slider {
+        width: 100%;
+        height: 6px;
+        -webkit-appearance: none;
+        background: var(--primary-light);
+        border-radius: 3px;
+        outline: none;
+        margin: 5px 0;
+    }
+    
+    .price-slider::-webkit-slider-thumb {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .price-display {
+        font-size: 0.9rem;
+    }
+    
+    .price-value {
+        font-weight: 600;
+        color: var(--accent-color);
+    }
+    
+    .current-price-input {
+        background-color: var(--darker-bg);
+        border: 1px solid var(--primary-dark);
+        color: var(--text-light);
+        text-align: center;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    .btn-filter-apply {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-filter-apply:hover {
+        background-color: #ff5252;
+        transform: translateY(-1px);
+    }
+       .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color:rgb(241, 90, 14);
+        color: white;
+        padding: 5px 10px;
+        width:18%;
+        border-radius: 14px 4px 14px 4px;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+</style>
+
+</div>
+   
+                <script src={% static 'assets/js/function.js' %}></script>
+<script>
+    // Initialize filter state
+    let filtersVisible = false;
+    
+    function toggleFilter() {
+        const dropdown = document.getElementById('filterDropdown');
+        const buttonText = document.querySelector('.btn-text');
+        filtersVisible = !filtersVisible;
+
+        dropdown.classList.toggle('show', filtersVisible);
+
+        buttonText.textContent = filtersVisible
+        ? 'Hide Filters'
+        : 'Show Filters';
+    }
+
+    // Price range click handler
+    document.querySelectorAll('.price-range-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const min = this.dataset.min;
+            const max = this.dataset.max;
+            document.querySelector('input[name="min_price"]').value = min;
+            document.querySelector('input[name="max_price"]').value = max;
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const filterContainer = document.querySelector('.filter-container');
+        if (!filterContainer.contains(event.target)) {
+            if (filtersVisible) {
+                toggleFilter();
+            }
+        }
+    });
+
+    // Initialize tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</div>
+<br>
+<br>
+<div class="containers" style=" width:90%;padding-left: 148px;">
+<div class="carousel-container" id="filtered-product">
+  
+     {% for p in products %} 
+            <div class="card" data-shop="{{ p.shop|lower }}">
+           <div class="discount-badge">
+        -{{ p.get_percentage|floatformat:0 }}%
+    
+    </div>
+    <div class="card">
+        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{p.id}}">
+        <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.p_id }}">
+        <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+        <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+        <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+          
+              
+               
+                <button class="favorite-btn add-to-wishlist" data-product-item="{{p.id}}">
+                    <i class="far fa-heart"></i>
+                </button>
+              
+                <img src="{{p.image.url}}" class="card-img-top" alt="ASUS VivoBook">
+                <div class="card-body">
+                    <h5 class="card-title">{{p.title}}</h5>
+                </div>
+                <div class="card-footer">
+                    <div class="price-container">
+                        <span class="old-price">${{p.old_price|default:"0"}}</span>
+                        <span class="current-price">${{p.price}}</span>
+                    </div>
+          
+                    <a href="{% url 'flame:shop-product-detail' p.shop.shop_id p.p_id %}" style="border:none;text-decoration: none;">
+                    <button class="btn" >View Product</button>
+                </a>
+
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+          
+          </div>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    
+    // Shop filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Set up shop filter buttons
+        const filterButtons = document.querySelectorAll('#brand-filters button');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active-filter'));
+                // Add active class to clicked button
+                this.classList.add('active-filter');
+                
+                const shopName = this.getAttribute('data-shop');
+                filterByShop(shopName);
+            });
+        });
+    });
+    
+    // Filter products by shop
+    function filterByShop(shopName) {
+        const products = document.querySelectorAll('.carousel-container .card');
+        
+        products.forEach(product => {
+            const productShop = product.getAttribute('data-shop');
+            
+            if (shopName === 'all' || productShop === shopName) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+    
+    // Search functionality
+    let searchTimeout;
+
+    function searchProducts() {
+        const searchInput = document.getElementById('search-input');
+        const clearBtn = document.getElementById('clear-search');
+        const suggestions = document.getElementById('search-suggestions');
+        
+        // Show/hide clear button based on input
+        if (searchInput.value.trim() !== '') {
+            clearBtn.style.opacity = '1';
+        } else {
+            clearBtn.style.opacity = '0';
+        }
+        
+        // Clear previous timeout
+        clearTimeout(searchTimeout);
+        
+        // Set new timeout to delay search execution
+        searchTimeout = setTimeout(() => {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                suggestions.classList.remove('show');
+                return;
+            }
+            
+            // Get all product cards
+            const products = document.querySelectorAll('.carousel-container .card');
+            let hasResults = false;
+            
+            products.forEach(product => {
+                const title = product.querySelector('.card-title').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm)) {
+                    product.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+            
+            // Show "no results" message if needed
+            const noResults = document.querySelector('.no-results');
+            if (noResults) {
+                noResults.style.display = hasResults ? 'none' : 'block';
+            }
+        }, 300); // 300ms delay
+    }
+
+    function selectSuggestion(suggestion) {
+        const searchInput = document.getElementById('search-input');
+        searchInput.value = suggestion;
+        searchInput.focus();
+        document.getElementById('search-suggestions').classList.remove('show');
+        searchProducts();
+    }
+
+    function resetSearch() {
+        const searchInput = document.getElementById('search-input');
+        searchInput.value = '';
+        searchInput.focus();
+        document.getElementById('clear-search').style.opacity = '0';
+        document.getElementById('search-suggestions').classList.remove('show');
+        
+        // Reset all products to visible
+        const products = document.querySelectorAll('.carousel-container .card');
+        products.forEach(product => {
+            product.style.display = 'block';
+        });
+        
+        // Hide "no results" message if it exists
+        const noResults = document.querySelector('.no-results');
+        if (noResults) {
+            noResults.style.display = 'none';
+        }
+    }
+
+    function executeSearch() {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput.value.trim() !== '') {
+            // Perform the search
+            searchProducts();
+            document.getElementById('search-suggestions').classList.remove('show');
+            
+            // Focus on search input
+            searchInput.focus();
+        }
+    }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        const suggestions = document.getElementById('search-suggestions');
+        const searchBar = document.querySelector('.search-bar');
+        
+        if (!searchBar.contains(e.target)) {
+            suggestions.classList.remove('show');
+        }
+    });
+</script>
+</main>
+
+
+{% endblock content %}

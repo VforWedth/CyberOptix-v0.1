@@ -1,0 +1,63 @@
+# LaptopMartMyanmar v1 requirements.txt
+Django==3.2.20
+django-jazzmin==2.2.1
+djangorestframework==3.14.0
+django-extensions==3.3.1
+psycopg2-binary==2.9.6
+Pillow==9.4.0
+shortuuid==2.0.12
+whitenoise==6.5.0
+gunicorn==20.1.0
+requests==2.31.0
+django-cors-headers==3.13.0
+python-dotenv==1.0.0
+
+# AI & search (initial prototyping)
+scikit-learn==1.2.2
+Surprise==0.1
+Transformers==4.29.2
+faiss-cpu==1.7.3
+
+# Frontend integration
+django-webpack-loader==1.7.3
+
+# Testing & utilities
+Faker==16.4.0
+pytest==7.3.1
+
+---
+
+# LaptopMartMyanmar v0.2 requirements.txt
+Django==5.2.4
+djangorestframework==3.15.0
+django-jazzmin==2.3.0
+django-extensions==3.4.0
+psycopg2-binary==2.9.7
+Pillow==10.0.0
+shortuuid==2.0.12
+whitenoise==6.5.0
+gunicorn==20.1.0
+
+django-environ==0.10.0
+stripe==6.2.0
+
+# AI & NLP
+django-rasa==1.0.0
+rasa==3.6.1
+googletrans==4.0.0-rc1
+langdetect==1.0.9
+transformers==4.31.0
+huggingface-hub==0.14.1
+
+# Recommendation system
+scikit-learn==1.3.0
+surprise==0.2
+tensorflow==2.13.0
+
+# Vector search & embedding
+faiss-cpu==1.7.4
+pinecone-client==2.2.1
+
+# Frontend & chat widget
+django-webpack-loader==2.1.0
+react==18.2.0

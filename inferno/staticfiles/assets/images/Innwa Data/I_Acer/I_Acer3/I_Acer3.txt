@@ -1,0 +1,13 @@
+
+acer Aspire 3 15.6" FHD Laptop, Intel Core i5, Intel Iris Xe Graphics, 12GB RAM, 512GB SSD Storage, Bluetooth, Webcam, Speaker, Microphone, Win 11 Home, Silver (Model Name: A315-58-56K7)
+
+Brand 	acer
+Model Name 	Aspire 3 A315-58-56K7
+Screen Size 	15.6 Inches
+Color 	Silver
+Hard Disk Size 	512 GB
+CPU Model 	Core i5
+Ram Memory Installed Size 	12 GB
+Operating System 	Windows 11 Home
+Graphics Card Description 	Integrated
+CPU Speed 	2.4 GHz

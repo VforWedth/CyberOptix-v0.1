@@ -1,0 +1,14 @@
+HP 17 Laptop, 17.3" FHD Display, 32GB RAM, 1TB SSD, AMD Ryzen 5 Processor(Beats i7-1165G7, Up to 4.3GHz), Webcam, Numeric Keypad, Long Battery Life, Windows 11 Home, Alpacatec Accessories, Silver 
+
+Brand 	HP
+Model Name 	HP
+Screen Size 	17.3 Inches
+Color 	Silver
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 5
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Home
+Special Feature 	Numeric Keypad
+Graphics Card Description 	Integrated
+
+Price - $609.00

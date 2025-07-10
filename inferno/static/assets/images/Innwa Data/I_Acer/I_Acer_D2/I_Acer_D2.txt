@@ -1,0 +1,9 @@
+acer CB342CU semiphuzx 34" QHD 3440 x 1440 Professional Docking Monitor | AMD FreeSync | Height Adjustable Stand with Swivel, Tilt & Pivot (USB Type-C, Display Port 1.2, HDMI 2.0, RJ-45 & USB Ports) 
+
+Brand 	acer
+Screen Size 	34 Inches
+Resolution 	QHD Wide 1440p
+Aspect Ratio 	21:9
+Screen Surface 	Anti-glare
+
+Price - $353.98

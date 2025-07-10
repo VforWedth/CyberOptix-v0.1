@@ -1,0 +1,15 @@
+Lenovo ThinkPad P1 Gen 7 Workstation Laptop (2024 Model) - Intel 14th Gen Ultra 9 185H 16C, NVIDIA RTX 3000 Ada, 64GB RAM, 2TB NVMe SSD, 16" 4K OLED Touch 400 Nits, Windows 11 Pro 
+
+Brand 	Lenovo
+Model Name 	ThinkPad P1 Gen 7
+Screen Size 	16 Inches
+Color 	Black
+Hard Disk Size 	2 TB
+CPU Model 	Intel Core Ultra 9
+Ram Memory Installed Size 	64 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Fingerprint Reader, Spill resistant, HD Audio, TrackPoint, Backlit Keyboard
+Graphics Card Description 	Dedicated
+
+
+Price - $3,499.00

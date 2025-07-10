@@ -1,0 +1,33 @@
+digraph G {
+  node [shape=none, fontname="Arial"];
+  rankdir="LR";
+  concentrate=True;
+  splines=True;
+  overlap=False;
+  ranksep=2.0;
+  nodesep=0.5;
+  ProductImages [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>ProductImages</B></TD></TR><TR><TD>images</TD><TD>FileField</TD></TR><TR><TD>product</TD><TD>ForeignKey(Product)</TD></TR><TR><TD>date</TD><TD>DateTimeField</TD></TR></TABLE>>];
+  User [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>User</B></TD></TR><TR><TD>password</TD><TD>CharField</TD></TR><TR><TD>last_login</TD><TD>DateTimeField</TD></TR><TR><TD>is_superuser</TD><TD>BooleanField</TD></TR><TR><TD>first_name</TD><TD>CharField</TD></TR><TR><TD>last_name</TD><TD>CharField</TD></TR><TR><TD>is_staff</TD><TD>BooleanField</TD></TR><TR><TD>is_active</TD><TD>BooleanField</TD></TR><TR><TD>date_joined</TD><TD>DateTimeField</TD></TR><TR><TD>email</TD><TD>CharField</TD></TR><TR><TD>username</TD><TD>CharField</TD></TR><TR><TD>bio</TD><TD>CharField</TD></TR><TR><TD>groups</TD><TD>ManyToManyField</TD></TR><TR><TD>user_permissions</TD><TD>ManyToManyField</TD></TR></TABLE>>];
+  Product [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Product</B></TD></TR><TR><TD>p_id</TD><TD>CharField</TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR><TR><TD>category</TD><TD>ForeignKey(Category)</TD></TR><TR><TD>brand</TD><TD>ForeignKey(Brand)</TD></TR><TR><TD>product_status</TD><TD>CharField</TD></TR><TR><TD>status</TD><TD>BooleanField</TD></TR><TR><TD>in_stock</TD><TD>BooleanField</TD></TR><TR><TD>featured</TD><TD>BooleanField</TD></TR><TR><TD>digital</TD><TD>BooleanField</TD></TR><TR><TD>sku</TD><TD>CharField</TD></TR><TR><TD>date</TD><TD>DateTimeField</TD></TR><TR><TD>updated</TD><TD>DateTimeField</TD></TR><TR><TD>title</TD><TD>CharField</TD></TR><TR><TD>image</TD><TD>FileField</TD></TR><TR><TD>description</TD><TD>TextField</TD></TR><TR><TD>cpu</TD><TD>CharField</TD></TR><TR><TD>ram</TD><TD>CharField</TD></TR><TR><TD>shop</TD><TD>CharField</TD></TR><TR><TD>price</TD><TD>DecimalField</TD></TR><TR><TD>old_price</TD><TD>DecimalField</TD></TR><TR><TD>specification</TD><TD>TextField</TD></TR></TABLE>>];
+  ProductReview [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>ProductReview</B></TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR><TR><TD>product</TD><TD>ForeignKey(Product)</TD></TR><TR><TD>review</TD><TD>TextField</TD></TR><TR><TD>rating</TD><TD>IntegerField</TD></TR><TR><TD>date</TD><TD>DateTimeField</TD></TR></TABLE>>];
+  Brand [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Brand</B></TD></TR><TR><TD>b_id</TD><TD>CharField</TD></TR><TR><TD>title</TD><TD>CharField</TD></TR><TR><TD>brand_image</TD><TD>FileField</TD></TR></TABLE>>];
+  Address [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Address</B></TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR><TR><TD>address</TD><TD>CharField</TD></TR><TR><TD>status</TD><TD>BooleanField</TD></TR></TABLE>>];
+  Shop [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Shop</B></TD></TR><TR><TD>shop_id</TD><TD>CharField</TD></TR><TR><TD>title</TD><TD>CharField</TD></TR><TR><TD>image</TD><TD>FileField</TD></TR><TR><TD>description</TD><TD>TextField</TD></TR><TR><TD>address</TD><TD>CharField</TD></TR><TR><TD>contact</TD><TD>CharField</TD></TR><TR><TD>chat_resp_time</TD><TD>CharField</TD></TR><TR><TD>shipping_on_time</TD><TD>CharField</TD></TR><TR><TD>authentic_rating</TD><TD>CharField</TD></TR><TR><TD>days_return</TD><TD>CharField</TD></TR><TR><TD>warranty_period</TD><TD>CharField</TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR></TABLE>>];
+  CartOrderItem [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>CartOrderItem</B></TD></TR><TR><TD>order</TD><TD>ForeignKey(CartOrder)</TD></TR><TR><TD>invoice_no</TD><TD>CharField</TD></TR><TR><TD>product_status</TD><TD>CharField</TD></TR><TR><TD>item</TD><TD>CharField</TD></TR><TR><TD>image</TD><TD>CharField</TD></TR><TR><TD>qty</TD><TD>IntegerField</TD></TR><TR><TD>price</TD><TD>DecimalField</TD></TR><TR><TD>total</TD><TD>DecimalField</TD></TR></TABLE>>];
+  CartOrder [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>CartOrder</B></TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR><TR><TD>price</TD><TD>DecimalField</TD></TR><TR><TD>paid_status</TD><TD>BooleanField</TD></TR><TR><TD>order_date</TD><TD>DateTimeField</TD></TR><TR><TD>product_status</TD><TD>CharField</TD></TR></TABLE>>];
+  Tags [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Tags</B></TD></TR></TABLE>>];
+  Category [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Category</B></TD></TR><TR><TD>c_id</TD><TD>CharField</TD></TR><TR><TD>title</TD><TD>CharField</TD></TR><TR><TD>image</TD><TD>FileField</TD></TR></TABLE>>];
+  Wishlist [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0"><TR><TD COLSPAN="2" BGCOLOR="lightgrey"><B>Wishlist</B></TD></TR><TR><TD>user</TD><TD>ForeignKey(User)</TD></TR><TR><TD>product</TD><TD>ForeignKey(Product)</TD></TR><TR><TD>date</TD><TD>DateTimeField</TD></TR></TABLE>>];
+  ProductImages -> Product [label="product"];
+  Product -> User [label="user"];
+  Product -> Category [label="category"];
+  Product -> Brand [label="brand"];
+  ProductReview -> User [label="user"];
+  ProductReview -> Product [label="product"];
+  Address -> User [label="user"];
+  Shop -> User [label="user"];
+  CartOrderItem -> CartOrder [label="order"];
+  CartOrder -> User [label="user"];
+  Wishlist -> User [label="user"];
+  Wishlist -> Product [label="product"];
+}

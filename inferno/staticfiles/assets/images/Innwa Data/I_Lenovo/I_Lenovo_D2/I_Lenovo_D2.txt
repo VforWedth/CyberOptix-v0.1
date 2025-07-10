@@ -1,0 +1,15 @@
+Lenovo IdeaCentre AIO 2023 All-in-One Desktop 23.8"" FHD Touchscreen | Intel Core i5-12450H 8-Core Intel Iris Xe Graphics | 16GB DDR4 512GB SSD | Bluetooth 5.1 | Windows 10 Pro | Black, F0GH00PBSCGF 
+
+Brand 	Lenovo
+Operating System 	Windows 10 Pro
+CPU Model 	Core i5
+CPU Speed 	2.2 GHz
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel Iris Xe Graphics
+Specific Uses For Product 	Business
+Screen Size 	23.8 Inches
+Ram Memory Installed Size 	16 GB
+Model Name 	F0GH00PBSCGF
+
+Price - $729.69
+

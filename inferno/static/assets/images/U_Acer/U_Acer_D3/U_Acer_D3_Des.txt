@@ -1,0 +1,22 @@
+Acer Aspire Desktop, 7th Gen Intel Core i5-7400, 12GB DDR4, 2TB HDD, Windows 10 Home, TC-780-ACKI5 
+
+Brand 	acer
+Operating System 	Windows 10
+CPU Model 	Core i5
+CPU Speed 	3 GHz
+Cache Size 	6
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel Integrated Graphics
+Memory Storage Capacity 	2 TB
+Memory Slots Available 	1
+Specific Uses For Product 	personal, gaming, business
+
+ About this item
+
+    7th Generation Intel Core i5-7400 Processor (Up to 3.5GHz)
+    12GB DDR4 2400MHz Memory;Built to perform
+    Connectivity- 802.11ac wireless LAN, Gigabit LAN. Drive Interface-SATA 6 Gbps. 2TB 7200RPM SATA3 Hard Drive
+    Intel HD Graphics 630
+    Windows 10 Home
+
+Price - $295.00

@@ -1,0 +1,22 @@
+Samsung Galaxy Book4 Ultra - Intel Ultra 7-155H / up to 4.8 GHz - Evo - Win 11 Pro - GF RTX 4050-32 GB RAM - 1 TB SSD NVMe - 16" AMOLED Touchscreen 2880 x 1800 (WQXGA+) @ 120 Hz 
+
+
+Brand	SAMSUNG
+Model Name	NP964XGL-XG1US
+Screen Size	16
+CPU Model	Unknown
+Ram Memory Installed Size	32 GB
+Operating System	Windows 11 Pro
+Special Feature	Fingerprint Reader
+Graphics Card Description	Integrated
+Graphics Coprocessor	NVIDIA GeForce RTX 4050
+CPU Speed	1.4
+
+About this item
+Operating System: Windows 11 Pro
+CPU: Intel Core Ultra 7 (14th Gen) 155H / 1.4 GHz
+Number of Cores: 16-core
+RAM: 32 GB (provided memory is soldered)
+Technology: LPDDR5X SDRAM
+
+Price - $2,456.70 

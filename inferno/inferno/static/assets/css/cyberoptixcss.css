@@ -1,0 +1,535 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    
+    background-color: #95A1A1;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: white;
+}
+.navbar {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #4A5C6A;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+
+.navbar .logo i {
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar nav a {
+    color:white;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.navbar .menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.hero {
+    position: relative;
+    text-align: left;
+    padding: 50px;
+    height: 70vh;
+    color: black;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+
+
+.hero .content {
+    position: absolute;
+    top: 70%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    color: #4A5C6A;
+    text-align: left;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero .content h5{
+    font-size: 3em;
+    font-weight: bold;
+    font-size: 2.5em;
+    margin: 0 0 20px;
+}
+
+.hero .content p {
+    margin: 15px 0;
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.hero .content button {
+    background-color:#4A5C6A;
+    text-align: left;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero .content button:hover {
+    background-color: #CCD0CF;
+    color: black;
+}
+.hero video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the container without distortion */
+    transform: translate(-50%, -50%); /* Center the video */
+    z-index: -1; /* Place the video behind content */
+}
+
+
+.filters {
+    background-color:#4A5C6A;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin:0.5px auto;
+    border-radius: 25px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+}
+
+.filters select,
+.filters input {
+    background-color:white;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 1em;
+    outline: none;
+    width: auto;
+    
+}
+
+.filters input {
+    flex-grow: 1;
+}
+
+.filters button {
+    background-color:white;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filters button:hover {
+    background-color: white;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.filters i {
+    font-size: 1.2em;
+    color:black;
+    vertical-align: middle;
+}
+
+
+.navbar {
+    display: flex;
+    color: white; /* Ensures text is white */
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #4A5C6A;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a, 
+.navbar span, 
+.navbar p { /* Targets text elements inside the navbar */
+    color: white; /* Sets the text color explicitly */
+    text-decoration: none; /* Removes underline for links */
+}
+
+.navbar .icon {
+    color: white; /* Ensures icons (font-based) are white */
+    fill: white; /* Ensures SVG icons are white */
+}
+
+/* Optional: Hover effects for better UX */
+.navbar a:hover, 
+.navbar .icon:hover {
+    opacity: 0.8; /* Slight dimming effect on hover */
+}
+
+.search-cart input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+
+.products {
+    padding: 20px;
+}
+
+.products h2 {
+    margin-bottom: 15px;
+}
+
+.card {
+    margin: 15px; /* Adds space between cards */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow for luxury feel */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s; /* Smooth animation */
+    border-radius: 12px; /* Rounded corners for elegance */
+    overflow: hidden; /* Prevents content overflow */
+    background: linear-gradient(145deg, #ffffff, #f0f0f0); /* Luxurious gradient background */
+    width: 100%;
+    max-width: 300px; /* Slightly wider for a luxury look */
+    border: 1px solid #e0e0e0; /* Subtle border for structure */
+    padding: 10px; /* Adds space between the border and the content (including the image) */
+    flex: 0 0 auto; /* Prevent shrinking or growing */
+    margin: 10px; /* Keep original margin */
+}
+
+.card img {
+    height: 173px; /* Fixed height for all images */
+    width: 100%; /* Ensures the image width stretches to fill the card */
+    object-fit: cover; /* Ensures the image covers the space without stretching */
+    border-bottom: 2px solid #ddd; /* Distinct separation from content */
+}
+
+
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03); /* Elevates and enlarges slightly on hover */
+    box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow for hover effect */
+    background: linear-gradient(145deg, #f9f9f9, #ffffff); /* Slightly lighter gradient on hover */
+}
+
+.card-body {
+    padding: 15px 20px; /* Comfortable padding */
+    text-align: center; /* Centers text for focus */
+    background-color: white; /* Clean and minimal content area */
+}
+
+.card-footer .price {
+    font-weight: bold;
+    font-size: 1.2em; /* Larger for emphasis */
+    color: #c0392b; /* Luxurious red tone for price */
+}
+.card-title {
+    font-size: 1.3em; /* Slightly larger font size for importance */
+    font-weight: bold;
+    margin: 10px 0;
+    color: #2c3e50; /* Deep and professional color */
+    text-transform: capitalize;
+}
+
+.card-text {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    padding: 15px;
+    border-top: 2px solid #ddd;
+    background-color: #CCD0CF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.shop-card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    justify-content: space-between; /* Ensures equal spacing */
+    gap: 20px; /* Space between cards */
+}
+
+.shop-card {
+    display: flex; /* Align content horizontally */
+    align-items: center; /* Vertically center-align items */
+    background-color: #F5F5F5;
+    border: 1px solid #DDD;
+    border-radius: 15px;
+    padding: 10px;
+    font-weight:bold;
+    width: calc(25% - 20px); /* Two cards per row */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scaling and shadow */
+}
+
+.shop-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add a stronger shadow */
+}
+
+.shop-card img {
+    width: 80px; /* Set a fixed width for images */
+    height: 80px; /* Maintain consistent size */
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 15px; /* Space between image and text */
+    transition: transform 0.3s ease; /* Smooth transition for image */
+}
+
+.shop-card:hover img {
+    transform: rotate(3deg); /* Rotate the image slightly on hover */
+}
+
+.shop-info h5 {
+    font-size: 1.9em;
+    margin: 0;
+    color: #4A5C6A;
+    font-weight: bold;
+
+    font-family:Times New Roman;
+
+    transition: color 0.3s ease; /* Smooth color change */
+}
+
+.shop-info h5:hover {
+    color: #2C3E50; /* Change color of the text on hover */
+}
+
+.shop-info a {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #4A5C6A;
+    font-weight: bold;
+    font-family:Times New Roman;
+    transition: color 0.3s ease; /* Smooth color change */
+}
+
+.shop-info a:hover {
+    color: #2C3E50; /* Change color on hover */
+}
+
+
+.btn {
+    background-color: #4A5C6A; /* Luxurious dark grey shade */
+    color: white;
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 20px; /* Rounded for a luxury look */
+    text-transform: uppercase;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Button shadow for depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth hover effects */
+}
+
+.card-footer .btn:hover {
+    background-color: #354451; /* Darker grey shade on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+
+.search-cart input {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 20px;
+}
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.carousel-btn.left {
+    left: 10px;
+}
+
+.carousel-btn.right {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+footer {
+    background-color: #CCD0Cf;
+    color: #4A5C6A;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    margin-top: auto; /* Keeps footer at the bottom */
+    width: 100vw; /* Ensures the footer spans the full width */
+    height: auto; /* Dynamically adjusts height based on content */
+    box-sizing: border-box; /* Includes padding in width calculation */
+    margin: 0; /* Removes any extra space on the sides */
+}
+
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px; /* Restricts content width for a cleaner layout */
+    margin: 0 auto; /* Centers the footer content */
+}
+
+.footer-links h4, .footer-contact h4 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li, .footer-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer-contact p {
+    line-height: 1.5;
+}
+.footer-links a {
+    text-decoration: none; /* Removes underline */
+    color: #4A5C6A; /* Sets the link color */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons a {
+    margin-right: 15px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+.carousel-btn.left {
+    left: 10px;
+}
+
+.carousel-btn.right {
+    right: 10px;
+}
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.carousel-container {
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none; /* For Firefox */
+    scroll-behavior: smooth; /* Ensure smooth scroll behavior */
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none; /* For Webkit browsers like Chrome, Safari */
+}

@@ -1,0 +1,48 @@
+{% load math_filters %}
+<div class="cart-items">
+  {% for product_id, item in shop_cart.products.items %}
+  <div class="cart-item">
+      <div class="product-info">
+          <img src="{{ item.image }}" class="cart-item-img">
+          <div>
+              <h3>{{ item.title }}</h3>
+              <small>Sold by {{ shop_cart.shop.title }}</small>
+          </div>
+      </div>
+      
+      <div class="price-column">${{ item.price|floatformat:2 }}</div>
+      
+      <div class="quantity-control">
+          <input type="number" value="{{ item.qty }}" min="1" 
+                 class="cart-qty product-qty-{{ product_id }}" 
+                 data-item-id="{{ product_id }}"
+                 data-shop-id="{{ shop_cart.shop.shop_id }}">
+      </div>
+      
+      <div class="price-column cart-total-amount">
+          ${{ item.price|multiply:item.qty|floatformat:2 }}
+      </div>
+      
+      <div class="actions-column">
+          <button class="btn-delete delete-product" 
+                  data-product="{{ product_id }}"
+                  data-shop-id="{{ shop_cart.shop.shop_id }}">
+              <i class="fa fa-trash"></i>
+          </button>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="shop-cart-summary">
+  <div class="shop-total">
+      <span>Shop Total:</span>
+      <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}">
+          ${{ shop_cart.total|floatformat:2 }}
+      </span>
+      <a href="{% url 'flame:shop-checkout' shop_cart.shop.shop_id %}" 
+     class="shop-checkout-btn">
+        Checkout {{ shop_cart.shop.title }} →
+      </a>
+  </div>
+</div>

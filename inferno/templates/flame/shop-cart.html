@@ -1,0 +1,113 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load math_filters %}
+<style>
+    
+      main{
+            background-color:rgb(21, 40, 56);
+
+      }
+</style>
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/shop-cart.css' %}">
+<main style="background-color:rgb(21, 40, 56);">
+<div class="cart-page">
+  <div class="cart-container">
+      {% if totalcartitems > 0 %}
+      <h3 style="color: #333;" class="cart_items_count">
+          You have {{ totalcartitems }} item{{ totalcartitems|pluralize }} from {{ shop_carts|length }} shop{{ shop_carts|length|pluralize }}
+      </h3>
+      {% else %}
+      <h3 style="color: #333;">You don't have any items in your cart</h3>
+      {% endif %}
+      
+      {% for shop_cart in shop_carts %}
+      <div class="shop-cart-group" id="shop-{{ shop_cart.shop.shop_id }}">
+          <div class="shop-header">
+              <h2>{{ shop_cart.shop.title }}</h2>
+              <span class="shop-item-count" id="shop-count-{{ shop_cart.shop.shop_id }}">
+                  {{ shop_cart.shop_quantity }} item{{ shop_cart.shop_quantity|pluralize }}
+              </span>
+          </div>
+          
+          <div class="cart-header">
+              <div class="product-info">Product</div>
+              <div class="price-column">Unit Price</div>
+              <div class="quantity-control">Quantity</div>
+              <div class="price-column">Subtotal</div>
+              <div class="actions-column">Actions</div>
+          </div>
+          
+          <div id="cart-content-{{ shop_cart.shop.shop_id }}">
+            <div class="cart-items">
+              {% for product_id, item in shop_cart.products.items %}
+              <div class="cart-item">
+                  <div class="product-info">
+                      <img src="{{ item.image }}" class="cart-item-img">
+                      <div>
+                          <h3>{{ item.title }}</h3>
+                          <small>Sold by {{ shop_cart.shop.title }}</small>
+                      </div>
+                  </div>
+                  
+                  <div class="price-column">${{ item.price|floatformat:2 }}</div>
+                  
+                  <div class="quantity-control">
+                      <input type="number" value="{{ item.qty }}" min="1" 
+                             class="cart-qty product-qty-{{ product_id }}" 
+                             data-item-id="{{ product_id }}"
+                             data-shop-id="{{ shop_cart.shop.shop_id }}">
+                  </div>
+                  
+                  <div class="price-column cart-total-amount">
+                      ${{ item.price|multiply:item.qty|floatformat:2 }}
+                  </div>
+                  
+                  <div class="actions-column">
+                      <button class="btn-delete delete-product" 
+                              data-product="{{ product_id }}"
+                              data-shop-id="{{ shop_cart.shop.shop_id }}">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+            
+            <div class="shop-cart-summary">
+                <div class="shop-total">
+                    <span>Shop Total:</span>
+                    <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}">
+                        ${{ shop_cart.total|floatformat:2 }}
+                    </span>
+                    <a href="{% url 'flame:shop-checkout' shop_cart.shop.shop_id %}" 
+                   class="shop-checkout-btn">
+                      Checkout {{ shop_cart.shop.title }} →
+                    </a>
+                </div>
+            </div>
+          </div>
+      </div>
+      <br> 
+      {% endfor %}
+      
+      {% if totalcartitems > 0 %}
+      <div class="global-cart-summary">
+          <div class="summary-row">
+              <strong>Grand Total:</strong>
+              <strong class="grand-total">${{ cart_total_amount|floatformat:2 }}</strong>
+          </div>
+          <div class="cart-actions">
+            <span class="total-cart-items">{{ totalcartitems }}</span> items in cart
+              <a href="{% url 'flame:product-list' %}" class="continue-btn">
+                  ← Continue Shopping
+              </a>
+          </div>
+      </div>
+      {% endif %}
+  </div>
+</div>
+<br><br><br>
+
+</main>
+{% endblock content %}

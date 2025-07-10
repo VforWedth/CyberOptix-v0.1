@@ -1,0 +1,20 @@
+2020 Apple MacBook Pro with 2.3 GHz Intel Core i7 (13 inch, 16GB RAM, 512GB SSD) Space Gray (Renewed) 
+
+Brand 	Apple
+Model Name 	MacBook Pro
+Screen Size 	13.3 Inches
+Color 	Space Gray
+Hard Disk Size 	512 GB
+CPU Model 	Core i7
+Ram Memory Installed Size 	16 GB
+Operating System 	Mac OS
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel Iris Plus
+
+ About this item
+
+    Brilliant Retina display with True Tone technology
+    Backlit Magic Keyboard
+    Touch Bar and Touch ID
+    Intel Iris Plus Graphics
+    System_Ram_Type: Ddr3_Sdram

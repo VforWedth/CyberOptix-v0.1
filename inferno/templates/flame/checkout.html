@@ -1,0 +1,134 @@
+{% extends 'partials/base.html' %}
+{% load math_filters %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/checkout.css' %}">
+    <style>
+      
+    </style>
+<body style="background-color:rgb(21, 40, 56);">
+    <div class="container">
+        {% comment %} <h2>Checkout</h2>
+        {% if total_cart_items  %}
+        <p>There {% if total_cart_items == 1 %}is{% else %} are {%endif%}<span id="cart-count">{{ item_count }}</span> products{{total_cart_items|pluralize}} in your cart</p>
+        {% else %}
+        <p>You don't have any items in your cart. Go back and Continue Browsing</p>
+        {%endif%} {% endcomment %}
+        {% if order %}
+        <h2>Checking out from {{ shop.title }}</h2>
+        <div class="shop-info">
+            <p>PayPal Account: {{ shop.paypal_email }}</p>
+            <p>Order ID: #{{ shop.id }}</p>
+        </div>
+        {% else %}
+        <h2>General Order Checkout</h2>
+        {% endif %}
+
+        {% comment %} <div class="coupon-box">
+            <input type="text" placeholder="Enter Coupon Code">
+            <button>Apply Coupon</button>
+        </div> {% endcomment %}
+        <div class="checkout-content">
+            <div class="billing-details">
+                <h3>Billing Details</h3>
+                
+                <form>
+                    <input type="text" value = "{{ request.user.username|title }}" placeholder="First name *" required>
+                    <input type="text" value = "{{ active_address.mobile }}"placeholder="Mobile" required>
+                    <input type="text" value = "{{ active_address.address }}"  placeholder="Address *" required>
+                    {% comment %} <input type="text" placeholder="Address line 2"> {% endcomment %}
+                    {% comment %}
+                    <select required>
+                        <option>Select an option...</option>
+                    </select>
+                     <input type="text" placeholder="City / Town *" required>
+                    <input type="text" placeholder="Postcode / ZIP *" required>
+                    <input type="text" placeholder="Phone *" required>
+                    <input type="email" placeholder="Email address *" required>
+                    <input type="text" placeholder="Company Name">
+                    <textarea placeholder="Additional Information"></textarea> {% endcomment %}
+                </form>
+                
+            </div>
+            <div class="order-summary">
+                <h3>Your Order</h3>
+                {% comment %} <p><strong>Product</strong> <strong>Name</strong> <strong>Count</strong> <strong>Price</strong><strong>Subtotal</strong></p> {% endcomment %}
+                
+                <p><strong>Subtotal:</strong> <span id="subtotal">${{ cart_total_amount|floatformat:2 }}</span></p>
+                <div class="cart-items">
+                {% for item in order.cartorderitem_set.all %}
+                    <div class="item checkout-item" data-item-id="{{item_id}}" data-shop-id="{% if group.type == 'shop' %}{{ group.shop.shop_id }}{% endif %}">
+                        <img src="{{item.image}}" alt="{{item.title}}">
+                        <p>{{item.item}} x {{item.qty}} - ${{item.price|floatformat:2}}</p>
+                        <p><strong class="item-subtotal">${{ item.price|multiply:item.qty|floatformat:2 }}</strong></p>
+                    </div>
+                {% endfor %}
+                </div>
+                <div>
+                    {{ paypal_payment_button.render|safe }}
+                    
+                </div>
+                <div class="paypal-branding">
+                  <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" 
+                       alt="Powered by PayPal">
+              </div>
+                <button class="btn btn-primary back-to-cart" id="stripe-checkout-button" style="background-color: #6772e5;"><i class="fab fa-stripe mr-2"></i> Pay with Stripe</button><br>
+                <button class="back-to-cart"><a href="{% url 'flame:product-list' %}" style="text-decoration: none;color: inherit;">Go back to Explore More</a></button>
+            </div>
+        </div>
+    </div>
+    <script src={% static 'assets/js/function.js' %}></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        // Initialize Stripe
+        const stripe = Stripe('{{ stripe_public_key }}');
+        const checkoutButton = document.getElementById('stripe-checkout-button');
+        const shopId = '{{ sid }}';
+        
+        checkoutButton.addEventListener('click', function() {
+            // Show loading state
+            const originalText = checkoutButton.innerHTML;
+            checkoutButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            checkoutButton.disabled = true;
+            
+            // Create checkout session
+            fetch(`/api/create-checkout-session/${shopId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                return stripe.redirectToCheckout({ sessionId: data.session_id });
+            })
+            .then(result => {
+                if (result.error) {
+                    throw new Error(result.error.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`Payment Error: ${error.message}`);
+                checkoutButton.innerHTML = originalText;
+                checkoutButton.disabled = false;
+            });
+        });
+    </script>
+    </body>
+    <br><br><br>
+    <hr>
+      
+{% endblock content %}

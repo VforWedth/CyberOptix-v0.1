@@ -1,0 +1,14 @@
+Lenovo Legion Pro 7i Gaming Laptop, 16" WQHD IPS 240Hz Display, Intel Core i9-13900HX, GeForce RTX 4080, 64GB DDR5 RAM, 2TB SSD + 2TB SSD, Webcam, Per-Key RGB Backlit KB, Wi-Fi 6E, Windows 11 Home 
+
+Brand 	Lenovo
+Model Name 	Legion 7 16ITHg6
+Screen Size 	16 Inches
+Color 	Gray
+Hard Disk Size 	4 TB
+CPU Model 	Intel Core i9
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Home
+Special Feature 	Backlit Keyboard
+Graphics Card Description 	Dedicated
+
+Price - $2,769.00

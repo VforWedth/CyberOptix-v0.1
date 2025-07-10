@@ -1,0 +1,14 @@
+acer 315 15.6 Chromebook 4GB 64GB Intel Celeron N4020 1.1GHz Chrome OS (Renewed)
+
+Brand	acer
+Model Name	Acer 315
+Screen Size	15.6 Inches
+Color	Pure Silver
+Hard Disk Size	64 GB
+CPU Model	1.2GHz Cortex A8 Processor
+Ram Memory Installed Size	4 GB
+Operating System	Chrome OS
+Graphics Card Description	Integrated
+Graphics Coprocessor	Intel UHD Graphics 600
+
+Price - $121.99

@@ -1,0 +1,14 @@
+MSI Katana GF66 15.6" 244Hz FHD Gaming Laptop Intel Core i9-12900H RTX3070TI 16GB 1TBNVMe SSD Win11 - Black (12UGSOK-1046)  
+
+Brand 	MSI
+Screen Size 	15.6 Inches
+Hard Disk Size 	1 TB
+CPU Model 	Intel Core i9
+Ram Memory Installed Size 	16 GB
+Graphics Card Description 	Dedicated
+Graphics Coprocessor 	NVIDIA GeForce RTX 3070 Ti
+CPU Speed 	5 GHz
+Resolution 	1080p
+Connectivity Technology 	USB
+
+Price - $1,199.90

@@ -1,0 +1,20 @@
+Dell Inspiron 27 7720 All-in-One 27" Touchscreen FHD Business AIO Desktop Computer, 13th Gen Intel 10-Core i7-1355U, 32GB DDR4 RAM, 1TB PCIe SSD, GeForce MX550, WiFi 6E, White, Windows 11 Pro
+
+Brand	Dell
+Operating System	Windows 11 Pro
+CPU Model	Core i7
+CPU Speed	1.7 GHz
+Cache Size	12
+Graphics Card Description	Integrated
+Graphics Coprocessor	Intel UHD Graphics
+Memory Storage Capacity	1 TB
+Specific Uses For Product	Business
+Screen Size	27 Inches
+Price	$1168.99 
+
+About this item
+13th Gen Intel Core i7-1355U (12 MB cache, 10 cores, 12 threads, up to 5.0 GHz Turbo)
+27" Touchscreen Infinity FHD (1920 x 1080) Display; Intel UHD Graphics.
+Memory: 32GB DDR4 SDRAM; Hard Drive: 1TB PCIe NVMe M.2 SSD.
+Intel Wi-Fi 6E (2x2) Gig+ and Bluetooth 5.2; 10/100/1000 Mbps Gigabit Ethernet LAN. 1x USB 3 Gen 2 Type-A, 3x USB 3 Gen 1 Type-A, 1x USB 3 Gen 2 Type-C, 1x HDMI 1.4, 1x Headphone / Microphone Combination Jack, 1x 5-in-1 SD Card Reader, 1x RJ-45.
+Windows 11 Professional 64, English; Dell Pro Wireless White Keyboard + Wireless White Mouse included.

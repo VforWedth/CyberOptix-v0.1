@@ -1,0 +1,11 @@
+Brand 	Apple
+Model Name 	MacBook Pro
+Screen Size 	14 Inches
+Color 	Space Gray
+Hard Disk Size 	1 TB
+CPU Model 	Apple M1
+Ram Memory Installed Size 	16 GB
+Operating System 	Mac OS
+Special Feature 	Anti Glare Coating
+Graphics Card Description 	Integrated
+Price 3,460,000 MMK

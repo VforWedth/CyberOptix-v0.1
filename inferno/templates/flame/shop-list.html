@@ -1,0 +1,28 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="products" id="shoppingSection">
+      <div class="title">
+  <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Shops</h1><br>
+  <h2 style="text-align:center;color:#4A5C6A;font-weight:Times New Roman;">We have {{shop.count }} shop{{shop.count|pluralize}} now.</h2><br>
+      </div>
+      <br><br>
+<!-- Shop Card Container -->
+<div class="shop-card-container" >
+  <!-- Shop -->
+   {% for s in shop %}
+  <div class="shop-card">
+      <img src="{{ s.image.url}}" alt="Unique Shop">
+      <div class="shop-info">
+          <h5>{{s.title}}</h5>
+          <a href="{% url 'flame:shop-detail' s.shop_id %}">View Shop</a>
+      </div>
+  </div>
+  {% endfor %}
+</div>                    
+                              <br><br><br>
+                              <hr></hr>
+              
+                              
+
+{% endblock content %}

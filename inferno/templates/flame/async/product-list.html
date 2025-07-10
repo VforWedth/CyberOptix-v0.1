@@ -1,0 +1,14 @@
+{% for p in products %}
+    <div class="card">
+        <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.title }}">
+        <h5 class="card-title">{{ p.title }}</h5>
+        <div class="card-footer">
+            <span class="price">${{ p.price }}</span>
+            <a href="{% url 'flame:shop-product-detail' p.shop.shop_id p.p_id %}" class="btn btn-primary" style="text-decoration: none;">
+                View Product
+            </a>
+        </div>
+    </div>
+{% endfor %}
+<br><br><br>
+<hr></hr>

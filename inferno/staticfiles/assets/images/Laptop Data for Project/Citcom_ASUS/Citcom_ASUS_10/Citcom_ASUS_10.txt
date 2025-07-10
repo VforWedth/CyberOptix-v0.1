@@ -1,0 +1,21 @@
+ASUS Zenbook 14 OLED Laptop, Intel 14-Core i9-13900H, 14" 2.8K Touchscreen, Intel Iris Xe Graphics, 16GB LPDDR5 1TB SSD, Backlit Keyboard, Fingerprint, Thunderbolt 4, WiFi 6E, Win11 Home 
+
+Brand 	ASUS
+Model Name	Zenbook 14 OLED
+Screen Size 	14 Inches
+Color	Foggy Silver
+Hard Disk Size 	1 TB
+CPU Model	Intel Core i9
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Fingerprint Reader, HD Audio, Backlit Keyboard, Memory Card Slot, Numeric Keypad
+Graphics Card Description 	Integrated
+ About this item
+
+    - (Memory Disk and System): 16GB 4800 MHz DDR5 SDRAM, 1TB PCI-E NVMe M.2 SSD for Storage, Pre-install Windows 11 Home
+    - (Processor): Intel Core i9-13900H 14-Core Processor (Up to 5.4 GHz with Intel Turbo Boost Technology, 24 MB Intel Smart cache, 14 Cores: 6 Performance Cores + 8 Efficient Cores, 20 Threads)
+    - (Screen and Graphics): Brilliant 14" 2880x1800 (2880 x 1800) 500 nits 100% DCI-P3 color gamut, 16:10 aspect ratio Thin Bezel LCD Display powered by Intel Iris Xe Graphics
+    - (Connection and Others): Intel Wi-Fi 6E AX211 (2x2) and Bluetooth 5.3, Backlit Keyboard with Numpad and Fingerprint reader; 1080p FHD Camera; 75Whr 4-Cell Lithium-Ion Battery (up to 6 hours battery life); 12.35" x 8.69" x 0.67" inches, 3.06 lbs; Foggy Silver; 65W AC Adapter; 32GB USB 3.0 Flash Drive for Free
+    - (Ports and Slots): 2 x USB Thunderbolt 4 / USB4 40Gbps Type-C support Power Delivery / DisplayPort, 1 x USB 3.2 Gen 1 Type-A support 5Gbps, 1 x HDMI 2.1, 1 x 3.5mm Combo Audio Jack
+
+Price - $943.64

@@ -1,0 +1,14 @@
+Lenovo IdeaPad Slim 7 14IMH9 14" WUXGA OLED Touchscreen Laptop, Intel Core Ultra 7-155H 1.4GHz, 32GB RAM, 1TB SSD, Windows 11 Pro, Luna Gray 
+
+Brand 	Lenovo
+Model Name 	IdeaPad Slim 7
+Screen Size 	14 Inches
+Color 	Gray
+Hard Disk Size 	1 TB
+CPU Model 	UltraSPARC I
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11
+Graphics Card Description 	Integrated
+CPU Speed 	1.4
+
+Price:	$1,099.99

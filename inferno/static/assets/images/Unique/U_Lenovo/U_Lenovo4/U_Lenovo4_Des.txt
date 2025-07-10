@@ -1,0 +1,14 @@
+Lenovo Legion Pro 9i Gen 9 16" Gaming Laptop (2024 Model) Intel 14th Gen i9-14900HX 24C, NVIDIA GeForce RTX 4090 16GB, 32GB RAM, 2TB (1TB+1TB) NVMe SSD, 16" 3.2K Mini-Led 165Hz 1200-nits, Win 11 Home 
+
+Brand 	Lenovo
+Model Name 	Legion Pro 9i Gen 9
+Screen Size 	16 Inches
+Color 	Carbon Black
+Hard Disk Size 	2 TB
+CPU Model 	Core i9
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Home
+Graphics Card Description 	Dedicated
+Graphics Coprocessor 	NVIDIA GeForce RTX 4090
+
+Price - $3,799.00

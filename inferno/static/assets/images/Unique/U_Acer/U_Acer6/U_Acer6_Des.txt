@@ -1,0 +1,14 @@
+Acer Swift Go 16" Touch AI Ready 16:10 2024 Laptop, Intel EVO Core Ultra 9-185H(Beats i9-12900HK), Intel ARC Graphics, Thunderbolt 4, QHD Webcam, Wi-Fi 7, win11, w/HDMI (32GB RAM | 1TB SSD) 
+
+Brand 	Acer
+Model Name 	Acer Swift Go
+Screen Size 	16 Inches
+Hard Disk Size 	1 TB
+CPU Model 	Core i9
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Home
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel ARC Graphics
+CPU Speed 	2.3 GHz
+
+Price - $899.49

@@ -1,0 +1,14 @@
+Lenovo V15 - Special Business Edition - 15.6" FHD - AMD Ryzen 3 7320U (Beats i7-1065G7) - 16GB Memory - 1TB PCIe SSD - Military-Grade Durability - Long Battery Life - Win 11 Pro - w/WOWPC Bundle 
+
+Brand 	Lenovo
+Model Name 	V15
+Screen Size 	15.6 Inches
+Color 	Business Black
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 3
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Pro
+Special Feature 	HD Audio, Spill resistant, High Definition Audio, Anti Glare Coating, Numeric Keypad
+Graphics Card Description 	Integrated
+
+Price - $649.00

@@ -1,0 +1,21 @@
+ASUS Vivobook 15X Laptop, 15.6” FHD Display, AMD Ryzen™ 5 7530U CPU, 8GB RAM, 512GB SSD, Windows 11 Home, Indie Black, S3504YA-DS51
+
+Brand	ASUS
+Model Name	Vivobook 15X
+Screen Size	15.6 Inches
+Color	Indie Black
+Hard Disk Size	512 GB
+CPU Model	Ryzen 5
+Ram Memory Installed Size	8 GB
+Operating System	Windows 11 Home
+Special Feature	Fingerprint Reader
+Graphics Card Description	Integrated
+
+About this item
+15.6” FHD (1920 x 1080) 16:9 aspect ratio with ultra-slim NanoEdge bezels and 85% screen-to-body ratio
+Latest AMD Ryzen 5 7530U Mobile Processor (6-core/12-thread, 16MB cache, up to 4.3 GHz max boost) and AMD Radeon Graphics
+The laptop comes with Fast storage and memory featuring 512GB M.2 NVMe PCIe 3.0 SSD and 8GB DDR4 on board RAM, Windows 11 Home
+The laptop comes with Extensive connectivity with 1x USB 2.0 Type-A; 1x USB 3.2 Gen 1 Type-C; 2x USB 3.2 Gen 1 Type-A; 1x HDMI 1.4; 1x 3.5mm Combo Audio Jack. Wi-Fi 6E (802.11ax) and Bluetooth 5 (*USB transfer speed may vary. Learn more at ASUS.com)
+User friendly features: privacy webcam shutter, ergonomic chiclet backlit keyboard and fingerprint reader activated via Windows Hello for easy log-in
+
+Price - $599.99

@@ -1,0 +1,224 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact CyberOptix Team</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2A5C82;
+            --accent-color: #F5B041;
+        }
+
+        .team-card {
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .supervisor-section {
+            background: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Contact Header -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3">Contact CyberOptix Team</h1>
+        <p class="lead">Student-Driven Tech Solutions | MIIT Third Year Project</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<div class="container py-5">
+    <!-- Team Contact -->
+    <div class="row mb-5">
+        <div class="col-md-8">
+            <h2 class="mb-4">Project Team Members</h2>
+            <div class="row">
+                <!-- Team Member 1 -->
+                <div class="col-md-6 mb-4">
+                    <div class="team-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'assets/images/PMH.jpg' %}" 
+                                 class="rounded-circle me-3" alt="Moe Htet" width="120" height="145">
+                            <div>
+                                <h5>Phone Moe Htet</h5>
+                                <p class="text-muted mb-0">2022-MIIT-CSE-041</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+959 941 641 274</p>
+                            <p class="mb-0"><i class="fas fa-envelope me-2"></i>moehtet1549@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="col-md-6 mb-4">
+                    <div class="team-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'assets/images/YTHO.jpg' %}" 
+                                 class="rounded-circle me-3" alt="Yu Thet Htar Oo" width="120" height="145">
+                            <div>
+                                <h5>Yu Thet Htar Oo</h5>
+                                <p class="text-muted mb-0">2022-MIIT-CSE-054</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+959 762 504 335 </p>
+                            <p class="mb-0"><i class="fas fa-envelope me-2"></i>yuthethtaroo@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="col-md-6 mb-4">
+                    <div class="team-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'assets/images/YMNO.jpg' %}" 
+                                 class="rounded-circle me-3" alt="Yin Myat Noe Oo" width="120" height="145">
+                            <div>
+                                <h5>Yin Myat Noe Oo</h5>
+                                <p class="text-muted mb-0">2022-MIIT-CSE-056</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+959 681 349 202</p>
+                            <p class="mb-0"><i class="fas fa-envelope me-2"></i>yinmyatnoeoo@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="col-md-6 mb-4">
+                    <div class="team-card p-4 h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'assets/images/ETZN.jpg' %}" 
+                                 class="rounded-circle me-3" alt="Ei Thuzar Nwe" width="120" height="145">
+                            <div>
+                                <h5>Ei Thuzar Nwe</h5>
+                                <p class="text-muted mb-0">2022-MIIT-CSE-058</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">
+                            <p class="mb-1"><i class="fas fa-phone me-2"></i>+959 964 837 695</p>
+                            <p class="mb-0"><i class="fas fa-envelope me-2"></i>eithuzarnwe@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Repeat for other team members -->
+                
+            </div>
+        </div>
+
+        <!-- Quick Contact Form -->
+        <div class="col-md-4">
+            <div class="bg-light p-4 rounded shadow">
+                <h4 class="mb-4">Send Us a Message</h4>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email Address">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Academic Supervision -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="supervisor-section p-4 rounded">
+                <h3 class="mb-4">Academic Supervision</h3>
+                <div class="d-flex align-items-center">
+                    <div class="me-4">
+                        <img src="https://source.unsplash.com/100x100/?professor" 
+                             class="rounded-circle" alt="Dr. Sin Thi Yar Myint">
+                    </div>
+                    <div>
+                        <h5>Dr. Sin Thi Yar Myint</h5>
+                        <p class="mb-1">Professor, Faculty of Computer Science</p>
+                        <p class="mb-1">Myanmar Institute of Information Technology</p>
+                        <p class="mb-0">Mandalay, Myanmar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location & Social -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=MIIT%20Mandalay&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" height="300" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="bg-primary text-white p-4 rounded">
+                <h4 class="mb-4">Connect With Us</h4>
+                <div class="d-flex gap-3 mb-4">
+                    <a href="#" class="text-white"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-telegram fa-2x"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
+                <h5>Project Inquiries</h5>
+                <p>For collaboration or business opportunities:</p>
+                <p><i class="fas fa-envelope me-2"></i>cyberoptix@gmail.com</p>
+                <p><i class="fas fa-clock me-2"></i>Response within 24 hours</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p class="mb-0">&copy; 2024 CyberOptix - MIIT Third Year Project by INFERNO</p>
+        <p class="mb-0">Academic Research Project | Not for Commercial Use</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

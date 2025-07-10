@@ -1,0 +1,11 @@
+Brand 	Apple
+Model Name 	MacBook Pro
+Screen Size 	14.2 Inches
+Color 	Space Gray
+Hard Disk Size 	512 GB
+CPU Model 	Apple M3
+Ram Memory Installed Size 	8 GB
+Operating System 	Mac OS
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Apple Integrated Graphics
+Price		9,080,000

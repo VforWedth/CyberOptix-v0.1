@@ -1,0 +1,52 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/Profile.css' %}">
+<link rel="stylesheet" type="text/css" href="bootstrap-4.5.3-dist/css/bootstrap.min.css">
+
+<div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar"> 
+        <div class="sidebar flex-column mt-4 text-center">
+            <img src="{% static 'images/profile.jpg' %}" class="round">
+            <a class="sidebar-link" href="{% url "flame:profile" %}">Profile</a>
+            <a class="sidebar-link active" href="{% url "flame:profile" %}">Orders</a>
+            <a class="sidebar-link" href="{% url 'userauths:sign-out' %}">Logout</a>
+        </div>
+    </div>
+
+    <!-- Order Details Content -->
+    <div class="content-section">
+        <div class="Pcard">
+            <a href="{% url 'flame:profile' %}" class="btn btn-secondary mb-3">← Back to Orders</a>
+            <h3>Order Details: INVOICE_NO-{{ order_items.0.order.id }}</h3>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order_items %}
+                    <tr>
+                        <td>{{ item.item }}</td>
+                        <td>
+                            <p><img src="{{ item.image }}" class="product-img" style="width:60px; height:60px; object-fit: cover;"  alt="{{ item.title }}"></p>
+                        </td>
+                        <td>${{ item.price }}</td>
+                        <td>{{ item.qty }}</td>
+                        <td>${{ item.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,9 @@
+Acer Nitro 27" WQHD 2560 x 1440 1500R Curved PC Gaming Monitor | AMD FreeSync | 100Hz Refresh | 1ms VRB | Speakers | VESA Mountable | 1 x Display Port 1.2, 1 x HDMI 2.0 & 1 x HDMI 1.4 | ED273U Hbmiipx 
+
+Brand 	acer
+Screen Size 	27 Inches
+Resolution 	QHD Wide 1440p
+Aspect Ratio 	16:9
+Screen Surface Description 	Glossy
+
+Price - $161.18

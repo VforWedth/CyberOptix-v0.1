@@ -1,0 +1,16 @@
+Apple MacBook Air MD712LL/B Intel Core i5-4260U X2 1.4GHz 4GB 256GB, Silver (Refurbished) 
+
+Brand 	Apple
+Model Name	MacBook Air
+Screen Size 	11.6 Inches
+Color	 	Silver
+Hard Disk Description	SSD
+Resolution	720p
+Connectivity Technology 	Bluetooth, Wi-Fi, USB
+Ram Memory Installed Size 	4 GB
+CPU Manufacturer 	Intel
+Operating System 	Mac OS
+Battery Life 	9 Hours
+Human Interface Input 	Keyboard
+
+Price - $240.62

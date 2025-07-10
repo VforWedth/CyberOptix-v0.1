@@ -1,0 +1,14 @@
+HP 2022 Newest All-in-One Desktop, 21.5" FHD Display, Intel Celeron J4025 Processor, 8GB RAM, 256GB PCIe SSD, Webcam, WiFi, HDMI, RJ-45, Wired Keyboard&Mouse, Windows 11 Home, White 
+
+Brand 	HP
+Operating System 	Windows 11 Home
+CPU Model 	Celeron
+CPU Speed 	2 GHz
+Cache Size 	8
+Graphics Card Description 	Dedicated
+Graphics Coprocessor 	Intel UHD Graphics
+Memory Storage Capacity 	256 GB
+Memory Slots Available 	2
+Specific Uses For Product 	Everyday Use
+
+Price - $389.00

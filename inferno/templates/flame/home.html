@@ -1,0 +1,754 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+        
+        
+<style>
+
+        .hero {
+            position: relative;
+            text-align: left;
+            padding: 50px;
+            height: 50vh;
+            color: black;
+            width: 100%;
+            height: 110vh;
+            overflow: hidden;
+        }
+
+        .hero .content {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            color: #4A5C6A;
+            text-align: left;
+            padding: 50px;
+            border-radius: 10px;
+        }
+
+        .hero .content h5{
+            font-size: 3em;
+            font-weight: bold;
+            font-size: 2.5em;
+            margin: 0 0 20px;
+        }
+
+        .hero .content p {
+            margin: 15px 0;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .hero .content button {
+            background-color:#4A5C6A;
+            text-align: left;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero .content button:hover {
+            background-color: #CCD0CF;
+            color: black;
+        }
+        .hero video {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            width: 100%;
+            height: 130%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .filters {
+            background-color:#4A5C6A;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            margin:0.5px auto;
+            border-radius: 25px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .filters select,
+        .filters input {
+            background-color:#ccc;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+            width: auto;
+        }
+
+        .filters input {
+            flex-grow: 1;
+        }
+
+        .filters button {
+            background-color:#ccc;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filters button:hover {
+            background-color: #ccc;
+            color: #333;
+            border: 1px solid #333;
+        }
+
+        .filters i {
+            font-size: 1.2em;
+            color:black;
+            vertical-align: middle;
+            background-color: #ccc;
+        }
+
+        
+
+        .search-cart input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .products {
+            padding: 20px;
+        }
+
+        .products h2 {
+            margin-bottom: 15px;
+        }
+
+        .card {
+            margin: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            flex: 0 0 auto;
+            margin: 10px;
+        }
+
+        .card img {
+            height: 173px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(145deg, #f9f9f9, #ffffff);
+        }
+
+        .card-body {
+            display:fles;
+            padding: 0px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .card-footer .price {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #c0392b;
+        }
+        .card-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 1px 2px;
+            color: #2c3e50;
+            text-transform: capitalize;
+        }
+
+        .card-text {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+            padding: 15px;
+            border-top: 2px solid #ddd;
+            background-color: #CCD0CF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .shop-card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .shop-card {
+            display: flex;
+            align-items: center;
+            background-color: #F5F5F5;
+            border: 1px solid #DDD;
+            border-radius: 15px;
+            padding: 10px;
+            font-weight:bold;
+            width: calc(25% - 20px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shop-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .shop-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .shop-card:hover img {
+            transform: rotate(3deg);
+        }
+
+        .shop-info h5 {
+            font-size: 1.9em;
+            margin: 0;
+            color: #4A5C6A;
+            font-weight: bold;
+            font-family:Times New Roman;
+            transition: color 0.3s ease;
+        }
+
+        .shop-info h5:hover {
+            color: #2C3E50;
+        }
+
+        .shop-info a {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 1.5em;
+            text-decoration: none;
+            color: #4A5C6A;
+            font-weight: bold;
+            font-family:Times New Roman;
+            transition: color 0.3s ease;
+        }
+
+        .shop-info a:hover {
+            color: #2C3E50;
+        }
+
+        .btn {
+            background-color: #4A5C6A;
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 20px;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .card-footer .btn:hover {
+            background-color: #354451;
+            transform: scale(1.1);
+        }
+
+        .search-cart input {
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 20px;
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .carousel-btn.left {
+            left: 10px;
+        }
+
+        .carousel-btn.right {
+            right: 10px;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+     
+        .social-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+        .carousel-btn.left {
+            left: 10px;
+        }
+
+        .carousel-btn.right {
+            right: 10px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .carousel-container {
+            display: flex;
+            overflow-x: scroll;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #4A5C6A;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 10;
+            min-width: 150px;
+        }
+
+        .dropdown-item {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #1abc9c;
+            color: #fff;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dropdown-menu {
+                min-width: 100%;
+                position: static;
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+          .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+    
+    .favorite-btn:hover {
+        background: rgba(231, 76, 60, 0.2);
+    }
+    
+    .favorite-btn.active {
+        color: #e74c3c;
+    }
+    
+    .favorite-btn i {
+        font-size: 1.2em;
+        transition: all 0.3s ease;
+    }
+    
+    .favorite-btn:hover i {
+        transform: scale(1.2);
+    }
+  .old-price {
+        text-decoration: line-through;
+        color:rgb(7, 8, 8);
+        font-size: 0.9em;
+        margin-right: 5px;
+    }
+     .price-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .current-price {
+        font-weight: bold;
+        color: #c0392b;
+        font-size: 1.2em;
+    }
+     .discount-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color:rgb(241, 90, 14);
+        color: white;
+        padding: 5px 10px;
+        width:18%;
+        border-radius: 14px 4px 14px 4px;
+        font-weight: bold;
+        font-size: 14px;
+        z-index: 1;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+ .btn-style {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: linear-gradient(to bottom,rgb(249, 249, 249), #e0e0e0);
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    text-shadow: 0 1px 0 #fff;
+}
+
+.btn-style:hover {
+    background: linear-gradient(to bottom, #e9e9e9, #d0d0d0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.btn-style.active {
+    background: linear-gradient(to bottom,rgb(3, 4, 5),rgb(72, 80, 90));
+    color: white;
+    border-color: #0062cc;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+    .centered-card-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; /* Ensure it takes full height of parent */
+    }
+    .centered-card-title {
+        margin: 0; /* Remove default margins */
+        text-align: center;
+    }
+    
+
+    </style>
+</head>
+
+<main>
+    
+    <div class="hero">
+      <video autoplay loop muted>
+          <source src="{% static 'assets/images/Homevd.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+
+      </video>
+      <form action="{% url 'flame:search' %}" method="GET">
+
+          <div class="filters">
+         <a href="{% url 'flame:product-list' %}?items=Discount Items" 
+   class="filter-option btn btn-light {% if active_filter == 'Discount ' %}active{% endif %}">
+   Discounted item
+</a>
+
+<a href="{% url 'flame:product-list' %}?items=New Items" 
+   class="filter-option  btn btn-light {% if active_filter == 'New ' %}active{% endif %}">
+   New Item
+</a>
+              <input type="text" name="q" class="input" placeholder="Search by Brand">
+<button type="submit"><i class="fas fa-search"></i></button>
+
+          </div>
+                          </form>
+
+      <div class="content" style="text-decoration:none">
+          <h5> Best laptops for a refined lifestyle.</h5>
+              <button > <a href="{% url 'flame:category-list' %}" style="color:white;text-decoration:none;">Start Shopping</a></button>
+      </div>
+    </div>
+      
+
+    <script>
+        document.getElementById("dproduct").addEventListener("click", function () {
+            document.getElementById("dpro").scrollIntoView({ behavior: "smooth" });
+        });
+        document.getElementById("newproduct").addEventListener("click", function () {
+            document.getElementById("newpro").scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+    <hr>
+    <div class="products" id="shoppingSection">
+        <div class="title">
+            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Shops</h1><br>
+            <h2 style="text-align:center;color:#4A5C6A;font-weight:Times New Roman;">Discover the perfect laptops and everyday essentials at unbeatable prices, tailored to meet all your needs with quality and convenience.</h2><br>
+        </div>
+        <br><br>
+        
+        <div class="shop-card-container">
+            {% for s in shop %}  
+  <div class="shop-card">
+      <img src="{{s.image.url}}" alt="Shop">
+      <div class="shop-info">
+          <h5>{{s.title}}</h5>
+          <a href="{% url 'flame:shop-detail' s.shop_id %}">View Shop</a>
+      </div>
+  </div>
+  {% endfor %}
+            </div>
+           
+        </div>
+        <br>
+    </div>
+    <br><br>
+    <br>
+   
+    <hr>
+
+    <div class="products" id="newpro">
+        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> Most Popular Items </h1><br>
+        <div class="carousel-container">
+            {% for product in popular_items %}
+    <div class="card">
+  <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">
+        <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.p_id }}">
+        <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+        <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+        <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+               
+                 
+              
+             
+                <button class="favorite-btn add-to-wishlist" data-product-item="{{product.id}}" >
+                    <i class="far fa-heart"></i>
+                </button>
+              
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{p.title}}">
+                <div class="card-body centered-card-body">
+    <h5 class="card-title centered-card-title">{{product.title}}</h5>
+</div>
+                <div class="card-footer">
+ <div class="price-container">
+                        <span class="old-price">${{product.old_price|default:"0"}}</span>
+                        <span class="current-price">${{product.price}}</span>
+                    </div>
+                     
+                <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" style="border:none;text-decoration: none;">
+                    <button class="btn" >View Product</button>
+                </a>
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <hr>
+    <br>
+  
+    
+    <div class="products" id="newpro">
+        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> New Items </h1><br>
+        <div class="carousel-container">
+          
+                {% for product in items %}
+
+          <div class="card">
+        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">
+        <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.p_id }}">
+        <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+        <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+        <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                      
+                 
+              
+                
+                <button class="favorite-btn add-to-wishlist"  data-product-item="{{product.id}}">
+                    <i class="far fa-heart"></i>
+                </button>
+              
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{p.title}}">
+                <div class="card-body centered-card-body">
+    <h5 class="card-title centered-card-title">{{product.title}}</h5>
+</div>
+                <div class="card-footer">
+ <div class="price-container">
+                        <span class="old-price">${{product.old_price|default:"0"}}</span>
+                        <span class="current-price">${{product.price}}</span>
+                    </div>
+                     
+                <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">
+                    <button class="btn" >View Product</button>
+                </a>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+        <br>
+        <hr>
+        <br>
+        <div class="products">
+            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;" id="dpro">Discount Items </h1><be><br>
+            <div class="carousel-container">
+               
+                            {% for product in discounted_items %}
+
+           <div class="card">
+        <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{product.id}}">
+        <input type="hidden" class="product-pid-{{ product.id }}" value="{{ product.p_id }}">
+        <input type="hidden" class="product-image-{{ product.id }}" value="{{ product.image.url }}">
+        <input type="hidden" class="product-id-{{ product.id }}" value="{{ product.id }}">
+        <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
+                
+                             <div class="discount-badge">
+        -{{ product.get_percentage|floatformat:0 }}%
+    </div>
+               
+                <button class="favorite-btn add-to-wishlist"  data-product-item="{{product.id}}">
+                    <i class="far fa-heart"></i>
+                </button>
+              
+                <img src="{{product.image.url}}" class="card-img-top" alt="{{p.title}}">
+               <div class="card-body centered-card-body">
+    <h5 class="card-title centered-card-title">{{product.title}}</h5>
+</div>
+                <div class="card-footer">
+ <div class="price-container">
+                        <span class="old-price">${{product.old_price|default:"0"}}</span>
+                        <span class="current-price">${{product.price}}</span>
+                    </div>
+                     
+                <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">
+                    <button class="btn" >View Product</button>
+                </a>
+
+                </div>
+            </div>
+            {% endfor %}
+
+              
+            </div>
+            <br><br><br>
+            <hr>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}

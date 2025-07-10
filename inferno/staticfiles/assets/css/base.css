@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120%;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #4A5C6A;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin: 0;
+  padding: 0;
+}
+
+/* Logo styling */
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+
+
+.navbar .logo i {
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+/* Navbar links */
+.navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.navbar nav a i {
+    margin-right: 8px;
+}
+
+/* Menu icon for mobile view */
+.navbar .menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    /* Hide the navbar links on smaller screens */
+    .navbar nav {
+        display: none;
+    }
+
+    /* Show the menu icon */
+    .navbar .menu-icon {
+        display: block;
+        color: white;
+    }
+}
+
+footer {
+    background-color: #CCD0Cf;
+    color: #4A5C6A;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    margin-top: auto; /* Keeps footer at the bottom */
+    width: 120vw; /* Ensures the footer spans the full width */
+    height: auto; /* Dynamically adjusts height based on content */
+    box-sizing: border-box; /* Includes padding in width calculation */
+    margin: 0; /* Removes any extra space on the sides */
+}
+
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px; /* Restricts content width for a cleaner layout */
+    margin: 0 auto; /* Centers the footer content */
+}
+
+.footer-links h4, .footer-contact h4 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li, .footer-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer-contact p {
+    line-height: 1.5;
+}
+.footer-links a {
+    text-decoration: none; /* Removes underline */
+    color: #4A5C6A; /* Sets the link color */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons a {
+    margin-right: 15px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+    @media (max-width: 768px) {
+        .form-container {
+            width: 90%;
+            height: auto;
+        }
+    }
+}

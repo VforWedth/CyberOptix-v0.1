@@ -1,0 +1,11 @@
+Brand 	Apple
+Model Name 	Apple MacBook Pro 14.2" with M4 Pro Chip, Late 2024 Space black
+Screen Size 	14.2 Inches
+Color 	Space Black
+Hard Disk Size 	512 GB
+CPU Model 	Apple M4
+Ram Memory Installed Size 	48 GB
+Operating System 	Mac OS
+Graphics Card Description 	Dedicated
+Hard Disk Description 	SSD
+Price   11,930,000 MMK

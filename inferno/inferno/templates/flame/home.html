@@ -1,0 +1,324 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+    {% comment "" %} Block of Home Page Start Here{% endcomment %}
+
+    <div class="hero">
+      <video autoplay loop muted>
+          <source src="{% static 'assets/images/Homevd.mp4' %}" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+
+  <!-- Filters -->
+      <!-- Filters -->
+      <div class="filters">
+          <select>
+              <option value="Categories">Categories</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Other Items">Other Items</option>
+              <option value="Brands">Brands</option>
+              <option value="RAM">RAM</option>
+              <option value="More">More</option>
+          </select>
+          <select>
+              <option>New Product</option>
+          </select>
+          <input type="text" placeholder="Search...">
+          <button><i class="fas fa-search"></i></button>
+      </div>
+      
+      <!-- Hero Section -->
+     
+          <div class="content">
+              <h5> Best laptops for a refined lifestyle.</h5>
+              <button>Start Shopping</button>
+          </div>
+      </div>
+      
+<br><br>
+
+  <div class="products">
+      <div class="title">
+  <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Shops</h1><br>
+  <h4 style="text-align:center;color:#4A5C6A;font-weight:Times New Roman;">Discover the perfect laptops and everyday essentials at unbeatable prices, tailored to meet all your needs with quality and convenience.</h4><br>
+      </div>
+      <br><br>
+<!-- Shop Card Container -->
+<div class="shop-card-container">
+  <!-- Unique Shop -->
+  <div class="shop-card">
+      <img src="{% static 'Unique.jpg' %}" alt="Unique Shop">
+      <div class="shop-info">
+          <h5>Unique</h5>
+          <a href="#">View Shop</a>
+      </div>
+  </div>
+
+  <!-- ICT Shop -->
+  <div class="shop-card">
+      <img src="{% static 'Ict2.jpg' %}" alt="ICT Shop">
+      <div class="shop-info">
+          <h5>ICT</h5>
+          <a href="#">View Shop</a>
+      </div>
+  </div>
+
+  <!-- Innwa Shop -->
+  <div class="shop-card">
+      <img src="{% static 'ICT.jpg' %}" alt="Innwa Shop">
+      <div class="shop-info">
+          <h5>Innwa</h5>
+          <a href="#">View Shop</a>
+      </div>
+  </div>
+
+  <!-- Citicom Shop -->
+  <div class="shop-card">
+      <img src="{% static 'Citicom.jpg' %}" alt="Citicom Shop">
+      <div class="shop-info">
+          <h5>Citicom</h5>
+          <a href="#">View Shop</a>
+      </div>
+  </div>
+</div>
+<br>
+
+</div>
+<br><br>
+<hr></hr>
+<br>
+<h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Most Popular Items</h1>
+ <br>
+<div class="carousel-container">
+  <!-- 12 Cards -->
+  <div class="card">
+      <img src="{% static 'Unique/U_Asus/U_Asus2/U_Asus2.1.jpg' %}" class="card-img-top" alt="ASUS VivoBook">        <div class="card-body">
+          <h5 class="card-title">ASUS VivoBook 15 F515 Thin and Light Laptop</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$599.99</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>
+  <div class="card">
+      <img src="{% static 'Unique/U_Dell/U_Dell9/U_Dell9.1.jpg' %}" class="card-img-top" alt="Dell Inspiron">        <div class="card-body">
+          <h5 class="card-title">Dell Inspiron 15 5502, FHD Thin & Light Laptop</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$640.00</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>
+  <div class="card">
+      <img src="{% static 'Unique/U_Other Laptop/U_Microsoft3/U_Microsoft3.1.jpg' %}" class="card-img-top" alt="Microsoft Surface">        <div class="card-body">
+          <h5 class="card-title">Microsoft Surface Laptop Go - 12.4" Touchscreen</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$699.99</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>   <div class="card">
+      <img src="{% static 'Unique/U_Lenovo/U_Lenovo2/U_Lenovo2.2.jpg' %}" class="card-img-top" alt="Lenovo Yoga">        <div class="card-body">
+          <h5 class="card-title">Lenovo Yoga 7i 2-in-1 Laptop</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$749.49</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>   <div class="card">
+      <img src="{% static 'Unique/U_Hp/U_Hp7/U_Hp7.2.jpg' %}" class="card-img-top" alt="HP Laptop">        <div class="card-body">
+          <h5 class="card-title">HP 17 inch Laptop for Business and Students</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$528.99</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>   <div class="card">
+      <img src="{% static 'Unique/U_Acer/U_Acer4/U_Acer4.1.jpg' %}" class="card-img-top" alt="Acer Swift Go">        <div class="card-body">
+          <h5 class="card-title">Acer Swift Go 16-2024 New Laptop - 16" WUXGA IPS</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$897.49</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>
+  <div class="card">
+      <img src="{% static 'Unique/U_MacBook/U_Mac3/U_Mac3.1.jpg' %}" class="card-img-top" alt="MacBook Pro">        <div class="card-body">
+          <h5 class="card-title">Apple 2023 MacBook Pro Laptop M3 chip</h5>
+      </div>
+      <div class="card-footer">
+          <span class="price">$1168.44</span>
+          <button class="btn">View Product</button>
+      </div>
+  </div>
+ 
+  <!-- Repeat similarly for 10 more cards -->
+
+</div>
+
+<!-- Navigation Buttons -->
+<button class="carousel-btn left">&lt;</button>
+<button class="carousel-btn right">&gt;</button>
+
+  <br>
+  <hr></hr>
+  
+          <div class="products">
+              <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> New Items </h1><br>
+              <div class="carousel-container">
+                  <!-- 12 Cards -->
+                  <div class="card">
+                      <img src="{% static 'Unique/U_Asus/U_Asus2/U_Asus2.1.jpg' %}" class="card-img-top" alt="ASUS VivoBook">        <div class="card-body">
+                          <h5 class="card-title">ASUS VivoBook 15 F515 Thin and Light Laptop</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$599.99</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <img src="{% static 'Unique/U_Dell/U_Dell9/U_Dell9.1.jpg' %}" class="card-img-top" alt="Dell Inspiron">        <div class="card-body">
+                          <h5 class="card-title">Dell Inspiron 15 5502, FHD Thin & Light Laptop</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$640.00</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <img src="{% static 'Unique/U_Other Laptop/U_Microsoft3/U_Microsoft3.1.jpg' %}" class="card-img-top" alt="Microsoft Surface">        <div class="card-body">
+                          <h5 class="card-title">Microsoft Surface Laptop Go - 12.4" Touchscreen</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$699.99</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>   <div class="card">
+                      <img src="{% static 'Unique/U_Lenovo/U_Lenovo2/U_Lenovo2.2.jpg' %}" class="card-img-top" alt="Lenovo Yoga">        <div class="card-body">
+                          <h5 class="card-title">Lenovo Yoga 7i 2-in-1 Laptop</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$749.49</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>   <div class="card">
+                      <img src="{% static 'Unique/U_Hp/U_Hp7/U_Hp7.2.jpg' %}" class="card-img-top" alt="HP Laptop">        <div class="card-body">
+                          <h5 class="card-title">HP 17 inch Laptop for Business and Students</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$528.99</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>   <div class="card">
+                      <img src="{% static 'Unique/U_Acer/U_Acer4/U_Acer4.1.jpg' %}" class="card-img-top" alt="Acer Swift Go">        <div class="card-body">
+                          <h5 class="card-title">Acer Swift Go 16-2024 New Laptop - 16" WUXGA IPS</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$897.49</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <img src="{% static 'Unique/U_MacBook/U_Mac3/U_Mac3.1.jpg' %}" class="card-img-top" alt="MacBook Pro">        <div class="card-body">
+                          <h5 class="card-title">Apple 2023 MacBook Pro Laptop M3 chip</h5>
+                      </div>
+                      <div class="card-footer">
+                          <span class="price">$1168.44</span>
+                          <button class="btn">View Product</button>
+                      </div>
+                  </div>
+                 
+                  <!-- Repeat similarly for 10 more cards -->
+              
+              </div>
+              
+              <!-- Navigation Buttons -->
+              <button class="carousel-btn left">&lt;</button>
+              <button class="carousel-btn right">&gt;</button>
+              
+                  <br>
+                  <hr></hr>
+      <br>
+                  <div class="products">
+                      <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Discount Items </h1><be><br>
+                          <div class="carousel-container">
+                              <!-- 12 Cards -->
+                              <div class="card">
+                                  <img src="{% static 'Unique/U_Asus/U_Asus2/U_Asus2.1.jpg' %}" class="card-img-top" alt="ASUS VivoBook">        <div class="card-body">
+                                      <h5 class="card-title">ASUS VivoBook 15 F515 Thin and Light Laptop</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$599.99</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <img src="{% static 'Unique/U_Dell/U_Dell9/U_Dell9.1.jpg' %}" class="card-img-top" alt="Dell Inspiron">        <div class="card-body">
+                                      <h5 class="card-title">Dell Inspiron 15 5502, FHD Thin & Light Laptop</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$640.00</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <img src="{% static 'Unique/U_Other Laptop/U_Microsoft3/U_Microsoft3.1.jpg' %}" class="card-img-top" alt="Microsoft Surface">        <div class="card-body">
+                                      <h5 class="card-title">Microsoft Surface Laptop Go - 12.4" Touchscreen</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$699.99</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>   <div class="card">
+                                  <img src="{% static 'Unique/U_Lenovo/U_Lenovo2/U_Lenovo2.2.jpg' %}" class="card-img-top" alt="Lenovo Yoga">        <div class="card-body">
+                                      <h5 class="card-title">Lenovo Yoga 7i 2-in-1 Laptop</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$749.49</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>   <div class="card">
+                                  <img src="{% static 'Unique/U_Hp/U_Hp7/U_Hp7.2.jpg' %}" class="card-img-top" alt="HP Laptop">        <div class="card-body">
+                                      <h5 class="card-title">HP 17 inch Laptop for Business and Students</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$528.99</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>   <div class="card">
+                                  <img src="{% static 'Unique/U_Acer/U_Acer4/U_Acer4.1.jpg' %}" class="card-img-top" alt="Acer Swift Go">        <div class="card-body">
+                                      <h5 class="card-title">Acer Swift Go 16-2024 New Laptop - 16" WUXGA IPS</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$897.49</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <img src="{% static 'Unique/U_MacBook/U_Mac3/U_Mac3.1.jpg' %}" class="card-img-top" alt="MacBook Pro">        <div class="card-body">
+                                      <h5 class="card-title">Apple 2023 MacBook Pro Laptop M3 chip</h5>
+                                  </div>
+                                  <div class="card-footer">
+                                      <span class="price">$1168.44</span>
+                                      <button class="btn">View Product</button>
+                                  </div>
+                              </div>
+                             
+                              <!-- Repeat similarly for 10 more cards -->
+                          
+                          </div>
+                          
+                          <!-- Navigation Buttons -->
+                          <button class="carousel-btn left">&lt;</button>
+                          <button class="carousel-btn right">&gt;</button>
+                          
+                              <br><br><br>
+                              <hr></hr>
+              
+                              {% comment "" %} Block Of Home Page End Here{% endcomment %}
+
+{% endblock content %}

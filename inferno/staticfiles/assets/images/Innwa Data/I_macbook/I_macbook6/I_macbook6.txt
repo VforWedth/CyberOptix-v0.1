@@ -1,0 +1,11 @@
+Brand 	Apple
+Model Name 	MacBook Air
+Screen Size 	13.6 Inches
+Color 	Midnight
+CPU Model 	Apple M2
+Ram Memory Installed Size 	16 GB
+Operating System 	Mac OS
+Special Feature 	Fingerprint Reader, Lightweight, Backlit Keyboard
+Graphics Card Description 	Integrated
+CPU Speed 	1
+Price	4,820,000 MMK

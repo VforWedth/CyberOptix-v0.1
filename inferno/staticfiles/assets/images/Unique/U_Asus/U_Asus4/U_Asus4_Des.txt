@@ -1,0 +1,21 @@
+ASUS TUF A15 Gaming Laptop: 15.6” Full HD 144Hz Display, GeForce RTX 3050, AMD Ryzen 7 7435HS, 8GB DDR5 RAM, 512GB PCIe SSD, Wi-Fi 6, Windows 11
+
+Brand	ASUS
+Model Name	Tuf A15
+Screen Size	15.6 Inches
+Color	Black
+Hard Disk Size	512 GB
+CPU Model	AMD Ryzen 7
+Ram Memory Installed Size	8 GB
+Operating System	Windows 11 Home
+Graphics Card Description	Dedicated
+Graphics Coprocessor	NVIDIA GeForce RTX 3050
+
+About this item
+AMD Ryzen 7 7435HS Mobile Processor 3.1GHz (20MB Cache, up to 4.5 GHz, 8 cores, 16 Threads)
+NVIDIA GeForce RTX 3050 Laptop GPU
+15.6" Full HD (1920 x 1080) 16:9, 144Hz, Anti-glare, IPS Non-Touch Display
+512GB PCIe 4.0 NVMe M.2 Solid State Drive; 8GB DDR5-4800 2x SO-DIMM; Max Capacity 32GB
+Backlit Chiclet Keyboard 1-Zone RGB; Wi-Fi 6(802.11ax) (Dual band) 2*2 + Bluetooth 5.3; Windows 11 Home
+
+Price - $599.99

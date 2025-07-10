@@ -1,0 +1,245 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/product-detail.css' %}">
+
+<section>
+
+  <div class="container flex">
+    <div class="left">
+      <!-- Main Product Image -->
+      <div class="main_image">
+        <img src="{{p.image.url}}" class="slide">
+      </div>
+      
+      <!-- Small Thumbnails -->
+      <div class="option flex">
+            <img src="{{p.image.url}}" class="slide">
+            {% for p in p_image|slice:":5" %}
+                <img src="{{ p.images.url }}" alt="Product Image">
+            {% endfor %}
+      </div>
+
+        <!-- Related Products Section -->
+        <div class="compact-related-products">
+            {% comment %} check if there is any related products {% endcomment %}
+            {% if products %} 
+            <h4>Related Products</h4>
+            {% endif %}
+            <div class="carousel-container">
+                {% for p in products %}
+                <a href="{% url 'flame:shop-product-detail' p.shop.shop_id p.p_id  %}" class="related-item">
+                    <div class="product-image product-info">
+                        <img src="{{p.image.url}}" alt="{{p.title}}">
+                        <h5>{{p.title|truncatechars:35}}</h5>
+                        <span>$</span><span class="price">{{p.price}}</span>
+                    </div>
+                    
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        
+       
+    </div>
+    
+
+    <div class="right">
+        <span class="tab-btn">- {{ p.get_percentage|floatformat:0 }} %</span>
+      <h3>{{p.title}}</h3>
+      
+      <h4 class="current-product-price-{{p.id}}" id="current-product-price" ><small>$</small>{{p.price}}</h4>
+      
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button class="tab-btn active" data-target="#description">Description</button>
+        <button class="tab-btn" data-target="#additional-info">Additional Info</button>
+        <button class="tab-btn" data-target="#vendor">Shop</button>
+        <button class="tab-btn" data-target="#reviews">Reviews ({{ reviews.count }})</button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <!-- Description Tab -->
+        <div class="tab-pane active" id="description">
+          {% comment %} <p>{{p.description|truncatechars:100}}</p> {% endcomment %}
+          <p>{{p.description|linebreaksbr}}</p>
+          
+          <h5>Quantity</h5>
+          <div class="add flex1">
+            {% comment %} <span>-</span>
+            <label>1</label>
+            <span>+</span> {% endcomment %}
+            <input type="number" value="1" name="" id="product-quantity" class="product-quantity-{{p.id}}">
+          </div>
+          {% comment %} <input type="hidden" value="{{p.id}}" class="product-id" name="" id="">
+          <input type="hidden" value="{{p.title}}" class="product-title" name="" id=""> {% endcomment %}
+          <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{p.id}}">
+          <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.p_id }}">
+          <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+          <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
+          <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
+          <button type="submit" data-shop-id="{{shop.shop_id}}" data-index="{{p.id}}" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
+          <button type="submit"><a href="{% url 'flame:product-list' %}" style="text-decoration: none; color: inherit;">Countinue Browsing</a></button>
+        </div>
+
+        <!-- Additional Info Tab -->
+        <div class="tab-pane" id="additional-info">
+          <h4>Product Specifications</h4>
+          {{p.specification|linebreaksbr}}
+          {% comment %} <ul>
+            <li>Material: Aluminum</li>
+            <li>Weight: 0.5kg</li>
+            <li>Dimensions: 15 x 10 x 2 cm</li>
+            <li>Warranty: 2 years</li>
+          </ul> {% endcomment %}
+        </div>
+
+        <!-- Vendor Tab -->
+        <div class="tab-pane" id="vendor">
+          <div class="vendor-info">
+            <h4>Seller Information</h4>
+            <div class="vendor-rating">
+                <div class="option flex">
+                    <img src="{{p.shop.image.url}}" alt="Shop Image">
+                </div>
+                <span>{{p.shop.title}}</span>
+              <div class="rating-bars">
+                <div class="rating-bar">
+                  <span>Delivery Address</span>
+                  {% comment %} <div class="bar"><div class="fill" style="width: 92%;"></div></div> {% endcomment %}
+                  <span>{{ address.address }}</span>
+                </div>
+                {% comment %} <div class="rating-bar">
+                  <span>Response Rate</span>
+                  <div class="bar"><div class="fill" style="width: 100%;"></div></div>
+                  <span>100%</span>
+                </div> {% endcomment %}
+              </div>
+            </div>
+            <p>Shop Address: {{p.shop.address}}</p>
+            <p>Contact Seller: {{p.shop.contact}}</p>
+            <p>In Stock: {{p.stock_count}} item{{p.stock_count|pluralize}}</p>
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-pane" id="reviews">
+          <div class="reviews-summary">
+            <h4>Customer Reviews</h4>
+            <div class="overall-rating">
+              <h5>{{ average_rating.rating|floatformat:1 }} out of 5.0</h5> 
+              <div class="stars">
+                {% with ''|center:5 as range %}
+                {% for i in range %}
+                  {% if forloop.counter <= 4.8 %}
+                    <span class="fa fa-star checked"></span>
+                  {% else %}
+                    <span class="fa fa-star"></span>
+                  {% endif %}
+                {% endfor %}
+                {% endwith %}
+              </div>
+            </div>
+
+            <div class="rating-breakdown">
+              <div class="rating-bar">
+                <span>5 Star</span>
+                <div class="bar"><div class="fill" style="width: 80%;"></div></div>
+                <span>80%</span>
+              </div>
+              <div class="rating-bar">
+                <span>4 Star</span>
+                <div class="bar"><div class="fill" style="width: 15%;"></div></div>
+                <span>15%</span>
+              </div>
+              <div class="rating-bar">
+                <span>3 Star</span>
+                <div class="bar"><div class="fill" style="width: 5%;"></div></div>
+                <span>5%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="customer-reviews">
+            {% for r in reviews %}
+            <div class="review-card">
+              <div class="review-header">
+                <img src="{% static 'C:\Users\L-182\Downloads\Telegram Desktop\RealCyberOptix\CyberOptix\inferno\static\assets\images\avatar-01.jpg' %}" alt="User"> 
+                <strong>{{ r.user.username|title }}</strong> - <span>{{ r.date|date:"d M, Y" }}</span>
+                <div class="stars">
+                  {% for s in r.rating|ljust:r.rating %}
+                    <i class="fa fa-star stars"></i>
+                  {% endfor %}
+                </div>
+              </div>
+              <p>{{ r.review }}</p>
+            </div>
+            {% empty %}
+            <p>No reviews yet. Be the first to review!</p>
+            {% endfor %}
+          </div>
+
+          {% if make_review == True %}
+          {% if user.is_authenticated %}
+          
+            <form class="review-form hide-review-form" id="review-form" action="{% url 'flame:ajax_add_review' p.id  %}" method="POST">
+              <h4>Add a Review</h4>
+              {% csrf_token %}
+              <div class="comment-list">
+                {{ review_form.review }}
+              </div>
+              <div>
+              {{ review_form.rating }}
+              </div>
+              {% comment %} <textarea name="comment" placeholder="Write your review..." required></textarea> {% endcomment %}
+              <button type="submit">Submit Review</button>
+            </form>
+          
+          {% else %}
+          <p class="login-prompt"><a href="{% url 'userauths:sign-in' %}">Login</a> to write a review.</p>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<br>
+
+
+<script>
+
+// Tab functionality
+document.querySelectorAll('.tab-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const target = document.querySelector(button.dataset.target);
+    
+    // Hide all tab panes
+    document.querySelectorAll('.tab-pane').forEach(pane => {
+      pane.classList.remove('active');
+    });
+    
+    // Remove active class from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    
+    // Show selected pane and mark button active
+    target.classList.add('active');
+    button.classList.add('active');
+  });
+});
+
+// Image slider functionality
+document.querySelectorAll('.option img').forEach(img => {
+  img.addEventListener('click', function() {
+    document.querySelector('.main_image img').src = this.src;
+  });
+});
+</script>
+
+{% endblock content %}

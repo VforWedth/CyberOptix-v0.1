@@ -1,0 +1,21 @@
+ASUS ROG Strix G17 Gaming Laptop, 17.3" FHD 144Hz, AMD Ryzen 9 7845HX, GeForce RTX 4070, 64GB DDR5 RAM, 2TB PCIe M.2 SSD, HDMI, USB 3.2 Gen 1, Wi-Fi 6, RGB Backlit Keyboard, Windows 11 Pro, Black 
+
+Brand 	ASUS
+Model Name	G713P
+Screen Size 	17.3 Inches
+Color	Black
+Hard Disk Size 	2 TB
+CPU Model	Ryzen 9
+Ram Memory Installed Size 	64 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Anti Glare Coating, Numeric Keypad
+Graphics Card Description 	Dedicated
+ About this item
+
+    - [High Speed RAM And Enormous Space] 64GB DDR5 RAM for effortless multitasking and handling multiple browser tabs; 2TB PCle M.2 SSD for quick boot times and speedy data transfers.
+    - [Processor] AMD Ryzen 9 7845HX (12 Cores, 24 Threads, 64MB L3 Cache, 3.0GHz base frequency, up to 5.2GHz max turbo frequency) features NVIDIA GeForce RTX 4070 Laptop GPU with DLSS 3 and real-time ray tracing for advanced visuals and performance
+    - [Display] 17.3-inch, FHD (1920 x 1080), 16:9 aspect ratio, IPS-level Panel, 144Hz refresh rate, 3ms response time, Adaptive Sync, 250 nits brightness, Anti-glare display
+    - [Tech Specs] 1x USB 3.2 Gen 2 Type-C support DisplayPort / Power Delivery, 2x USB 3.2 Gen 1 Type-A (USB 5Gbps), 1x USB 3.2 Gen 2 Type-C with support for DisplayPort(USB 10Gbps), 1 x HDMI 2.1, 1 x Headphone/Microphone combo, 1x RJ45 LAN port, 720p HD Camera, Wi-Fi 6 and Bluetooth, Dolby Atmos, AI noise-canceling technology, RGB Backlit Keyboard with Aura Sync Light Bar
+    - [Operating System] Windows 11 Pro - offers enhanced productivity, advanced security features, remote desktop access, virtualization tools like Hyper-V, and seamless integration for business and power users.
+
+Price - $1,689.00

@@ -1,0 +1,22 @@
+ASUS Chromebook CX1, 14" FHD, Intel® Celeron N4500 Processor, 64GB Storage, 4GB RAM, ChromeOS, Transparent Silver, CX1400CKA-AS44F
+
+Brand 	ASUS
+Model Name	ASUS Chromebook CX1
+Screen Size 	14 Inches
+Color	Transparent Silver
+Hard Disk Size 	64 GB
+CPU Model	Celeron
+Ram Memory Installed Size 	4 GB
+Operating System 	Windows 11 S
+Special Feature 	Numeric Keypad, HD Audio
+Graphics Card Description 	Integrated
+ About this item
+   
+    - READY FOR ANYTHING - Jump right into the action with Windows 11, an AMD Ryzen 9 7940HS CPU, and NVIDIA GeForce RTX 4070 Laptop GPU at 140W Max TGP.
+    - SWIFT MEMORY AND STORAGE – Multitask faster with 16GB of DDR5-4800MHz memory and speed up loading times with 1TB of PCIe 4x4.
+    - NEVER MISS A MOMENT – Keep up with the pros thanks to its fast FHD 144Hz display with 100% sRGB color. Adaptive sync tech reduces lag, minimizes stuttering, and eliminates visual tearing for ultra-smooth and lifelike gameplay.
+    - BLOW AWAY THE COMPETITION – The TUF is equipped to handle its high-power CPU with a pair of 84-blade Arc Flow Fans which improves cooling performance without extra noise.
+    - MUX SWITCH WITH ADVANCED OPTIMUS - A MUX Switch increases laptop gaming performance by 5-10% by routing frames directly from the dGPU to the display bypassing the iGPU. With Advanced Optimus the switch between iGPU and dGPU becomes automatic based on the task, optimizing battery life.
+
+
+Price - $1,131.26

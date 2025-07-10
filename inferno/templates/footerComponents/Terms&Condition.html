@@ -1,0 +1,213 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms & Conditions | CyberOptix</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #ecf0f1;
+      --accent-color: #3498db;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section ul,
+    .section p {
+      padding-left: 20px;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      .container {
+        margin: 15px;
+        padding: 15px;
+      }
+
+      .section h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><i class="fas fa-file-contract"></i> Terms & Conditions</h1>
+    <p>for CyberOptix Laptop E-Commerce Platform</p>
+  </header>
+
+  <div class="container">
+    <div class="section">
+      <h2><i class="fas fa-gavel"></i> 1. Acceptance of Terms</h2>
+      <p>By using <strong>www.cyberoptix.mm</strong>, you agree to these Terms & Conditions. This is a student-led platform under MIIT.</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-user-plus"></i> 2. Account Registration</h2>
+      <ul>
+        <li><strong>Eligibility:</strong> Must be 18+ or have parental consent.</li>
+        <li><strong>Accuracy:</strong> Use valid details (name, email, etc.).</li>
+        <li><strong>Security:</strong> Maintain account confidentiality.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-credit-card"></i> 3. Orders & Payments</h2>
+      <ul>
+        <li><strong>Pricing:</strong> In USD or MMK (may vary).</li>
+        <li><strong>Payments:</strong> Secure via PayPal or mobile wallets.</li>
+        <li><strong>Finalization:</strong> Orders confirmed post-payment.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-shipping-fast"></i> 4. Shipping & Returns</h2>
+      <p><strong>Delivery:</strong></p>
+      <ul>
+        <li>3–7 days (urban), 7–14 days (rural).</li>
+        <li>Tracking via email.</li>
+      </ul>
+      <p><strong>Returns:</strong></p>
+      <ul>
+        <li>7-day return (unused items, original packaging).</li>
+        <li>Buyer pays return shipping.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-lightbulb"></i> 5. Intellectual Property</h2>
+      <ul>
+        <li>CyberOptix/MIIT owns platform content.</li>
+        <li>User reviews/images may be reused with credit.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-ban"></i> 6. Prohibited Activities</h2>
+      <ul>
+        <li>No illegal activity or impersonation.</li>
+        <li>No reverse engineering or site exploitation.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-exclamation-circle"></i> 7. Disclaimers</h2>
+      <ul>
+        <li>Info may have errors—verify before purchase.</li>
+        <li>Stock subject to change.</li>
+        <li>This platform is part of MIIT coursework.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-bolt"></i> 8. Limitation of Liability</h2>
+      <ul>
+        <li>Not liable for indirect damages or outages.</li>
+        <li>No control over third-party services.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-scale-balanced"></i> 9. Governing Law</h2>
+      <p>All disputes are resolved per MIIT's academic policies and Myanmar law.</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-user-lock"></i> 10. Termination</h2>
+      <p>Accounts may be suspended for rule violations or at project end.</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-edit"></i> 11. Amendments</h2>
+      <p>We may update terms anytime. Continued use means acceptance.</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-envelope"></i> 12. Contact</h2>
+      <p>
+        Questions? Reach us at:<br>
+        <a href="mailto:support@cyberoptix.mm">support@cyberoptix.mm</a><br>
+        Supervisor: <a href="mailto:dr.sin@miit.edu.mm">Dr. Sin Thi Yar Myint</a>
+      </p>
+    </div>
+
+    <p><strong>Note:</strong> This is an academic project. Not legally binding. For commercial use, seek legal advice.</p>
+  </div>
+
+  <footer>
+    &copy; 2025 CyberOptix | Powered by MIIT Students
+  </footer>
+
+</body>
+</html>
+{% endblock %}

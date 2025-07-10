@@ -1,0 +1,14 @@
+Acer Aspire 5 14 Slim Laptop | 14" WUXGA (1920 x 1200) IPS |Core i5-1335U | Intel Iris Xe Graphics | 8GB LPDDR5 | 512GB Gen 4 SSD | Wi-Fi 6E | USB4/Thunderbolt 4 | Backlit KB | A514-56M-576D, Gray 
+
+Brand 	acer
+Model Name 	A514-56M-576D
+Screen Size 	14 Inches
+Color 	Gray
+Hard Disk Size 	512 GB
+CPU Model 	Core i5
+Ram Memory Installed Size 	8 GB
+Operating System 	Windows 11 Home
+Special Feature 	Backlit Keyboard
+Graphics Card Description 	Integrated
+
+Price - $411.84

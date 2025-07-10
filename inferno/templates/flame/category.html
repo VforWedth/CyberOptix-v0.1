@@ -1,0 +1,91 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/category.css' %}">
+
+
+<body>
+	<div>
+	<!-- MAIN BODY -->
+	<div id="product-page-body">
+		<div id="product-top-container">
+			<div id="product-top-wrapper">
+				<div id="product-top-text-section">
+					<h1>Latest Trendings</h1>
+					<h2>Best Collections</h2>
+					<p>
+						Introducing the latest trending categories: sleek design, and best quality.
+
+					</p>
+					<a href="#">
+						<button class="blue-button">
+          <a href="{% url 'flame:product-list' %}" style="text-decoration:none;color: #4A5C6A;"class="filter-option {% if active_brand == '' or active_brand == 'Shops' %}active{% endif %}">Shops</a><br>
+						</button>
+					</a>
+				</div>
+				<div id="product-top-image-section">
+					<img src="{% static 'assets/images/category1.jpg' %}" alt="Large Headphone">
+				</div>
+			</div>
+		</div>
+		<!--  END OF TOP SECTION -->
+		<!-- PRODUCT CATEGORIES -->
+		<div id="product-category container">
+			<div id="product-category-text">
+				<span class="blue-line"></span>
+				<span class="section-category-text">{{categories.count}}&nbsp;Categories</span>
+			</div>
+            
+			<div id='product-category-wrapper'>
+					<div class="product-category">
+						<div class="product-category-image-section">
+						<img src="{% static 'assets/images/laptop.png' %}">
+						</div>
+						<div class="product-category-desc-section">
+
+						<span class="product-category-type">
+											<a href="{% url 'flame:product-list' %}?category=Laptop" style="text-decoration: none;color:white;"name="Laptop" class="filter-option {% if active_category == 'Laptop' %}active{% endif %}">Laptop</a><br>
+
+						</span>
+						<span class="product-category-number">
+							  {{ laptop_count }}&nbsp;items
+						</span>
+						</div>
+					</div>
+				</a>
+					<div class="product-category">
+					<div class="product-category-image-section">
+						<img src="{% static 'assets/images/desktop.jpg' %}">
+					</div>
+					<div class="product-category-desc-section">
+						<span class="product-category-type">
+											<a href="{% url 'flame:product-list' %}?category=Desktop" style="text-decoration: none;color:white;"name="Desktop" class="filter-option {% if active_category == 'Desktop' %}active{% endif %}">Desktop</a><br>
+						</span>
+						<span class="product-category-number">
+                            {{ desktop_count }}&nbsp; items
+						</span>
+					</div>
+				</div>
+				</a>
+				<div class="product-category">
+					<div class="product-category-image-section">
+						<img src="{% static 'assets/images/all.png' %}">
+					</div>
+					<div class="product-category-desc-section">
+						<span class="product-category-type">
+											<a href="{% url 'flame:product-list' %}?category=Accessories" style="text-decoration: none;color:white;"name="Accessories" class="filter-option {% if active_category == 'Accessories' %}active{% endif %}">Accessories</a><br>
+						</span>
+						<span class="product-category-number">
+                            {{ accessories_count }}&nbsp;items
+						</span>
+					</div>
+				</div>
+				</a>
+			</div>
+		</div>
+		<br>
+		 <!-- end of product categories -->
+	</div>
+	</body>
+{% endblock content %}
