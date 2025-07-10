@@ -113,4 +113,4 @@ CyberOptix/
 
 ## 📄 License
 
-MIT License © 2025 CyberOptix Team
+MIIT License © 2025 CyberOptix Team
