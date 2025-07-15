@@ -86,6 +86,12 @@ urlpatterns = [
     path('api/create-checkout-session/<str:sid>/', views.create_checkout_session, name='create-checkout-session'),
     path('stripe-payment-completed/<str:sid>/', views.stripe_payment_completed_view, name='stripe-payment-completed'),
     path('stripe-webhook/', views.stripe_webhook, name='stripe-webhook'),
+    path('api/stripe-session-status/', views.stripe_session_status, name='stripe-session-status'),
+
+    
+    path('start/<int:sid>/', views.start_kbzpay, name='start_kbzpay'),
+    path('kbzpay/callback/', views.kbzpay_callback, name='kbzpay_callback'),
+    
     
     #FAQs
     path("FAQs/", views.FAQs, name= "FAQs"),

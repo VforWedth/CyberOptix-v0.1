@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.dateformat import format as date_format
 from django.utils import timezone
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest
 from flame.models import Brand, Product, Category, Shop, CartOrder, CartOrderItem, ProductImages, ProductReview , Wishlist, Address
 
 from django.db.models import Count,Avg,F, ExpressionWrapper, FloatField
@@ -16,8 +16,16 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from paypal.standard.forms import  PayPalPaymentsForm
+import uuid, requests
+from inferno.pgw import sign_pgw_payload
+import hmac, hashlib, json
+
 from django.core import serializers
 import stripe
+import barcode
+from barcode.writer import ImageWriter
+from django.core.files.base import ContentFile
+
 def home(request):
     shop_views=Shop.objects.all()
  
@@ -432,7 +440,7 @@ def shop_cart_view(request):
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 
 def delete_item_from_shop_cart(request):
     product_id = str(request.GET.get('id'))
@@ -608,6 +616,7 @@ def shop_checkout_view(request, sid):
             active_address =None
             messages.warning(request, "Please add a shipping address")
             
+        
 
         return render(request, 'flame/checkout.html', {
             "shop_views": shop_views,
@@ -652,9 +661,10 @@ def create_checkout_session(request, sid):
                 },
                 'quantity': item['qty'],
             })
+            
         
         # Create Stripe checkout session
-        checkout_session = stripe.checkout.Session.create(
+        checkout_session = stripe.checkout.Session.create(   
             customer_email=user.email,
             payment_method_types=['card'],
             line_items=line_items,
@@ -669,12 +679,31 @@ def create_checkout_session(request, sid):
             }
         )
         
-        return JsonResponse({'session_id': checkout_session.id})
+        
+        return JsonResponse({'session_id': checkout_session.id,
+                             'checkout_url': checkout_session.url,
+                             'success_url':  request.build_absolute_uri(reverse('flame:payment-completed', args=[sid])
+                    )
+                             })
     
     except Shop.DoesNotExist:
         return JsonResponse({'error': 'Shop not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+    
+@require_GET
+def stripe_session_status(request):
+    session_id = request.GET.get('session_id')
+    if not session_id:
+        return JsonResponse({'paid': False}, status=400)
+
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+        return JsonResponse({
+            'paid': session.payment_status == 'paid'
+        })
+    except stripe.error.StripeError:
+        return JsonResponse({'paid': False}, status=500)
 
 @login_required
 def stripe_payment_completed_view(request, sid):
@@ -1085,6 +1114,61 @@ def remove_item(request, shop_id, product_id):
         logger.error(f"Error removing item: {str(e)}", exc_info=True)
         messages.error(request, "Failed to remove item")
         return redirect('flame:shop-cart')
+    
+
+def start_kbzpay(request, sid):
+    
+    shop = Shop.objects.get(shop_id=sid)
+    order = CartOrder.objects.all()
+    api = settings.KBZPAY["API_BASE_URL"]
+    payload = {
+        "merchantID":    settings.KBZPAY["MERCHANT_ID"],
+        "invoiceNo":     str(order.id),
+        "description":   f"Order #{order.id}",
+        "amount":        float(order.total_amount),
+        "currencyCode":  "MMK",
+        "nonceStr":      str(uuid.uuid4()),
+        "paymentChannel":["DPAY"]  # KBZPay’s DPAY channel
+    }
+    signature = sign_pgw_payload(settings.KBZPAY["SECRET_KEY"], payload)
+    headers = {"Content-Type": "application/json", "signature": signature}
+    resp = requests.post(f"{api}/paymenttoken", json=payload, headers=headers)
+    resp.raise_for_status()
+    token = resp.json()["paymentToken"]
+    # Redirect user to the KBZPay payment page
+    frontend = settings.KBZPAY["FRONTEND_URL"]
+    # backendRedirectURL is your Django endpoint to receive the callback
+    backend_url = request.build_absolute_uri("/payments/kbzpay/callback/")
+    redirect_params = {
+        "shop": shop,
+        "paymentToken":       token,
+        "backendRedirectUrl": backend_url,
+        "merchantRedirectUrl":request.build_absolute_uri(reverse("flame:payment-completed", args=[sid]))
+    }
+    # Build query‑string redirect
+    qs = "&".join(f"{k}={v}" for k, v in redirect_params.items())
+    return redirect(f"{frontend}?{qs}")
+
+
+@csrf_exempt
+def kbzpay_callback(request):
+    """
+    Receives server‑to‑server notification from 2C2P after the user completes payment.
+    """
+    payload = json.loads(request.body)
+    # 1. Validate signature
+    incoming_sig = request.headers.get("signature")
+    expected_sig = sign_pgw_payload(settings.KBZPAY["SECRET_KEY"], payload)
+    if not hmac.compare_digest(incoming_sig, expected_sig):
+        return HttpResponseBadRequest("Invalid signature")
+    # 2. Check transaction status
+    status = payload.get("status")  # e.g. 'SUCCESS'
+    invoice = payload.get("invoiceNo")
+    # 3. Update your order in DB
+    order = CartOrder.objects.get(pk=invoice)
+    order.status = "paid" if status == "SUCCESS" else "failed"
+    order.save()
+    return JsonResponse({"result":"OK"})
 def FAQs(request):
     return render(request, 'footerComponents/FAQs.html')
 
