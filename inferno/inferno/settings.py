@@ -17,6 +17,11 @@ CART_SESSION_ID = 'cart'  # This will be the key used to store cart in session
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from environs import Env
+env = Env()
+env.read_env()
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -178,8 +183,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 PAYPAL_TEST = True
 
 
-STRIPE_SECRET_KEY = ""
-STRIPE_PUBLIC_KEY = ""
-STRIPE_WEBHOOK_SECRET = ""
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+
 
 
