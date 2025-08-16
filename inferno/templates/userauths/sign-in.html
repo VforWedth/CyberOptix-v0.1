@@ -1,54 +1,55 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
 <main>
 <div class="container">
     <div class="form-container" style="position:absolute;top:13%">
-        <div class="col-1">
-            <div class="image-layer">
-                <div class="featured-words">
-                    <h2>Welcome to <span> CyberOptix</span> </h2>
-                    <p> Explore the latest laptops and exclusive deals tailored for you ! </p>
-                </div>
+    <div class="col-1">
+        <div class="image-layer">
+            <div class="featured-words">
+                <h2>{% trans "Welcome to" %} <span>CyberOptix</span> </h2>
+                <p>{% trans "Explore the latest laptops and exclusive deals tailored for you !" %}</p>
             </div>
         </div>
-        <div class="col-2">
-            <div class="btn-box">
-                <button id="login" class="btn btn-1">Login</button>
-                <button id="register" class="btn">Register</button>
-            </div>
-            {% csrf_token %}
-            
-            <form class="login-form" method="POST" action="{% url 'userauths:sign-in' %}">
-                {% csrf_token %}
-                <h2 class="form-title">Login</h2>
-                <!-- Error Messages -->
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    {% endfor %}
-                </div>
-                {% endif %}
-                <div class="form-inputs">
-                    <div class="input-box">
-                        <input type="text" name="username" class="input-field" placeholder="Username" required>
-                    </div>
-                    <div class="input-box">
-                        <input type="password" name="password" class="input-field" placeholder="Password" required>
-                    </div>
-                    <div class="forgot-pass">
-                        <a href="#">Forgot Password?</a>
-                    </div>
-                </div>
-                <button type="submit" class="input-submit">Login</button>
-            </form>
-        </div> 
     </div>
+    <div class="col-2">
+        <div class="btn-box">
+            <button id="login" class="btn btn-1">{% trans "Login" %}</button>
+            <button id="register" class="btn">{% trans "Register" %}</button>
+        </div>
+        {% csrf_token %}
+        
+        <form class="login-form" method="POST" action="{% url 'userauths:sign-in' %}">
+            {% csrf_token %}
+            <h2 class="form-title">{% trans "Login" %}</h2>
+            <!-- Error Messages -->
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-inputs">
+                <div class="input-box">
+                    <input type="text" name="username" class="input-field" placeholder="{% trans 'Username' %}" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" class="input-field" placeholder="{% trans 'Password' %}" required>
+                </div>
+                <div class="forgot-pass">
+                    <a href="#">{% trans "Forgot Password?" %}</a>
+                </div>
+            </div>
+            <button type="submit" class="input-submit">{% trans "Login" %}</button>
+        </form>
+    </div> 
+</div>
 
     <br> 
     {% comment %} <footer style="position:absolute;top:85%;">

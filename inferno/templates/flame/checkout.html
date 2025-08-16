@@ -1,6 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load math_filters %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 
@@ -17,13 +18,13 @@
         <p>You don't have any items in your cart. Go back and Continue Browsing</p>
         {%endif%} {% endcomment %}
         {% if order %}
-        <h2>Checking out from {{ shop.title }}</h2>
+        <h2>{% blocktrans %}Checking out from {{ shop.title }}{% endblocktrans %}</h2>
         <div class="shop-info">
-            <p>PayPal Account: {{ shop.paypal_email }}</p>
-            <p>Order ID: #{{ shop.id }}</p>
+            <p>{% trans "PayPal Account:" %} {{ shop.paypal_email }}</p>
+            <p>{% trans "Order ID:" %} #{{ shop.id }}</p>
         </div>
         {% else %}
-        <h2>General Order Checkout</h2>
+        <h2>{% trans "General Order Checkout" %}</h2>
         {% endif %}
 
         {% comment %} <div class="coupon-box">
@@ -32,7 +33,7 @@
         </div> {% endcomment %}
         <div class="checkout-content">
             <div class="billing-details">
-                <h3>Billing Details</h3>
+                <h3>{% trans "Billing Details" %}</h3>
                 
                 <form>
                     <input type="text" value = "{{ request.user.username|title }}" placeholder="First name *" required>
@@ -53,10 +54,10 @@
                 
             </div>
             <div class="order-summary">
-                <h3>Your Order</h3>
+                <h3>{% trans "Your Order" %}</h3>
                 {% comment %} <p><strong>Product</strong> <strong>Name</strong> <strong>Count</strong> <strong>Price</strong><strong>Subtotal</strong></p> {% endcomment %}
                 
-                <p><strong>Subtotal:</strong> <span id="subtotal">${{ cart_total_amount|floatformat:2 }}</span></p>
+                <p><strong>{% trans "Subtotal:" %}</strong> <span id="subtotal">${{ cart_total_amount|floatformat:2 }}</span></p>
                 <div class="cart-items">
                 {% for item in order.cartorderitem_set.all %}
                     <div class="item checkout-item" data-item-id="{{item_id}}" data-shop-id="{% if group.type == 'shop' %}{{ group.shop.shop_id }}{% endif %}">
@@ -77,8 +78,8 @@
 
                 <div id="qr-code" style="width:200px; height:200px; margin:20px auto;"></div>
 
-                <button class="btn btn-primary back-to-cart" id="stripe-checkout-button" style="background-color: #6772e5;"><i class="fab fa-stripe mr-2"></i> Pay with Stripe</button><br>
-                <button class="back-to-cart"><a href="{% url 'flame:product-list' %}" style="text-decoration: none;color: inherit;">Go back to Explore More</a></button>
+                <button class="btn btn-primary back-to-cart" id="stripe-checkout-button" style="background-color: #6772e5;"><i class="fab fa-stripe mr-2"></i> {% trans "Pay with Stripe" %}</button><br>
+                <button class="back-to-cart"><a href="{% url 'flame:product-list' %}" style="text-decoration: none;color: inherit;"> {% trans "Go back to Explore More" %} </a></button>
             </div>
         </div>
     </div>

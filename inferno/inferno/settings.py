@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 import os
 # settings.py
 CART_SESSION_ID = 'cart'  # This will be the key used to store cart in session
@@ -66,15 +68,22 @@ INSTALLED_APPS = [
     # Payment Integration
     'paypal.standard.ipn',
     
+    # Translation Apps
+    'modeltranslation',
+    'rosetta',
+    'parler',
+    
     #Custom Apps
     'flame',
     'userauths',
+    
 ]
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -96,6 +105,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.template.context_processors.csrf',
+                'django.template.context_processors.i18n',  # Add this for language support
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -139,11 +149,66 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    ('en', _('English')),
+    ('my', _('Burmese')),
+]
+
+# Language cookie settings
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_COOKIE_AGE = 365 * 24 * 60 * 60  # 1 year
+LANGUAGE_COOKIE_PATH = '/'
+
+# --- Solid I18n URLs ---
+SOLID_I18N_USE_REDIRECTS = True
+SOLID_I18N_HANDLE_DEFAULT_PREFIX = True
+SOLID_I18N_DEFAULT_PREFIX_REDIRECT = True
+
+# Rosetta settings (Translation interface)
+ROSETTA_MESSAGES_PER_PAGE = 50
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+ROSETTA_GOOGLE_TRANSLATE = True  # Enable Google Translate suggestions
+ROSETTA_ACCESS = lambda user: user.is_superuser  # Only superusers can access
+
+
+# Model Translation settings
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_LANGUAGES = ('en', 'my')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
+
+
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
+
+# --- Parler Settings ---
+PARLER_LANGUAGES =  {
+    None: (
+        {'code': 'en'},
+        {'code': 'my'},
+    ),
+    'default': {
+        'fallbacks' : ['en'],  # Fallback language
+        'hide_untranslated': False, # Show untranslated content
+    }
+}
+PARLER_DEFAULT_LANGUAGE_CODE = 'en'
+
+# Where Django looks for your translation files
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+TIME_ZONE = 'Asia/Yangon'
 
 USE_I18N = True
+USE_I10N = True
 
 USE_TZ = True
 

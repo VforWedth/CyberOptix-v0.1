@@ -1,0 +1,274 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="language-switcher-container">
+    <form action="{% url 'set_language' %}" method="post" id="language-form">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.path }}">
+        
+        
+            
+            <!-- Toggle Switch with integrated flags -->
+            <div class="toggle-switch">
+                <input class="sr-only" type="checkbox" id="langToggle" {% if LANGUAGE_CODE == 'my' %}checked{% endif %}>
+                <label for="langToggle" class="switch">
+                    <span class="knob">
+                        <!-- Integrated Myanmar Flag -->
+                        <img src="{% static 'assets/images/mm.svg' %}" alt="MY" class="inner-flag my-flag">
+                        <!-- Integrated English Flag -->
+                        <img src="{% static 'assets/images/gb.svg' %}" alt="EN" class="inner-flag en-flag">
+                    </span>
+                </label>
+            </div>
+            
+           
+    </form>
+</div>
+
+<style>
+    /* Accessible visually-hidden utility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* (existing language-toggle, flag-container, etc...) */
+
+/* Use explicit ID selector so it's clear where state comes from */
+#langToggle:checked + .switch .knob {
+    background-color: #ff9800;
+}
+
+#langToggle:checked + .switch .knob:before {
+    transform: translateX(30px);
+}
+
+/* inner flag visibility */
+.inner-flag {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s ease;
+    top: 5px;
+}
+
+.inner-flag.my-flag { left: 5px; opacity: 0; }
+.inner-flag.en-flag { right: 5px; opacity: 1; }
+
+#langToggle:checked + .switch .knob .inner-flag.my-flag { opacity: 1; }
+#langToggle:checked + .switch .knob .inner-flag.en-flag { opacity: 0; }
+.language-switcher-container {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.language-toggle {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    border-radius: 30px;
+    padding: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.flag-container {
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+}
+
+.flag-container.active {
+    background: #e3f2fd;
+    border: 2px solid #0a3eccff;
+    transform: scale(1.1);
+}
+
+.toggle-switch {
+    position: relative;
+    margin: 0 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.knob {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #090088ff;
+    transition: .4s;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.knob:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .switch .knob {
+    background-color: #ff9800;
+}
+
+input:checked + .switch .knob:before {
+    transform: translateX(30px);
+}
+
+.inner-flag {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s ease;
+    top: 5px;
+}
+
+.inner-flag.my-flag {
+    left: 5px;
+    opacity: 0;
+}
+
+.inner-flag.en-flag {
+    right: 5px;
+    opacity: 1;
+}
+
+input:checked + .switch .knob .inner-flag.my-flag {
+    opacity: 1;
+}
+
+input:checked + .switch .knob .inner-flag.en-flag {
+    opacity: 0;
+}
+
+/* Hover effects */
+.flag-container:hover {
+    background: #e3f2fd;
+    transform: scale(1.05);
+}
+
+.switch:hover .knob {
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .language-toggle {
+        padding: 3px;
+    }
+    
+    .flag-container {
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+    }
+    
+    .switch {
+        width: 50px;
+        height: 25px;
+    }
+    
+    .knob:before {
+        height: 21px;
+        width: 21px;
+    }
+    
+    input:checked + .switch .knob:before {
+        transform: translateX(25px);
+    }
+    
+    .inner-flag {
+        width: 18px;
+        height: 18px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const langToggle = document.getElementById('langToggle');
+    const flagContainers = document.querySelectorAll('.flag-container');
+    const languageForm = document.getElementById('language-form');
+    
+    // Toggle language when switch is changed
+    langToggle.addEventListener('change', function() {
+        const lang = this.checked ? 'my' : 'en';
+        setLanguage(lang);
+    });
+    
+    // Toggle language when flags are clicked
+    flagContainers.forEach(container => {
+        container.addEventListener('click', function() {
+            const lang = this.classList.contains('en-flag') ? 'en' : 'my';
+            // Update toggle position to match selection
+            langToggle.checked = (lang === 'my');
+            setLanguage(lang);
+        });
+    });
+    
+    function setLanguage(lang) {
+        // Update active state for flags
+        flagContainers.forEach(container => {
+            if (container.classList.contains(`${lang}-flag`)) {
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
+        });
+        
+        // Submit form
+        const langInput = document.createElement('input');
+        langInput.type = 'hidden';
+        langInput.name = 'language';
+        langInput.value = lang;
+        languageForm.appendChild(langInput);
+        languageForm.submit();
+    }
+    
+    // Animation for initial load
+    setTimeout(() => {
+        document.querySelector('.language-toggle').style.opacity = '1';
+        document.querySelector('.language-toggle').style.transform = 'translateY(0)';
+    }, 100);
+});
+</script>

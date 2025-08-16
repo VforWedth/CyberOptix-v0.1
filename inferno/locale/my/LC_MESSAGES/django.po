@@ -1,0 +1,2459 @@
+# Burmese translation for LaptopMart Myanmar
+# Copyright (C) 2024 LaptopMart Myanmar Team
+# This file is distributed under the same license as the LaptopMart Myanmar package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LaptopMart Myanmar 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-16 17:41+0630\n"
+"PO-Revision-Date: 2025-08-16 17:57+0630\n"
+"Last-Translator:   <lorendrain47@gmail.com>\n"
+"Language-Team: Burmese <my@laptopmart.mm>\n"
+"Language: my\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Translated-Using: django-rosetta 0.10.2\n"
+
+#: .\flame\custom_translation_view.py:42
+msgid "Translations updated successfully"
+msgstr ""
+
+#: .\flame\forms.py:6
+msgid "Write your review here..."
+msgstr "ဤနေရာတွင် သုံးသပ်ချက်ရေးသားပါ..."
+
+#: .\flame\views.py:81
+msgid "Welcome to CyberOptix"
+msgstr "CyberOptix မှ ကြိုဆိုပါသည်"
+
+#: .\flame\views.py:453
+msgid "Your Cart is Empty"
+msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
+
+#: .\inferno\settings.py:155
+msgid "English"
+msgstr "အင်္ဂလိပ်"
+
+#: .\inferno\settings.py:156
+msgid "Burmese"
+msgstr "မြန်မာ"
+
+#: .\templates\flame\brand-product-list.html:47
+#: .\templates\flame\category-product-list.html:47
+#: .\templates\flame\home.html:654 .\templates\flame\home.html:698
+#: .\templates\flame\home.html:741 .\templates\flame\product-list.html:979
+#: .\templates\flame\search.html:970
+#: .\templates\flame\shop-product-list.html:47
+#: .\templates\flame\wishlist.html:149
+msgid "View Product"
+msgstr "အသေးစိတ်ကြည့်ရန်"
+
+#: .\templates\flame\cart.html:167
+#, python-format
+msgid ""
+"\n"
+"                There is %(item_count)s product\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(item_count)s products\n"
+"            "
+msgstr[0] ""
+"\n"
+"                သင့်ခြင်းတောင်းထဲတွင် ပစ္စည်း %(item_count)s ခုရှိသည်\n"
+"            "
+
+#: .\templates\flame\cart.html:174
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
+#| "          "
+#| msgid_plural ""
+#| "\n"
+#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
+#| "          "
+msgid ""
+"\n"
+"                from %(shop_count)s shop\n"
+"            "
+msgid_plural ""
+"\n"
+"                from %(shop_count)s shops\n"
+"            "
+msgstr[0] ""
+"\n"
+"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"          "
+
+#: .\templates\flame\cart.html:181 .\templates\flame\shop-cart.html:26
+msgid "You don't have any items in your cart"
+msgstr "သင့်ခြင်းတောင်းထဲတွင် ပစ္စည်းမရှိပါ"
+
+#: .\templates\flame\cart.html:185 .\templates\flame\order-detail.html:86
+#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:43
+msgid "Product"
+msgstr "ကုန်ပစ္စည်း"
+
+#: .\templates\flame\cart.html:186 .\templates\flame\shop-cart.html:44
+msgid "Unit Price"
+msgstr "တခုချင်းစျေးနှုန်း"
+
+#: .\templates\flame\cart.html:187 .\templates\flame\order-detail.html:89
+#: .\templates\flame\product-detail.html:73
+#: .\templates\flame\shop-cart.html:45
+#: .\templates\flame\shop-product-detail.html:75
+msgid "Quantity"
+msgstr "အရေအတွက်"
+
+#: .\templates\flame\cart.html:188
+#: .\templates\flame\payment-completed.html:229
+#: .\templates\flame\shop-cart.html:46
+msgid "Subtotal"
+msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး"
+
+#: .\templates\flame\cart.html:189 .\templates\flame\profile.html:102
+#: .\templates\flame\shop-cart.html:47
+msgid "Actions"
+msgstr "လုပ်ဆောင်ချက်များ"
+
+#: .\templates\flame\cart.html:228
+msgid "Shipping:"
+msgstr "ပို့ဆောင်ခ:"
+
+#: .\templates\flame\cart.html:229
+msgid "Free"
+msgstr "အခမဲ့"
+
+#: .\templates\flame\cart.html:232
+msgid "Total:"
+msgstr "စုစုပေါင်း:"
+
+#: .\templates\flame\cart.html:240 .\templates\flame\shop-cart.html:112
+msgid "Continue Shopping"
+msgstr "စျေးဝယ်ဆက်လက်လုပ်ဆောင်ရန်"
+
+#: .\templates\flame\cart.html:244
+msgid "Proceed to Checkout"
+msgstr "ငွေရှင်းရန်"
+
+#: .\templates\flame\category.html:16
+msgid "Latest Trendings"
+msgstr "နောက်ဆုံးပေါ် ရေပန်းစားမှုများ"
+
+#: .\templates\flame\category.html:17
+msgid "Best Collections"
+msgstr "အကောင်းဆုံး စုဆောင်းမှုများ"
+
+#: .\templates\flame\category.html:19
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tIntroducing the latest trending categories: sleek design, and best quality.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+"\n"
+"\t\t\t\t\t\t\tနောက်ဆုံး‌ပေါ် ခေတ်စားနေသော အမျိုးအစားများ- သပ်ရပ်သောဒီဇိုင်းနှင့် အကောင်းဆုံးအရည်အသွေးများ\n"
+"\t\t\t\t\t\t"
+
+#: .\templates\flame\category.html:25 .\templates\flame\home.html:600
+#: .\templates\flame\product-list.html:717 .\templates\flame\search.html:708
+#: .\templates\flame\shop-list.html:7
+msgid "Shops"
+msgstr "ဆိုင်များ"
+
+#: .\templates\flame\category.html:39
+msgid "Categories"
+msgstr "အမျိုးအစားများ"
+
+#: .\templates\flame\category.html:50 .\templates\partials\base.html:136
+msgid "Laptop"
+msgstr "လက်ပ်တော့"
+
+#: .\templates\flame\category.html:54 .\templates\flame\category.html:68
+#: .\templates\flame\category.html:82
+msgid "items"
+msgstr "ပစ္စည်းများ"
+
+#: .\templates\flame\category.html:65 .\templates\partials\base.html:137
+msgid "Desktop"
+msgstr "ဒက်စ်တော့ပ်"
+
+#: .\templates\flame\category.html:79 .\templates\partials\base.html:138
+msgid "Accessories"
+msgstr "အသုံးအဆောင်ပစ္စည်းများ"
+
+#: .\templates\flame\checkout.html:22
+#, python-format
+msgid "Checking out from %(shop.title)s"
+msgstr "%(shop.title)s မှ ဝယ်ယူခြင်း"
+
+#: .\templates\flame\checkout.html:24
+msgid "PayPal Account:"
+msgstr "PayPal အကောင့်:"
+
+#: .\templates\flame\checkout.html:25
+msgid "Order ID:"
+msgstr "အမှာစာ ID: "
+
+#: .\templates\flame\checkout.html:28
+msgid "General Order Checkout"
+msgstr "အထွေထွေအမှာစာ ငွေရှင်းခြင်း"
+
+#: .\templates\flame\checkout.html:38
+msgid "Billing Details"
+msgstr "ငွေရှင်းမှုအသေးစိတ်"
+
+#: .\templates\flame\checkout.html:61
+msgid "Your Order"
+msgstr "သင့်၏အမှာစာ"
+
+#: .\templates\flame\checkout.html:65
+msgid "Subtotal:"
+msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး:"
+
+#: .\templates\flame\checkout.html:86
+msgid "Pay with Stripe"
+msgstr "Stripe ဖြင့်ငွေပေးချေရန်"
+
+#: .\templates\flame\checkout.html:87
+msgid "Go back to Explore More"
+msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
+
+#: .\templates\flame\home.html:561
+msgid "Your browser does not support the video tag."
+msgstr "သင့်ဘရောက်ဇာက ဗီဒီယိုကို ပြသနိုင်ခြင်းမရှိပါ"
+
+#: .\templates\flame\home.html:569
+msgid "Discounted items"
+msgstr "လျှော့စျေးပစ္စည်းများ"
+
+#: .\templates\flame\home.html:574
+msgid "New Items"
+msgstr "အသစ်ရောက်ပစ္စည်းများ"
+
+#: .\templates\flame\home.html:576
+msgid "Search by Brand"
+msgstr "ကုန်ပစ္စည်းအမှတ်တံဆိပ်ဖြင့်ရှာရန်"
+
+#: .\templates\flame\home.html:583
+msgid "Best laptops for a refined lifestyle."
+msgstr "သင့်ဘဝအတွက် အကောင်းဆုံးလက်တော့များ"
+
+#: .\templates\flame\home.html:584
+msgid "Start Shopping"
+msgstr "စျေးဝယ်ရန်"
+
+#: .\templates\flame\home.html:601
+msgid ""
+"Discover the perfect laptops and everyday essentials at unbeatable prices, "
+"tailored to meet all your needs with quality and convenience."
+msgstr ""
+"အရည်အသွေးမြင့် အဆင်ပြေလွယ်ကူမှုတို့နှင့် သင့်လိုအပ်ချက်အားလုံးကို "
+"ဖြည့်ဆည်းပေးနိုင်သော အကောင်းဆုံးစျေးနှုန်းများဖြင့်သာရရှိနိုင်သော "
+"လက်တော့များ၊ နေ့စဉ်လိုအပ်သောပစ္စည်းများကို ရှာဖွေလိုက်ပါ"
+
+#: .\templates\flame\home.html:611 .\templates\flame\shop-list.html:25
+msgid "View Shop"
+msgstr "ဆိုင်ကြည့်ရန်"
+
+#: .\templates\flame\home.html:626
+msgid "Most Popular Items"
+msgstr "လူကြိုက်အများဆုံးပစ္စည်းများ"
+
+#: .\templates\flame\home.html:668
+msgid "New Items "
+msgstr "အသစ်ရောက်ပစ္စည်းများ"
+
+#: .\templates\flame\home.html:710
+msgid "Discount Items "
+msgstr "လျှော့စျေးပစ္စည်းများ"
+
+#: .\templates\flame\order-detail.html:67
+msgid "Profile picture"
+msgstr "ပရိုဖိုင်ဓာတ်ပုံ"
+
+#: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
+#: .\templates\partials\base.html:98
+msgid "Profile"
+msgstr "ပရိုဖိုင်"
+
+#: .\templates\flame\order-detail.html:69 .\templates\flame\profile.html:14
+msgid "Orders"
+msgstr "အမှာစာများ"
+
+#: .\templates\flame\order-detail.html:70 .\templates\flame\profile.html:22
+msgid "Logout"
+msgstr "ထွက်ရန်"
+
+#: .\templates\flame\order-detail.html:77 .\templates\flame\profile.html:148
+#: .\templates\flame\profile.html:180
+msgid "Back to Orders"
+msgstr "အမှာစာများသို့ ပြန်သွားရန်"
+
+#: .\templates\flame\order-detail.html:79
+#, python-format
+msgid ""
+"\n"
+"                Order Details: INVOICE_NO-%(invoice)s\n"
+"            "
+msgstr ""
+"\n"
+"                အမှာစာအသေးစိတ်- ဘေလ်အမှတ်-%(invoice)s\n"
+"            "
+
+#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:161
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr "ပုံ"
+
+#: .\templates\flame\order-detail.html:88
+#: .\templates\flame\payment-completed.html:214
+#: .\templates\flame\profile.html:162 .\templates\flame\search.html:761
+msgid "Price"
+msgstr "စျေးနှုန်း"
+
+#: .\templates\flame\order-detail.html:90 .\templates\flame\profile.html:101
+#: .\templates\flame\profile.html:164
+msgid "Total"
+msgstr "စုစုပေါင်း"
+
+#: .\templates\flame\order-detail.html:102
+#, python-format
+msgid "Product image: %(title)s"
+msgstr "ထုတ်ကုန်ပုံ- %(title)s"
+
+#: .\templates\flame\payment-completed.html:184
+#, python-format
+msgid "INVOICE #%(order.id)s"
+msgstr "ဘေလ်အမှတ် #%(order.id)s"
+
+#: .\templates\flame\payment-completed.html:186
+#, python-format
+msgid "Payment to %(shop)s"
+msgstr "%(shop)s သို့ ငွေပေးချေမှု"
+
+#: .\templates\flame\payment-completed.html:188
+msgid "General Order Payment"
+msgstr "အထွေထွေအမှာစာ ငွေပေးချေမှု"
+
+#: .\templates\flame\payment-completed.html:194
+msgid "Date:"
+msgstr "ရက်စွဲ:"
+
+#: .\templates\flame\payment-completed.html:195
+msgid "Transaction ID:"
+msgstr "ငွေလွှဲအမှတ်:"
+
+#: .\templates\flame\payment-completed.html:197
+msgid "Merchant PayPal:"
+msgstr "ကုန်သည်ဆိုင်များ PayPal:"
+
+#: .\templates\flame\payment-completed.html:201
+msgid "Billed To"
+msgstr "ဘေလ်ပေးဆောင်ရန်"
+
+#: .\templates\flame\payment-completed.html:203
+msgid "Customer:"
+msgstr "ဖောက်သည်:"
+
+#: .\templates\flame\payment-completed.html:206
+msgid "Email:"
+msgstr "အီးမေးလ်:"
+
+#: .\templates\flame\payment-completed.html:213
+msgid "Item"
+msgstr "ပစ္စည်း"
+
+#: .\templates\flame\payment-completed.html:215
+#: .\templates\flame\profile.html:163
+msgid "Qty"
+msgstr "အရေအတွက်"
+
+#: .\templates\flame\payment-completed.html:216
+msgid "Amount"
+msgstr "ပမာဏ"
+
+#: .\templates\flame\payment-completed.html:233
+msgid "Tax"
+msgstr "အခွန်"
+
+#: .\templates\flame\payment-completed.html:237
+msgid "Grand Total"
+msgstr "စုစုပေါင်းပမာဏ"
+
+#: .\templates\flame\payment-completed.html:244
+msgid "Total Amount Due"
+msgstr "ပေးရန်ကျန်ငွေစုစုပေါင်း"
+
+#: .\templates\flame\payment-completed.html:247
+msgid "Payment Status:"
+msgstr "ငွေပေးချေမှုအခြေအနေ:"
+
+#: .\templates\flame\payment-completed.html:248
+msgid "Completed"
+msgstr "ပြီးစီးပါပြီ"
+
+#: .\templates\flame\payment-completed.html:253
+#, python-format
+msgid ""
+"\n"
+"            <p><strong>Thank you for your business, %(user|title)s!</strong></p>\n"
+"        "
+msgstr ""
+"\n"
+"            <p><strong>ကျေးဇူးတင်ပါသည် %(user|title)s မှာယူပေးသောကြောင့်!</strong></p>\n"
+"        "
+
+#: .\templates\flame\payment-completed.html:256
+msgid ""
+"If you have any questions about this invoice, please contact our support "
+"team."
+msgstr ""
+"ဤငွေတောင်းခံလွှာနှင့်ပတ်သက်ပြီး မေးမြန်းလိုသည်များရှိပါက ကျွန်ုပ်တို့၏ "
+"ဝန်ဆောင်မှုအဖွဲ့ကို ဆက်သွယ်ပါ။"
+
+#: .\templates\flame\payment-completed.html:260
+msgid "Print Invoice"
+msgstr "ငွေတောင်းခံလွှာပုံနှိပ်ရန်"
+
+#: .\templates\flame\payment-completed.html:261
+msgid "Download PDF"
+msgstr "PDF ဒေါင်းလုဒ်လုပ်ရန်"
+
+#: .\templates\flame\payment-failed.html:52
+msgid "PAYMENT FAILED"
+msgstr "ငွေပေးချေမှု မအောင်မြင်ပါ"
+
+#: .\templates\flame\payment-failed.html:55
+#, python-format
+msgid "Transaction ID: %(id)s"
+msgstr "ငွေလွှဲအမှတ်: %(id)s"
+
+#: .\templates\flame\payment-failed.html:56
+#, python-format
+msgid "Attempted payment to: %(shop)s"
+msgstr "ငွေပေးချေရန်ကြိုးစားခဲ့သောဆိုင်: %(shop)s"
+
+#: .\templates\flame\payment-failed.html:57
+#, python-format
+msgid "Shop PayPal: %(paypal)s"
+msgstr "ဆိုင် PayPal: %(paypal)s"
+
+#: .\templates\flame\payment-failed.html:61
+msgid "General Order Payment Failed"
+msgstr "အထွေထွေအမှာစာ ငွေပေးချေမှု မအောင်မြင်ပါ"
+
+#: .\templates\flame\payment-failed.html:69
+msgid "Need Help?"
+msgstr "အကူအညီလိုပါသလား?"
+
+#: .\templates\flame\payment-failed.html:71
+msgid "Check if your payment method has sufficient funds"
+msgstr "သင့်ငွေပေးချေမှုနည်းလမ်းတွင် လုံလောက်သောငွေရှိမရှိ စစ်ဆေးပါ"
+
+#: .\templates\flame\payment-failed.html:72
+msgid "Verify your card details are entered correctly"
+msgstr "သင့်ကဒ်အသေးစိတ်များကို မှန်ကန်စွာထည့်သွင်းထားကြောင်း စစ်ဆေးပါ"
+
+#: .\templates\flame\payment-failed.html:73
+msgid "Ensure your card hasn't expired"
+msgstr "သင့်ကဒ်သက်တမ်းမကုန်သေးကြောင်း သေချာပါစေ"
+
+#: .\templates\flame\payment-failed.html:74
+msgid "Contact your bank for authorization issues"
+msgstr "ခွင့်ပြုချက်ပြဿနာများအတွက် သင့်ဘဏ်ကို ဆက်သွယ်ပါ"
+
+#: .\templates\flame\payment-failed.html:75
+msgid "Try using a different payment method"
+msgstr "တခြားငွေပေးချေမှုနည်းလမ်းကို စမ်းသုံးကြည့်ပါ"
+
+#: .\templates\flame\payment-failed.html:97
+msgid "Need immediate assistance?"
+msgstr "ချက်ချင်းအကူအညီလိုပါသလား?"
+
+#: .\templates\flame\payment-failed.html:98
+#, python-format
+msgid ""
+"\n"
+"                Call us at %(phone)s or email %(email)s\n"
+"            "
+msgstr ""
+"\n"
+"                ကျွန်ုပ်တို့ကို %(phone)s သို့ဖုန်းဆက်ပါ သို့မဟုတ် %(email)s သို့အီးမေးလ်ပို့ပါ\n"
+"            "
+
+#: .\templates\flame\product-detail.html:30
+#: .\templates\flame\shop-product-detail.html:30
+msgid "Related Products"
+msgstr "ဆက်စပ်ထုတ်ကုန်ပစ္စည်းများ"
+
+#: .\templates\flame\product-detail.html:52
+#, python-format
+msgid "- {{ p.get_percentage|floatformat:0 }} %%"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:55
+#: .\templates\flame\shop-product-detail.html:38
+#: .\templates\flame\shop-product-detail.html:54
+msgid "$"
+msgstr "$"
+
+#: .\templates\flame\product-detail.html:59
+#: .\templates\flame\shop-product-detail.html:58
+msgid "Description"
+msgstr "ဖော်ပြချက်"
+
+#: .\templates\flame\product-detail.html:60
+#: .\templates\flame\shop-product-detail.html:59
+msgid "Additional Info"
+msgstr "အပိုအချက်အလက်"
+
+#: .\templates\flame\product-detail.html:61
+#: .\templates\flame\shop-product-detail.html:60
+#: .\templates\partials\base.html:55 .\templates\partials\base.html:66
+msgid "Shop"
+msgstr "ဆိုင်"
+
+#: .\templates\flame\product-detail.html:62
+#: .\templates\flame\shop-product-detail.html:64
+#, python-format
+msgid "Reviews (%(count)s)"
+msgstr "သုံးသပ်ချက်များ (%(count)s)"
+
+#: .\templates\flame\product-detail.html:95
+#: .\templates\flame\shop-product-detail.html:97
+msgid "Product Specifications"
+msgstr "ထုတ်ကုန်သတ်မှတ်ချက်များ"
+
+#: .\templates\flame\product-detail.html:109
+#: .\templates\flame\shop-product-detail.html:111
+msgid "Seller Information"
+msgstr "ရောင်းချသူအချက်အလက်"
+
+#: .\templates\flame\product-detail.html:117
+#: .\templates\flame\shop-product-detail.html:119
+msgid "Delivery Address"
+msgstr "ပို့ဆောင်ရန်လိပ်စာ"
+
+#: .\templates\flame\product-detail.html:130
+#: .\templates\flame\shop-product-detail.html:132
+msgid "Shop Address:"
+msgstr "ဆိုင်လိပ်စာ:"
+
+#: .\templates\flame\product-detail.html:131
+#: .\templates\flame\shop-product-detail.html:133
+msgid "Contact Seller:"
+msgstr "ရောင်းချသူဆက်သွယ်ရန်:"
+
+#: .\templates\flame\product-detail.html:133
+#: .\templates\flame\shop-product-detail.html:136
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
+#| "          "
+#| msgid_plural ""
+#| "\n"
+#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
+#| "          "
+msgid ""
+"\n"
+"              In Stock: %(stock_count)s item\n"
+"            "
+msgid_plural ""
+"\n"
+"              In Stock: %(stock_count)s items\n"
+"            "
+msgstr[0] ""
+"\n"
+"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"          "
+
+#: .\templates\flame\product-detail.html:145
+#: .\templates\flame\shop-product-detail.html:148
+msgid "Customer Reviews"
+msgstr "ဖောက်သည်သုံးသပ်ချက်များ"
+
+#: .\templates\flame\product-detail.html:147
+#: .\templates\flame\shop-product-detail.html:150
+msgid "out of 5.0"
+msgstr "5.0 မှ"
+
+#: .\templates\flame\product-detail.html:163
+#: .\templates\flame\shop-product-detail.html:166
+msgid "5 Star"
+msgstr "ကြယ် ၅ ပွင့်"
+
+#: .\templates\flame\product-detail.html:165
+#: .\templates\flame\shop-product-detail.html:168
+msgid "80 %"
+msgstr "၈၀ %"
+
+#: .\templates\flame\product-detail.html:168
+#: .\templates\flame\shop-product-detail.html:171
+msgid "4 Star"
+msgstr "ကြယ် ၄ ပွင့်"
+
+#: .\templates\flame\product-detail.html:170
+#: .\templates\flame\shop-product-detail.html:173
+msgid "15 %"
+msgstr "၁၅ %"
+
+#: .\templates\flame\product-detail.html:173
+#: .\templates\flame\shop-product-detail.html:176
+msgid "3 Star"
+msgstr "ကြယ် ၃ ပွင့်"
+
+#: .\templates\flame\product-detail.html:175
+#: .\templates\flame\shop-product-detail.html:178
+msgid "5 %"
+msgstr "၅ %"
+
+#: .\templates\flame\product-detail.html:195
+#: .\templates\flame\shop-product-detail.html:198
+msgid "No reviews yet. Be the first to review!"
+msgstr "သုံးသပ်ချက်မရှိသေးပါ။ ပထမဆုံးသုံးသပ်သူဖြစ်ရန်!"
+
+#: .\templates\flame\product-detail.html:203
+#: .\templates\flame\shop-product-detail.html:206
+msgid "Add a Review"
+msgstr "သုံးသပ်ချက်ထည့်ရန်"
+
+#: .\templates\flame\product-detail.html:213
+#: .\templates\flame\shop-product-detail.html:216
+msgid "Submit Review"
+msgstr "သုံးသပ်ချက်တင်သွင်းရန်"
+
+#: .\templates\flame\product-detail.html:217
+#: .\templates\flame\shop-product-detail.html:220
+#: .\templates\userauths\sign-in.html:20 .\templates\userauths\sign-in.html:27
+#: .\templates\userauths\sign-in.html:49 .\templates\userauths\sign-up.html:20
+msgid "Login"
+msgstr "အကောင့်ဝင်ရန်"
+
+#: .\templates\flame\product-detail.html:217
+#: .\templates\flame\shop-product-detail.html:220
+msgid "to write a review."
+msgstr "သုံးသပ်ချက်ရေးသားရန်"
+
+#: .\templates\flame\product-detail.html:234
+#: .\templates\partials\base.html:180
+msgid "All Rights Reserved 2024-2025"
+msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
+
+#: .\templates\flame\product-detail.html:237
+#: .\templates\partials\base.html:183
+msgid "Information"
+msgstr "အချက်အလက်"
+
+#: .\templates\flame\product-detail.html:239
+#: .\templates\partials\base.html:185
+msgid "About Us"
+msgstr "ကျွန်ုပ်တို့အကြောင်း"
+
+#: .\templates\flame\product-detail.html:244
+#: .\templates\partials\base.html:190
+msgid "Helpful Links"
+msgstr "အသုံးဝင်သောလင့်ခ်များ"
+
+#: .\templates\flame\product-detail.html:246
+#: .\templates\partials\base.html:192
+msgid "Services"
+msgstr "ဝန်ဆောင်မှုများ"
+
+#: .\templates\flame\product-detail.html:247
+#: .\templates\partials\base.html:193
+msgid "Privacy Policy"
+msgstr "ကိုယ်ရေးအချက်အလက်မူဝါဒ"
+
+#: .\templates\flame\product-detail.html:248
+#: .\templates\partials\base.html:194
+msgid "Terms & Condition"
+msgstr "စည်းကမ်းချက်များ"
+
+#: .\templates\flame\product-detail.html:253
+#: .\templates\partials\base.html:199
+msgid "Contact Us"
+msgstr "ဆက်သွယ်ရန်"
+
+#: .\templates\flame\product-list.html:708
+msgid "Products Available in CyberOptix"
+msgstr "CyberOptix မှ ရရှိနိုင်သောကုန်ပစ္စည်းများ"
+
+#: .\templates\flame\product-list.html:709 .\templates\flame\search.html:700
+msgid "Premium laptops for professionals"
+msgstr "Professional များအတွက် အဆင့်မြင့်လက်တော့များ"
+
+#: .\templates\flame\product-list.html:719 .\templates\flame\search.html:710
+msgid "All Shops"
+msgstr "ဆိုင်အားလုံး"
+
+#: .\templates\flame\product-list.html:739 .\templates\flame\search.html:730
+msgid "Try 'MacBook Pro' or '32GB RAM'..."
+msgstr "'MacBook Pro' သို့မဟုတ် '32GB RAM' စသည်ဖြင့်ရှာဖွေကြည့်ပါ..."
+
+#: .\templates\flame\product-list.html:804 .\templates\flame\search.html:794
+msgid "Custom price"
+msgstr "စိတ်ကြိုက်စျေးနှုန်း"
+
+#: .\templates\flame\product-list.html:812 .\templates\flame\search.html:803
+msgid "Apply"
+msgstr "အတည်ပြုရန်"
+
+#: .\templates\flame\profile.html:15
+msgid "Track Order"
+msgstr "အမှာစာလိုင်း ခြေရာခံရန်"
+
+#: .\templates\flame\profile.html:16
+msgid "My Address"
+msgstr "ကျွန်ုပ်၏လိပ်စာ"
+
+#: .\templates\flame\profile.html:35
+msgid "My Profile"
+msgstr "ကျွန်ုပ်၏ပရိုဖိုင်"
+
+#: .\templates\flame\profile.html:37
+msgid "Edit Profile"
+msgstr "ပရိုဖိုင်ပြင်ဆင်ရန်"
+
+#: .\templates\flame\profile.html:44
+msgid "Full Name"
+msgstr "အမည်အပြည့်အစုံ"
+
+#: .\templates\flame\profile.html:52
+msgid "About Me"
+msgstr "ကိုယ်ရေးအကျဉ်း"
+
+#: .\templates\flame\profile.html:55
+msgid "Customer"
+msgstr "ဖောက်သည်"
+
+#: .\templates\flame\profile.html:60 .\templates\flame\profile.html:245
+msgid "Phone Number"
+msgstr "ဖုန်းနံပါတ်"
+
+#: .\templates\flame\profile.html:65
+msgid "Not Verified"
+msgstr "မအတည်ပြုရသေး"
+
+#: .\templates\flame\profile.html:71
+msgid "Email Address"
+msgstr "အီးမေးလ်လိပ်စာ"
+
+#: .\templates\flame\profile.html:76
+msgid "Verified"
+msgstr "အတည်ပြုပြီး"
+
+#: .\templates\flame\profile.html:89
+msgid "Order History"
+msgstr "အမှာစာမှတ်တမ်း"
+
+#: .\templates\flame\profile.html:97
+msgid "Order ID"
+msgstr "အမှာစာ ID"
+
+#: .\templates\flame\profile.html:98
+msgid "Date"
+msgstr "ရက်စွဲ"
+
+#: .\templates\flame\profile.html:99
+msgid "Status"
+msgstr "အခြေအနေ"
+
+#: .\templates\flame\profile.html:100
+msgid "Payment"
+msgstr "ငွေပေးချေမှု"
+
+#: .\templates\flame\profile.html:118
+msgid "Paid"
+msgstr "ပေးပြီး"
+
+#: .\templates\flame\profile.html:120
+msgid "Pending"
+msgstr "ဆိုင်းငံ့ထား"
+
+#: .\templates\flame\profile.html:152
+msgid "Order Details:"
+msgstr "အမှာစာအသေးစိတ်:"
+
+#: .\templates\flame\profile.html:184
+msgid "Track Your Order"
+msgstr "သင့်အမှာစာလိုင်း ခြေရာခံရန်"
+
+#: .\templates\flame\profile.html:232
+msgid "Address Book"
+msgstr "လိပ်စာမှတ်တမ်း"
+
+#: .\templates\flame\profile.html:238
+msgid "Add New Address"
+msgstr "လိပ်စာအသစ်ထည့်ရန်"
+
+#: .\templates\flame\profile.html:241
+msgid "Address"
+msgstr "လိပ်စာ"
+
+#: .\templates\flame\profile.html:250
+msgid "Save Address"
+msgstr "လိပ်စာသိမ်းဆည်းရန်"
+
+#: .\templates\flame\profile.html:257
+msgid "Saved Addresses"
+msgstr "သိမ်းဆည်းထားသောလိပ်စာများ"
+
+#: .\templates\flame\profile.html:261
+#, python-format
+msgid "Address %(forloop.counter)s"
+msgstr "လိပ်စာ %(forloop.counter)s"
+
+#: .\templates\flame\profile.html:267
+msgid "Default"
+msgstr "မူရင်း"
+
+#: .\templates\flame\profile.html:270
+msgid "Make Default"
+msgstr "မူရင်းအဖြစ်သတ်မှတ်ရန်"
+
+#: .\templates\flame\search.html:699
+msgid "Search For"
+msgstr "ရှာဖွေမည့်အရာ"
+
+#: .\templates\flame\search.html:711
+msgid "Unique"
+msgstr "Unique"
+
+#: .\templates\flame\search.html:712
+msgid "ICT"
+msgstr "ICT"
+
+#: .\templates\flame\search.html:713
+msgid "Citicom"
+msgstr "Citicom"
+
+#: .\templates\flame\search.html:714
+msgid "Innwa"
+msgstr "အင်းဝ"
+
+#: .\templates\flame\search.html:733
+msgid "Search products"
+msgstr "ကုန်ပစ္စည်းများရှာဖွေရန်"
+
+#: .\templates\flame\search.html:741
+msgid "Clear search"
+msgstr "ရှာဖွေမှုရှင်းလင်းရန်"
+
+#: .\templates\flame\search.html:749
+msgid "Submit search"
+msgstr "ရှာဖွေမှုအတည်ပြုရန်"
+
+#: .\templates\flame\search.html:751
+msgid "Search"
+msgstr "ရှာဖွေရန်"
+
+#: .\templates\flame\shop-cart.html:19
+#, python-format
+msgid ""
+"\n"
+"    You have %(totalcartitems)s item from %(shopcount)s shop\n"
+msgid_plural ""
+"\n"
+"    You have %(totalcartitems)s items from %(shopcount)s shops\n"
+msgstr[0] ""
+"\n"
+"              သင့်တွင် ဆိုင်  %(shopcount)s ဆိုင် မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"          \n"
+
+#: .\templates\flame\shop-cart.html:34
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                        %(itemcount)s item                    "
+#| msgid_plural ""
+#| "\n"
+#| "                        %(itemcount)s items                    "
+msgid ""
+"\n"
+"                        %(itemcount)s item\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(itemcount)s items\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                        %(itemcount)s ပစ္စည်း"
+
+#: .\templates\flame\shop-cart.html:58
+#, python-format
+msgid "Sold by %(seller)s"
+msgstr "%(seller)s မှရောင်းချသည်"
+
+#: .\templates\flame\shop-cart.html:88
+msgid "Shop Total:"
+msgstr "ဆိုင်စုစုပေါင်း:"
+
+#: .\templates\flame\shop-cart.html:94
+#, python-format
+msgid "Checkout %(shopname)s "
+msgstr "%(shopname)s ကိုငွေရှင်းရန်"
+
+#: .\templates\flame\shop-cart.html:106
+msgid "Grand Total:"
+msgstr "စုစုပေါင်းပမာဏ:"
+
+#: .\templates\flame\shop-cart.html:110
+msgid "items in cart"
+msgstr "ခြင်းတောင်းထဲရှိ ပစ္စည်းများ"
+
+#: .\templates\flame\shop-list.html:9
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "    We have %(shop_count)s shop now.    "
+#| msgid_plural ""
+#| "\n"
+#| "    We have %(shop_count)s shops now.    "
+msgid ""
+"\n"
+"    We have %(shop_count)s shop now.\n"
+"    "
+msgid_plural ""
+"\n"
+"    We have %(shop_count)s shops now.\n"
+"    "
+msgstr[0] ""
+"\n"
+"    ကျွန်ုပ်တို့တွင် ဆိုင် %(shop_count)s ဆိုင်ရှိပါသည်။"
+
+#: .\templates\flame\shop-product-detail.html:14
+#, python-format
+msgid "Main image of %(title)s"
+msgstr "%(title)s ၏ အဓိကပုံ"
+
+#: .\templates\flame\shop-product-detail.html:19
+#, python-format
+msgid "Thumbnail of %(title)s"
+msgstr "%(title)s ၏ အခြားပုံ"
+
+#: .\templates\flame\shop-product-detail.html:21
+msgid "Product Image"
+msgstr "ထုတ်ကုန်ပုံ"
+
+#: .\templates\flame\shop-product-detail.html:51
+#, python-format
+msgid "- %(pct)s %%"
+msgstr "- %(pct)s %%"
+
+#: .\templates\flame\shop-product-detail.html:91
+msgid "Add to Cart"
+msgstr "ခြင်းတောင်းထဲထည့်ရန်"
+
+#: .\templates\flame\shop-product-detail.html:92
+msgid "Countinue Browsing"
+msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
+
+#: .\templates\flame\shop-product-detail.html:114
+#, python-format
+msgid "Image for %(shop)s"
+msgstr "%(shop)s အတွက် ပုံ"
+
+#: .\templates\flame\shop-product-detail.html:187
+msgid "User"
+msgstr "အသုံးပြုသူ"
+
+#: .\templates\flame\wishlist.html:111
+msgid "Your Wishlist"
+msgstr "သင့်နှစ်သက်စာရင်း"
+
+#: .\templates\flame\wishlist.html:113
+#, python-format
+msgid ""
+"\n"
+"                There are <span id=\"itemCount\">%(count)s</span> product in this list\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are <span id=\"itemCount\">%(count)s</span> products in this list\n"
+"            "
+msgstr[0] ""
+"\n"
+"                ဤစာရင်းတွင် ပစ္စည်း <span id=\"itemCount\">%(count)s</span> ခုရှိသည်\n"
+"            "
+
+#: .\templates\flame\wishlist.html:132
+msgid "In Stock"
+msgstr "ကုန်ပစ္စည်းလက်ကျန်"
+
+#: .\templates\flame\wishlist.html:134
+msgid "Out of Stock"
+msgstr "ကုန်ပစ္စည်းလက်ကျန်မရှိ"
+
+#: .\templates\flame\wishlist.html:146
+msgid "Add to cart"
+msgstr "ခြင်းတောင်းထဲထည့်ရန်"
+
+#: .\templates\partials\base.html:10
+msgid "CyberOptix - Premium Laptops Myanmar"
+msgstr "CyberOptix - မြန်မာနိုင်ငံ၏ ပရီမီယံလက်တော့များ"
+
+#: .\templates\partials\base.html:50
+msgid "CyberOptix"
+msgstr "CyberOptix"
+
+#: .\templates\partials\base.html:53
+msgid "Home"
+msgstr "ပင်မစာမျက်နှာ"
+
+#: .\templates\partials\base.html:71
+msgid "About"
+msgstr "ကျွန်ုပ်တို့အကြောင်း"
+
+#: .\templates\partials\base.html:72
+msgid "FAQs"
+msgstr "မေးလေ့ရှိသောမေးခွန်းများ"
+
+#: .\templates\partials\base.html:101
+msgid "Sign Out"
+msgstr "ထွက်ရန်"
+
+#: .\templates\partials\base.html:105
+msgid "Sign In"
+msgstr "အကောင့်ဝင်ရန်"
+
+#: .\templates\partials\base.html:108
+msgid "Sign up"
+msgstr "အကောင့်ဖွင့်ရန်"
+
+#: .\templates\partials\base.html:123
+msgid "Brand"
+msgstr "ကုန်အမှတ်တံဆိပ်"
+
+#: .\templates\partials\base.html:128
+msgid "All"
+msgstr "အားလုံး"
+
+#: .\templates\userauths\sign-in.html:13 .\templates\userauths\sign-up.html:13
+msgid "Welcome to"
+msgstr "ကြိုဆိုပါ၏"
+
+#: .\templates\userauths\sign-in.html:14 .\templates\userauths\sign-up.html:14
+msgid "Explore the latest laptops and exclusive deals tailored for you !"
+msgstr ""
+"သင့်အတွက်သီးသန့်ပြင်ဆင်ထားသော နောက်ဆုံးပေါ်လက်တော့များနှင့် "
+"အထူးလျှော့စျေးများကို လာရောက်ကြည့်ရှုလိုက်ပါ!"
+
+#: .\templates\userauths\sign-in.html:21 .\templates\userauths\sign-up.html:21
+msgid "Register"
+msgstr "မှတ်ပုံတင်ရန်"
+
+#: .\templates\userauths\sign-in.html:40 .\userauths\forms.py:12
+msgid "Username"
+msgstr "အသုံးပြုသူအမည်"
+
+#: .\templates\userauths\sign-in.html:43 .\userauths\forms.py:26
+msgid "Password"
+msgstr "လျှို့ဝှက်နံပါတ်"
+
+#: .\templates\userauths\sign-in.html:46
+msgid "Forgot Password?"
+msgstr "လျှို့ဝှက်နံပါတ်မေ့နေပါသလား?"
+
+#: .\templates\userauths\sign-up.html:26 .\templates\userauths\sign-up.html:63
+msgid "Sign Up"
+msgstr "အကောင့်ဖွင့်ရန်"
+
+#: .\userauths\forms.py:15
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"လိုအပ်ပါသည်။ အက္ခရာ၊ ဂဏန်းနှင့် @ / . / + / - / _ တို့ကိုသာ အသုံးပြုပြီး "
+"စာလုံးရေ ၁၅၀ လုံးထက် မကျော်ရပါ။"
+
+#: .\userauths\forms.py:19
+msgid "Email"
+msgstr "အီးမေးလ်:"
+
+#: .\userauths\forms.py:29
+msgid "Your password must contain at least 8 characters."
+msgstr "သင့်စကားဝှက်တွင် အနည်းဆုံး စာလုံးရေ ၈ လုံးပါဝင်ရမည်။"
+
+#: .\userauths\forms.py:34
+msgid "Confirm Password"
+msgstr "လျှို့ဝှက်နံပါတ်ကိုအတည်ပြုပါ"
+
+#: .\userauths\forms.py:37
+msgid "Enter the same password as before, for verification."
+msgstr "စစ်မှန်ကြောင်း အတည်ပြုရန် ယခင်စကားဝှက်အတူတူ ထည့်ပါ။"
+
+#: .\userauths\forms.py:47
+msgid "This email address is already in use."
+msgstr "ဤအီးမေးလ်လိပ်စာကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
+
+#: .\userauths\forms.py:53
+msgid "This username is already taken."
+msgstr "ဤအသုံးပြုသူအမည်ကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr "မက်ဆေ့ချ်များ"
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr "ဆိုက်မြေပုံများ"
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr "စတက်တစ်ဖိုင်များ"
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr "ဖြန့်ဖြူးခြင်း"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr "…"
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr "စာမျက်နှာနံပါတ်သည် ကိန်းပြည့်မဟုတ်ပါ"
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr "စာမျက်နှာနံပါတ်သည် 1 ထက်နည်းနေပါသည်"
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr "ထိုစာမျက်နှာတွင် ရလဒ်များမရှိပါ"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr "မှန်ကန်သောတန်ဖိုးထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr "မှန်ကန်သော domain name ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:155
+#: .\venv\Lib\site-packages\django\forms\fields.py:768
+msgid "Enter a valid URL."
+msgstr "မှန်ကန်သော URL ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:216
+msgid "Enter a valid integer."
+msgstr "မှန်ကန်သော ကိန်းပြည့်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:227
+msgid "Enter a valid email address."
+msgstr "မှန်ကန်သော အီးမေးလ်လိပ်စာထည့်ပါ။"
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:310
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+"အက္ခရာ၊ ဂဏန်း၊ အောက်မျဉ်း သို့မဟုတ် ဟိုက်ဖန်မျဉ်းများပါဝင်သော မှန်ကန်သည့် "
+"“slug” ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
+msgstr ""
+"ယူနီကုဒ်အက္ခရာ၊ ဂဏန်း၊ အောက်မျဉ်း သို့မဟုတ် ဟိုက်ဖန်မျဉ်းများပါဝင်သော "
+"မှန်ကန်သည့် “slug” ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:330
+#: .\venv\Lib\site-packages\django\core\validators.py:339
+#: .\venv\Lib\site-packages\django\core\validators.py:353
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2215
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr "မှန်ကန်သော %(protocol)s လိပ်စာထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+msgid "IPv4"
+msgstr "IPv4"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:341
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:30
+msgid "IPv6"
+msgstr "IPv6"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:355
+msgid "IPv4 or IPv6"
+msgstr "IPv4 သို့မဟုတ် IPv6"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:396
+msgid "Enter only digits separated by commas."
+msgstr "ကော်မာခြားထားသော ဂဏန်းများသာထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:402
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+"ဤတန်ဖိုးသည် %(limit_value)s ဖြစ်ကြောင်း သေချာပါစေ (လက်ရှိ %(show_value)s)။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:437
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr "ဤတန်ဖိုးသည် %(limit_value)s ထက်နည်း သို့မဟုတ် ညီမျှကြောင်း သေချာပါစေ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:446
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr "ဤတန်ဖိုးသည် %(limit_value)s ထက်ကြီး သို့မဟုတ် ညီမျှကြောင်း သေချာပါစေ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:455
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+"ဤတန်ဖိုးသည် အဆင့်အရွယ်အစား %(limit_value)s ၏ ဆတိုးဖြစ်ကြောင်း သေချာပါစေ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:462
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+"ဤတန်ဖိုးသည် %(offset)s မှစတင်၍ အဆင့်အရွယ်အစား %(limit_value)s ၏ "
+"ဆတိုးဖြစ်ကြောင်း သေချာပါစေ။ ဥပမာ %(offset)s, %(valid_value1)s, "
+"%(valid_value2)s စသည်ဖြင့်။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:494
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+"ဤတန်ဖိုးတွင် အနည်းဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
+"%(show_value)d လုံး)။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:512
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+"ဤတန်ဖိုးတွင် အများဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
+"%(show_value)d လုံး)။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:535
+#: .\venv\Lib\site-packages\django\forms\fields.py:359
+#: .\venv\Lib\site-packages\django\forms\fields.py:398
+msgid "Enter a number."
+msgstr "နံပါတ်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:537
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] "စုစုပေါင်းဂဏန်း %(max)s လုံးထက်မပိုစေရန် သေချာပါစေ။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:542
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] "ဒဿမနေရာ %(max)s နေရာထက်မပိုစေရန် သေချာပါစေ။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:547
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] "ဒဿမအမှတ်မတိုင်မီ ဂဏန်း %(max)s လုံးထက်မပိုစေရန် သေချာပါစေ။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:618
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+"ဖိုင်အမျိုးအစား “%(extension)s” ကို ခွင့်မပြုပါ။ ခွင့်ပြုထားသော "
+"ဖိုင်အမျိုးအစားများမှာ %(allowed_extensions)s ဖြစ်သည်။"
+
+#: .\venv\Lib\site-packages\django\core\validators.py:680
+msgid "Null characters are not allowed."
+msgstr "null စာလုံးများကို ခွင့်မပြုပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1572
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr "နှင့်"
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1574
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr "ဤ %(field_labels)s ဖြင့် %(model_name)s ရှိပြီးသားဖြစ်သည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr "ကန့်သတ်ချက် “%(name)s” ကို ချိုးဖောက်ထားသည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr "တန်ဖိုး %(value)r သည် မှန်ကန်သောရွေးချယ်မှုမဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr "ဤအကွက်ကို null မဖြစ်ရပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr "ဤအကွက်ကို ဗလာမထားရပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr "ဤ %(field_label)s ဖြင့် %(model_name)s ရှိပြီးသားဖြစ်သည်။"
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+"%(date_field_label)s %(lookup_type)s အတွက် %(field_label)s သည် "
+"ထူးခြားရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr "အကွက်အမျိုးအစား: %(field_type)s"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1156
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr "“%(value)s” တန်ဖိုးသည် True သို့မဟုတ် False ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1157
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr "“%(value)s” တန်ဖိုးသည် True, False သို့မဟုတ် None ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1159
+msgid "Boolean (Either True or False)"
+msgstr "ဘူလီယံ (True သို့မဟုတ် False)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1209
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr "စာကြောင်း (အများဆုံး %(max_length)s)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1211
+msgid "String (unlimited)"
+msgstr "စာကြောင်း (အကန့်အသတ်မရှိ)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1320
+msgid "Comma-separated integers"
+msgstr "ကော်မာခြားထားသော ကိန်းပြည့်များ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1421
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ရက်စွဲပုံစံမှားနေပါသည်။ ၎င်းသည် YYYY-MM-DD "
+"ပုံစံဖြင့်ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1425
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1560
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှန်ကန်သော်လည်း (YYYY-MM-DD) "
+"မှားယွင်းသောရက်စွဲဖြစ်နေပါသည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1429
+msgid "Date (without time)"
+msgstr "ရက်စွဲ (အချိန်မပါ)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1556
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှားနေပါသည်။ ၎င်းသည် YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] ပုံစံဖြင့်ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1564
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှန်ကန်သော်လည်း (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) မှားယွင်းသောရက်စွဲ/အချိန်ဖြစ်နေပါသည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1569
+msgid "Date (with time)"
+msgstr "ရက်စွဲ (အချိန်ပါ)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1696
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr "“%(value)s” တန်ဖိုးသည် ဒဿမကိန်းဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1698
+msgid "Decimal number"
+msgstr "ဒဿမကိန်း"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1859
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှားနေပါသည်။ ၎င်းသည် [DD] [[HH:]MM:]ss[.uuuuuu] "
+"ပုံစံဖြင့် ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1863
+msgid "Duration"
+msgstr "ကြာချိန်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1915
+msgid "Email address"
+msgstr "အီးမေးလ်လိပ်စာ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1940
+msgid "File path"
+msgstr "ဖိုင်လမ်းကြောင်း"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2018
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr "“%(value)s” တန်ဖိုးသည် float ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2020
+msgid "Floating point number"
+msgstr "ဒဿမကိန်း"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2060
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr "“%(value)s” တန်ဖိုးသည် ကိန်းပြည့်ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2062
+msgid "Integer"
+msgstr "ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2158
+msgid "Big (8 byte) integer"
+msgstr "ကြီးမားသော (8 byte) ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2175
+msgid "Small integer"
+msgstr "သေးငယ်သော ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2183
+msgid "IPv4 address"
+msgstr "IPv4 လိပ်စာ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2214
+msgid "IP address"
+msgstr "IP လိပ်စာ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2305
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr "“%(value)s” တန်ဖိုးသည် None, True သို့မဟုတ် False ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2308
+msgid "Boolean (Either True, False or None)"
+msgstr "ဘူလီယံ (True, False သို့မဟုတ် None)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2359
+msgid "Positive big integer"
+msgstr "အပြုသင်္ကေတ ကြီးမားသော ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2374
+msgid "Positive integer"
+msgstr "အပြုသင်္ကေတ ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2389
+msgid "Positive small integer"
+msgstr "အပြုသင်္ကေတ သေးငယ်သော ကိန်းပြည့်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2405
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr "Slug (အများဆုံး %(max_length)s)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2441
+msgid "Text"
+msgstr "စာသား"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2521
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှားနေပါသည်။ ၎င်းသည် HH:MM[:ss[.uuuuuu]] "
+"ပုံစံဖြင့်ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2525
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+"“%(value)s” တန်ဖိုး၏ ပုံစံမှန်ကန်သော်လည်း (HH:MM[:ss[.uuuuuu]]) "
+"မှားယွင်းသောအချိန်ဖြစ်နေပါသည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2529
+msgid "Time"
+msgstr "အချိန်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2637
+msgid "URL"
+msgstr "URL"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2661
+msgid "Raw binary data"
+msgstr "အခြေခံ binary အချက်အလက်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2726
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr "“%(value)s” သည် မှန်ကန်သော UUID မဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2728
+msgid "Universally unique identifier"
+msgstr "ထူးခြားသောအမှတ်အသား"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr "ဖိုင်"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr "JSON အရာဝတ္ထု"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr "တန်ဖိုးသည် မှန်ကန်သော JSON ဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:932
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr "%(field)s %(value)r ဖြင့် %(model)s ဥပမာမရှိပါ။"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:934
+msgid "Foreign Key (type determined by related field)"
+msgstr "နိုင်ငံခြားသော့ (အမျိုးအစားကို ဆက်နွယ်သောအကွက်က ဆုံးဖြတ်သည်)"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1228
+msgid "One-to-one relationship"
+msgstr "တစ်ခုနှင့်တစ်ခု ဆက်နွယ်မှု"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1285
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr "%(from)s-%(to)s ဆက်နွယ်မှု"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1287
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr "%(from)s-%(to)s ဆက်နွယ်မှုများ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
+msgid "Many-to-many relationship"
+msgstr "များစွာနှင့်များစွာ ဆက်နွယ်မှု"
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the
+#. label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ":?.!"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr "ဤအကွက်ကို ဖြည့်ရန်လိုအပ်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:308
+msgid "Enter a whole number."
+msgstr "ကိန်းပြည့်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:479
+#: .\venv\Lib\site-packages\django\forms\fields.py:1260
+msgid "Enter a valid date."
+msgstr "မှန်ကန်သောရက်စွဲထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:502
+#: .\venv\Lib\site-packages\django\forms\fields.py:1261
+msgid "Enter a valid time."
+msgstr "မှန်ကန်သောအချိန်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:529
+msgid "Enter a valid date/time."
+msgstr "မှန်ကန်သောရက်စွဲ/အချိန်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:563
+msgid "Enter a valid duration."
+msgstr "မှန်ကန်သောကြာချိန်ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:564
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr "ရက်အရေအတွက်သည် {min_days} နှင့် {max_days} ကြားဖြစ်ရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:633
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr "ဖိုင်တင်မထားပါ။ ဖောင်ပေါ်ရှိ encoding အမျိုးအစားကို စစ်ဆေးပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:634
+msgid "No file was submitted."
+msgstr "ဖိုင်တင်မထားပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:635
+msgid "The submitted file is empty."
+msgstr "တင်လိုက်သောဖိုင်သည် ဗလာဖြစ်နေပါသည်။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:637
+#, python-format
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+"ဤဖိုင်အမည်တွင် အများဆုံး %(max)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
+"%(length)d လုံး)။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+"ဖိုင်တင်ပါ သို့မဟုတ် ရှင်းလင်းရန်ခလုတ်ကို မှတ်ပါ။ နှစ်ခုလုံးမလုပ်ပါနှင့်။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:710
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+"မှန်ကန်သောပုံတင်ပါ။ သင်တင်လိုက်သောဖိုင်သည် ပုံမဟုတ်ပါ သို့မဟုတ် "
+"ပျက်စီးနေသောပုံဖြစ်နေပါသည်။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:882
+#: .\venv\Lib\site-packages\django\forms\fields.py:968
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+"မှန်ကန်သောရွေးချယ်မှုတစ်ခုကို ရွေးပါ။ %(value)s သည် "
+"ရနိုင်သောရွေးချယ်မှုများထဲမှတစ်ခုမဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:970
+#: .\venv\Lib\site-packages\django\forms\fields.py:1089
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr "တန်ဖိုးစာရင်းထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1090
+msgid "Enter a complete value."
+msgstr "ပြည့်စုံသောတန်ဖိုးထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1329
+msgid "Enter a valid UUID."
+msgstr "မှန်ကန်သော UUID ထည့်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1359
+msgid "Enter a valid JSON."
+msgstr "မှန်ကန်သော JSON ထည့်ပါ။"
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:94
+msgid ":"
+msgstr ":"
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:230
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr "(ဝှက်ထားသောအကွက် %(name)s) %(error)s"
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+"ManagementForm အချက်အလက်များ ပျောက်နေပါသည် သို့မဟုတ် စနက်ခံထားရပါသည်။ "
+"ပျောက်နေသောအကွက်များ: %(field_names)s။ ပြဿနာဆက်ရှိနေပါက bug report တင်ရန် "
+"လိုအပ်နိုင်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] "အများဆုံး %(num)d ဖောင်ကိုသာ တင်ပါ။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] "အနည်းဆုံး %(num)d ဖောင်ကို တင်ပါ။"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr "အမှာစာ"
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr "ဖျက်ရန်"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "%(field)s အတွက် နှစ်ခါပါနေသောအချက်အလက်ကို ပြင်ဆင်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+"%(field)s အတွက် နှစ်ခါပါနေသောအချက်အလက်ကို ပြင်ဆင်ပါ၊ ၎င်းသည် ထူးခြားရပါမည်။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+"%(date_field)s အတွင်း %(lookup)s အတွက် ထူးခြားရပါမည့် %(field_name)s အတွက် "
+"နှစ်ခါပါနေသောအချက်အလက်ကို ပြင်ဆင်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr "အောက်ပါနှစ်ခါပါနေသောတန်ဖိုးများကို ပြင်ဆင်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr "inline တန်ဖိုးသည် အဓိကဥပမာနှင့် မကိုက်ညီပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+"မှန်ကန်သောရွေးချယ်မှုတစ်ခုကို ရွေးပါ။ ထိုရွေးချယ်မှုသည် "
+"ရနိုင်သောရွေးချယ်မှုများထဲမှတစ်ခုမဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr "“%(pk)s” သည် မှန်ကန်သောတန်ဖိုးမဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+"%(datetime)s ကို %(current_timezone)s အချိန်ဇုန်တွင် ဖတ်ရှုနိုင်ခြင်းမရှိပါ၊"
+" ၎င်းသည် မရေရာနိုင်ပါ သို့မဟုတ် မရှိနိုင်ပါ။"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:461
+msgid "Clear"
+msgstr "ရှင်းလင်းရန်"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:462
+msgid "Currently"
+msgstr "လက်ရှိ"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:463
+msgid "Change"
+msgstr "ပြောင်းလဲရန်"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:800
+msgid "Unknown"
+msgstr "မသိ"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:801
+msgid "Yes"
+msgstr "ဟုတ်ကဲ့"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:802
+msgid "No"
+msgstr "မဟုတ်ပါ"
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr "ဟုတ်,မဟုတ်,ဖြစ်နိုင်"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] "%(size)d ဘိုက်"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr "%s GB"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr "%s TB"
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr "%s PB"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr "ညနေ"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr "မနက်"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr "ညနေ"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr "မနက်"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr "သန်းခေါင်"
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr "နေ့လယ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr "တနင်္လာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr "အင်္ဂါ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr "ဗုဒ္ဓဟူး"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr "ကြာသပတေး"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr "သောကြာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr "စနေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr "တနင်္ဂနွေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr "တနင်္လာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr "အင်္ဂါ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr "ဗုဒ္ဓဟူး"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr "ကြာသပတေး"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr "သောကြာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr "စနေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr "တနင်္ဂနွေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr "ဇန်နဝါရီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr "ဖေဖော်ဝါရီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr "မတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr "ဧပြီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr "မေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr "ဇွန်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr "ဇူလိုင်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr "ဩဂုတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr "စက်တင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr "အောက်တိုဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr "နိုဝင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr "ဒီဇင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr "ဇန်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr "ဖေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr "မတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr "ဧ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr "မေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr "ဇွန်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr "ဇူ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr "ဩ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr "စက်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr "အောက်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr "နို"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr "ဒီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr "ဇန်."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr "ဖေ."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "မတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr "ဧ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "မေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr "ဇွန်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr "ဇူ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr "ဩ."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr "စက်."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr "အောက်."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr "နို."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr "ဒီ."
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr "ဇန်နဝါရီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr "ဖေဖော်ဝါရီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr "မတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr "ဧပြီ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr "မေ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr "ဇွန်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr "ဇူလိုင်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr "ဩဂုတ်"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr "စက်တင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr "အောက်တိုဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr "နိုဝင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr "ဒီဇင်ဘာ"
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr "ဤသည်မှာ မှန်ကန်သော IPv6 လိပ်စာမဟုတ်ပါ။"
+
+#: .\venv\Lib\site-packages\django\utils\text.py:75
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr "%(truncated_text)s…"
+
+#: .\venv\Lib\site-packages\django\utils\text.py:286
+msgid "or"
+msgstr "သို့မဟုတ်"
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:305
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ", "
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] "%(num)d နှစ်"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] "%(num)d လ"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] "%(num)d ပတ်"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] "%(num)d ရက်"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] "%(num)d နာရီ"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] "%(num)d မိနစ်"
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr "တားမြစ်ထားသည်"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr "CSRF စစ်ဆေးမှု မအောင်မြင်ပါ။ တောင်းဆိုမှု ဖျက်သိမ်းလိုက်ပါပြီ။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+"သင့်ဘရောက်ဇာက “Referer header” ပို့ပေးရန်လိုအပ်သော်လည်း မပို့ခဲ့သောကြောင့် "
+"ဤစာကို မြင်နေရပါသည်။ ဤ header သည် သင့်ဘရောက်ဇာကို တတိယပါတီများက "
+"ထိန်းချုပ်ခြင်းမရှိစေရန် လုံခြုံရေးအတွက် လိုအပ်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+"သင့်ဘရောက်ဇာကို “Referer” headers များကို ပိတ်ထားပါက၊ ဤဆိုက်၊ HTTPS "
+"ချိတ်ဆက်မှုများ သို့မဟုတ် “same-origin” တောင်းဆိုမှုများအတွက် "
+"အနည်းဆုံးဖွင့်ပေးပါ။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+"<meta name=\"referrer\" content=\"no-referrer\"> tag သို့မဟုတ် “Referrer-"
+"Policy: no-referrer” header ကို သုံးနေပါက ၎င်းတို့ကို ဖယ်ရှားပါ။ CSRF "
+"ကာကွယ်မှုသည် ပြင်းထန်သော referer စစ်ဆေးမှုအတွက် “Referer” header "
+"လိုအပ်ပါသည်။ သီးသန့်တည်ရှိမှုကို စိတ်ပူပါက တတိယပါတီ ဆိုက်များသို့ "
+"လင့်ခ်များအတွက် <a rel=\"noreferrer\" …> ကဲ့သို့သော အခြားနည်းလမ်းများကို "
+"သုံးပါ။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+"ဖောင်တင်ရာတွင် CSRF cookie လိုအပ်သောကြောင့် ဤစာကို မြင်နေရပါသည်။ "
+"သင့်ဘရောက်ဇာကို တတိယပါတီများက ထိန်းချုပ်ခြင်းမရှိစေရန် လုံခြုံရေးအတွက် ဤ "
+"cookie လိုအပ်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+"သင့်ဘရောက်ဇာကို cookies များပိတ်ထားပါက၊ ဤဆိုက် သို့မဟုတ် “same-origin” "
+"တောင်းဆိုမှုများအတွက် အနည်းဆုံးဖွင့်ပေးပါ။"
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr "DEBUG=True ဖြင့် ပိုမိုသိရှိနိုင်ပါသည်။"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr "နှစ်မသတ်မှတ်ထားပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr "ရက်စွဲသည် သတ်မှတ်ချက်ပြင်ပဖြစ်နေသည်"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr "လမသတ်မှတ်ထားပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr "နေ့မသတ်မှတ်ထားပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr "ပတ်မသတ်မှတ်ထားပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr "%(verbose_name_plural)s မရနိုင်ပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+"%(class_name)s.allow_future သည် False ဖြစ်သောကြောင့် အနာဂတ် "
+"%(verbose_name_plural)s မရနိုင်ပါ။"
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr "ပုံစံ “%(format)s” အတွက် မမှန်ကန်သော ရက်စွဲစာကြောင်း “%(datestr)s”"
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr "အကြောင်းအရာနှင့်ကိုက်ညီသော %(verbose_name)s မတွေ့ရပါ"
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr "စာမျက်နှာသည် “last” မဟုတ်သလို int အဖြစ်လည်း ပြောင်းလဲ၍မရပါ။"
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr "မမှန်ကန်သောစာမျက်နှာ (%(page_number)s): %(message)s"
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr "ဗလာစာရင်းနှင့် “%(class_name)s.allow_empty” သည် False ဖြစ်သည်။"
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr "ဤနေရာတွင် ဖိုင်တွဲညွှန်းများကို ခွင့်မပြုပါ။"
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr "“%(path)s” မရှိပါ"
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr "%(directory)s ၏ ညွှန်းစာရင်း"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr "တပ်ဆင်မှု အောင်မြင်စွာပြီးစီးပါသည်! ဂုဏ်ယူပါတယ်!"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+"Django %(version)s အတွက် <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">ထုတ်ပြန်ချက်မှတ်စုများ</a> ကိုကြည့်ပါ"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
+msgstr ""
+"သင့် settings ဖိုင်တွင် <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> ပါရှိပြီး URL များကို "
+"သင်မပြင်ဆင်ရသေးသောကြောင့် ဤစာမျက်နှာကို မြင်နေရပါသည်။"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr "Django စာရွက်စာတမ်း"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr "ခေါင်းစဉ်များ၊ ကိုးကားချက်များနှင့် လုပ်ဆောင်နည်းများ"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr "သင်ခန်းစာ: Polling App"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr "Django ကို စတင်အသုံးပြုရန်"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr "Django လူထု"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr "ချိတ်ဆက်ပါ၊ အကူအညီရယူပါ၊ သို့မဟုတ် ပါဝင်ပါ"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "                %(brand)s <i class=\"fas fa-laptop me-2\"></i>\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+#~ "          "
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "                %(filter)s Items <i class=\"fas fa-laptop me-2\"></i>\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "                        %(itemcount)s ပစ္စည်း"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "                %(category)s <i class=\"fas fa-laptop me-2\"></i>\n"
+#~ "            "
+#~ msgstr ""
+#~ "\n"
+#~ "              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+#~ "          "
+
+#, fuzzy
+#~ msgid " "
+#~ msgstr ", "
+
+#~ msgid "Filters"
+#~ msgstr "စစ်ထုတ်ခြင်း"
+
+#~ msgid "Search title, price or RAM..."
+#~ msgstr "ခေါင်းစဉ်၊ စျေးနှုန်း သို့မဟုတ် RAM ရှာရန်..."
+
+#~ msgid "All Brands"
+#~ msgstr "ကုန်ပစ္စည်းအမှတ်တံဆိပ်အားလုံး"
+
+#~ msgid "Category"
+#~ msgstr "အမျိုးအစား"
+
+#~ msgid "All Categories"
+#~ msgstr "အမျိုးအစားအားလုံး"
+
+#~ msgid "Find Products"
+#~ msgstr "ကုန်ပစ္စည်းရှာရန်"
+
+#~ msgid "Reset To All Products"
+#~ msgstr "ထုတ်ကုန်အားလုံးသို့ ပြန်လည်သတ်မှတ်ရန်"
+
+#~ msgid "%(shopname)s Shop"
+#~ msgstr "%(shopname)s ဆိုင်"
+
+#~ msgid "Add to wishlist"
+#~ msgstr "ကြိုက်နှစ်သက်သောစာရင်းသို့ ထည့်ရန်"
+
+#~ msgid "SALE!"
+#~ msgstr "လျှော့စျေး!"
+
+#~ msgid "In Stock: %(stock_count)s item"
+#~ msgid_plural "In Stock: %(stock_count)s items"
+#~ msgstr[0] "ကုန်ပစ္စည်းလက်ကျန်: %(stock_count)s ခု"

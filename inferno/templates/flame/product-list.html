@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
   <style>
@@ -693,19 +694,35 @@
   </style>      
 
 <main>
-
 <div class="top-banner">
-    {% if active_brand  %}
+    {% if active_brand %}
+        <h1>
+            {% blocktrans with brand=active_brand %}
+                {{ brand }} <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
 
-    <h1> {{ active_brand }}&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
-   {% elif active_filter %}
-    <h1> {{ active_filter }} Items&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
+    {% elif active_filter %}
+        <h1>
+            {% blocktrans with filter=active_filter %}
+                {{ filter }} Items <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
 
-{% elif active_category %}
-    <h1> {{ active_category }}&nbsp;<i class="fas fa-laptop me-2"></i></h1>
-{% else %}
-<h1> Products Available in CyberOptix</h1>
-{% endif %}  <div class="nyc-subtitle">Premium laptops for professionals</div>
+    {% elif active_category %}
+        <h1>
+            {% blocktrans with category=active_category %}
+                {{ category }} <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
+
+    {% else %}
+        <h1>{% trans "Products Available in CyberOptix" %}</h1>
+    {% endif %}
+
+    <div class="nyc-subtitle">
+        {% trans "Premium laptops for professionals" %}
+    </div>
 </div>
 
 <div class="skyline-divider"></div>
@@ -713,9 +730,9 @@
 <div class="container" style="border:1px solid white;">
 
   <div class="filter-group">
-    <h5><i class="fas fa-tag me-2"></i>Shops</h5>
+    <h5><i class="fas fa-tag me-2"></i>{% trans "Shops" %}</h5>
     <div id="brand-filters">
-      <button class="btn active-filter" data-shop="all">All Shops</button>
+      <button class="btn active-filter" data-shop="all">{% trans "All Shops" %}</button>
       <button class="btn" data-shop="unique"><i class="fas fa-laptop me-2"></i>Unique</button>
       <button class="btn" data-shop="ict"><i class="fas fa-laptop me-2"></i>ICT</button>
       <button class="btn" data-shop="citicom"><i class="fas fa-laptop me-2"></i>Citicom</button>
@@ -735,7 +752,7 @@
           <input 
             type="text" 
             class="form-control search-input border-0 ps-2" 
-            placeholder="Try 'MacBook Pro' or '32GB RAM'..." 
+            placeholder={% trans "Try 'MacBook Pro' or '32GB RAM'..." %}
             id="search-input"
             oninput="searchProducts()"
             aria-label="Search products"
@@ -799,7 +816,7 @@
                        value="{{ min_max_price.price__min|floatformat:2 }}" 
                        min="{{ min_max_price.price__min }}" 
                        max="{{ min_max_price.price__max }}" 
-                       placeholder="Custom price"
+                       placeholder={% trans "Custom price" %}
                        style="width: 100px; padding: 5px 10px;"
                        onkeyup="updateSlider(this.value)">
             </div>
@@ -807,7 +824,7 @@
             <!-- Apply Button -->
             <div class="price-filter-actions">
                 <button class="btn-filter-apply" type="button" id="price-filter-btn" style="padding: 5px 15px; font-size: 0.8rem;">
-                    Apply
+                    {% trans "Apply" %}
                 </button>
             </div>
         </div>
@@ -974,7 +991,7 @@
                     </div>
           
                     <a href="{% url 'flame:shop-product-detail' p.shop.shop_id p.p_id %}" style="border:none;text-decoration: none;">
-                    <button class="btn" >View Product</button>
+                    <button class="btn" >{% trans "View Product" %}</button>
                 </a>
 
                 </div>

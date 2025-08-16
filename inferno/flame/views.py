@@ -9,6 +9,9 @@ from flame.forms import ProductReviewForm
 from django.template.loader import render_to_string
 from django.db.models import Q
 from django.contrib import messages
+from django.utils.translation import gettext as _
+from django.utils.translation import get_language, activate
+from django.views.i18n import set_language
 
 #for payment integration process 
 from django.urls import reverse
@@ -27,6 +30,9 @@ from barcode.writer import ImageWriter
 from django.core.files.base import ContentFile
 
 def home(request):
+     # Get current language
+    current_language = get_language()
+    
     shop_views=Shop.objects.all()
  
     items = Product.objects.filter(shop__isnull=False, product_status="published")
@@ -39,13 +45,16 @@ def home(request):
     )
 
     # 1) Most Popular: rank by number of reviews (you could swap in sales or pageviews if you track them)
-    popular_qs = (
-        base_qs
-        .annotate(review_count=Count('productreview'))
-        .order_by('-review_count', '-date')  # tie-break newest first
-        [:10]
-    )
-
+        # Use translated fields in ordering
+    if current_language == 'my':
+        popular_qs = base_qs.annotate(
+            review_count=Count('productreview')
+        ).order_by('-review_count', '-date')[:10]
+    else:
+        popular_qs = base_qs.annotate(
+            review_count=Count('productreview')
+        ).order_by('-review_count', '-date')[:10]
+        
     # 2) Discounted Items: where price < old_price
     #    and sort by percentage saved
     discount_expr = ExpressionWrapper(
@@ -68,9 +77,29 @@ def home(request):
         'discounted_items': discounted_qs,
         'new_items': new_qs,
         'shop_views':shop_views,
-
+        'current_language': current_language,
+        'page_title': _('Welcome to CyberOptix'),  # Translatable string
     })
+    
+# Add language switcher view
+def switch_language(request):
+    if request.method == 'POST':
+        language = request.POST.get('language')
+        if language and language in ['en', 'my']:
+            activate(language)
+            request.session['django_language'] = language
+            
+            # Get the next URL or default to home
+            next_url = request.POST.get('next', '/')
+            return redirect(next_url)
+    
+    return redirect('/')
 
+CATEGORY_MAP = {
+    "Desktop": _("ဒက်စ်တော့"),
+    "Laptop": _("လက်ပ်တော့"),
+    "Accessories": _("အသုံး အဆောင်ပစ္စည်းများ"),
+}
 # Product List View
 def product_list_view(request):
     shop_views = Shop.objects.all()
@@ -141,6 +170,7 @@ def product_list_view(request):
         'active_category': category,
         'brands': brands,
         'categories': categories,
+        "CATEGORY_MAP": CATEGORY_MAP,
         'shop_views': shop_views,
         'active_filter': item_type,  # To highlight active filter in template
     }
@@ -426,7 +456,7 @@ def shop_cart_view(request):
             continue
 
     if grand_total_quantity == 0:
-        messages.warning(request, "Your Cart is Empty")
+        messages.warning(request, _("Your Cart is Empty"))
         return redirect("flame:home")
     
     return render(request, 'flame/shop-cart.html', {

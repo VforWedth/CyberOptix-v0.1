@@ -1,6 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load math_filters %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <!-- Add required libraries -->
@@ -180,36 +181,39 @@
 <body style="background-color:rgb(21, 40, 56);">
 <div class="invoice-container">
     <div class="invoice-header">
-        <h1 class="invoice-title">INVOICE #{{ order.id }}</h1>
+        <h1 class="invoice-title">{% blocktrans %}INVOICE #{{ order.id }}{% endblocktrans %}</h1>
         {% if order.order_type == 'shop' %}
-            <p>Payment to {{ order.shop.title }}</p>
+            <p>{% blocktrans with shop=order.shop.title %}Payment to {{ shop }}{% endblocktrans %}</p>
         {% else %}
-            <p>General Order Payment</p>
+            <p>{% trans "General Order Payment" %}</p>
         {% endif %}
     </div>
 
     <div class="invoice-meta">
         <div>
-            <p><strong>Date:</strong> {{ order.order_date|date:"F d, Y" }}</p>
-            <p><strong>Transaction ID:</strong> {{ order.id }}</p>
+            <p><strong>{% trans "Date:" %}</strong> {{ order.order_date|date:"F d, Y" }}</p>
+            <p><strong>{% trans "Transaction ID:" %}</strong> {{ order.id }}</p>
             {% if order.order_type == 'shop' %}
-                <p><strong>Merchant PayPal:</strong> {{ order.shop.paypal_email }}</p>
+                <p><strong>{% trans "Merchant PayPal:" %}</strong> {{ order.shop.paypal_email }}</p>
             {% endif %}
         </div>
         <div class="invoice-summary">
-            <h3>Billed To</h3>
-            <p><strong>Customer:</strong> {{ request.user|title }}</p>
-            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <h3>{% trans "Billed To" %}</h3>
+            <p>
+                <strong>{% trans "Customer:" %}</strong>
+                {{ request.user|title }}
+            </p>
+            <p><strong>{% trans "Email:" %}</strong> {{ request.user.email }}</p>
         </div>
     </div>
 
     <table class="invoice-table">
         <thead>
             <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Amount</th>
+                <th>{% trans "Item" %}</th>
+                <th>{% trans "Price" %}</th>
+                <th>{% trans "Qty" %}</th>
+                <th>{% trans "Amount" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -222,36 +226,42 @@
             </tr>
             {% endfor %}
             <tr class="total-row">
-                <td colspan="3" style="text-align: right;">Subtotal</td>
+                <td colspan="3" style="text-align: right;">{% trans "Subtotal" %}</td>
                 <td>${{ order.price|floatformat:2 }}</td>
             </tr>
             <tr class="total-row">
-                <td colspan="3" style="text-align: right;">Tax</td>
+                <td colspan="3" style="text-align: right;">{% trans "Tax" %}</td>
                 <td>$0.00</td>
             </tr>
             <tr class="total-row">
-                <td colspan="3" style="text-align: right;">Grand Total</td>
+                <td colspan="3" style="text-align: right;">{% trans "Grand Total" %}</td>
                 <td>${{ order.price|floatformat:2 }}</td>
             </tr>
         </tbody>
     </table>
 
     <div class="invoice-total">
-        <h3>Total Amount Due</h3>
+        <h3>{% trans "Total Amount Due" %}</h3>
         <h2>${{ order.price|floatformat:2 }}</h2>
-        <p>Payment Status: Completed</p>
+        <p>
+            <strong>{% trans "Payment Status:" %}</strong>
+            {% trans "Completed" %}
+        </p>
     </div>
 
     <div class="invoice-footer">
-        <p><strong>Thank you for your business, {{ request.user|title }}!</strong></p>
-        <p>If you have any questions about this invoice, please contact our support team.</p>
+        {% blocktrans with user=request.user %}
+            <p><strong>Thank you for your business, {{ user|title }}!</strong></p>
+        {% endblocktrans %}
+        <p>{% trans "If you have any questions about this invoice, please contact our support team." %}</p>
     </div>
 
     <div class="button-container" id="buttonContainer">
-        <button class="invoice-btn" onclick="window.print()">Print Invoice</button>
-        <button class="invoice-btn" onclick="downloadPDF()">Download PDF</button>
+        <button class="invoice-btn" onclick="window.print()">{% trans "Print Invoice" %}</button>
+        <button class="invoice-btn" onclick="downloadPDF()">{% trans "Download PDF" %}</button>
     </div>
 </div>
+
 
 <script>
     function downloadPDF() {

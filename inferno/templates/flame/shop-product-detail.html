@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/product-detail.css' %}">
@@ -10,14 +11,14 @@
     <div class="left">
       <!-- Main Product Image -->
       <div class="main_image">
-        <img src="{{p.image.url}}" class="slide">
+        <img src="{{p.image.url}}" class="slide" alt="{% blocktrans with title=p.title %}Main image of {{ title }}{% endblocktrans %}">
       </div>
       
       <!-- Small Thumbnails -->
       <div class="option flex">
-            <img src="{{p.image.url}}" class="slide">
+            <img src="{{p.image.url}}" class="slide" alt="{% blocktrans with title=p.title %}Thumbnail of {{ title }}{% endblocktrans %}">
             {% for p in p_image|slice:":5" %}
-                <img src="{{ p.images.url }}" alt="Product Image">
+                <img src="{{ p.images.url }}" alt="{% trans 'Product Image' %}">
             {% endfor %}
       </div>
 
@@ -25,7 +26,7 @@
         <div class="compact-related-products">
             {% comment %} check if there is any related products {% endcomment %}
             {% if products %} 
-            <h4>Related Products</h4>
+            <h4>{% trans "Related Products" %}</h4>
             {% endif %}
             <div class="carousel-container">
                 {% for p in products %}
@@ -33,7 +34,7 @@
                     <div class="product-image product-info">
                         <img src="{{p.image.url}}" alt="{{p.title}}">
                         <h5>{{p.title|truncatechars:35}}</h5>
-                        <span>$</span><span class="price">{{p.price}}</span>
+                        <span>{% trans "$" %}</span><span class="price">{{p.price}}</span>
                     </div>
                     
                 </a>
@@ -46,17 +47,19 @@
     
 
     <div class="right">
-        <span class="tab-btn">- {{ p.get_percentage|floatformat:0 }} %</span>
+        <span class="tab-btn">{% blocktrans with pct=p.get_percentage|floatformat:0 %}- {{ pct }} %{% endblocktrans %}</span>
       <h3>{{p.title}}</h3>
       
-      <h4 class="current-product-price-{{p.id}}" id="current-product-price" ><small>$</small>{{p.price}}</h4>
+      <h4 class="current-product-price-{{p.id}}" id="current-product-price" ><small>{% trans "$" %}</small>{{p.price}}</h4>
       
       <!-- Tab Navigation -->
       <div class="tab-navigation">
-        <button class="tab-btn active" data-target="#description">Description</button>
-        <button class="tab-btn" data-target="#additional-info">Additional Info</button>
-        <button class="tab-btn" data-target="#vendor">Shop</button>
-        <button class="tab-btn" data-target="#reviews">Reviews ({{ reviews.count }})</button>
+        <button class="tab-btn active" data-target="#description">{% trans "Description" %}</button>
+        <button class="tab-btn" data-target="#additional-info">{% trans "Additional Info" %}</button>
+        <button class="tab-btn" data-target="#vendor">{% trans "Shop" %}</button>
+        
+        {% comment %} Place Reviews label with count below to preserve structure {% endcomment %}
+        <button class="tab-btn" data-target="#reviews">{% blocktrans with count=reviews.count %}Reviews ({{ count }}){% endblocktrans %}</button>
       </div>
 
       <!-- Tab Content -->
@@ -66,7 +69,7 @@
           {% comment %} <p>{{p.description|truncatechars:100}}</p> {% endcomment %}
           <p>{{p.description|linebreaksbr}}</p>
           
-          <h5>Quantity</h5>
+          <h5>{% trans "Quantity" %}</h5>
           <div class="add flex1">
             {% comment %} <span>-</span>
             <label>1</label>
@@ -80,13 +83,13 @@
           <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
           <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
           <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
-          <button type="submit" data-shop-id="{{shop.shop_id}}" data-index="{{p.id}}" class="add-to-cart-btn" id="add-to-cart-btn">Add to Cart</button>
-          <button type="submit"><a href="{% url 'flame:product-list' %}" style="text-decoration: none; color: inherit;">Countinue Browsing</a></button>
+          <button type="submit" data-shop-id="{{shop.shop_id}}" data-index="{{p.id}}" class="add-to-cart-btn" id="add-to-cart-btn">{% trans "Add to Cart" %}</button>
+          <button type="submit"><a href="{% url 'flame:product-list' %}" style="text-decoration: none; color: inherit;">{% trans "Countinue Browsing" %}</a></button>
         </div>
 
         <!-- Additional Info Tab -->
         <div class="tab-pane" id="additional-info">
-          <h4>Product Specifications</h4>
+          <h4>{% trans "Product Specifications" %}</h4>
           {{p.specification|linebreaksbr}}
           {% comment %} <ul>
             <li>Material: Aluminum</li>
@@ -99,15 +102,15 @@
         <!-- Vendor Tab -->
         <div class="tab-pane" id="vendor">
           <div class="vendor-info">
-            <h4>Seller Information</h4>
+            <h4>{% trans "Seller Information" %}</h4>
             <div class="vendor-rating">
                 <div class="option flex">
-                    <img src="{{p.shop.image.url}}" alt="Shop Image">
+                    <img src="{{p.shop.image.url}}" alt="{% blocktrans with shop=p.shop.title %}Image for {{ shop }}{% endblocktrans %}">
                 </div>
                 <span>{{p.shop.title}}</span>
               <div class="rating-bars">
                 <div class="rating-bar">
-                  <span>Delivery Address</span>
+                  <span>{% trans "Delivery Address" %}</span>
                   {% comment %} <div class="bar"><div class="fill" style="width: 92%;"></div></div> {% endcomment %}
                   <span>{{ address.address }}</span>
                 </div>
@@ -118,18 +121,25 @@
                 </div> {% endcomment %}
               </div>
             </div>
-            <p>Shop Address: {{p.shop.address}}</p>
-            <p>Contact Seller: {{p.shop.contact}}</p>
-            <p>In Stock: {{p.stock_count}} item{{p.stock_count|pluralize}}</p>
+            <p>{% trans "Shop Address:" %} {{p.shop.address}}</p>
+            <p>{% trans "Contact Seller:" %} {{p.shop.contact}}</p>
+            
+           <p>
+            {% blocktrans count stock_count=p.stock_count|add:0 %}
+              In Stock: {{ stock_count }} item
+            {% plural %}
+              In Stock: {{ stock_count }} items
+            {% endblocktrans %}
+            </p>
           </div>
         </div>
 
         <!-- Reviews Tab -->
         <div class="tab-pane" id="reviews">
           <div class="reviews-summary">
-            <h4>Customer Reviews</h4>
+            <h4>{% trans "Customer Reviews" %}</h4>
             <div class="overall-rating">
-              <h5>{{ average_rating.rating|floatformat:1 }} out of 5.0</h5> 
+              <h5>{{ average_rating.rating|floatformat:1 }} {% trans "out of 5.0" %}</h5> 
               <div class="stars">
                 {% with ''|center:5 as range %}
                 {% for i in range %}
@@ -145,19 +155,19 @@
 
             <div class="rating-breakdown">
               <div class="rating-bar">
-                <span>5 Star</span>
+                <span>{% trans "5 Star" %}</span>
                 <div class="bar"><div class="fill" style="width: 80%;"></div></div>
-                <span>80%</span>
+                <span>{% trans "80%" %}</span>
               </div>
               <div class="rating-bar">
-                <span>4 Star</span>
+                <span>{% trans "4 Star" %}</span>
                 <div class="bar"><div class="fill" style="width: 15%;"></div></div>
-                <span>15%</span>
+                <span>{% trans "15%" %}</span>
               </div>
               <div class="rating-bar">
-                <span>3 Star</span>
+                <span>{% trans "3 Star" %}</span>
                 <div class="bar"><div class="fill" style="width: 5%;"></div></div>
-                <span>5%</span>
+                <span>{% trans "5%" %}</span>
               </div>
             </div>
           </div>
@@ -166,7 +176,7 @@
             {% for r in reviews %}
             <div class="review-card">
               <div class="review-header">
-                <img src="{% static 'C:\Users\L-182\Downloads\Telegram Desktop\RealCyberOptix\CyberOptix\inferno\static\assets\images\avatar-01.jpg' %}" alt="User"> 
+                <img src="{% static 'C:\\Users\\L-182\\Downloads\\Telegram Desktop\\RealCyberOptix\\CyberOptix\\inferno\\static\\assets\\images\\avatar-01.jpg' %}" alt="{% trans 'User' %}"> 
                 <strong>{{ r.user.username|title }}</strong> - <span>{{ r.date|date:"d M, Y" }}</span>
                 <div class="stars">
                   {% for s in r.rating|ljust:r.rating %}
@@ -177,7 +187,7 @@
               <p>{{ r.review }}</p>
             </div>
             {% empty %}
-            <p>No reviews yet. Be the first to review!</p>
+            <p>{% trans "No reviews yet. Be the first to review!" %}</p>
             {% endfor %}
           </div>
 
@@ -185,7 +195,7 @@
           {% if user.is_authenticated %}
           
             <form class="review-form hide-review-form" id="review-form" action="{% url 'flame:ajax_add_review' p.id  %}" method="POST">
-              <h4>Add a Review</h4>
+              <h4>{% trans "Add a Review" %}</h4>
               {% csrf_token %}
               <div class="comment-list">
                 {{ review_form.review }}
@@ -194,11 +204,11 @@
               {{ review_form.rating }}
               </div>
               {% comment %} <textarea name="comment" placeholder="Write your review..." required></textarea> {% endcomment %}
-              <button type="submit">Submit Review</button>
+              <button type="submit">{% trans "Submit Review" %}</button>
             </form>
           
           {% else %}
-          <p class="login-prompt"><a href="{% url 'userauths:sign-in' %}">Login</a> to write a review.</p>
+          <p class="login-prompt"><a href="{% url 'userauths:sign-in' %}">{% trans "Login" %}</a> {% trans "to write a review." %}</p>
           {% endif %}
           {% endif %}
         </div>
@@ -206,6 +216,7 @@
     </div>
   </div>
 </section>
+
 
 
 <br>

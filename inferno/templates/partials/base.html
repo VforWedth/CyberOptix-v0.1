@@ -1,11 +1,13 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberOptix</title>
+    <title>{% trans "CyberOptix - Premium Laptops Myanmar" %}</title>
     <!-- CDN version of QRCode.js, must load before you call new QRCode() -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
@@ -28,6 +30,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "assets/css/cyberoptixcss.css" %}">
     <script src="{% static "assets/js/function.js" %}"></script>
+    <style>
+        /* Myanmar language specific styles */
+        html[lang="my"] {
+            font-family: 'Padauk', sans-serif;
+        }
+        
+        html[lang="my"] .navbar {
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,22 +47,30 @@
     <div class="navbar" style="background-color:#4A5C6A;">
         <div class="logo">
             <span id="menu-toggle"><i class="fas fa-bars"></i></span>
-            <i class="fas fa-laptop"></i> CyberOptix
+            <i class="fas fa-laptop"></i>  {% trans "CyberOptix" %}
         </div>
         <nav style="background-color:#4A5C6A;">
-            <a href="{% url "flame:home" %}">Home</a>
+            <a href="{% url "flame:home" %}">{% trans "Home" %}</a>
             <div class="shop-dropdown">
-                <a class="shop-trigger" style="cursor:pointer;">Shop</a>
+                <a class="shop-trigger" style="cursor:pointer;">{% trans "Shop" %}</a>
                 <div class="shop-menu">
                     {% for s in shop_views %}  
                         <a href="{% url 'flame:shop-detail' s.shop_id %}">
-                            <i class="shop-item">{{s.title}} Shop</i>
+                            <i class="shop-item"> 
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% if LANGUAGE_CODE == 'my' and s.title_my %}
+                                    {{ s.title_my }}
+                                {% else %}
+                                    {{ s.title }}
+                                {% endif %} 
+                                {% trans "Shop" %}</i>
                         </a>
                     {% endfor %}
                 </div>
             </div>
-            <a href="{% url "flame:About" %}">About</a>
-            <a href="{% url "flame:FAQs" %}">FAQs</a>
+            <a href="{% url "flame:About" %}">{% trans "About" %}</a>
+            <a href="{% url "flame:FAQs" %}">{% trans "FAQs" %}</a>
+            {% include 'partials/language_switcher.html' %}
             <div class="icon-cart">
                 <a href="{% url 'flame:wishlist' %}">
                     <i class="fas fa-heart"></i>
@@ -75,17 +95,17 @@
                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                      {% if user.is_authenticated %}
                         <a href="{% url 'flame:profile' %}" class="dropdown-item">
-                            <i class="fas fa-user" style="font-size: 1rem;"></i> Profile
+                            <i class="fas fa-user" style="font-size: 1rem;"></i> {% trans "Profile" %}
                         </a>
                         <a href="{% url 'userauths:sign-out' %}" class="dropdown-item">
-                            <i class="fas fa-sign-out" style="font-size: 1rem;"></i> Sign Out
+                            <i class="fas fa-sign-out" style="font-size: 1rem;"></i> {% trans "Sign Out" %}
                         </a>      
                     {% else %}
                         <a href="{% url 'userauths:sign-in' %}" class="dropdown-item">
-                            <i class="fas fa-sign-in" style="font-size:1rem;"></i> Sign In
+                            <i class="fas fa-sign-in" style="font-size:1rem;"></i> {% trans "Sign In" %}
                         </a>
                         <a href="{% url 'userauths:sign-up' %}" class="dropdown-item">
-                            <i class="fas fa-user" style="font-size:1rem;"></i> Sign up
+                            <i class="fas fa-user" style="font-size:1rem;"></i> {% trans "Sign up" %}
                         </a>
                     {% endif %}
                 </div>
@@ -100,12 +120,12 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <a href="#" id="brand-link" onclick="toggleBrandOptions()">
-            <span>Brand</span>
+            <span>{% trans "Brand" %}</span>
             <span id="arrow">&#9660;</span>
         </a>
         <form method="get" action="{% url 'flame:product-list' %}">
             <div id="brand-options" style="display: none; margin-left: 40px;">
-                <a href="{% url 'flame:product-list' %}" class="filter-option {% if active_brand == '' or active_brand == 'All' %}active{% endif %}">All</a><br>
+                <a href="{% url 'flame:product-list' %}" class="filter-option {% if active_brand == '' or active_brand == 'All' %}active{% endif %}">{% trans "All" %}</a><br>
                 <a href="{% url 'flame:product-list' %}?brand=Apple" class="filter-option {% if active_brand == 'Apple' %}active{% endif %}">Apple</a><br>
                 <a href="{% url 'flame:product-list' %}?brand=Lenovo" class="filter-option {% if active_brand == 'Lenovo' %}active{% endif %}">Lenovo</a><br> 
                 <a href="{% url 'flame:product-list' %}?brand=HP" class="filter-option {% if active_brand == 'HP' %}active{% endif %}">HP</a><br>
@@ -113,9 +133,9 @@
                 <a href="{% url 'flame:product-list' %}?brand=Asus" class="filter-option {% if active_brand == 'Asus' %}active{% endif %}">Asus</a><br> 
                 <a href="{% url 'flame:product-list' %}?brand=Acer" class="filter-option {% if active_brand == 'Acer' %}active{% endif %}">Acer</a><br> 
             </div>
-                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' %}active{% endif %}">Laptop</a><br>
-                <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop'  %}active{% endif %}">Desktop</a><br>
-                <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' %}active{% endif %}">Accessories</a><br> 
+                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' or active_category == 'လက်ပ်တော့' %}active{% endif %}">{{ CATEGORY_MAP.Laptop }}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop' or active_category == 'ဒက်စ်တော့' %}active{% endif %}">{% trans "Desktop" %}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' or active_category == 'အသုံးအဆောင်ပစ္စည်းများ' %}active{% endif %}">{% trans "Accessories" %}</a><br> 
         </form>
     </div>
     <!-- Overlay -->
@@ -157,26 +177,26 @@
                 <div class="logo">
                     <i class="fas fa-laptop"></i>CyberOptix
                 </div><br>
-                <p>All Rights Reserved 2024-2025</p>
+                <p>{% trans "All Rights Reserved 2024-2025" %}</p>
             </div>
             <div class="footer-links">
-                <h4>Information</h4>
+                <h4>{% trans "Information" %}</h4>
                 <ul>
-                    <li><a href="{% url 'flame:AboutUs' %}">About Us</a></li>
+                    <li><a href="{% url 'flame:AboutUs' %}">"{% trans "About Us" %}"</a></li>
                   
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Helpful Links</h4>
+                <h4>{%trans "Helpful Links" %}</h4>
                 <ul>
-                    <li><a href="{% url 'flame:Services' %}">Services</a></li>
-                    <li><a href="{% url 'flame:PrivacyPolicy' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'flame:Terms' %}">Terms & Condition</a></li>
+                    <li><a href="{% url 'flame:Services' %}">{% trans "Services" %}</a></li>
+                    <li><a href="{% url 'flame:PrivacyPolicy' %}">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="{% url 'flame:Terms' %}">{% trans "Terms & Condition" %}</a></li>
                 </ul>
             </div>
            
             <div class="footer-contact">
-                <h4>Contact Us</h4>
+                <h4>{% trans "Contact Us" %}</h4>
                 <p>+959 00090999</p>
                 <p>cyberoptix@gmail.com</p>
                 <div class="social-icons">

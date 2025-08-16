@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# For Internationalization & Translation
+from django.conf.urls.i18n import i18n_patterns
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,9 +28,8 @@ from flame.views import home
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include("flame.urls")),
-    path('user/', include("userauths.urls")),
+    path('i18n/', include('django.conf.urls.i18n')),  # Language switching
+    path('rosetta/', include('rosetta.urls')),  # Translation interface
     # path('innwa/',include("innwaShop.urls")),
     # path('unique/',include("unique.urls")),
     # path('citicom/',include("citicomshop.urls")),
@@ -36,6 +38,14 @@ urlpatterns = [
     # path('productdetails/',include("flame.urls")),
     # path('homeproductdetails/',include("flame.urls"))
 ]
+
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('', include("flame.urls")),
+    path('user/', include("userauths.urls")),
+    prefix_default_language= True,  # Don't show /en/ for default language
+)
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

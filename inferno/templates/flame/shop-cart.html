@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load math_filters %}
 <style>
     
@@ -15,10 +16,14 @@
   <div class="cart-container">
       {% if totalcartitems > 0 %}
       <h3 style="color: #333;" class="cart_items_count">
-          You have {{ totalcartitems }} item{{ totalcartitems|pluralize }} from {{ shop_carts|length }} shop{{ shop_carts|length|pluralize }}
+         {% blocktrans count totalcartitems=totalcartitems|add:0 with shopcount=shop_carts|length %}
+    You have {{ totalcartitems }} item from {{ shopcount }} shop
+{% plural %}
+    You have {{ totalcartitems }} items from {{ shopcount }} shops
+{% endblocktrans %}
       </h3>
       {% else %}
-      <h3 style="color: #333;">You don't have any items in your cart</h3>
+      <h3 style="color: #333;">{% trans "You don't have any items in your cart" %}</h3>
       {% endif %}
       
       {% for shop_cart in shop_carts %}
@@ -26,16 +31,20 @@
           <div class="shop-header">
               <h2>{{ shop_cart.shop.title }}</h2>
               <span class="shop-item-count" id="shop-count-{{ shop_cart.shop.shop_id }}">
-                  {{ shop_cart.shop_quantity }} item{{ shop_cart.shop_quantity|pluralize }}
+                    {% blocktrans count itemcount=shop_cart.shop_quantity %}
+                        {{ itemcount }} item
+                    {% plural %}
+                        {{ itemcount }} items
+                    {% endblocktrans %}
               </span>
           </div>
           
           <div class="cart-header">
-              <div class="product-info">Product</div>
-              <div class="price-column">Unit Price</div>
-              <div class="quantity-control">Quantity</div>
-              <div class="price-column">Subtotal</div>
-              <div class="actions-column">Actions</div>
+              <div class="product-info">{% trans "Product" %}</div>
+              <div class="price-column">{% trans "Unit Price" %}</div>
+              <div class="quantity-control">{% trans "Quantity" %}</div>
+              <div class="price-column">{% trans "Subtotal" %}</div>
+              <div class="actions-column">{% trans "Actions" %}</div>
           </div>
           
           <div id="cart-content-{{ shop_cart.shop.shop_id }}">
@@ -46,7 +55,7 @@
                       <img src="{{ item.image }}" class="cart-item-img">
                       <div>
                           <h3>{{ item.title }}</h3>
-                          <small>Sold by {{ shop_cart.shop.title }}</small>
+                          <small>{% blocktrans with seller=shop_cart.shop.title %}Sold by {{ seller }}{% endblocktrans %}</small>
                       </div>
                   </div>
                   
@@ -76,13 +85,13 @@
             
             <div class="shop-cart-summary">
                 <div class="shop-total">
-                    <span>Shop Total:</span>
+                    <span>{% trans "Shop Total:" %}</span>
                     <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}">
                         ${{ shop_cart.total|floatformat:2 }}
                     </span>
                     <a href="{% url 'flame:shop-checkout' shop_cart.shop.shop_id %}" 
                    class="shop-checkout-btn">
-                      Checkout {{ shop_cart.shop.title }} →
+                      {% blocktrans with shopname=shop_cart.shop.title %}Checkout {{ shopname }} {% endblocktrans %} →
                     </a>
                 </div>
             </div>
@@ -94,13 +103,13 @@
       {% if totalcartitems > 0 %}
       <div class="global-cart-summary">
           <div class="summary-row">
-              <strong>Grand Total:</strong>
+              <strong>{% trans "Grand Total:" %}</strong>
               <strong class="grand-total">${{ cart_total_amount|floatformat:2 }}</strong>
           </div>
           <div class="cart-actions">
-            <span class="total-cart-items">{{ totalcartitems }}</span> items in cart
+            <span class="total-cart-items">{{ totalcartitems }}</span>  {% trans "items in cart" %}
               <a href="{% url 'flame:product-list' %}" class="continue-btn">
-                  ← Continue Shopping
+                  ←  {% trans "Continue Shopping" %}
               </a>
           </div>
       </div>

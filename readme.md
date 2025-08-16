@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CyberOptix LaptopMart Myanmar v0.1
 
 A Django‑based e‑commerce platform tailored for Myanmar laptop buyers. Version 0.1 focuses on core shopping functionality: user authentication, product catalog, filtering, cart management, and payment integration.
@@ -231,3 +232,4 @@ CyberOptix/
 ## 📄 License
 
 MIIT License © 2025 CyberOptix Team
+>>>>>>> f06ac7bf9e790c158b66360e6bc6b089bc228114

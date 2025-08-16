@@ -1,67 +1,69 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
 <main>
 <div class="container">
-    <div class="form-container" style="position:absolute;top:13%">
-        <div class="col-1">
-            <div class="image-layer">
-                <div class="featured-words">
-                    <h2>Welcome to <span> CyberOptix</span> </h2>
-                    <p> Explore the latest laptops and exclusive deals tailored for you ! </p>
-                </div>
+    
+<div class="form-container" style="position:absolute;top:13%">
+    <div class="col-1">
+        <div class="image-layer">
+            <div class="featured-words">
+                <h2>{% trans "Welcome to" %} <span>CyberOptix</span> </h2>
+                <p>{% trans "Explore the latest laptops and exclusive deals tailored for you !" %}</p>
             </div>
         </div>
-        <div class="col-2">
-            <div class="btn-box">
-                <button id="login" class="btn btn-1">Login</button>
-                <button id="register" class="btn">Register</button>
-            </div>
+    </div>
+    <div class="col-2">
+        <div class="btn-box">
+            <button id="login" class="btn btn-1">{% trans "Login" %}</button>
+            <button id="register" class="btn">{% trans "Register" %}</button>
+        </div>
+        {% csrf_token %}
+        <form class="register-form" method="POST" action="{% url 'userauths:sign-up' %}">
             {% csrf_token %}
-            <form class="register-form" method="POST" action="{% url 'userauths:sign-up' %}">
-                {% csrf_token %}
-                <h2 class="form-title">Sign Up</h2>
-                <!-- Error Messages -->
-                {% if form.errors %}
-                <div class="alert alert-danger">
-                    {% for field, errors in form.errors.items %}
-                        {% for error in errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
+            <h2 class="form-title">{% trans "Sign Up" %}</h2>
+            <!-- Error Messages -->
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
                     {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="form-inputs">
+                <div class="input-box">
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="text-danger">{{ form.username.errors }}</div>
+                    {% endif %}
                 </div>
-                {% endif %}
-                <div class="form-inputs">
-                    <div class="input-box">
-                        {{ form.username }}
-                        {% if form.username.errors %}
-                <div class="text-danger">{{ form.username.errors }}</div>
-            {% endif %}
-                    </div>
-                    <div class="input-box">
-                        {{ form.email }}
-                        {% if form.email.errors %}
-                <div class="text-danger">{{ form.email.errors }}</div>
-            {% endif %}
-                    </div>
-                    <div class="input-box">
-                        {{ form.password1 }}
-                        {% if form.password1.errors %}
-                <div class="text-danger">{{ form.password1.errors }}</div>
-            {% endif %}
-                    </div>
-                    <div class="input-box">
-                        {{ form.password2 }}
-                        {% if form.password2.errors %}
+                <div class="input-box">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="text-danger">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="input-box">
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
                         <div class="text-danger">{{ form.password2.errors }}</div>
                     {% endif %}
-                    </div>
                 </div>
-                <button type="submit" class="input-submit">Sign Up</button>
-            </form>
-        </div> 
-    </div>
+            </div>
+            <button type="submit" class="input-submit">{% trans "Sign Up" %}</button>
+        </form>
+    </div> 
+</div>
 {% comment %}     
     <footer style="position:absolute;top:85%;">
         <div class="footer-content" >

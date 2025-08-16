@@ -3,36 +3,38 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from userauths.models import User
+from django.utils.translation import gettext_lazy as _
+
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={
-            "placeholder": "Username", 
+            "placeholder": _("Username"), 
             'class': 'input-field',
         }),
-        help_text="Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+        help_text=_("Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.")
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
-            "placeholder": "Email", 
+            "placeholder": _("Email"), 
             'class': 'input-field',
         })
     )
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(attrs={
-            "placeholder": "Password", 
+            "placeholder": _("Password"), 
             'class': 'input-field',
         }),
-        help_text="Your password must contain at least 8 characters."
+        help_text=_("Your password must contain at least 8 characters.")
     )
     password2 = forms.CharField(
         label="Password confirmation",
         widget=forms.PasswordInput(attrs={
-            "placeholder": "Confirm Password", 
+            "placeholder": _("Confirm Password"), 
             'class': 'input-field',
         }),
-        help_text="Enter the same password as before, for verification."
+        help_text=_("Enter the same password as before, for verification.")
     )
 
     class Meta:
@@ -42,11 +44,11 @@ class UserRegisterForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise ValidationError("This email address is already in use.")
+            raise ValidationError(_("This email address is already in use."))
         return email
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
-            raise ValidationError("This username is already taken.")
+            raise ValidationError(_("This username is already taken."))
         return username

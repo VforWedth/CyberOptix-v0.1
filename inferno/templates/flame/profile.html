@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/Profile.css' %}">
 <link rel="stylesheet" type="text/css" href="bootstrap-4.5.3-dist/css/bootstrap.min.css">
@@ -9,16 +10,16 @@
     <div class="sidebar"> 
         <div class="sidebar flex-column mt-4 text-center">
             <img src="{% static 'assets/images/P.png' %}" class="round">
-            <a class="sidebar-link active" href="{% url "flame:profile" %}" data-page="profile">Profile</a>
-            <a class="sidebar-link" href="#" data-page="orders">Orders</a>
-            <a class="sidebar-link" href="#" data-page="track-order">Track Order</a>
-            <a class="sidebar-link" href="#" data-page="address">My Address</a>
+            <a class="sidebar-link active" href="{% url "flame:profile" %}" data-page="profile">{% trans "Profile" %}</a>
+            <a class="sidebar-link" href="#" data-page="orders">{% trans "Orders" %}</a>
+            <a class="sidebar-link" href="#" data-page="track-order">{% trans "Track Order" %}</a>
+            <a class="sidebar-link" href="#" data-page="address">{% trans "My Address" %}</a>
            <!-- Updated Logout Link -->
            <form id="logout-form" action="{% url 'userauths:sign-out' %}" method="POST" style="display: none;">
             {% csrf_token %}
         </form>
         <a class="sidebar-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            Logout
+            {% trans "Logout" %}
         </a>
         </div>
     </div>
@@ -31,16 +32,16 @@
     <div class="page-section" id="profile">
         <div class="dashboard-card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-circle"></i> My Profile</h3>
+                <h3 class="card-title"><i class="fas fa-user-circle"></i> {% trans "My Profile" %}</h3>
                 <button class="btn btn-edit" onclick="toggleEdit()">
-                    <i class="fas fa-pencil-alt"></i> Edit Profile
+                    <i class="fas fa-pencil-alt"></i> {% trans "Edit Profile" %}
                 </button>
             </div>
             
             <div class="card-body">
                 <div class="profile-grid">
                     <div class="profile-field">
-                        <label class="field-label">Full Name</label>
+                        <label class="field-label">{% trans "Full Name" %}</label>
                         <div class="field-value">
                             <i class="fas fa-user field-icon"></i>
                             <input type="text" class="form-control-plaintext" value="{{ request.user|title }}" readonly>
@@ -48,31 +49,31 @@
                     </div>
                     
                     <div class="profile-field">
-                        <label class="field-label">About Me</label>
+                        <label class="field-label">{% trans "About Me" %}</label>
                         <div class="field-value">
                             <i class="fas fa-info-circle field-icon"></i>
-                            <textarea class="form-control-plaintext" rows="2" readonly>Customer</textarea>
+                            <textarea class="form-control-plaintext" rows="2" readonly>{% trans "Customer" %}</textarea>
                         </div>
                     </div>
                     
                     <div class="profile-field">
-                        <label class="field-label">Phone Number</label>
+                        <label class="field-label">{% trans "Phone Number" %}</label>
                         <div class="field-value">
                             <i class="fas fa-phone field-icon"></i>
                             <input type="text" class="form-control-plaintext" value="+1 (741) 213-3252" readonly>
                             <div class="verification-badge not-verified">
-                                <i class="fas fa-times-circle"></i> Not Verified
+                                <i class="fas fa-times-circle"></i> {% trans "Not Verified" %}
                             </div>
                         </div>
                     </div>
                     
                     <div class="profile-field">
-                        <label class="field-label">Email Address</label>
+                        <label class="field-label">{% trans "Email Address" %}</label>
                         <div class="field-value">
                             <i class="fas fa-envelope field-icon"></i>
                             <input type="text" class="form-control-plaintext" value="{{ request.user.email }}" readonly>
                             <div class="verification-badge verified">
-                                <i class="fas fa-check-circle"></i> Verified
+                                <i class="fas fa-check-circle"></i> {% trans "Verified" %}
                             </div>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
     <div class="page-section" id="orders" style="display:none;">
         <div class="dashboard-card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-shopping-bag"></i> Order History</h3>
+                <h3 class="card-title"><i class="fas fa-shopping-bag"></i> {% trans "Order History" %}</h3>
             </div>
             
             <div class="card-body">
@@ -93,12 +94,12 @@
                     <table class="order-table">
                         <thead>
                             <tr>
-                                <th>Order ID</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Payment</th>
-                                <th>Total</th>
-                                <th>Actions</th>
+                                <th>{% trans "Order ID" %}</th>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th>{% trans "Payment" %}</th>
+                                <th>{% trans "Total" %}</th>
+                                <th>{% trans "Actions" %}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,8 +113,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="status-badge {% if o.paid_status %}delivered{% else %}processing{% endif %}">
-                                        {% if o.paid_status %}Paid{% else %}Pending{% endif %}
+                                    <span class="status-badge {% if o.paid_status %}delivered{% else %}processing{% endif %}">                                    \    
+                                        {% if o.paid_status %}
+                                            {% trans "Paid" %}
+                                        {% else %}
+                                            {% trans "Pending" %}
+                                        {% endif %}
                                     </span>
                                 </td>
                                 <td>${{o.price}}</td>
@@ -140,11 +145,11 @@
     <div class="page-section" id="order-details" style="display:none;">
         <div class="dashboard-card">
             <button class="btn-back" onclick="showSection('orders')">
-                <i class="fas fa-arrow-left"></i> Back to Orders
+                <i class="fas fa-arrow-left"></i> {% trans "Back to Orders" %}
             </button>
             
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-file-invoice"></i> Order Details: <span id="order-id"></span></h3>
+                <h3 class="card-title"><i class="fas fa-file-invoice"></i>{% trans "Order Details:" %}<span id="order-id"></span></h3>
             </div>
             
             <div class="card-body">
@@ -152,11 +157,11 @@
                     <table class="order-details-table">
                         <thead>
                             <tr>
-                                <th>Product</th>
-                                <th>Image</th>
-                                <th>Price</th>
-                                <th>Qty</th>
-                                <th>Total</th>
+                                <th>{% trans "Product" %}</th>
+                                <th>{% trans "Image" %}</th>
+                                <th>{% trans "Price" %}</th>
+                                <th>{% trans "Qty" %}</th>
+                                <th>{% trans "Total" %}</th>
                             </tr>
                         </thead>
                         <tbody id="order-items">
@@ -172,11 +177,11 @@
     <div class="page-section" id="track-order" style="display:none;">
         <div class="dashboard-card">
             <button class="btn-back" onclick="showSection('orders')">
-                <i class="fas fa-arrow-left"></i> Back to Orders
+                <i class="fas fa-arrow-left"></i> {% trans "Back to Orders" %}
             </button>
             
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-map-marked-alt"></i> Track Your Order</h3>
+                <h3 class="card-title"><i class="fas fa-map-marked-alt"></i> {% trans "Track Your Order" %}</h3>
             </div>
             
             <div class="card-body">
@@ -224,45 +229,45 @@
     <div class="page-section" id="address" style="display:none;">
         <div class="dashboard-card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-address-book"></i> Address Book</h3>
+                <h3 class="card-title"><i class="fas fa-address-book"></i> {% trans "Address Book" %}</h3>
             </div>
             
             <div class="card-body">
                 <form class="address-form" method="POST">
                     {% csrf_token %}
-                    <h4 class="form-title">Add New Address</h4>
+                    <h4 class="form-title">{% trans "Add New Address" %}</h4>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Address</label>
+                            <label>{% trans "Address" %}</label>
                             <input type="text" class="form-control" name="address" placeholder="Street address" required>
                         </div>
                         <div class="form-group">
-                            <label>Phone Number</label>
+                            <label>{% trans "Phone Number" %}</label>
                             <input type="tel" class="form-control" name="mobile" placeholder="Contact number" required>
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn-save" name="submit" value="Submit">
-                                <i class="fas fa-save"></i> Save Address
+                                <i class="fas fa-save"></i> {% trans "Save Address" %}
                             </button>
                         </div>
                     </div>
                 </form>
                 
                 <div class="address-list">
-                    <h4 class="list-title">Saved Addresses</h4>
+                    <h4 class="list-title">{% trans "Saved Addresses" %}</h4>
                     {% for a in address %}
                     <div class="address-card {% if a.status %}default{% endif %}">
                         <div class="address-content">
-                            <h5>Address {{ forloop.counter }}</h5>
+                            <h5>{% blocktrans %}Address {{ forloop.counter }}{% endblocktrans%}</h5>
                             <p><i class="fas fa-map-marker-alt"></i> {{a.address}}</p>
                             <p><i class="fas fa-phone"></i> {{a.mobile}}</p>
                         </div>
                         <div class="address-actions">
                             {% if a.status %}
-                                <span class="default-badge"><i class="fas fa-check-circle"></i> Default</span>
+                                <span class="default-badge"><i class="fas fa-check-circle"></i> {% trans "Default" %}</span>
                             {% else %}
                                 <button class="btn-make-default make-default-address" data-address-id="{{a.id}}">
-                                    <i class="fas fa-check-circle"></i> Make Default
+                                    <i class="fas fa-check-circle"></i> {% trans "Make Default" %}
                                 </button>
                             {% endif %}
                         </div>
