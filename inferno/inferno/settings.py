@@ -69,7 +69,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     
     # Translation Apps
-    'modeltranslation',
+    
     'rosetta',
     'parler',
     

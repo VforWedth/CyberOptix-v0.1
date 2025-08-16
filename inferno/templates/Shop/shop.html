@@ -351,101 +351,115 @@
 </head>
 <ma>
     <div class="account-container">
-        <div class="account-sidebar">
-            <h2>Filters</h2>
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search title, price or RAM...">
-                <i class="fas fa-search search-icon"></i>
+    <div class="account-sidebar">
+        <h2>{% trans "Filters" %}</h2>
+
+        <div class="search-container">
+            <input
+                type="text"
+                id="searchInput"
+                class="search-bar"
+                placeholder="{% trans "Search title, price or RAM..." %}"
+                aria-label="{% trans "Search products" %}"
+            >
+            <i class="fas fa-search search-icon" aria-hidden="true"></i>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-toggle" onclick="">
+                <h3>{% trans "Brand" %}</h3>
+                <span id="brandArrow">▼</span>
             </div>
-            
-            <div class="filter-section">
-                <div class="filter-toggle" onclick="">
-                    <h3>Brand</h3>
-                    <span id="brandArrow">▼</span>
-                </div>
-                    
-                    <div class="filter-option" data-filter="brand" name="globalFilter" data-value="all">All Brands</div>
-                    <div class="filter-option" data-filter="brand" name="globalFilter" data-value="Apple">Apple</div>
-                    <div class="filter-option" data-filter="brand" data-value="HP">HP</div>
-                    <div class="filter-option" data-filter="brand" data-value="Acer">Acer</div>
-                    <div class="filter-option" data-filter="brand" data-value="Asus">Asus</div>
-                    <div class="filter-option" data-filter="brand" data-value="Dell">Dell</div>
-                    <div class="filter-option" data-filter="brand" data-value="Lenovo">Lenovo</div>
-                
+
+            <div class="filter-option" data-filter="brand" name="globalFilter" data-value="all">{% trans "All Brands" %}</div>
+            <div class="filter-option" data-filter="brand" name="globalFilter" data-value="Apple">Apple</div>
+            <div class="filter-option" data-filter="brand" data-value="HP">HP</div>
+            <div class="filter-option" data-filter="brand" data-value="Acer">Acer</div>
+            <div class="filter-option" data-filter="brand" data-value="Asus">Asus</div>
+            <div class="filter-option" data-filter="brand" data-value="Dell">Dell</div>
+            <div class="filter-option" data-filter="brand" data-value="Lenovo">Lenovo</div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-toggle" onclick="">
+                <h3>{% trans "Category" %}</h3>
+                <span id="categoryArrow">▼</span>
             </div>
-            
-            <div class="filter-section">
-                <div class="filter-toggle" onclick="">
-                    <h3>Category</h3>
-                    <span id="categoryArrow">▼</span>
-                </div>
-                    <div class="filter-option" data-filter="category" data-value="all">All Categories</div>
-                    <div class="filter-option" data-filter="category" name="globalFilter" data-value="Laptop">Laptop</div>
-                    <div class="filter-option" data-filter="category" data-value="Desktop">Desktop</div>
-                    <div class="filter-option" data-filter="category" data-value="Accessories">Accessories</div>
-                
-            </div>
-           
-            <button id="applyFilters" class="add-to-cart" style="width: 100%; margin-top: 20px;">Find Products</button>
-            <button id="resetFilters" class="select-options" style="width: 100%; margin-top: 10px;">Reset To All Products</button>
-             </div>
-      
-        <div class="wishlist-content">
-            <div class="top-banner">
-                <h1>{{shop.title}}  Shop</h1>
-            </div>
-            
-            <div class="wishlist-items">
-                {% for u in products %}
-                <div class="wishlist-item"
-                    data-model-key="{{ u.model_name }}"
-                    data-brand="{{ u.brand }}"
-                    data-category="{{ u.category }}"
-                    data-price="{{ u.price }}"
-                    data-specification="{{ u.specification|lower }}"
-                    data-title="{{ u.title|lower }}"
-                    data-wishlist="{% if u.id|stringformat:'s' in request.wishlist.wishlist %}true{% else %}false{% endif %}">
+
+            <div class="filter-option" data-filter="category" data-value="all">{% trans "All Categories" %}</div>
+            <div class="filter-option" data-filter="category" name="globalFilter" data-value="Laptop">{% trans "Laptop" %}</div>
+            <div class="filter-option" data-filter="category" data-value="Desktop">{% trans "Desktop" %}</div>
+            <div class="filter-option" data-filter="category" data-value="Accessories">{% trans "Accessories" %}</div>
+        </div>
+
+        <button id="applyFilters" class="add-to-cart" style="width: 100%; margin-top: 20px;">{% trans "Find Products" %}</button>
+        <button id="resetFilters" class="select-options" style="width: 100%; margin-top: 10px;">{% trans "Reset To All Products" %}</button>
+    </div>
+
+    <div class="wishlist-content">
+        <div class="top-banner">
+            {# show shop title (proper name) but keep "Shop" translatable #}
+            <h1>
+                {% blocktrans with shopname=shop.title %}
+                    {{ shopname }} Shop
+                {% endblocktrans %}
+            </h1>
+        </div>
+
+        <div class="wishlist-items">
+            {% for u in products %}
+            <div class="wishlist-item"
+                data-model-key="{{ u.model_name }}"
+                data-brand="{{ u.brand }}"
+                data-category="{{ u.category }}"
+                data-price="{{ u.price }}"
+                data-specification="{{ u.specification|lower }}"
+                data-title="{{ u.title|lower }}"
+                data-wishlist="{% if u.id|stringformat:'s' in request.wishlist.wishlist %}true{% else %}false{% endif %}"
+            >
                 <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{u.id}}">
-        <input type="hidden" class="product-pid-{{ u.id }}" value="{{ u.p_id }}">
-        <input type="hidden" class="product-image-{{ u.id }}" value="{{ u.image.url }}">
-        <input type="hidden" class="product-id-{{ u.id }}" value="{{ u.id }}">
-        <input type="hidden" class="product-title-{{ u.id }}" value="{{ u.title }}">
-                
-                      
-                <button class="wishlist-heart add-to-wishlist"  data-product-item="{{u.id}}">
+                <input type="hidden" class="product-pid-{{ u.id }}" value="{{ u.p_id }}">
+                <input type="hidden" class="product-image-{{ u.id }}" value="{{ u.image.url }}">
+                <input type="hidden" class="product-id-{{ u.id }}" value="{{ u.id }}">
+                <input type="hidden" class="product-title-{{ u.id }}" value="{{ u.title }}">
+
+                <button class="wishlist-heart add-to-wishlist" data-product-item="{{u.id}}" aria-label="{% trans "Add to wishlist" %}">
                     <i class="far fa-heart"></i>
                 </button>
-            
-                                    
-                    <img src="{{ u.image.url }}" alt="{{ u.title }}" class="product-image">
-                    
-                    <h3>{{ u.title }}</h3>
-                    {% if u.old_price %}
-                    <div class="sale-badge">SALE!</div>
+
+                <img src="{{ u.image.url }}" alt="{{ u.title }}" class="product-image">
+
+                <h3>{{ u.title }}</h3>
+
+                {% if u.old_price %}
+                    <div class="sale-badge">{% trans "SALE!" %}</div>
                     <div class="price">
                         <span class="original-price">${{ u.old_price }}</span>
                         <span class="sale-price">${{ u.price }}</span>
                     </div>
-                    {% else %}
+                {% else %}
                     <div class="price">
                         <span class="current-price">${{ u.price }}</span>
                     </div>
-                    {% endif %}
-                    
-                    {% if u.ram_size %}
+                {% endif %}
+
+                {% if u.ram_size %}
                     <div class="ram-size">
-                        <i class="fas fa-memory"></i> {{ u.ram_size }} RAM
+                        <i class="fas fa-memory" aria-hidden="true"></i>
+                        {% blocktrans with ram=u.ram_size %}{{ ram }} RAM{% endblocktrans %}
                     </div>
-                    {% endif %}
-                    
-                    <a href="{% url 'flame:shop-product-detail' u.shop.shop_id u.p_id  %}">
-                        <button class="add-to-cart" style="background-color:var(--primary-dark);color:var(--text-muted);">View Product</button>
-                    </a>
-                </div>
-                {% endfor %}
+                {% endif %}
+
+                <a href="{% url 'flame:shop-product-detail' u.shop.shop_id u.p_id  %}">
+                    <button class="add-to-cart" style="background-color:var(--primary-dark);color:var(--text-muted);">
+                        {% trans "View Product" %}
+                    </button>
+                </a>
             </div>
+            {% endfor %}
         </div>
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     

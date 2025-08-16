@@ -1,8 +1,10 @@
 from django.db import models
+from django.db.models import JSONField
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
 from django.utils.text import slugify
+from django.conf import settings
 
 STATUS_CHOICE = (
     ("processing","Processing"),
@@ -37,10 +39,19 @@ def user_directory_path(instance, filename):
 class Category(models.Model):
     c_id =  ShortUUIDField(unique=True, length=10, max_length=20, prefix="cat", alphabet="abcdefghi12345")
     title = models.CharField(max_length=100, default="Laptops") 
+    # Add JSON translation field
+    title_translations = JSONField(default=dict, blank=True, help_text="Auto-translated titles")
+
     image = models.ImageField(upload_to="category", default="category.jpg")
     
     class Meta:
         verbose_name_plural = "Categories"
+        
+    def get_translated_title(self, language_code='en'):
+        """Get title in specified language"""
+        if language_code == 'en' or not self.title_translations:
+            return self.title
+        return self.title_translations.get(language_code, self.title)
         
     def category_image(self):
         return mark_safe('<img src="%s" width="50" height="50" />' %(self.image.url))
@@ -56,6 +67,11 @@ class Shop(models.Model):
     paypal_email = models.EmailField(default="lorendrain47@gmail.com")
     slug = models.SlugField(max_length=100, unique=True, null=True, blank=True)
     title = models.CharField(max_length=100, default="Citicom")
+    
+    # JSON translation fields
+    title_translations = JSONField(default=dict, blank=True)
+    description_translations = JSONField(default=dict, blank=True)
+    
     image = models.ImageField(upload_to=user_directory_path, default="shop.jpg")
     description = models.TextField(null=True, blank=True, default="Citicom Laptop Sale")
     
@@ -69,6 +85,15 @@ class Shop(models.Model):
     days_return = models.CharField(max_length=100, default="100")
     warranty_period = models.CharField(max_length=100, default="100")
     
+    def get_translated_title(self, language_code='en'):
+        if language_code == 'en' or not self.title_translations:
+            return self.title
+        return self.title_translations.get(language_code, self.title)
+    
+    def get_translated_description(self, language_code='en'):
+        if language_code == 'en' or not self.description_translations:
+            return self.description
+        return self.description_translations.get(language_code, self.description)
     
     class Meta:
         verbose_name_plural = "Shops"
@@ -87,8 +112,15 @@ class Shop(models.Model):
 class Brand(models.Model):
     b_id = ShortUUIDField(unique=True, length=10, max_length=20, prefix="brand", alphabet="abcdefghi12345")
     title = models.CharField(max_length=100, default="Apple")
+    
+    title_translations = JSONField(default=dict, blank=True)
+    
     brand_image = models.ImageField(upload_to="brand", default="brand.jpg")
 
+    def get_translated_title(self, language_code='en'):
+        if language_code == 'en' or not self.title_translations:
+            return self.title
+        return self.title_translations.get(language_code, self.title)
     class Meta:
         verbose_name_plural = "Brands"
 
@@ -120,8 +152,14 @@ class Product(models.Model):
     ##### These are addtional for product detail #######
     
     title = models.CharField(max_length=100, default="Macbook")
+    title_translations = JSONField(default=dict, blank=True)
+    
+    
     image = models.ImageField(upload_to=user_directory_path, default="product.jpg")
+    
     description = models.TextField(null=True, blank=True, default="This is the product")
+    description_translations = JSONField(default=dict, blank=True)
+    
     cpu =models.CharField(max_length=100, default="intel")
     ram=models.CharField(max_length=100, default="8 GB")
     
@@ -130,11 +168,36 @@ class Product(models.Model):
     old_price = models.DecimalField(max_digits=12, decimal_places=2, default="2.99") #dollar nk lote mhr lrr kyat pyaung mhr lrr
     
     specification = models.TextField(null=True, blank=True)
+    specification_translations = JSONField(default=dict, blank=True)
     #tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null= True)
     
+    # Translation metadata
+    last_translated = models.DateTimeField(null=True, blank=True)
+    translation_status = models.CharField(max_length=20, choices=[
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed')
+    ], default='pending')
     class Meta:
         verbose_name_plural = "Products"
         
+    # Translation getter methods
+    def get_translated_title(self, language_code='en'):
+        if language_code == 'en' or not self.title_translations:
+            return self.title
+        return self.title_translations.get(language_code, self.title)
+    
+    def get_translated_description(self, language_code='en'):
+        if language_code == 'en' or not self.description_translations:
+            return self.description
+        return self.description_translations.get(language_code, self.description)
+    
+    def get_translated_specification(self, language_code='en'):
+        if language_code == 'en' or not self.specification_translations:
+            return self.specification
+        return self.specification_translations.get(language_code, self.specification)    
+    
     def product_image(self):
         return mark_safe('<img src="%s" width="50" height="50" />' %(self.image.url))
     

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-16 17:41+0630\n"
+"POT-Creation-Date: 2025-08-17 03:15+0630\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,19 @@ msgstr ""
 msgid "Welcome to CyberOptix"
 msgstr ""
 
-#: .\flame\views.py:453
+#: .\flame\views.py:99
+msgid "ဒက်စ်တော့"
+msgstr ""
+
+#: .\flame\views.py:100
+msgid "လက်ပ်တော့"
+msgstr ""
+
+#: .\flame\views.py:101
+msgid "အသုံး အဆောင်ပစ္စည်းများ"
+msgstr ""
+
+#: .\flame\views.py:459
 msgid "Your Cart is Empty"
 msgstr ""
 
@@ -42,14 +54,103 @@ msgstr ""
 msgid "Burmese"
 msgstr ""
 
+#: .\templates\Shop\shop.html:355
+msgid "Filters"
+msgstr ""
+
+#: .\templates\Shop\shop.html:362
+msgid "Search title, price or RAM..."
+msgstr ""
+
+#: .\templates\Shop\shop.html:363 .\templates\flame\search.html:733
+msgid "Search products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:370 .\templates\partials\base.html:123
+msgid "Brand"
+msgstr ""
+
+#: .\templates\Shop\shop.html:374
+msgid "All Brands"
+msgstr ""
+
+#: .\templates\Shop\shop.html:385
+msgid "Category"
+msgstr ""
+
+#: .\templates\Shop\shop.html:389
+msgid "All Categories"
+msgstr ""
+
+#: .\templates\Shop\shop.html:390 .\templates\flame\category.html:50
+msgid "Laptop"
+msgstr ""
+
+#: .\templates\Shop\shop.html:391 .\templates\flame\category.html:69
+#: .\templates\partials\base.html:137
+msgid "Desktop"
+msgstr ""
+
+#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:87
+#: .\templates\partials\base.html:138
+msgid "Accessories"
+msgstr ""
+
+#: .\templates\Shop\shop.html:395
+msgid "Find Products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:396
+msgid "Reset To All Products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:403
+#, python-format
+msgid ""
+"\n"
+"                    %(shopname)s Shop\n"
+"                "
+msgstr ""
+
+#: .\templates\Shop\shop.html:426
+msgid "Add to wishlist"
+msgstr ""
+
+#: .\templates\Shop\shop.html:435
+msgid "SALE!"
+msgstr ""
+
+#: .\templates\Shop\shop.html:449
+#, python-format
+msgid "%(ram)s RAM"
+msgstr ""
+
+#: .\templates\Shop\shop.html:455 .\templates\flame\async\product-list.html:8
 #: .\templates\flame\brand-product-list.html:47
 #: .\templates\flame\category-product-list.html:47
 #: .\templates\flame\home.html:654 .\templates\flame\home.html:698
-#: .\templates\flame\home.html:741 .\templates\flame\product-list.html:979
+#: .\templates\flame\home.html:741 .\templates\flame\product-list.html:995
 #: .\templates\flame\search.html:970
 #: .\templates\flame\shop-product-list.html:47
 #: .\templates\flame\wishlist.html:149
 msgid "View Product"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:228
+msgid "Shipping:"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:232
+msgid "Total:"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:240
+#: .\templates\flame\shop-cart.html:112
+msgid "Continue Shopping"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:244
+msgid "Proceed to Checkout"
 msgstr ""
 
 #: .\templates\flame\cart.html:167
@@ -109,24 +210,8 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: .\templates\flame\cart.html:228
-msgid "Shipping:"
-msgstr ""
-
 #: .\templates\flame\cart.html:229
 msgid "Free"
-msgstr ""
-
-#: .\templates\flame\cart.html:232
-msgid "Total:"
-msgstr ""
-
-#: .\templates\flame\cart.html:240 .\templates\flame\shop-cart.html:112
-msgid "Continue Shopping"
-msgstr ""
-
-#: .\templates\flame\cart.html:244
-msgid "Proceed to Checkout"
 msgstr ""
 
 #: .\templates\flame\category.html:16
@@ -146,7 +231,7 @@ msgid ""
 msgstr ""
 
 #: .\templates\flame\category.html:25 .\templates\flame\home.html:600
-#: .\templates\flame\product-list.html:717 .\templates\flame\search.html:708
+#: .\templates\flame\product-list.html:733 .\templates\flame\search.html:708
 #: .\templates\flame\shop-list.html:7
 msgid "Shops"
 msgstr ""
@@ -155,22 +240,31 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: .\templates\flame\category.html:50 .\templates\partials\base.html:136
-msgid "Laptop"
-msgstr ""
+#: .\templates\flame\category.html:54
+#, python-format
+msgid ""
+"\n"
+"        %(count)s item\n"
+"    "
+msgid_plural ""
+"\n"
+"        %(count)s items\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
 
-#: .\templates\flame\category.html:54 .\templates\flame\category.html:68
-#: .\templates\flame\category.html:82
-msgid "items"
-msgstr ""
-
-#: .\templates\flame\category.html:65 .\templates\partials\base.html:137
-msgid "Desktop"
-msgstr ""
-
-#: .\templates\flame\category.html:79 .\templates\partials\base.html:138
-msgid "Accessories"
-msgstr ""
+#: .\templates\flame\category.html:72 .\templates\flame\category.html:90
+#, python-format
+msgid ""
+"\n"
+"                %(count)s item\n"
+"            "
+msgid_plural ""
+"\n"
+"                %(count)s items\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
 
 #: .\templates\flame\checkout.html:22
 #, python-format
@@ -646,27 +740,51 @@ msgstr ""
 msgid "Contact Us"
 msgstr ""
 
-#: .\templates\flame\product-list.html:708
+#: .\templates\flame\product-list.html:700
+#, python-format
+msgid ""
+"\n"
+"                %(brand)s <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:707
+#, python-format
+msgid ""
+"\n"
+"                %(filter)s Items <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:714
+#, python-format
+msgid ""
+"\n"
+"                %(category)s <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:720
 msgid "Products Available in CyberOptix"
 msgstr ""
 
-#: .\templates\flame\product-list.html:709 .\templates\flame\search.html:700
+#: .\templates\flame\product-list.html:724 .\templates\flame\search.html:700
 msgid "Premium laptops for professionals"
 msgstr ""
 
-#: .\templates\flame\product-list.html:719 .\templates\flame\search.html:710
+#: .\templates\flame\product-list.html:735 .\templates\flame\search.html:710
 msgid "All Shops"
 msgstr ""
 
-#: .\templates\flame\product-list.html:739 .\templates\flame\search.html:730
+#: .\templates\flame\product-list.html:755 .\templates\flame\search.html:730
 msgid "Try 'MacBook Pro' or '32GB RAM'..."
 msgstr ""
 
-#: .\templates\flame\product-list.html:804 .\templates\flame\search.html:794
+#: .\templates\flame\product-list.html:820 .\templates\flame\search.html:794
 msgid "Custom price"
 msgstr ""
 
-#: .\templates\flame\product-list.html:812 .\templates\flame\search.html:803
+#: .\templates\flame\product-list.html:828 .\templates\flame\search.html:803
 msgid "Apply"
 msgstr ""
 
@@ -801,10 +919,6 @@ msgstr ""
 
 #: .\templates\flame\search.html:714
 msgid "Innwa"
-msgstr ""
-
-#: .\templates\flame\search.html:733
-msgid "Search products"
 msgstr ""
 
 #: .\templates\flame\search.html:741
@@ -975,10 +1089,6 @@ msgstr ""
 
 #: .\templates\partials\base.html:108
 msgid "Sign up"
-msgstr ""
-
-#: .\templates\partials\base.html:123
-msgid "Brand"
 msgstr ""
 
 #: .\templates\partials\base.html:128
