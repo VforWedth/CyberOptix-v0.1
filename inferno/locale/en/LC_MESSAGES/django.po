@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 03:15+0630\n"
+"POT-Creation-Date: 2025-08-21 10:08+0630\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,85 +26,115 @@ msgstr ""
 msgid "Write your review here..."
 msgstr ""
 
-#: .\flame\views.py:81
+#: .\flame\views.py:84
 msgid "Welcome to CyberOptix"
 msgstr ""
 
-#: .\flame\views.py:99
+#: .\flame\views.py:102
 msgid "ဒက်စ်တော့"
 msgstr ""
 
-#: .\flame\views.py:100
+#: .\flame\views.py:103
 msgid "လက်ပ်တော့"
 msgstr ""
 
-#: .\flame\views.py:101
+#: .\flame\views.py:104
 msgid "အသုံး အဆောင်ပစ္စည်းများ"
 msgstr ""
 
-#: .\flame\views.py:459
+#: .\flame\views.py:825
 msgid "Your Cart is Empty"
 msgstr ""
 
-#: .\inferno\settings.py:155
-msgid "English"
+#: .\flame\views.py:1116
+msgid "Your cart for this shop is empty"
+msgstr ""
+
+#: .\flame\views.py:1201
+msgid "Please add a shipping address"
+msgstr ""
+
+#: .\flame\views.py:1223
+msgid "Shop not found"
+msgstr ""
+
+#: .\flame\views.py:1227
+msgid "An error occurred during checkout"
+msgstr ""
+
+#: .\flame\views.py:1565
+msgid "Order not found"
+msgstr ""
+
+#: .\flame\views.py:1628
+msgid "Invalid shop"
+msgstr ""
+
+#: .\flame\views.py:1632
+msgid "An error occurred"
 msgstr ""
 
 #: .\inferno\settings.py:156
+msgid "English"
+msgstr ""
+
+#: .\inferno\settings.py:157
 msgid "Burmese"
 msgstr ""
 
-#: .\templates\Shop\shop.html:355
+#: .\templates\Shop\shop.html:357
 msgid "Filters"
 msgstr ""
 
-#: .\templates\Shop\shop.html:362
+#: .\templates\Shop\shop.html:364
 msgid "Search title, price or RAM..."
 msgstr ""
 
-#: .\templates\Shop\shop.html:363 .\templates\flame\search.html:733
+#: .\templates\Shop\shop.html:365 .\templates\flame\product-list.html:758
+#: .\templates\flame\search.html:733
 msgid "Search products"
 msgstr ""
 
-#: .\templates\Shop\shop.html:370 .\templates\partials\base.html:123
+#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:124
 msgid "Brand"
 msgstr ""
 
-#: .\templates\Shop\shop.html:374
+#: .\templates\Shop\shop.html:376
 msgid "All Brands"
 msgstr ""
 
-#: .\templates\Shop\shop.html:385
+#: .\templates\Shop\shop.html:387
 msgid "Category"
 msgstr ""
 
-#: .\templates\Shop\shop.html:389
+#: .\templates\Shop\shop.html:391
 msgid "All Categories"
 msgstr ""
 
-#: .\templates\Shop\shop.html:390 .\templates\flame\category.html:50
+#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:50
+#: .\templates\partials\base.html:137
 msgid "Laptop"
 msgstr ""
 
-#: .\templates\Shop\shop.html:391 .\templates\flame\category.html:69
-#: .\templates\partials\base.html:137
+#: .\templates\Shop\shop.html:393 .\templates\flame\category.html:69
+#: .\templates\partials\base.html:138
 msgid "Desktop"
 msgstr ""
 
-#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:87
-#: .\templates\partials\base.html:138
+#: .\templates\Shop\shop.html:394 .\templates\flame\category.html:87
+#: .\templates\partials\base.html:139
 msgid "Accessories"
 msgstr ""
 
-#: .\templates\Shop\shop.html:395
+#: .\templates\Shop\shop.html:397
 msgid "Find Products"
 msgstr ""
 
-#: .\templates\Shop\shop.html:396
+#: .\templates\Shop\shop.html:398
 msgid "Reset To All Products"
 msgstr ""
 
-#: .\templates\Shop\shop.html:403
+#: .\templates\Shop\shop.html:405
 #, python-format
 msgid ""
 "\n"
@@ -112,48 +142,60 @@ msgid ""
 "                "
 msgstr ""
 
-#: .\templates\Shop\shop.html:426
+#: .\templates\Shop\shop.html:428
 msgid "Add to wishlist"
 msgstr ""
 
-#: .\templates\Shop\shop.html:435
-msgid "SALE!"
-msgstr ""
-
-#: .\templates\Shop\shop.html:449
+#: .\templates\Shop\shop.html:462
 #, python-format
 msgid "%(ram)s RAM"
 msgstr ""
 
-#: .\templates\Shop\shop.html:455 .\templates\flame\async\product-list.html:8
+#: .\templates\Shop\shop.html:468 .\templates\flame\async\product-list.html:8
 #: .\templates\flame\brand-product-list.html:47
 #: .\templates\flame\category-product-list.html:47
-#: .\templates\flame\home.html:654 .\templates\flame\home.html:698
-#: .\templates\flame\home.html:741 .\templates\flame\product-list.html:995
-#: .\templates\flame\search.html:970
+#: .\templates\flame\home.html:670 .\templates\flame\home.html:713
+#: .\templates\flame\home.html:763 .\templates\flame\search.html:970
 #: .\templates\flame\shop-product-list.html:47
-#: .\templates\flame\wishlist.html:149
+#: .\templates\flame\wishlist.html:150
 msgid "View Product"
 msgstr ""
 
-#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:228
+#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:229
+#: .\templates\flame\checkout.html:142
 msgid "Shipping:"
 msgstr ""
 
-#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:232
+#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:233
+#: .\templates\flame\checkout.html:149
 msgid "Total:"
 msgstr ""
 
-#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:240
-#: .\templates\flame\shop-cart.html:112
+#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:241
+#: .\templates\flame\payment-completed.html:394
+#: .\templates\flame\shop-cart.html:119
 msgid "Continue Shopping"
 msgstr ""
 
-#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:244
+#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:245
 msgid "Proceed to Checkout"
 msgstr ""
 
-#: .\templates\flame\cart.html:167
+#: .\templates\flame\async\shop-cart-list.html:13
+msgid "Sold by"
+msgstr ""
+
+#: .\templates\flame\async\shop-cart-list.html:53
+#: .\templates\flame\shop-cart.html:93
+msgid "Shop Total:"
+msgstr ""
+
+#: .\templates\flame\async\shop-cart-list.html:63
+#: .\templates\flame\checkout.html:40
+msgid "Checkout"
+msgstr ""
+
+#: .\templates\flame\cart.html:168
 #, python-format
 msgid ""
 "\n"
@@ -166,7 +208,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\cart.html:174
+#: .\templates\flame\cart.html:175
 #, python-format
 msgid ""
 "\n"
@@ -179,38 +221,38 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\cart.html:181 .\templates\flame\shop-cart.html:26
+#: .\templates\flame\cart.html:182 .\templates\flame\shop-cart.html:28
 msgid "You don't have any items in your cart"
 msgstr ""
 
-#: .\templates\flame\cart.html:185 .\templates\flame\order-detail.html:86
-#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:43
+#: .\templates\flame\cart.html:186 .\templates\flame\order-detail.html:86
+#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:45
 msgid "Product"
 msgstr ""
 
-#: .\templates\flame\cart.html:186 .\templates\flame\shop-cart.html:44
+#: .\templates\flame\cart.html:187 .\templates\flame\shop-cart.html:46
 msgid "Unit Price"
 msgstr ""
 
-#: .\templates\flame\cart.html:187 .\templates\flame\order-detail.html:89
+#: .\templates\flame\cart.html:188 .\templates\flame\order-detail.html:89
 #: .\templates\flame\product-detail.html:73
-#: .\templates\flame\shop-cart.html:45
-#: .\templates\flame\shop-product-detail.html:75
+#: .\templates\flame\shop-cart.html:47
+#: .\templates\flame\shop-product-detail.html:99
 msgid "Quantity"
 msgstr ""
 
-#: .\templates\flame\cart.html:188
-#: .\templates\flame\payment-completed.html:229
-#: .\templates\flame\shop-cart.html:46
+#: .\templates\flame\cart.html:189
+#: .\templates\flame\payment-completed.html:325
+#: .\templates\flame\shop-cart.html:48
 msgid "Subtotal"
 msgstr ""
 
-#: .\templates\flame\cart.html:189 .\templates\flame\profile.html:102
-#: .\templates\flame\shop-cart.html:47
+#: .\templates\flame\cart.html:190 .\templates\flame\profile.html:102
+#: .\templates\flame\shop-cart.html:49
 msgid "Actions"
 msgstr ""
 
-#: .\templates\flame\cart.html:229
+#: .\templates\flame\cart.html:230 .\templates\flame\checkout.html:143
 msgid "Free"
 msgstr ""
 
@@ -266,41 +308,78 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\checkout.html:22
-#, python-format
-msgid "Checking out from %(shop.title)s"
+#: .\templates\flame\checkout.html:15
+msgid "Checking out from"
 msgstr ""
 
-#: .\templates\flame\checkout.html:24
+#: .\templates\flame\checkout.html:18
 msgid "PayPal Account:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:25
+#: .\templates\flame\checkout.html:21
 msgid "Order ID:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:28
-msgid "General Order Checkout"
+#: .\templates\flame\checkout.html:33
+msgid "Current Exchange Rate:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:38
+#: .\templates\flame\checkout.html:46
 msgid "Billing Details"
 msgstr ""
 
-#: .\templates\flame\checkout.html:61
+#: .\templates\flame\checkout.html:51
+msgid "Name"
+msgstr ""
+
+#: .\templates\flame\checkout.html:57 .\templates\flame\checkout.html:65
+msgid "Mobile"
+msgstr ""
+
+#: .\templates\flame\checkout.html:61 .\templates\flame\checkout.html:68
+#: .\templates\flame\profile.html:241
+msgid "Address"
+msgstr ""
+
+#: .\templates\flame\checkout.html:76
 msgid "Your Order"
 msgstr ""
 
-#: .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout.html:87 .\templates\flame\checkout.html:106
+msgid "Qty:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:134
 msgid "Subtotal:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:86
+#: .\templates\flame\checkout.html:162
+msgid "Note: Payment will be processed in USD"
+msgstr ""
+
+#: .\templates\flame\checkout.html:185 .\templates\flame\checkout.html:235
+#: .\templates\flame\checkout.html:273
 msgid "Pay with Stripe"
 msgstr ""
 
-#: .\templates\flame\checkout.html:87
+#: .\templates\flame\checkout.html:194
 msgid "Go back to Explore More"
+msgstr ""
+
+#: .\templates\flame\checkout.html:218
+msgid "Generating QR..."
+msgstr ""
+
+#: .\templates\flame\checkout.html:233
+msgid "Could not start checkout."
+msgstr ""
+
+#: .\templates\flame\checkout.html:250
+msgid "Scan QR to Pay or Click Here"
+msgstr ""
+
+#: .\templates\flame\checkout.html:271
+msgid "An error occurred. Please try again."
 msgstr ""
 
 #: .\templates\flame\home.html:561
@@ -341,11 +420,11 @@ msgstr ""
 msgid "Most Popular Items"
 msgstr ""
 
-#: .\templates\flame\home.html:668
+#: .\templates\flame\home.html:684
 msgid "New Items "
 msgstr ""
 
-#: .\templates\flame\home.html:710
+#: .\templates\flame\home.html:725
 msgid "Discount Items "
 msgstr ""
 
@@ -354,7 +433,7 @@ msgid "Profile picture"
 msgstr ""
 
 #: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
-#: .\templates\partials\base.html:98
+#: .\templates\partials\base.html:99
 msgid "Profile"
 msgstr ""
 
@@ -385,8 +464,9 @@ msgid "Image"
 msgstr ""
 
 #: .\templates\flame\order-detail.html:88
-#: .\templates\flame\payment-completed.html:214
-#: .\templates\flame\profile.html:162 .\templates\flame\search.html:761
+#: .\templates\flame\payment-completed.html:261
+#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:162
+#: .\templates\flame\search.html:761
 msgid "Price"
 msgstr ""
 
@@ -400,98 +480,112 @@ msgstr ""
 msgid "Product image: %(title)s"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:184
-#, python-format
-msgid "INVOICE #%(order.id)s"
+#: .\templates\flame\payment-completed.html:211
+msgid "INVOICE"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:186
+#: .\templates\flame\payment-completed.html:214
 #, python-format
 msgid "Payment to %(shop)s"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:188
+#: .\templates\flame\payment-completed.html:216
 msgid "General Order Payment"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:194
+#: .\templates\flame\payment-completed.html:222
+msgid "Exchange Rate:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:232
 msgid "Date:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:195
+#: .\templates\flame\payment-completed.html:240
 msgid "Transaction ID:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:197
+#: .\templates\flame\payment-completed.html:244
 msgid "Merchant PayPal:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:201
+#: .\templates\flame\payment-completed.html:248
 msgid "Billed To"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:203
+#: .\templates\flame\payment-completed.html:250
 msgid "Customer:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:206
+#: .\templates\flame\payment-completed.html:253
 msgid "Email:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:213
+#: .\templates\flame\payment-completed.html:260
 msgid "Item"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:215
+#: .\templates\flame\payment-completed.html:262
 #: .\templates\flame\profile.html:163
 msgid "Qty"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:216
+#: .\templates\flame\payment-completed.html:263
 msgid "Amount"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:233
+#: .\templates\flame\payment-completed.html:334
 msgid "Tax"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:237
+#: .\templates\flame\payment-completed.html:344
 msgid "Grand Total"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:244
+#: .\templates\flame\payment-completed.html:358
 msgid "Total Amount Due"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:247
+#: .\templates\flame\payment-completed.html:366
 msgid "Payment Status:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:248
+#: .\templates\flame\payment-completed.html:367
 msgid "Completed"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:253
+#: .\templates\flame\payment-completed.html:372
+msgid "Payment processed in USD"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:379
 #, python-format
 msgid ""
 "\n"
-"            <p><strong>Thank you for your business, %(user|title)s!</"
-"strong></p>\n"
-"        "
+"                Thank you for your business, %(user)s!\n"
+"            "
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:256
+#: .\templates\flame\payment-completed.html:383
 msgid ""
 "If you have any questions about this invoice, please contact our support "
 "team."
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:260
+#: .\templates\flame\payment-completed.html:388
 msgid "Print Invoice"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:261
+#: .\templates\flame\payment-completed.html:391
 msgid "Download PDF"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:457
+msgid "Error generating PDF. Please try again."
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:470
+msgid "Payment completed successfully!"
 msgstr ""
 
 #: .\templates\flame\payment-failed.html:52
@@ -554,7 +648,7 @@ msgid ""
 msgstr ""
 
 #: .\templates\flame\product-detail.html:30
-#: .\templates\flame\shop-product-detail.html:30
+#: .\templates\flame\shop-product-detail.html:31
 msgid "Related Products"
 msgstr ""
 
@@ -564,60 +658,58 @@ msgid "- {{ p.get_percentage|floatformat:0 }} %%"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:55
-#: .\templates\flame\shop-product-detail.html:38
-#: .\templates\flame\shop-product-detail.html:54
 msgid "$"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:59
-#: .\templates\flame\shop-product-detail.html:58
+#: .\templates\flame\shop-product-detail.html:82
 msgid "Description"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:60
-#: .\templates\flame\shop-product-detail.html:59
+#: .\templates\flame\shop-product-detail.html:83
 msgid "Additional Info"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:61
-#: .\templates\flame\shop-product-detail.html:60
-#: .\templates\partials\base.html:55 .\templates\partials\base.html:66
+#: .\templates\flame\shop-product-detail.html:84
+#: .\templates\partials\base.html:56 .\templates\partials\base.html:67
 msgid "Shop"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:62
-#: .\templates\flame\shop-product-detail.html:64
+#: .\templates\flame\shop-product-detail.html:88
 #, python-format
 msgid "Reviews (%(count)s)"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:95
-#: .\templates\flame\shop-product-detail.html:97
+#: .\templates\flame\shop-product-detail.html:123
 msgid "Product Specifications"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:109
-#: .\templates\flame\shop-product-detail.html:111
+#: .\templates\flame\shop-product-detail.html:137
 msgid "Seller Information"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:117
-#: .\templates\flame\shop-product-detail.html:119
+#: .\templates\flame\shop-product-detail.html:145
 msgid "Delivery Address"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:130
-#: .\templates\flame\shop-product-detail.html:132
+#: .\templates\flame\shop-product-detail.html:158
 msgid "Shop Address:"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:131
-#: .\templates\flame\shop-product-detail.html:133
+#: .\templates\flame\shop-product-detail.html:159
 msgid "Contact Seller:"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:133
-#: .\templates\flame\shop-product-detail.html:136
+#: .\templates\flame\shop-product-detail.html:162
 #, python-format
 msgid ""
 "\n"
@@ -631,112 +723,112 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: .\templates\flame\product-detail.html:145
-#: .\templates\flame\shop-product-detail.html:148
+#: .\templates\flame\shop-product-detail.html:174
 msgid "Customer Reviews"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:147
-#: .\templates\flame\shop-product-detail.html:150
+#: .\templates\flame\shop-product-detail.html:176
 msgid "out of 5.0"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:163
-#: .\templates\flame\shop-product-detail.html:166
+#: .\templates\flame\shop-product-detail.html:192
 msgid "5 Star"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:165
-#: .\templates\flame\shop-product-detail.html:168
+#: .\templates\flame\shop-product-detail.html:194
 #, python-format
 msgid "80%%"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:168
-#: .\templates\flame\shop-product-detail.html:171
+#: .\templates\flame\shop-product-detail.html:197
 msgid "4 Star"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:170
-#: .\templates\flame\shop-product-detail.html:173
+#: .\templates\flame\shop-product-detail.html:199
 #, python-format
 msgid "15%%"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:173
-#: .\templates\flame\shop-product-detail.html:176
+#: .\templates\flame\shop-product-detail.html:202
 msgid "3 Star"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:175
-#: .\templates\flame\shop-product-detail.html:178
+#: .\templates\flame\shop-product-detail.html:204
 #, python-format
 msgid "5%%"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:195
-#: .\templates\flame\shop-product-detail.html:198
+#: .\templates\flame\shop-product-detail.html:224
 msgid "No reviews yet. Be the first to review!"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:203
-#: .\templates\flame\shop-product-detail.html:206
+#: .\templates\flame\shop-product-detail.html:232
 msgid "Add a Review"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:213
-#: .\templates\flame\shop-product-detail.html:216
+#: .\templates\flame\shop-product-detail.html:242
 msgid "Submit Review"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:220
+#: .\templates\flame\shop-product-detail.html:246
 #: .\templates\userauths\sign-in.html:20 .\templates\userauths\sign-in.html:27
 #: .\templates\userauths\sign-in.html:49 .\templates\userauths\sign-up.html:20
 msgid "Login"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:220
+#: .\templates\flame\shop-product-detail.html:246
 msgid "to write a review."
 msgstr ""
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:180
+#: .\templates\partials\base.html:181
 msgid "All Rights Reserved 2024-2025"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:183
+#: .\templates\partials\base.html:184
 msgid "Information"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:185
+#: .\templates\partials\base.html:186
 msgid "About Us"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:190
+#: .\templates\partials\base.html:191
 msgid "Helpful Links"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:192
+#: .\templates\partials\base.html:193
 msgid "Services"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:193
+#: .\templates\partials\base.html:194
 msgid "Privacy Policy"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:194
+#: .\templates\partials\base.html:195
 msgid "Terms & Condition"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:199
+#: .\templates\partials\base.html:200
 msgid "Contact Us"
 msgstr ""
 
@@ -776,15 +868,53 @@ msgstr ""
 msgid "All Shops"
 msgstr ""
 
+#: .\templates\flame\product-list.html:736 .\templates\flame\search.html:711
+msgid "Unique"
+msgstr ""
+
+#: .\templates\flame\product-list.html:737 .\templates\flame\search.html:712
+msgid "ICT"
+msgstr ""
+
+#: .\templates\flame\product-list.html:738 .\templates\flame\search.html:713
+msgid "Citicom"
+msgstr ""
+
+#: .\templates\flame\product-list.html:739 .\templates\flame\search.html:714
+msgid "Innwa"
+msgstr ""
+
 #: .\templates\flame\product-list.html:755 .\templates\flame\search.html:730
 msgid "Try 'MacBook Pro' or '32GB RAM'..."
 msgstr ""
 
-#: .\templates\flame\product-list.html:820 .\templates\flame\search.html:794
+#: .\templates\flame\product-list.html:766 .\templates\flame\search.html:741
+msgid "Clear search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:774 .\templates\flame\search.html:749
+msgid "Submit search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:776 .\templates\flame\search.html:751
+msgid "Search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:792
+#, python-format
+msgid "%(min_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:795
+#, python-format
+msgid "%(max_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:807 .\templates\flame\search.html:794
 msgid "Custom price"
 msgstr ""
 
-#: .\templates\flame\product-list.html:828 .\templates\flame\search.html:803
+#: .\templates\flame\product-list.html:815 .\templates\flame\search.html:803
 msgid "Apply"
 msgstr ""
 
@@ -876,10 +1006,6 @@ msgstr ""
 msgid "Add New Address"
 msgstr ""
 
-#: .\templates\flame\profile.html:241
-msgid "Address"
-msgstr ""
-
 #: .\templates\flame\profile.html:250
 msgid "Save Address"
 msgstr ""
@@ -905,35 +1031,7 @@ msgstr ""
 msgid "Search For"
 msgstr ""
 
-#: .\templates\flame\search.html:711
-msgid "Unique"
-msgstr ""
-
-#: .\templates\flame\search.html:712
-msgid "ICT"
-msgstr ""
-
-#: .\templates\flame\search.html:713
-msgid "Citicom"
-msgstr ""
-
-#: .\templates\flame\search.html:714
-msgid "Innwa"
-msgstr ""
-
-#: .\templates\flame\search.html:741
-msgid "Clear search"
-msgstr ""
-
-#: .\templates\flame\search.html:749
-msgid "Submit search"
-msgstr ""
-
-#: .\templates\flame\search.html:751
-msgid "Search"
-msgstr ""
-
-#: .\templates\flame\shop-cart.html:19
+#: .\templates\flame\shop-cart.html:21
 #, python-format
 msgid ""
 "\n"
@@ -944,7 +1042,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\shop-cart.html:34
+#: .\templates\flame\shop-cart.html:36
 #, python-format
 msgid ""
 "\n"
@@ -957,25 +1055,21 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\shop-cart.html:58
+#: .\templates\flame\shop-cart.html:60
 #, python-format
 msgid "Sold by %(seller)s"
 msgstr ""
 
-#: .\templates\flame\shop-cart.html:88
-msgid "Shop Total:"
-msgstr ""
-
-#: .\templates\flame\shop-cart.html:94
+#: .\templates\flame\shop-cart.html:99
 #, python-format
 msgid "Checkout %(shopname)s "
 msgstr ""
 
-#: .\templates\flame\shop-cart.html:106
+#: .\templates\flame\shop-cart.html:111
 msgid "Grand Total:"
 msgstr ""
 
-#: .\templates\flame\shop-cart.html:110
+#: .\templates\flame\shop-cart.html:117
 msgid "items in cart"
 msgstr ""
 
@@ -992,47 +1086,42 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\shop-product-detail.html:14
+#: .\templates\flame\shop-product-detail.html:15
 #, python-format
 msgid "Main image of %(title)s"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:19
+#: .\templates\flame\shop-product-detail.html:20
 #, python-format
 msgid "Thumbnail of %(title)s"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:21
+#: .\templates\flame\shop-product-detail.html:22
 msgid "Product Image"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:51
-#, python-format
-msgid "- %(pct)s %%"
-msgstr ""
-
-#: .\templates\flame\shop-product-detail.html:91
+#: .\templates\flame\shop-product-detail.html:117
 msgid "Add to Cart"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:92
+#: .\templates\flame\shop-product-detail.html:118
 msgid "Countinue Browsing"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:114
+#: .\templates\flame\shop-product-detail.html:140
 #, python-format
 msgid "Image for %(shop)s"
 msgstr ""
 
-#: .\templates\flame\shop-product-detail.html:187
+#: .\templates\flame\shop-product-detail.html:213
 msgid "User"
 msgstr ""
 
-#: .\templates\flame\wishlist.html:111
+#: .\templates\flame\wishlist.html:112
 msgid "Your Wishlist"
 msgstr ""
 
-#: .\templates\flame\wishlist.html:113
+#: .\templates\flame\wishlist.html:114
 #, python-format
 msgid ""
 "\n"
@@ -1047,15 +1136,15 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\wishlist.html:132
+#: .\templates\flame\wishlist.html:133
 msgid "In Stock"
 msgstr ""
 
-#: .\templates\flame\wishlist.html:134
+#: .\templates\flame\wishlist.html:135
 msgid "Out of Stock"
 msgstr ""
 
-#: .\templates\flame\wishlist.html:146
+#: .\templates\flame\wishlist.html:147
 msgid "Add to cart"
 msgstr ""
 
@@ -1063,35 +1152,35 @@ msgstr ""
 msgid "CyberOptix - Premium Laptops Myanmar"
 msgstr ""
 
-#: .\templates\partials\base.html:50
+#: .\templates\partials\base.html:51
 msgid "CyberOptix"
 msgstr ""
 
-#: .\templates\partials\base.html:53
+#: .\templates\partials\base.html:54
 msgid "Home"
 msgstr ""
 
-#: .\templates\partials\base.html:71
+#: .\templates\partials\base.html:72
 msgid "About"
 msgstr ""
 
-#: .\templates\partials\base.html:72
+#: .\templates\partials\base.html:73
 msgid "FAQs"
 msgstr ""
 
-#: .\templates\partials\base.html:101
+#: .\templates\partials\base.html:102
 msgid "Sign Out"
 msgstr ""
 
-#: .\templates\partials\base.html:105
+#: .\templates\partials\base.html:106
 msgid "Sign In"
 msgstr ""
 
-#: .\templates\partials\base.html:108
+#: .\templates\partials\base.html:109
 msgid "Sign up"
 msgstr ""
 
-#: .\templates\partials\base.html:128
+#: .\templates\partials\base.html:129
 msgid "All"
 msgstr ""
 

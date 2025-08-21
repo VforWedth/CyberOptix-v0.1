@@ -1,7 +1,10 @@
+<!-- templates/flame/payment-completed.html -->
 {% extends 'partials/base.html' %}
 {% load math_filters %}
+{% load myanmar_filter %}
 {% load static %}
 {% load i18n %}
+
 {% block content %}
 
 <!-- Add required libraries -->
@@ -18,9 +21,14 @@
         max-width: 800px;
         margin: 2rem auto;
         padding: 2rem;
-        
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    
+    /* Myanmar font support */
+    html[lang="my"] .invoice-container {
+        font-family: 'Padauk', 'Segoe UI', sans-serif;
+    }
+    
     .invoice-container p,
     .invoice-container td,
     .invoice-container th,
@@ -28,7 +36,7 @@
     .invoice-container h2,
     .invoice-container h3,
     .invoice-container h4 {
-      color: inherit;  /* pick up the #333 from .invoice-container */
+        color: inherit;
     }
 
     .invoice-header {
@@ -41,6 +49,15 @@
     .invoice-title {
         color: #2c3e50;
         margin-bottom: 0.5rem;
+    }
+    
+    .exchange-rate-notice {
+        background: #e8f4fd;
+        border: 1px solid #bee5eb;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 15px 0;
+        text-align: center;
     }
 
     .invoice-meta {
@@ -96,6 +113,10 @@
         text-align: right;
         margin: 1.5rem 0;
     }
+    
+    .invoice-total h2, .invoice-total h3, .invoice-total p {
+        color: white !important;
+    }
 
     .invoice-footer {
         text-align: center;
@@ -117,7 +138,6 @@
         color: #fff; 
         padding: 0.75rem 1.5rem;
         background-color: #3498db;
-        color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -132,6 +152,11 @@
 
     .hide-for-pdf {
         display: none !important;
+    }
+    
+    .price-usd-ref {
+        color: #666;
+        font-size: 0.9em;
     }
 
     /* Responsive adjustments */
@@ -178,30 +203,52 @@
         }
     }
 </style>
+
 <body style="background-color:rgb(21, 40, 56);">
 <div class="invoice-container">
     <div class="invoice-header">
-        <h1 class="invoice-title">{% blocktrans %}INVOICE #{{ order.id }}{% endblocktrans %}</h1>
-        {% if order.order_type == 'shop' %}
-            <p>{% blocktrans with shop=order.shop.title %}Payment to {{ shop }}{% endblocktrans %}</p>
+        <h1 class="invoice-title">
+            {% trans "INVOICE" %} #{{ order_id_display }}
+        </h1>
+        {% if order.order_type == 'shop' and shop %}
+            <p>{% blocktrans with shop=shop.title %}Payment to {{ shop }}{% endblocktrans %}</p>
         {% else %}
             <p>{% trans "General Order Payment" %}</p>
+        {% endif %}
+        
+        {% if is_myanmar %}
+        <div class="exchange-rate-notice">
+            <small>
+                {% trans "Exchange Rate:" %} 
+                ၁ USD = {{ exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+            </small>
+        </div>
         {% endif %}
     </div>
 
     <div class="invoice-meta">
         <div>
-            <p><strong>{% trans "Date:" %}</strong> {{ order.order_date|date:"F d, Y" }}</p>
-            <p><strong>{% trans "Transaction ID:" %}</strong> {{ order.id }}</p>
-            {% if order.order_type == 'shop' %}
-                <p><strong>{% trans "Merchant PayPal:" %}</strong> {{ order.shop.paypal_email }}</p>
+            <p>
+                <strong>{% trans "Date:" %}</strong> 
+                {% if is_myanmar %}
+                    {{ order.order_date|date:"Y-m-d"|to_myanmar_numerals }}
+                {% else %}
+                    {{ order.order_date|date:"F d, Y" }}
+                {% endif %}
+            </p>
+            <p>
+                <strong>{% trans "Transaction ID:" %}</strong> 
+                {{ order_id_display }}
+            </p>
+            {% if order.order_type == 'shop' and shop %}
+                <p><strong>{% trans "Merchant PayPal:" %}</strong> {{ shop.paypal_email|default:"N/A" }}</p>
             {% endif %}
         </div>
         <div class="invoice-summary">
             <h3>{% trans "Billed To" %}</h3>
             <p>
                 <strong>{% trans "Customer:" %}</strong>
-                {{ request.user|title }}
+                {{ request.user.username|title }}
             </p>
             <p><strong>{% trans "Email:" %}</strong> {{ request.user.email }}</p>
         </div>
@@ -217,53 +264,153 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in order.cartorderitem_set.all %}
-            <tr>
-                <td>{{ item.item }}</td>
-                <td>${{ item.price }}</td>
-                <td>{{ item.qty }}</td>
-                <td>${{ item.price|multiply:item.qty|floatformat:2 }}</td>
-            </tr>
-            {% endfor %}
+            {% if order_items %}
+                {% for item in order_items %}
+                <tr>
+                    <td>{{ item.item }}</td>
+                    <td>
+                        {{ item.price_display }}
+                        {% if item.price_usd %}
+                            <small class="price-usd-ref d-block">{{ item.price_usd }}</small>
+                        {% endif %}
+                    </td>
+                    <td>{{ item.qty_display }}</td>
+                    <td>
+                        {{ item.total_display }}
+                        {% if is_myanmar %}
+                            <small class="price-usd-ref d-block">
+                                (${{ item.total|floatformat:2|to_myanmar_numerals }})
+                            </small>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <!-- Fallback to original order items -->
+                {% for item in order.cartorderitem_set.all %}
+                <tr>
+                    <td>{{ item.item }}</td>
+                    <td>
+                        {% if is_myanmar %}
+                            {{ item.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                            <small class="price-usd-ref d-block">
+                                (${{ item.price|floatformat:2|to_myanmar_numerals }})
+                            </small>
+                        {% else %}
+                            ${{ item.price|floatformat:2 }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if is_myanmar %}
+                            {{ item.qty|to_myanmar_numerals }}
+                        {% else %}
+                            {{ item.qty }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if is_myanmar %}
+                            {{ item.total|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                            <small class="price-usd-ref d-block">
+                                (${{ item.total|floatformat:2|to_myanmar_numerals }})
+                            </small>
+                        {% else %}
+                            ${{ item.total|floatformat:2 }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+            
             <tr class="total-row">
                 <td colspan="3" style="text-align: right;">{% trans "Subtotal" %}</td>
-                <td>${{ order.price|floatformat:2 }}</td>
+                <td>
+                    {{ order_total_display }}
+                    {% if order_total_usd %}
+                        <small class="price-usd-ref d-block">{{ order_total_usd }}</small>
+                    {% endif %}
+                </td>
             </tr>
             <tr class="total-row">
                 <td colspan="3" style="text-align: right;">{% trans "Tax" %}</td>
-                <td>$0.00</td>
+                <td>
+                    {% if is_myanmar %}
+                        ၀ ကျပ်
+                    {% else %}
+                        $0.00
+                    {% endif %}
+                </td>
             </tr>
             <tr class="total-row">
                 <td colspan="3" style="text-align: right;">{% trans "Grand Total" %}</td>
-                <td>${{ order.price|floatformat:2 }}</td>
+                <td>
+                    <strong>
+                        {{ order_total_display }}
+                        {% if order_total_usd %}
+                            <small class="price-usd-ref d-block">{{ order_total_usd }}</small>
+                        {% endif %}
+                    </strong>
+                </td>
             </tr>
         </tbody>
     </table>
 
     <div class="invoice-total">
         <h3>{% trans "Total Amount Due" %}</h3>
-        <h2>${{ order.price|floatformat:2 }}</h2>
+        <h2>
+            {{ order_total_display }}
+            {% if order_total_usd %}
+                <small style="font-size: 0.6em; display: block;">{{ order_total_usd }}</small>
+            {% endif %}
+        </h2>
         <p>
             <strong>{% trans "Payment Status:" %}</strong>
             {% trans "Completed" %}
         </p>
+        
+        {% if is_myanmar %}
+        <p style="font-size: 0.9em; margin-top: 10px;">
+            {% trans "Payment processed in USD" %}
+        </p>
+        {% endif %}
     </div>
 
     <div class="invoice-footer">
-        {% blocktrans with user=request.user %}
-            <p><strong>Thank you for your business, {{ user|title }}!</strong></p>
-        {% endblocktrans %}
+        <p><strong>
+            {% blocktrans with user=request.user.username|title %}
+                Thank you for your business, {{ user }}!
+            {% endblocktrans %}
+        </strong></p>
         <p>{% trans "If you have any questions about this invoice, please contact our support team." %}</p>
     </div>
 
     <div class="button-container" id="buttonContainer">
-        <button class="invoice-btn" onclick="window.print()">{% trans "Print Invoice" %}</button>
-        <button class="invoice-btn" onclick="downloadPDF()">{% trans "Download PDF" %}</button>
+        <button class="invoice-btn" onclick="window.print()">
+            {% trans "Print Invoice" %}
+        </button>
+        <button class="invoice-btn" onclick="downloadPDF()">
+            {% trans "Download PDF" %}
+        </button>
+        <a href="{% url 'flame:home' %}" class="invoice-btn">
+            {% trans "Continue Shopping" %}
+        </a>
     </div>
 </div>
 
-
 <script>
+    // Myanmar numeral conversion for JavaScript
+    function convertToMyanmarNumerals(text) {
+        const numeralMap = {
+            '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄',
+            '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
+        };
+        
+        let result = text.toString();
+        for (const [eng, myan] of Object.entries(numeralMap)) {
+            result = result.replace(new RegExp(eng, 'g'), myan);
+        }
+        return result;
+    }
+    
     function downloadPDF() {
         const element = document.querySelector(".invoice-container");
         const buttonContainer = document.getElementById('buttonContainer');
@@ -275,6 +422,7 @@
             logging: true,
             useCORS: true,
             scale: 2,
+            backgroundColor: '#ffffff',
             ignoreElements: (element) => element === buttonContainer
         }).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
@@ -295,15 +443,39 @@
                 pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
                 heightLeft -= pageHeight;
             }
-
-            pdf.save('invoice-{{ order.id }}.pdf');
+            
+            // Generate filename based on language
+            const isMyanmar = document.documentElement.lang === 'my';
+            const orderId = '{{ order.id }}';
+            const filename = isMyanmar ? 
+                `invoice-${convertToMyanmarNumerals(orderId)}.pdf` : 
+                `invoice-${orderId}.pdf`;
+            
+            pdf.save(filename);
         }).catch(error => {
             console.error('Error generating PDF:', error);
+            alert('{% trans "Error generating PDF. Please try again." %}');
         }).finally(() => {
             // Show buttons after capture completes
             buttonContainer.classList.remove('hide-for-pdf');
         });
     }
+    
+    // Add success message
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show success notification
+        const successMsg = document.createElement('div');
+        successMsg.className = 'alert alert-success';
+        successMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 15px; border-radius: 5px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb;';
+        successMsg.innerHTML = '{% trans "Payment completed successfully!" %}';
+        document.body.appendChild(successMsg);
+        
+        // Remove after 5 seconds
+        setTimeout(function() {
+            successMsg.remove();
+        }, 5000);
+    });
 </script>
 </body>
+
 {% endblock content %}

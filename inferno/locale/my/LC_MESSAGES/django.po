@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LaptopMart Myanmar 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-17 03:15+0630\n"
-"PO-Revision-Date: 2025-08-17 03:20+0630\n"
+"POT-Creation-Date: 2025-08-21 10:08+0630\n"
+"PO-Revision-Date: 2025-08-21 10:22+0630\n"
 "Last-Translator:   <lorendrain47@gmail.com>\n"
 "Language-Team: Burmese <my@laptopmart.mm>\n"
 "Language: my\n"
@@ -25,94 +25,117 @@ msgstr ""
 msgid "Write your review here..."
 msgstr "ဤနေရာတွင် သုံးသပ်ချက်ရေးသားပါ..."
 
-#: .\flame\views.py:81
+#: .\flame\views.py:84
 msgid "Welcome to CyberOptix"
 msgstr "CyberOptix မှ ကြိုဆိုပါသည်"
 
-#: .\flame\views.py:99
+#: .\flame\views.py:102
 msgid "ဒက်စ်တော့"
-msgstr ""
+msgstr " Desktop"
 
-#: .\flame\views.py:100
+#: .\flame\views.py:103
 msgid "လက်ပ်တော့"
-msgstr ""
+msgstr "Laptop"
 
-#: .\flame\views.py:101
+#: .\flame\views.py:104
 msgid "အသုံး အဆောင်ပစ္စည်းများ"
-msgstr ""
+msgstr "Accessories"
 
-#: .\flame\views.py:459
+#: .\flame\views.py:825
 msgid "Your Cart is Empty"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
 
-#: .\inferno\settings.py:155
+#: .\flame\views.py:1116
+#| msgid "Your Cart is Empty"
+msgid "Your cart for this shop is empty"
+msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
+
+#: .\flame\views.py:1201
+msgid "Please add a shipping address"
+msgstr "ကျေးဇူးပြု၍ ပို့ဆောင်ရေးလိပ်စာထည့်ပါ"
+
+#: .\flame\views.py:1223
+msgid "Shop not found"
+msgstr "ဆိုင်ကိုမတွေ့ရှိပါ"
+
+#: .\flame\views.py:1227
+msgid "An error occurred during checkout"
+msgstr "ငွေရှင်းချိန်တွင် အလွှဲအမှားတစ်ခုခုဖြစ်ပွားခဲ့သည်"
+
+#: .\flame\views.py:1565
+msgid "Order not found"
+msgstr "အော်ဒါကိုမတွေ့ရှိပါ"
+
+#: .\flame\views.py:1628
+msgid "Invalid shop"
+msgstr "မှားယွင်းသောဆိုင်"
+
+#: .\flame\views.py:1632
+msgid "An error occurred"
+msgstr "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်"
+
+#: .\inferno\settings.py:156
 msgid "English"
 msgstr "အင်္ဂလိပ်"
 
-#: .\inferno\settings.py:156
+#: .\inferno\settings.py:157
 msgid "Burmese"
 msgstr "မြန်မာ"
 
-#: .\templates\Shop\shop.html:355
+#: .\templates\Shop\shop.html:357
 msgid "Filters"
 msgstr "စစ်ထုတ်ခြင်း"
 
-#: .\templates\Shop\shop.html:362
+#: .\templates\Shop\shop.html:364
 msgid "Search title, price or RAM..."
 msgstr "ခေါင်းစဉ်၊ စျေးနှုန်း သို့မဟုတ် RAM ရှာရန်..."
 
-#: .\templates\Shop\shop.html:363 .\templates\flame\search.html:733
+#: .\templates\Shop\shop.html:365 .\templates\flame\product-list.html:758
+#: .\templates\flame\search.html:733
 msgid "Search products"
 msgstr "ကုန်ပစ္စည်းများရှာဖွေရန်"
 
-#: .\templates\Shop\shop.html:370 .\templates\partials\base.html:123
+#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:124
 msgid "Brand"
 msgstr "ကုန်အမှတ်တံဆိပ်"
 
-#: .\templates\Shop\shop.html:374
+#: .\templates\Shop\shop.html:376
 msgid "All Brands"
 msgstr "ကုန်ပစ္စည်းအမှတ်တံဆိပ်အားလုံး"
 
-#: .\templates\Shop\shop.html:385
+#: .\templates\Shop\shop.html:387
 msgid "Category"
 msgstr "အမျိုးအစား"
 
-#: .\templates\Shop\shop.html:389
+#: .\templates\Shop\shop.html:391
 msgid "All Categories"
 msgstr "အမျိုးအစားအားလုံး"
 
-#: .\templates\Shop\shop.html:390 .\templates\flame\category.html:50
+#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:50
+#: .\templates\partials\base.html:137
 msgid "Laptop"
 msgstr "လက်ပ်တော့"
 
-#: .\templates\Shop\shop.html:391 .\templates\flame\category.html:69
-#: .\templates\partials\base.html:137
+#: .\templates\Shop\shop.html:393 .\templates\flame\category.html:69
+#: .\templates\partials\base.html:138
 msgid "Desktop"
 msgstr "ဒက်စ်တော့ပ်"
 
-#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:87
-#: .\templates\partials\base.html:138
+#: .\templates\Shop\shop.html:394 .\templates\flame\category.html:87
+#: .\templates\partials\base.html:139
 msgid "Accessories"
 msgstr "အသုံးအဆောင်ပစ္စည်းများ"
 
-#: .\templates\Shop\shop.html:395
+#: .\templates\Shop\shop.html:397
 msgid "Find Products"
 msgstr "ကုန်ပစ္စည်းရှာရန်"
 
-#: .\templates\Shop\shop.html:396
+#: .\templates\Shop\shop.html:398
 msgid "Reset To All Products"
 msgstr "ထုတ်ကုန်အားလုံးသို့ ပြန်လည်သတ်မှတ်ရန်"
 
-#: .\templates\Shop\shop.html:403
+#: .\templates\Shop\shop.html:405
 #, python-format
-#| msgid ""
-#| "\n"
-#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "          "
-#| msgid_plural ""
-#| "\n"
-#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "          "
 msgid ""
 "\n"
 "                    %(shopname)s Shop\n"
@@ -121,48 +144,60 @@ msgstr ""
 "\n"
 "%(shopname)s ဆိုင်"
 
-#: .\templates\Shop\shop.html:426
+#: .\templates\Shop\shop.html:428
 msgid "Add to wishlist"
 msgstr "ကြိုက်နှစ်သက်သောစာရင်းသို့ ထည့်ရန်"
 
-#: .\templates\Shop\shop.html:435
-msgid "SALE!"
-msgstr "လျှော့စျေး!"
-
-#: .\templates\Shop\shop.html:449
+#: .\templates\Shop\shop.html:462
 #, python-format
 msgid "%(ram)s RAM"
-msgstr ""
+msgstr "%(ram)s RAM"
 
-#: .\templates\Shop\shop.html:455 .\templates\flame\async\product-list.html:8
+#: .\templates\Shop\shop.html:468 .\templates\flame\async\product-list.html:8
 #: .\templates\flame\brand-product-list.html:47
 #: .\templates\flame\category-product-list.html:47
-#: .\templates\flame\home.html:654 .\templates\flame\home.html:698
-#: .\templates\flame\home.html:741 .\templates\flame\product-list.html:995
-#: .\templates\flame\search.html:970
+#: .\templates\flame\home.html:670 .\templates\flame\home.html:713
+#: .\templates\flame\home.html:763 .\templates\flame\search.html:970
 #: .\templates\flame\shop-product-list.html:47
-#: .\templates\flame\wishlist.html:149
+#: .\templates\flame\wishlist.html:150
 msgid "View Product"
 msgstr "အသေးစိတ်ကြည့်ရန်"
 
-#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:228
+#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:229
+#: .\templates\flame\checkout.html:142
 msgid "Shipping:"
 msgstr "ပို့ဆောင်ခ:"
 
-#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:232
+#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:233
+#: .\templates\flame\checkout.html:149
 msgid "Total:"
 msgstr "စုစုပေါင်း:"
 
-#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:240
-#: .\templates\flame\shop-cart.html:112
+#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:241
+#: .\templates\flame\payment-completed.html:394
+#: .\templates\flame\shop-cart.html:119
 msgid "Continue Shopping"
 msgstr "စျေးဝယ်ဆက်လက်လုပ်ဆောင်ရန်"
 
-#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:244
+#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:245
 msgid "Proceed to Checkout"
 msgstr "ငွေရှင်းရန်"
 
-#: .\templates\flame\cart.html:167
+#: .\templates\flame\async\shop-cart-list.html:13
+msgid "Sold by"
+msgstr "ရောင်းချသူ"
+
+#: .\templates\flame\async\shop-cart-list.html:53
+#: .\templates\flame\shop-cart.html:93
+msgid "Shop Total:"
+msgstr "ဆိုင်စုစုပေါင်း:"
+
+#: .\templates\flame\async\shop-cart-list.html:63
+#: .\templates\flame\checkout.html:40
+msgid "Checkout"
+msgstr "ငွေရှင်းမည်"
+
+#: .\templates\flame\cart.html:168
 #, python-format
 msgid ""
 "\n"
@@ -177,16 +212,8 @@ msgstr[0] ""
 "                သင့်ခြင်းတောင်းထဲတွင် ပစ္စည်း %(item_count)s ခုရှိသည်\n"
 "            "
 
-#: .\templates\flame\cart.html:174
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "          "
-#| msgid_plural ""
-#| "\n"
-#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "          "
+#: .\templates\flame\cart.html:175
+#, python-format
 msgid ""
 "\n"
 "                from %(shop_count)s shop\n"
@@ -197,41 +224,41 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"              သင့်တွင် %(shopcount)s ဆိုင်မှ\n"
 "          "
 
-#: .\templates\flame\cart.html:181 .\templates\flame\shop-cart.html:26
+#: .\templates\flame\cart.html:182 .\templates\flame\shop-cart.html:28
 msgid "You don't have any items in your cart"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ပစ္စည်းမရှိပါ"
 
-#: .\templates\flame\cart.html:185 .\templates\flame\order-detail.html:86
-#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:43
+#: .\templates\flame\cart.html:186 .\templates\flame\order-detail.html:86
+#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:45
 msgid "Product"
 msgstr "ကုန်ပစ္စည်း"
 
-#: .\templates\flame\cart.html:186 .\templates\flame\shop-cart.html:44
+#: .\templates\flame\cart.html:187 .\templates\flame\shop-cart.html:46
 msgid "Unit Price"
 msgstr "တခုချင်းစျေးနှုန်း"
 
-#: .\templates\flame\cart.html:187 .\templates\flame\order-detail.html:89
+#: .\templates\flame\cart.html:188 .\templates\flame\order-detail.html:89
 #: .\templates\flame\product-detail.html:73
-#: .\templates\flame\shop-cart.html:45
-#: .\templates\flame\shop-product-detail.html:75
+#: .\templates\flame\shop-cart.html:47
+#: .\templates\flame\shop-product-detail.html:99
 msgid "Quantity"
 msgstr "အရေအတွက်"
 
-#: .\templates\flame\cart.html:188
-#: .\templates\flame\payment-completed.html:229
-#: .\templates\flame\shop-cart.html:46
+#: .\templates\flame\cart.html:189
+#: .\templates\flame\payment-completed.html:325
+#: .\templates\flame\shop-cart.html:48
 msgid "Subtotal"
 msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး"
 
-#: .\templates\flame\cart.html:189 .\templates\flame\profile.html:102
-#: .\templates\flame\shop-cart.html:47
+#: .\templates\flame\cart.html:190 .\templates\flame\profile.html:102
+#: .\templates\flame\shop-cart.html:49
 msgid "Actions"
 msgstr "လုပ်ဆောင်ချက်များ"
 
-#: .\templates\flame\cart.html:229
+#: .\templates\flame\cart.html:230 .\templates\flame\checkout.html:143
 msgid "Free"
 msgstr "အခမဲ့"
 
@@ -264,15 +291,7 @@ msgid "Categories"
 msgstr "အမျိုးအစားများ"
 
 #: .\templates\flame\category.html:54
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "          "
-#| msgid_plural ""
-#| "\n"
-#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "          "
+#, python-format
 msgid ""
 "\n"
 "        %(count)s item\n"
@@ -283,19 +302,11 @@ msgid_plural ""
 "    "
 msgstr[0] ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"              %(count)s ခု\n"
 "          "
 
 #: .\templates\flame\category.html:72 .\templates\flame\category.html:90
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "          "
-#| msgid_plural ""
-#| "\n"
-#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "          "
+#, python-format
 msgid ""
 "\n"
 "                %(count)s item\n"
@@ -306,45 +317,84 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"              %(count)s ခု\n"
 "          "
 
-#: .\templates\flame\checkout.html:22
-#, python-format
-msgid "Checking out from %(shop.title)s"
-msgstr "%(shop.title)s မှ ဝယ်ယူခြင်း"
+#: .\templates\flame\checkout.html:15
+#| msgid "Checking out from %(shop.title)s"
+msgid "Checking out from"
+msgstr "ဝယ်ယူသည့်ဆိုင်"
 
-#: .\templates\flame\checkout.html:24
+#: .\templates\flame\checkout.html:18
 msgid "PayPal Account:"
 msgstr "PayPal အကောင့်:"
 
-#: .\templates\flame\checkout.html:25
+#: .\templates\flame\checkout.html:21
 msgid "Order ID:"
 msgstr "အမှာစာ ID: "
 
-#: .\templates\flame\checkout.html:28
-msgid "General Order Checkout"
-msgstr "အထွေထွေအမှာစာ ငွေရှင်းခြင်း"
+#: .\templates\flame\checkout.html:33
+msgid "Current Exchange Rate:"
+msgstr "လက်ရှိငွေလဲနှုန်း"
 
-#: .\templates\flame\checkout.html:38
+#: .\templates\flame\checkout.html:46
 msgid "Billing Details"
 msgstr "ငွေရှင်းမှုအသေးစိတ်"
 
-#: .\templates\flame\checkout.html:61
+#: .\templates\flame\checkout.html:51
+#| msgid "Full Name"
+msgid "Name"
+msgstr "အမည်အပြည့်အစုံ"
+
+#: .\templates\flame\checkout.html:57 .\templates\flame\checkout.html:65
+msgid "Mobile"
+msgstr "မိုဘိုင်းဖုန်းနံပါတ်"
+
+#: .\templates\flame\checkout.html:61 .\templates\flame\checkout.html:68
+#: .\templates\flame\profile.html:241
+msgid "Address"
+msgstr "လိပ်စာ"
+
+#: .\templates\flame\checkout.html:76
 msgid "Your Order"
 msgstr "သင့်၏အမှာစာ"
 
-#: .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout.html:87 .\templates\flame\checkout.html:106
+msgid "Qty:"
+msgstr "အရေအတွက်:"
+
+#: .\templates\flame\checkout.html:134
 msgid "Subtotal:"
 msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး:"
 
-#: .\templates\flame\checkout.html:86
+#: .\templates\flame\checkout.html:162
+msgid "Note: Payment will be processed in USD"
+msgstr "မှတ်ချက်: ငွေပေးချေမှုကို US ဒေါ်လာဖြင့်ဆောင်ရွက်ပါမည်"
+
+#: .\templates\flame\checkout.html:185 .\templates\flame\checkout.html:235
+#: .\templates\flame\checkout.html:273
 msgid "Pay with Stripe"
 msgstr "Stripe ဖြင့်ငွေပေးချေရန်"
 
-#: .\templates\flame\checkout.html:87
+#: .\templates\flame\checkout.html:194
 msgid "Go back to Explore More"
 msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
+
+#: .\templates\flame\checkout.html:218
+msgid "Generating QR..."
+msgstr "QR ကုဒ်ထုတ်နေသည်..."
+
+#: .\templates\flame\checkout.html:233
+msgid "Could not start checkout."
+msgstr "ငွေရှင်းလုပ်ငန်းစတင်နိုင်ခြင်းမရှိပါ"
+
+#: .\templates\flame\checkout.html:250
+msgid "Scan QR to Pay or Click Here"
+msgstr "ငွေပေးချေရန် QR ကုဒ်ဖတ်ပါ သို့မဟုတ် ဤနေရာကိုနှိပ်ပါ"
+
+#: .\templates\flame\checkout.html:271
+msgid "An error occurred. Please try again."
+msgstr "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ"
 
 #: .\templates\flame\home.html:561
 msgid "Your browser does not support the video tag."
@@ -387,11 +437,11 @@ msgstr "ဆိုင်ကြည့်ရန်"
 msgid "Most Popular Items"
 msgstr "လူကြိုက်အများဆုံးပစ္စည်းများ"
 
-#: .\templates\flame\home.html:668
+#: .\templates\flame\home.html:684
 msgid "New Items "
 msgstr "အသစ်ရောက်ပစ္စည်းများ"
 
-#: .\templates\flame\home.html:710
+#: .\templates\flame\home.html:725
 msgid "Discount Items "
 msgstr "လျှော့စျေးပစ္စည်းများ"
 
@@ -400,7 +450,7 @@ msgid "Profile picture"
 msgstr "ပရိုဖိုင်ဓာတ်ပုံ"
 
 #: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
-#: .\templates\partials\base.html:98
+#: .\templates\partials\base.html:99
 msgid "Profile"
 msgstr "ပရိုဖိုင်"
 
@@ -434,8 +484,9 @@ msgid "Image"
 msgstr "ပုံ"
 
 #: .\templates\flame\order-detail.html:88
-#: .\templates\flame\payment-completed.html:214
-#: .\templates\flame\profile.html:162 .\templates\flame\search.html:761
+#: .\templates\flame\payment-completed.html:261
+#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:162
+#: .\templates\flame\search.html:761
 msgid "Price"
 msgstr "စျေးနှုန်း"
 
@@ -449,89 +500,100 @@ msgstr "စုစုပေါင်း"
 msgid "Product image: %(title)s"
 msgstr "ထုတ်ကုန်ပုံ- %(title)s"
 
-#: .\templates\flame\payment-completed.html:184
-#, python-format
-msgid "INVOICE #%(order.id)s"
-msgstr "ဘေလ်အမှတ် #%(order.id)s"
+#: .\templates\flame\payment-completed.html:211
+msgid "INVOICE"
+msgstr "ငွေတောင်းခံလွှာ"
 
-#: .\templates\flame\payment-completed.html:186
+#: .\templates\flame\payment-completed.html:214
 #, python-format
 msgid "Payment to %(shop)s"
 msgstr "%(shop)s သို့ ငွေပေးချေမှု"
 
-#: .\templates\flame\payment-completed.html:188
+#: .\templates\flame\payment-completed.html:216
 msgid "General Order Payment"
 msgstr "အထွေထွေအမှာစာ ငွေပေးချေမှု"
 
-#: .\templates\flame\payment-completed.html:194
+#: .\templates\flame\payment-completed.html:222
+msgid "Exchange Rate:"
+msgstr "ငွေလဲနှုန်း:"
+
+#: .\templates\flame\payment-completed.html:232
 msgid "Date:"
 msgstr "ရက်စွဲ:"
 
-#: .\templates\flame\payment-completed.html:195
+#: .\templates\flame\payment-completed.html:240
 msgid "Transaction ID:"
 msgstr "ငွေလွှဲအမှတ်:"
 
-#: .\templates\flame\payment-completed.html:197
+#: .\templates\flame\payment-completed.html:244
 msgid "Merchant PayPal:"
 msgstr "ကုန်သည်ဆိုင်များ PayPal:"
 
-#: .\templates\flame\payment-completed.html:201
+#: .\templates\flame\payment-completed.html:248
 msgid "Billed To"
 msgstr "ဘေလ်ပေးဆောင်ရန်"
 
-#: .\templates\flame\payment-completed.html:203
+#: .\templates\flame\payment-completed.html:250
 msgid "Customer:"
 msgstr "ဖောက်သည်:"
 
-#: .\templates\flame\payment-completed.html:206
+#: .\templates\flame\payment-completed.html:253
 msgid "Email:"
 msgstr "အီးမေးလ်:"
 
-#: .\templates\flame\payment-completed.html:213
+#: .\templates\flame\payment-completed.html:260
 msgid "Item"
 msgstr "ပစ္စည်း"
 
-#: .\templates\flame\payment-completed.html:215
+#: .\templates\flame\payment-completed.html:262
 #: .\templates\flame\profile.html:163
 msgid "Qty"
 msgstr "အရေအတွက်"
 
-#: .\templates\flame\payment-completed.html:216
+#: .\templates\flame\payment-completed.html:263
 msgid "Amount"
 msgstr "ပမာဏ"
 
-#: .\templates\flame\payment-completed.html:233
+#: .\templates\flame\payment-completed.html:334
 msgid "Tax"
 msgstr "အခွန်"
 
-#: .\templates\flame\payment-completed.html:237
+#: .\templates\flame\payment-completed.html:344
 msgid "Grand Total"
 msgstr "စုစုပေါင်းပမာဏ"
 
-#: .\templates\flame\payment-completed.html:244
+#: .\templates\flame\payment-completed.html:358
 msgid "Total Amount Due"
 msgstr "ပေးရန်ကျန်ငွေစုစုပေါင်း"
 
-#: .\templates\flame\payment-completed.html:247
+#: .\templates\flame\payment-completed.html:366
 msgid "Payment Status:"
 msgstr "ငွေပေးချေမှုအခြေအနေ:"
 
-#: .\templates\flame\payment-completed.html:248
+#: .\templates\flame\payment-completed.html:367
 msgid "Completed"
 msgstr "ပြီးစီးပါပြီ"
 
-#: .\templates\flame\payment-completed.html:253
+#: .\templates\flame\payment-completed.html:372
+msgid "Payment processed in USD"
+msgstr "US ဒေါ်လာဖြင့်ငွေပေးချေမှုပြုလုပ်ထားသည်"
+
+#: .\templates\flame\payment-completed.html:379
 #, python-format
+#| msgid ""
+#| "\n"
+#| "            <p><strong>Thank you for your business, %(user|title)s!</strong></p>\n"
+#| "        "
 msgid ""
 "\n"
-"            <p><strong>Thank you for your business, %(user|title)s!</strong></p>\n"
-"        "
+"                Thank you for your business, %(user)s!\n"
+"            "
 msgstr ""
 "\n"
-"            <p><strong>ကျေးဇူးတင်ပါသည် %(user|title)s မှာယူပေးသောကြောင့်!</strong></p>\n"
+"            ကျေးဇူးတင်ပါသည် %(user)s မှာယူပေးသောကြောင့်!\n"
 "        "
 
-#: .\templates\flame\payment-completed.html:256
+#: .\templates\flame\payment-completed.html:383
 msgid ""
 "If you have any questions about this invoice, please contact our support "
 "team."
@@ -539,13 +601,21 @@ msgstr ""
 "ဤငွေတောင်းခံလွှာနှင့်ပတ်သက်ပြီး မေးမြန်းလိုသည်များရှိပါက ကျွန်ုပ်တို့၏ "
 "ဝန်ဆောင်မှုအဖွဲ့ကို ဆက်သွယ်ပါ။"
 
-#: .\templates\flame\payment-completed.html:260
+#: .\templates\flame\payment-completed.html:388
 msgid "Print Invoice"
 msgstr "ငွေတောင်းခံလွှာပုံနှိပ်ရန်"
 
-#: .\templates\flame\payment-completed.html:261
+#: .\templates\flame\payment-completed.html:391
 msgid "Download PDF"
 msgstr "PDF ဒေါင်းလုဒ်လုပ်ရန်"
+
+#: .\templates\flame\payment-completed.html:457
+msgid "Error generating PDF. Please try again."
+msgstr "PDF ထုတ်ယူရာတွင်အမှားဖြစ်နေသည်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ"
+
+#: .\templates\flame\payment-completed.html:470
+msgid "Payment completed successfully!"
+msgstr "ငွေပေးချေမှုအောင်မြင်စွာပြီးဆုံးပါပြီ!"
 
 #: .\templates\flame\payment-failed.html:52
 msgid "PAYMENT FAILED"
@@ -610,79 +680,69 @@ msgstr ""
 "            "
 
 #: .\templates\flame\product-detail.html:30
-#: .\templates\flame\shop-product-detail.html:30
+#: .\templates\flame\shop-product-detail.html:31
 msgid "Related Products"
 msgstr "ဆက်စပ်ထုတ်ကုန်ပစ္စည်းများ"
 
 #: .\templates\flame\product-detail.html:52
 #, python-format
 msgid "- {{ p.get_percentage|floatformat:0 }} %%"
-msgstr ""
+msgstr "- {{ p.get_percentage|floatformat:0|to_myanmar_numerals }}%"
 
 #: .\templates\flame\product-detail.html:55
-#: .\templates\flame\shop-product-detail.html:38
-#: .\templates\flame\shop-product-detail.html:54
 msgid "$"
 msgstr "$"
 
 #: .\templates\flame\product-detail.html:59
-#: .\templates\flame\shop-product-detail.html:58
+#: .\templates\flame\shop-product-detail.html:82
 msgid "Description"
 msgstr "ဖော်ပြချက်"
 
 #: .\templates\flame\product-detail.html:60
-#: .\templates\flame\shop-product-detail.html:59
+#: .\templates\flame\shop-product-detail.html:83
 msgid "Additional Info"
 msgstr "အပိုအချက်အလက်"
 
 #: .\templates\flame\product-detail.html:61
-#: .\templates\flame\shop-product-detail.html:60
-#: .\templates\partials\base.html:55 .\templates\partials\base.html:66
+#: .\templates\flame\shop-product-detail.html:84
+#: .\templates\partials\base.html:56 .\templates\partials\base.html:67
 msgid "Shop"
 msgstr "ဆိုင်"
 
 #: .\templates\flame\product-detail.html:62
-#: .\templates\flame\shop-product-detail.html:64
+#: .\templates\flame\shop-product-detail.html:88
 #, python-format
 msgid "Reviews (%(count)s)"
 msgstr "သုံးသပ်ချက်များ (%(count)s)"
 
 #: .\templates\flame\product-detail.html:95
-#: .\templates\flame\shop-product-detail.html:97
+#: .\templates\flame\shop-product-detail.html:123
 msgid "Product Specifications"
 msgstr "ထုတ်ကုန်သတ်မှတ်ချက်များ"
 
 #: .\templates\flame\product-detail.html:109
-#: .\templates\flame\shop-product-detail.html:111
+#: .\templates\flame\shop-product-detail.html:137
 msgid "Seller Information"
 msgstr "ရောင်းချသူအချက်အလက်"
 
 #: .\templates\flame\product-detail.html:117
-#: .\templates\flame\shop-product-detail.html:119
+#: .\templates\flame\shop-product-detail.html:145
 msgid "Delivery Address"
 msgstr "ပို့ဆောင်ရန်လိပ်စာ"
 
 #: .\templates\flame\product-detail.html:130
-#: .\templates\flame\shop-product-detail.html:132
+#: .\templates\flame\shop-product-detail.html:158
 msgid "Shop Address:"
 msgstr "ဆိုင်လိပ်စာ:"
 
 #: .\templates\flame\product-detail.html:131
-#: .\templates\flame\shop-product-detail.html:133
+#: .\templates\flame\shop-product-detail.html:159
 msgid "Contact Seller:"
 msgstr "ရောင်းချသူဆက်သွယ်ရန်:"
 
 #: .\templates\flame\product-detail.html:133
-#: .\templates\flame\shop-product-detail.html:136
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "              You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "          "
-#| msgid_plural ""
-#| "\n"
-#| "              You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "          "
+#: .\templates\flame\shop-product-detail.html:162
+#, python-format
 msgid ""
 "\n"
 "              In Stock: %(stock_count)s item\n"
@@ -693,117 +753,117 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"              ဆိုင်တွင် %(shopcount)s ခုရှိသည်\n"
 "          "
 
 #: .\templates\flame\product-detail.html:145
-#: .\templates\flame\shop-product-detail.html:148
+#: .\templates\flame\shop-product-detail.html:174
 msgid "Customer Reviews"
 msgstr "ဖောက်သည်သုံးသပ်ချက်များ"
 
 #: .\templates\flame\product-detail.html:147
-#: .\templates\flame\shop-product-detail.html:150
+#: .\templates\flame\shop-product-detail.html:176
 msgid "out of 5.0"
 msgstr "5.0 မှ"
 
 #: .\templates\flame\product-detail.html:163
-#: .\templates\flame\shop-product-detail.html:166
+#: .\templates\flame\shop-product-detail.html:192
 msgid "5 Star"
 msgstr "ကြယ် ၅ ပွင့်"
 
 #: .\templates\flame\product-detail.html:165
-#: .\templates\flame\shop-product-detail.html:168
+#: .\templates\flame\shop-product-detail.html:194
 #, python-format
 msgid "80%%"
-msgstr ""
+msgstr "၈၀%"
 
 #: .\templates\flame\product-detail.html:168
-#: .\templates\flame\shop-product-detail.html:171
+#: .\templates\flame\shop-product-detail.html:197
 msgid "4 Star"
 msgstr "ကြယ် ၄ ပွင့်"
 
 #: .\templates\flame\product-detail.html:170
-#: .\templates\flame\shop-product-detail.html:173
+#: .\templates\flame\shop-product-detail.html:199
 #, python-format
 msgid "15%%"
-msgstr ""
+msgstr "၁၅%"
 
 #: .\templates\flame\product-detail.html:173
-#: .\templates\flame\shop-product-detail.html:176
+#: .\templates\flame\shop-product-detail.html:202
 msgid "3 Star"
 msgstr "ကြယ် ၃ ပွင့်"
 
 #: .\templates\flame\product-detail.html:175
-#: .\templates\flame\shop-product-detail.html:178
-#, fuzzy, python-format
+#: .\templates\flame\shop-product-detail.html:204
+#, python-format
 #| msgid "5 %"
 msgid "5%%"
 msgstr "၅ %"
 
 #: .\templates\flame\product-detail.html:195
-#: .\templates\flame\shop-product-detail.html:198
+#: .\templates\flame\shop-product-detail.html:224
 msgid "No reviews yet. Be the first to review!"
 msgstr "သုံးသပ်ချက်မရှိသေးပါ။ ပထမဆုံးသုံးသပ်သူဖြစ်ရန်!"
 
 #: .\templates\flame\product-detail.html:203
-#: .\templates\flame\shop-product-detail.html:206
+#: .\templates\flame\shop-product-detail.html:232
 msgid "Add a Review"
 msgstr "သုံးသပ်ချက်ထည့်ရန်"
 
 #: .\templates\flame\product-detail.html:213
-#: .\templates\flame\shop-product-detail.html:216
+#: .\templates\flame\shop-product-detail.html:242
 msgid "Submit Review"
 msgstr "သုံးသပ်ချက်တင်သွင်းရန်"
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:220
+#: .\templates\flame\shop-product-detail.html:246
 #: .\templates\userauths\sign-in.html:20 .\templates\userauths\sign-in.html:27
 #: .\templates\userauths\sign-in.html:49 .\templates\userauths\sign-up.html:20
 msgid "Login"
 msgstr "အကောင့်ဝင်ရန်"
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:220
+#: .\templates\flame\shop-product-detail.html:246
 msgid "to write a review."
 msgstr "သုံးသပ်ချက်ရေးသားရန်"
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:180
+#: .\templates\partials\base.html:181
 msgid "All Rights Reserved 2024-2025"
 msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:183
+#: .\templates\partials\base.html:184
 msgid "Information"
 msgstr "အချက်အလက်"
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:185
+#: .\templates\partials\base.html:186
 msgid "About Us"
 msgstr "ကျွန်ုပ်တို့အကြောင်း"
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:190
+#: .\templates\partials\base.html:191
 msgid "Helpful Links"
 msgstr "အသုံးဝင်သောလင့်ခ်များ"
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:192
+#: .\templates\partials\base.html:193
 msgid "Services"
 msgstr "ဝန်ဆောင်မှုများ"
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:193
+#: .\templates\partials\base.html:194
 msgid "Privacy Policy"
 msgstr "ကိုယ်ရေးအချက်အလက်မူဝါဒ"
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:194
+#: .\templates\partials\base.html:195
 msgid "Terms & Condition"
 msgstr "စည်းကမ်းချက်များ"
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:199
+#: .\templates\partials\base.html:200
 msgid "Contact Us"
 msgstr "ဆက်သွယ်ရန်"
 
@@ -819,14 +879,14 @@ msgstr ""
 "          "
 
 #: .\templates\flame\product-list.html:707
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                %(filter)s Items <i class=\"fas fa-laptop me-2\"></i>\n"
 "            "
 msgstr ""
 "\n"
-"                        %(itemcount)s ပစ္စည်း"
+"                        %(filter)s ခု"
 
 #: .\templates\flame\product-list.html:714
 #, fuzzy, python-format
@@ -851,15 +911,53 @@ msgstr "Professional များအတွက် အဆင့်မြင့်�
 msgid "All Shops"
 msgstr "ဆိုင်အားလုံး"
 
+#: .\templates\flame\product-list.html:736 .\templates\flame\search.html:711
+msgid "Unique"
+msgstr "Unique"
+
+#: .\templates\flame\product-list.html:737 .\templates\flame\search.html:712
+msgid "ICT"
+msgstr "ICT"
+
+#: .\templates\flame\product-list.html:738 .\templates\flame\search.html:713
+msgid "Citicom"
+msgstr "Citicom"
+
+#: .\templates\flame\product-list.html:739 .\templates\flame\search.html:714
+msgid "Innwa"
+msgstr "အင်းဝ"
+
 #: .\templates\flame\product-list.html:755 .\templates\flame\search.html:730
 msgid "Try 'MacBook Pro' or '32GB RAM'..."
 msgstr "'MacBook Pro' သို့မဟုတ် '32GB RAM' စသည်ဖြင့်ရှာဖွေကြည့်ပါ..."
 
-#: .\templates\flame\product-list.html:820 .\templates\flame\search.html:794
+#: .\templates\flame\product-list.html:766 .\templates\flame\search.html:741
+msgid "Clear search"
+msgstr "ရှာဖွေမှုရှင်းလင်းရန်"
+
+#: .\templates\flame\product-list.html:774 .\templates\flame\search.html:749
+msgid "Submit search"
+msgstr "ရှာဖွေမှုအတည်ပြုရန်"
+
+#: .\templates\flame\product-list.html:776 .\templates\flame\search.html:751
+msgid "Search"
+msgstr "ရှာဖွေရန်"
+
+#: .\templates\flame\product-list.html:792
+#, python-format
+msgid "%(min_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:795
+#, python-format
+msgid "%(max_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:807 .\templates\flame\search.html:794
 msgid "Custom price"
 msgstr "စိတ်ကြိုက်စျေးနှုန်း"
 
-#: .\templates\flame\product-list.html:828 .\templates\flame\search.html:803
+#: .\templates\flame\product-list.html:815 .\templates\flame\search.html:803
 msgid "Apply"
 msgstr "အတည်ပြုရန်"
 
@@ -951,10 +1049,6 @@ msgstr "လိပ်စာမှတ်တမ်း"
 msgid "Add New Address"
 msgstr "လိပ်စာအသစ်ထည့်ရန်"
 
-#: .\templates\flame\profile.html:241
-msgid "Address"
-msgstr "လိပ်စာ"
-
 #: .\templates\flame\profile.html:250
 msgid "Save Address"
 msgstr "လိပ်စာသိမ်းဆည်းရန်"
@@ -980,36 +1074,16 @@ msgstr "မူရင်းအဖြစ်သတ်မှတ်ရန်"
 msgid "Search For"
 msgstr "ရှာဖွေမည့်အရာ"
 
-#: .\templates\flame\search.html:711
-msgid "Unique"
-msgstr "Unique"
-
-#: .\templates\flame\search.html:712
-msgid "ICT"
-msgstr "ICT"
-
-#: .\templates\flame\search.html:713
-msgid "Citicom"
-msgstr "Citicom"
-
-#: .\templates\flame\search.html:714
-msgid "Innwa"
-msgstr "အင်းဝ"
-
-#: .\templates\flame\search.html:741
-msgid "Clear search"
-msgstr "ရှာဖွေမှုရှင်းလင်းရန်"
-
-#: .\templates\flame\search.html:749
-msgid "Submit search"
-msgstr "ရှာဖွေမှုအတည်ပြုရန်"
-
-#: .\templates\flame\search.html:751
-msgid "Search"
-msgstr "ရှာဖွေရန်"
-
-#: .\templates\flame\shop-cart.html:19
+#: .\templates\flame\shop-cart.html:21
 #, python-format
+#| msgid ""
+#| "\n"
+#| "                    You have %(totalcartitems)s item from %(shopcount)s shop\n"
+#| "                "
+#| msgid_plural ""
+#| "\n"
+#| "                    You have %(totalcartitems)s items from %(shopcount)s shops\n"
+#| "                "
 msgid ""
 "\n"
 "    You have %(totalcartitems)s item from %(shopcount)s shop\n"
@@ -1019,16 +1093,17 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "              သင့်တွင် ဆိုင်  %(shopcount)s ဆိုင် မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
-"          \n"
 
-#: .\templates\flame\shop-cart.html:34
-#, fuzzy, python-format
+#: .\templates\flame\shop-cart.html:36
+#, python-format
 #| msgid ""
 #| "\n"
-#| "                        %(itemcount)s item                    "
+#| "                            %(itemcount)s item\n"
+#| "                        "
 #| msgid_plural ""
 #| "\n"
-#| "                        %(itemcount)s items                    "
+#| "                            %(itemcount)s items\n"
+#| "                        "
 msgid ""
 "\n"
 "                        %(itemcount)s item\n"
@@ -1039,38 +1114,28 @@ msgid_plural ""
 "                    "
 msgstr[0] ""
 "\n"
-"                        %(itemcount)s ပစ္စည်း"
+"                        %(itemcount)s ခု"
 
-#: .\templates\flame\shop-cart.html:58
+#: .\templates\flame\shop-cart.html:60
 #, python-format
 msgid "Sold by %(seller)s"
 msgstr "%(seller)s မှရောင်းချသည်"
 
-#: .\templates\flame\shop-cart.html:88
-msgid "Shop Total:"
-msgstr "ဆိုင်စုစုပေါင်း:"
-
-#: .\templates\flame\shop-cart.html:94
+#: .\templates\flame\shop-cart.html:99
 #, python-format
 msgid "Checkout %(shopname)s "
 msgstr "%(shopname)s ကိုငွေရှင်းရန်"
 
-#: .\templates\flame\shop-cart.html:106
+#: .\templates\flame\shop-cart.html:111
 msgid "Grand Total:"
 msgstr "စုစုပေါင်းပမာဏ:"
 
-#: .\templates\flame\shop-cart.html:110
+#: .\templates\flame\shop-cart.html:117
 msgid "items in cart"
 msgstr "ခြင်းတောင်းထဲရှိ ပစ္စည်းများ"
 
 #: .\templates\flame\shop-list.html:9
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "    We have %(shop_count)s shop now.    "
-#| msgid_plural ""
-#| "\n"
-#| "    We have %(shop_count)s shops now.    "
+#, python-format
 msgid ""
 "\n"
 "    We have %(shop_count)s shop now.\n"
@@ -1083,47 +1148,42 @@ msgstr[0] ""
 "\n"
 "    ကျွန်ုပ်တို့တွင် ဆိုင် %(shop_count)s ဆိုင်ရှိပါသည်။"
 
-#: .\templates\flame\shop-product-detail.html:14
+#: .\templates\flame\shop-product-detail.html:15
 #, python-format
 msgid "Main image of %(title)s"
 msgstr "%(title)s ၏ အဓိကပုံ"
 
-#: .\templates\flame\shop-product-detail.html:19
+#: .\templates\flame\shop-product-detail.html:20
 #, python-format
 msgid "Thumbnail of %(title)s"
 msgstr "%(title)s ၏ အခြားပုံ"
 
-#: .\templates\flame\shop-product-detail.html:21
+#: .\templates\flame\shop-product-detail.html:22
 msgid "Product Image"
 msgstr "ထုတ်ကုန်ပုံ"
 
-#: .\templates\flame\shop-product-detail.html:51
-#, python-format
-msgid "- %(pct)s %%"
-msgstr "- %(pct)s %%"
-
-#: .\templates\flame\shop-product-detail.html:91
+#: .\templates\flame\shop-product-detail.html:117
 msgid "Add to Cart"
 msgstr "ခြင်းတောင်းထဲထည့်ရန်"
 
-#: .\templates\flame\shop-product-detail.html:92
+#: .\templates\flame\shop-product-detail.html:118
 msgid "Countinue Browsing"
 msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
 
-#: .\templates\flame\shop-product-detail.html:114
+#: .\templates\flame\shop-product-detail.html:140
 #, python-format
 msgid "Image for %(shop)s"
 msgstr "%(shop)s အတွက် ပုံ"
 
-#: .\templates\flame\shop-product-detail.html:187
+#: .\templates\flame\shop-product-detail.html:213
 msgid "User"
 msgstr "အသုံးပြုသူ"
 
-#: .\templates\flame\wishlist.html:111
+#: .\templates\flame\wishlist.html:112
 msgid "Your Wishlist"
 msgstr "သင့်နှစ်သက်စာရင်း"
 
-#: .\templates\flame\wishlist.html:113
+#: .\templates\flame\wishlist.html:114
 #, python-format
 msgid ""
 "\n"
@@ -1138,15 +1198,15 @@ msgstr[0] ""
 "                ဤစာရင်းတွင် ပစ္စည်း <span id=\"itemCount\">%(count)s</span> ခုရှိသည်\n"
 "            "
 
-#: .\templates\flame\wishlist.html:132
+#: .\templates\flame\wishlist.html:133
 msgid "In Stock"
 msgstr "ကုန်ပစ္စည်းလက်ကျန်"
 
-#: .\templates\flame\wishlist.html:134
+#: .\templates\flame\wishlist.html:135
 msgid "Out of Stock"
 msgstr "ကုန်ပစ္စည်းလက်ကျန်မရှိ"
 
-#: .\templates\flame\wishlist.html:146
+#: .\templates\flame\wishlist.html:147
 msgid "Add to cart"
 msgstr "ခြင်းတောင်းထဲထည့်ရန်"
 
@@ -1154,35 +1214,35 @@ msgstr "ခြင်းတောင်းထဲထည့်ရန်"
 msgid "CyberOptix - Premium Laptops Myanmar"
 msgstr "CyberOptix - မြန်မာနိုင်ငံ၏ ပရီမီယံလက်တော့များ"
 
-#: .\templates\partials\base.html:50
+#: .\templates\partials\base.html:51
 msgid "CyberOptix"
 msgstr "CyberOptix"
 
-#: .\templates\partials\base.html:53
+#: .\templates\partials\base.html:54
 msgid "Home"
 msgstr "ပင်မစာမျက်နှာ"
 
-#: .\templates\partials\base.html:71
+#: .\templates\partials\base.html:72
 msgid "About"
 msgstr "ကျွန်ုပ်တို့အကြောင်း"
 
-#: .\templates\partials\base.html:72
+#: .\templates\partials\base.html:73
 msgid "FAQs"
 msgstr "မေးလေ့ရှိသောမေးခွန်းများ"
 
-#: .\templates\partials\base.html:101
+#: .\templates\partials\base.html:102
 msgid "Sign Out"
 msgstr "ထွက်ရန်"
 
-#: .\templates\partials\base.html:105
+#: .\templates\partials\base.html:106
 msgid "Sign In"
 msgstr "အကောင့်ဝင်ရန်"
 
-#: .\templates\partials\base.html:108
+#: .\templates\partials\base.html:109
 msgid "Sign up"
 msgstr "အကောင့်ဖွင့်ရန်"
 
-#: .\templates\partials\base.html:128
+#: .\templates\partials\base.html:129
 msgid "All"
 msgstr "အားလုံး"
 
@@ -2542,6 +2602,18 @@ msgstr "Django လူထု"
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
 msgid "Connect, get help, or contribute"
 msgstr "ချိတ်ဆက်ပါ၊ အကူအညီရယူပါ၊ သို့မဟုတ် ပါဝင်ပါ"
+
+#~ msgid "SALE!"
+#~ msgstr "လျှော့စျေး!"
+
+#~ msgid "General Order Checkout"
+#~ msgstr "အထွေထွေအမှာစာ ငွေရှင်းခြင်း"
+
+#~ msgid "INVOICE #%(order.id)s"
+#~ msgstr "ဘေလ်အမှတ် #%(order.id)s"
+
+#~ msgid "- %(pct)s %%"
+#~ msgstr "- %(pct)s %%"
 
 #~ msgid "items"
 #~ msgstr "ပစ္စည်းများ"

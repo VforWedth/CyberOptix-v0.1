@@ -1,5 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load myanmar_filter %}
+{% load math_filters %}
 {% load i18n %}
 {% block content %}
 
@@ -431,17 +433,26 @@
 
                 <h3>{{ u.title }}</h3>
 
-                {% if u.old_price %}
-                    <div class="sale-badge">{% trans "SALE!" %}</div>
-                    <div class="price">
-                        <span class="original-price">${{ u.old_price }}</span>
-                        <span class="sale-price">${{ u.price }}</span>
-                    </div>
-                {% else %}
-                    <div class="price">
-                        <span class="current-price">${{ u.price }}</span>
-                    </div>
-                {% endif %}
+                
+    {% comment %} <div class="sale-badge">{% trans "SALE!" %}</div> {% endcomment %}
+    <div class="price">
+        {% if is_myanmar %}
+            {% comment %} <span class="original-price">
+                {{ u.old_price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+            </span> {% endcomment %}
+            <span class="sale-price current-product-price-{{u.id}}">
+                {{ u.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+            </span>
+            <br>
+            <span class="sale-price">
+                ({{ u.price|floatformat:2|to_myanmar_numerals}} ဒေါ်လာ)
+            </span>
+        {% else %}
+            <span class="original-price">${{ u.old_price|floatformat:2 }}</span>
+            <span class="sale-price current-product-price-{{u.id}}">${{ u.price|floatformat:2 }}</span>
+        {% endif %}
+    </div>
+
 
                 {% if u.ram_size %}
                     <div class="ram-size">

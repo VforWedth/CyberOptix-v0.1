@@ -29,6 +29,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "assets/css/cyberoptixcss.css" %}">
+    <script src="{% url 'javascript-catalog' %}"></script>
     <script src="{% static "assets/js/function.js" %}"></script>
     <style>
         /* Myanmar language specific styles */
@@ -133,7 +134,7 @@
                 <a href="{% url 'flame:product-list' %}?brand=Asus" class="filter-option {% if active_brand == 'Asus' %}active{% endif %}">Asus</a><br> 
                 <a href="{% url 'flame:product-list' %}?brand=Acer" class="filter-option {% if active_brand == 'Acer' %}active{% endif %}">Acer</a><br> 
             </div>
-                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' or active_category == 'လက်ပ်တော့' %}active{% endif %}">{{ CATEGORY_MAP.Laptop }}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' or active_category == 'လက်ပ်တော့' %}active{% endif %}">{% trans 'Laptop' %}</a><br>
                 <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop' or active_category == 'ဒက်စ်တော့' %}active{% endif %}">{% trans "Desktop" %}</a><br>
                 <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' or active_category == 'အသုံးအဆောင်ပစ္စည်းများ' %}active{% endif %}">{% trans "Accessories" %}</a><br> 
         </form>

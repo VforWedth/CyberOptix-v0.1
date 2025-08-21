@@ -4,7 +4,11 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
 from django.utils.text import slugify
+from django.core.cache import cache
+from decimal import Decimal
+from django.utils import translation
 from django.conf import settings
+import logging
 
 STATUS_CHOICE = (
     ("processing","Processing"),
@@ -130,6 +134,57 @@ class Brand(models.Model):
     def __str__(self):
         return self.title
     
+
+logger = logging.getLogger(__name__)
+    
+class ExchangeRate(models.Model):
+    """Centralized exchange rate management"""
+    currency_from = models.CharField(max_length=3, default='USD')
+    currency_to = models.CharField(max_length=3, default='MMK')
+    rate = models.DecimalField(max_digits=10, decimal_places=2)
+    markup_percentage = models.DecimalField(
+        max_digits=5, 
+        decimal_places=2, 
+        default=0,
+        help_text="Additional markup percentage for exchange rate"
+    )
+    is_active = models.BooleanField(default=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(
+        User, 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True
+    )
+    
+    class Meta:
+        unique_together = ['currency_from', 'currency_to']
+        verbose_name = "Exchange Rate"
+        verbose_name_plural = "Exchange Rates"
+    
+    def get_effective_rate(self):
+        """Get rate with markup applied"""
+        if self.markup_percentage:
+            return self.rate * (1 + self.markup_percentage / 100)
+        return self.rate
+    
+    @classmethod
+    def get_current_rate(cls, from_currency='USD', to_currency='MMK'):
+        """Get current exchange rate without caching"""
+        try:
+            exchange_rate = cls.objects.get(
+                currency_from=from_currency,
+                currency_to=to_currency,
+                is_active=True
+            )
+            return exchange_rate.get_effective_rate()
+        except cls.DoesNotExist:
+            return Decimal('3500')  # Default fallback rate
+        
+       
+    
+    def __str__(self):
+        return f"{self.currency_from} to {self.currency_to}: {self.rate}"
     
 class Product(models.Model):
     p_id = ShortUUIDField(unique=True, length=10, max_length=20, alphabet="abcdefghi12345")
@@ -167,6 +222,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2, default="1.99") #dollar nk lote mhr lrr kyat pyaung mhr lrr
     old_price = models.DecimalField(max_digits=12, decimal_places=2, default="2.99") #dollar nk lote mhr lrr kyat pyaung mhr lrr
     
+    # Add currency display preference (optional)
+    display_currency_preference = models.CharField(
+        max_length=10,
+        choices=[('USD', 'USD Only'), ('MMK', 'MMK Only'), ('BOTH', 'Both')],
+        default='BOTH'
+    )
+    
     specification = models.TextField(null=True, blank=True)
     specification_translations = JSONField(default=dict, blank=True)
     #tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null= True)
@@ -196,7 +258,42 @@ class Product(models.Model):
     def get_translated_specification(self, language_code='en'):
         if language_code == 'en' or not self.specification_translations:
             return self.specification
-        return self.specification_translations.get(language_code, self.specification)    
+        return self.specification_translations.get(language_code, self.specification)  
+    
+    def get_price_mmk(self):
+        """Convert USD price to MMK"""
+        rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        return self.price * rate
+    
+    def get_old_price_mmk(self):
+        """Convert old USD price to MMK"""
+        rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        return self.old_price * rate
+    
+    def get_display_price(self, language_code=None):
+        """Get formatted price based on language"""
+        from .utils import format_price_display
+        
+        if language_code is None:
+            language_code = translation.get_language()
+        
+        return format_price_display(
+            self.price, 
+            self.old_price,
+            language_code,
+            self.display_currency_preference
+        )
+    
+    def get_savings_amount(self):
+        """Calculate savings in USD"""
+        if self.old_price and self.old_price > self.price:
+            return self.old_price - self.price
+        return Decimal('0')
+    
+    def get_savings_amount_mmk(self):
+        """Calculate savings in MMK"""
+        rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        return self.get_savings_amount() * rate  
     
     def product_image(self):
         return mark_safe('<img src="%s" width="50" height="50" />' %(self.image.url))

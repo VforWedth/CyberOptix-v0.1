@@ -49,6 +49,8 @@ urlpatterns = [
     # path("delete-from-cart/",views.delete_item_from_cart, name="delete-from-cart"),
     # path("update-cart/",views.update_cart, name="update-cart"),
     
+     # API URLs
+    path("api/format-price/", views.format_price_api, name="format-price-api"),
     
     # Check out 
     path('checkout/shop/<str:sid>/', views.shop_checkout_view, name='shop-checkout'),
@@ -81,6 +83,8 @@ urlpatterns = [
     
     # Delete from wishlist
     path("remove-from-wishlist/",views.remove_from_wishlist, name="remove-from-wishlist"),
+    
+   
     
     # Stripe Payment Integration
     path('api/create-checkout-session/<str:sid>/', views.create_checkout_session, name='create-checkout-session'),

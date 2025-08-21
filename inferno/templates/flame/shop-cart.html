@@ -1,14 +1,16 @@
+<!-- templates/flame/shop-cart.html -->
 {% extends 'partials/base.html' %}
 {% load static %}
 {% load i18n %}
 {% load math_filters %}
-<style>
-    
-      main{
-            background-color:rgb(21, 40, 56);
+{% load myanmar_filter %}
 
-      }
+<style>
+    main{
+        background-color:rgb(21, 40, 56);
+    }
 </style>
+
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/shop-cart.css' %}">
 <main style="background-color:rgb(21, 40, 56);">
@@ -59,17 +61,20 @@
                       </div>
                   </div>
                   
-                  <div class="price-column">${{ item.price|floatformat:2 }}</div>
+                  <div class="price-column" data-price-usd="{{ item.price }}">
+                      {{ item.price_display }}
+                  </div>
                   
                   <div class="quantity-control">
                       <input type="number" value="{{ item.qty }}" min="1" 
                              class="cart-qty product-qty-{{ product_id }}" 
                              data-item-id="{{ product_id }}"
-                             data-shop-id="{{ shop_cart.shop.shop_id }}">
+                             data-shop-id="{{ shop_cart.shop.shop_id }}"
+                             data-price="{{ item.price }}">
                   </div>
                   
-                  <div class="price-column cart-total-amount">
-                      ${{ item.price|multiply:item.qty|floatformat:2 }}
+                  <div class="price-column cart-total-amount" data-item-total-usd="{{ item.price|multiply:item.qty }}">
+                      {{ item.total_display }}
                   </div>
                   
                   <div class="actions-column">
@@ -86,8 +91,8 @@
             <div class="shop-cart-summary">
                 <div class="shop-total">
                     <span>{% trans "Shop Total:" %}</span>
-                    <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}">
-                        ${{ shop_cart.total|floatformat:2 }}
+                    <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}" data-total-usd="{{ shop_cart.total }}">
+                        {{ shop_cart.total_display }}
                     </span>
                     <a href="{% url 'flame:shop-checkout' shop_cart.shop.shop_id %}" 
                    class="shop-checkout-btn">
@@ -104,7 +109,9 @@
       <div class="global-cart-summary">
           <div class="summary-row">
               <strong>{% trans "Grand Total:" %}</strong>
-              <strong class="grand-total">${{ cart_total_amount|floatformat:2 }}</strong>
+              <strong class="grand-total" data-grand-total-usd="{{ cart_total_amount }}">
+                  {{ cart_total_display }}
+              </strong>
           </div>
           <div class="cart-actions">
             <span class="total-cart-items">{{ totalcartitems }}</span>  {% trans "items in cart" %}
@@ -119,4 +126,13 @@
 <br><br><br>
 
 </main>
+
+<!-- Add exchange rate and language data for JavaScript -->
+<script>
+    window.cartConfig = {
+        language: '{{ current_language }}',
+        exchangeRate: {{ exchange_rate }},
+        isMyanmar: {{ is_myanmar|lower }}
+    };
+</script>
 {% endblock content %}

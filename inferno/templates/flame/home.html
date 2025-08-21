@@ -646,8 +646,24 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
+                {% if is_myanmar %}
+                {% if product.old_price and product.old_price > product.price %}
+                    <span class="old-price">
+                        {{ product.old_price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                    </span>
+                {% endif %}
+                <span class="current-price current-product-price-{{product.id}}">
+                    {{ product.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </span>
+                <small class="price-usd-reference">
+                    (${{ product.price|floatformat:2|to_myanmar_numerals }})
+                </small>
+            {% else %}
+                {% if product.old_price and product.old_price > product.price %}
+                    <span class="old-price">${{product.old_price|floatformat:2}}</span>
+                {% endif %}
+                <span class="current-price current-product-price-{{product.id}}">${{product.price|floatformat:2}}</span>
+            {% endif %}
                     </div>
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" style="border:none;text-decoration: none;">
@@ -690,8 +706,7 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
+                        {% include 'flame/price_display.html' with product=product %}
                     </div>
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">
@@ -720,7 +735,15 @@
         <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
                 
                              <div class="discount-badge">
-        -{{ product.get_percentage|floatformat:0 }}%
+         {% if product.get_percentage > 0 %}
+        <span class="tab-btn">
+            {% if current_language == 'my' %}
+                -{{ product.get_percentage|floatformat:0|to_myanmar_numerals }}%
+            {% else %}
+                -{{ product.get_percentage|floatformat:0 }}%
+            {% endif %}
+        </span>
+    {% endif %}
     </div>
                
                 <button class="favorite-btn add-to-wishlist"  data-product-item="{{product.id}}">
@@ -733,8 +756,7 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
+                        {% include 'flame/price_display.html' with product=product %}
                     </div>
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">

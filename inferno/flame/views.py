@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.dateformat import format as date_format
 from django.utils import timezone
 from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest
-from flame.models import Brand, Product, Category, Shop, CartOrder, CartOrderItem, ProductImages, ProductReview , Wishlist, Address
+from flame.models import Brand, Product,ExchangeRate, Category, Shop, CartOrder, CartOrderItem, ProductImages, ProductReview , Wishlist, Address
 
 from django.db.models import Count,Avg,F, ExpressionWrapper, FloatField
 from flame.forms import ProductReviewForm
@@ -12,6 +12,9 @@ from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate
 from django.views.i18n import set_language
+from flame.utils.myanmar_utils import format_price_display, format_myanmar_currency, format_usd_currency
+from django.utils import translation
+from decimal import Decimal
 
 #for payment integration process 
 from django.urls import reverse
@@ -31,7 +34,7 @@ from django.core.files.base import ContentFile
 
 def home(request):
      # Get current language
-    current_language = get_language()
+    current_language = translation.get_language()
     
     shop_views=Shop.objects.all()
  
@@ -289,9 +292,10 @@ def shop_product_detail_view(request, pid, sid):
 
     p_image = ProductImages.objects.filter(product=product).order_by("-date")
     
+    current_language = translation.get_language()
     context = {
         "shop_views": shop_views,
-
+        'current_language': current_language,
         "p": product,
         "shop": shop,
         "make_review": make_review,
@@ -391,43 +395,403 @@ def filter_product(request):
     return JsonResponse({"data": data}) 
 
 # Add to cart (With Specific Shop)
-def add_to_shop_cart(request):
-    shop_id  =str(request.GET['sid'])
-    product_id = str(request.GET['id'])
+# def add_to_shop_cart(request):
+#     shop_id  =str(request.GET['sid'])
+#     product_id = str(request.GET['id'])
     
-    cart_product = {
-        'title': request.GET['title'],
-        'qty': int(request.GET['qty']),
-        'price': float(request.GET['price']),
-        'image': request.GET['image'],
-        'pid': request.GET['pid'],
-        'sid': shop_id,
+#     cart_product = {
+#         'title': request.GET['title'],
+#         'qty': int(request.GET['qty']),
+#         'price': float(request.GET['price']),
+#         'image': request.GET['image'],
+#         'pid': request.GET['pid'],
+#         'sid': shop_id,
+#     }
+    
+#     if 'cart_data' not in request.session:
+#         request.session['cart_data'] = {}
+        
+#     shop_cart = request.session['cart_data'].get(shop_id,{})
+    
+#     if product_id in shop_cart:
+#         shop_cart[product_id]['qty'] = cart_product['qty']
+#     else:
+#         shop_cart[product_id] = cart_product
+        
+#     request.session['cart_data'][shop_id] = shop_cart
+#     request.session.modified = True
+    
+#     total_items = sum(len(shop) for shop in request.session['cart_data'].values())
+    
+#     return JsonResponse({
+#         "data": request.session['cart_data'],
+#         "totalcartitems": total_items,
+#     })
+
+def add_to_shop_cart(request):
+    """Add to cart with proper USD price handling"""
+    try:
+        shop_id = str(request.GET.get('sid'))
+        product_id = str(request.GET.get('id'))
+        
+        # Get and validate price
+        price_str = request.GET.get('price', '0')
+        
+        # Clean price string (remove any non-numeric characters except decimal point)
+        import re
+        price_str = re.sub(r'[^\d.]', '', str(price_str))
+        
+        try:
+            price = float(price_str)
+        except (ValueError, TypeError):
+            # If price parsing fails, try to get from database
+            try:
+                product = Product.objects.get(id=product_id)
+                price = float(product.price)
+            except Product.DoesNotExist:
+                return JsonResponse({
+                    'error': 'Product not found',
+                    'status': 'error'
+                }, status=404)
+        
+        # Validate price
+        if price <= 0:
+            return JsonResponse({
+                'error': 'Invalid price',
+                'status': 'error'
+            }, status=400)
+        
+        # Build cart product
+        cart_product = {
+            'title': request.GET.get('title', ''),
+            'qty': int(request.GET.get('qty', 1)),
+            'price': price,  # Store USD price
+            'image': request.GET.get('image', ''),
+            'pid': request.GET.get('pid', ''),
+            'sid': shop_id,
+        }
+        
+        # Initialize cart data if not exists
+        if 'cart_data' not in request.session:
+            request.session['cart_data'] = {}
+        
+        cart_data = request.session['cart_data']
+        
+        # Initialize shop cart if not exists
+        if shop_id not in cart_data:
+            cart_data[shop_id] = {}
+        
+        # Add or update product in shop's cart
+        if product_id in cart_data[shop_id]:
+            # Update quantity if product already in cart
+            cart_data[shop_id][product_id]['qty'] = cart_product['qty']
+        else:
+            # Add new product to cart
+            cart_data[shop_id][product_id] = cart_product
+        
+        request.session['cart_data'] = cart_data
+        request.session.modified = True
+        
+        # Calculate total items across all shops
+        total_items = sum(
+            item['qty'] 
+            for shop in cart_data.values() 
+            for item in shop.values()
+        )
+        
+        return JsonResponse({
+            'status': 'success',
+            'data': cart_data,
+            'totalcartitems': total_items,
+            'message': 'Product added to cart successfully'
+        })
+        
+    except Exception as e:
+        import traceback
+        print(f"Error in add_to_shop_cart: {str(e)}")
+        print(traceback.format_exc())
+        
+        return JsonResponse({
+            'error': str(e),
+            'status': 'error'
+        }, status=500)
+
+def shop_cart_view(request):
+    """Cart view with multi-currency display"""
+    cart_data = request.session.get('cart_data_obj', {})
+    current_language = translation.get_language()
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    
+    # Process cart data for display
+    cart_display = {}
+    grand_total_usd = Decimal('0')
+    total_quantity = 0
+    
+    for shop_id, shop_cart in cart_data.items():
+        try:
+            shop = Shop.objects.get(shop_id=shop_id)
+            shop_total_usd = Decimal('0')
+            shop_quantity = 0
+            shop_items = []
+            
+            for product_id, item in shop_cart.items():
+                item_total_usd = Decimal(str(item['price'])) * item['qty']
+                shop_total_usd += item_total_usd
+                shop_quantity += item['qty']
+                
+                # Format prices based on language
+                if current_language == 'my':
+                    price_display = format_myanmar_currency(Decimal(str(item['price'])) * exchange_rate)
+                    item_total_display = format_myanmar_currency(item_total_usd * exchange_rate)
+                else:
+                    price_display = format_usd_currency(Decimal(str(item['price'])))
+                    item_total_display = format_usd_currency(item_total_usd)
+                
+                shop_items.append({
+                    'id': product_id,
+                    'title': item['title'],
+                    'price': item['price'],
+                    'price_display': price_display,
+                    'qty': item['qty'],
+                    'image': item['image'],
+                    'pid': item['pid'],
+                    'item_total': float(item_total_usd),
+                    'item_total_display': item_total_display,
+                })
+            
+            # Format shop total
+            if current_language == 'my':
+                shop_total_display = format_myanmar_currency(shop_total_usd * exchange_rate)
+            else:
+                shop_total_display = format_usd_currency(shop_total_usd)
+            
+            cart_display[shop_id] = {
+                'shop': shop,
+                'items': shop_items,
+                'shop_total': float(shop_total_usd),
+                'shop_total_display': shop_total_display,
+                'shop_quantity': shop_quantity,
+            }
+            
+            grand_total_usd += shop_total_usd
+            total_quantity += shop_quantity
+            
+        except Shop.DoesNotExist:
+            continue
+    
+    # Format grand total
+    if current_language == 'my':
+        grand_total_display = format_myanmar_currency(grand_total_usd * exchange_rate)
+    else:
+        grand_total_display = format_usd_currency(grand_total_usd)
+    
+    context = {
+        'cart_display': cart_display,
+        'grand_total': float(grand_total_usd),
+        'grand_total_display': grand_total_display,
+        'total_quantity': total_quantity,
+        'current_language': current_language,
     }
     
-    if 'cart_data' not in request.session:
-        request.session['cart_data'] = {}
+    return render(request, 'flame/cart.html', context)
+
+def update_shop_cart(request):
+    """Update cart quantity with proper price recalculation"""
+    product_id = str(request.GET['id'])
+    shop_id = str(request.GET['sid'])
+    qty = int(request.GET['qty'])
+    
+    cart_data = request.session.get('cart_data_obj', {})
+    current_language = translation.get_language()
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    
+    if shop_id in cart_data and product_id in cart_data[shop_id]:
+        cart_data[shop_id][product_id]['qty'] = qty
+        request.session['cart_data_obj'] = cart_data
         
-    shop_cart = request.session['cart_data'].get(shop_id,{})
-    
-    if product_id in shop_cart:
-        shop_cart[product_id]['qty'] = cart_product['qty']
-    else:
-        shop_cart[product_id] = cart_product
+        # Calculate updated totals
+        item_price = Decimal(str(cart_data[shop_id][product_id]['price']))
+        item_total = item_price * qty
         
-    request.session['cart_data'][shop_id] = shop_cart
-    request.session.modified = True
+        # Calculate shop total
+        shop_total = Decimal('0')
+        shop_quantity = 0
+        for item in cart_data[shop_id].values():
+            shop_total += Decimal(str(item['price'])) * item['qty']
+            shop_quantity += item['qty']
+        
+        # Calculate grand total
+        grand_total = Decimal('0')
+        total_quantity = 0
+        for shop_cart in cart_data.values():
+            for item in shop_cart.values():
+                grand_total += Decimal(str(item['price'])) * item['qty']
+                total_quantity += item['qty']
+        
+        # Format response based on language
+        if current_language == 'my':
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'item_total': float(item_total),
+                    'item_total_display': format_myanmar_currency(item_total * exchange_rate),
+                    'shop_total': float(shop_total),
+                    'shop_total_display': format_myanmar_currency(shop_total * exchange_rate),
+                    'grand_total': float(grand_total),
+                    'grand_total_display': format_myanmar_currency(grand_total * exchange_rate),
+                    'shop_quantity': shop_quantity,
+                    'total_quantity': total_quantity,
+                    'shop_id': shop_id,
+                }
+            }
+        else:
+            response_data = {
+                'status': 'success',
+                'data': {
+                    'item_total': float(item_total),
+                    'shop_total': float(shop_total),
+                    'grand_total': float(grand_total),
+                    'shop_quantity': shop_quantity,
+                    'total_quantity': total_quantity,
+                    'shop_id': shop_id,
+                }
+            }
+        
+        return JsonResponse(response_data)
     
-    total_items = sum(len(shop) for shop in request.session['cart_data'].values())
+    return JsonResponse({'status': 'error'})
+
+def delete_from_shop_cart(request):
+    """Delete from cart with proper shop handling"""
+    product_id = str(request.GET['id'])
+    shop_id = str(request.GET['sid'])
     
-    return JsonResponse({
-        "data": request.session['cart_data'],
-        "totalcartitems": total_items,
-    })
+    cart_data = request.session.get('cart_data_obj', {})
+    current_language = translation.get_language()
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    
+    if shop_id in cart_data and product_id in cart_data[shop_id]:
+        del cart_data[shop_id][product_id]
+        
+        # Remove shop if empty
+        if not cart_data[shop_id]:
+            del cart_data[shop_id]
+            shop_html = None
+        else:
+            # Render updated shop section
+            shop_html = render_cart_shop_section(shop_id, cart_data[shop_id], current_language)
+        
+        request.session['cart_data_obj'] = cart_data
+        
+        # Calculate totals
+        grand_total = Decimal('0')
+        total_quantity = 0
+        shop_total = Decimal('0')
+        shop_quantity = 0
+        
+        if shop_id in cart_data:
+            for item in cart_data[shop_id].values():
+                shop_total += Decimal(str(item['price'])) * item['qty']
+                shop_quantity += item['qty']
+        
+        for shop_cart in cart_data.values():
+            for item in shop_cart.values():
+                grand_total += Decimal(str(item['price'])) * item['qty']
+                total_quantity += item['qty']
+        
+        return JsonResponse({
+            'status': 'success',
+            'data': {
+                'shop_html': shop_html,
+                'shop_total': float(shop_total),
+                'shop_quantity': shop_quantity,
+                'grand_total': float(grand_total),
+                'total_quantity': total_quantity,
+            }
+        })
+    
+    return JsonResponse({'status': 'error'})
+
+def render_cart_shop_section(shop_id, shop_cart, language):
+    """Helper function to render shop cart section"""
+    from django.template.loader import render_to_string
+    
+    try:
+        shop = Shop.objects.get(shop_id=shop_id)
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        
+        shop_items = []
+        shop_total = Decimal('0')
+        
+        for product_id, item in shop_cart.items():
+            item_total = Decimal(str(item['price'])) * item['qty']
+            shop_total += item_total
+            
+            if language == 'my':
+                price_display = format_myanmar_currency(Decimal(str(item['price'])) * exchange_rate)
+                item_total_display = format_myanmar_currency(item_total * exchange_rate)
+            else:
+                price_display = format_usd_currency(Decimal(str(item['price'])))
+                item_total_display = format_usd_currency(item_total)
+            
+            shop_items.append({
+                'id': product_id,
+                'title': item['title'],
+                'price_display': price_display,
+                'qty': item['qty'],
+                'image': item['image'],
+                'item_total_display': item_total_display,
+            })
+        
+        if language == 'my':
+            shop_total_display = format_myanmar_currency(shop_total * exchange_rate)
+        else:
+            shop_total_display = format_usd_currency(shop_total)
+        
+        context = {
+            'shop': shop,
+            'items': shop_items,
+            'shop_total_display': shop_total_display,
+            'shop_id': shop_id,
+        }
+        
+        return render_to_string('flame/partials/cart_shop_section.html', context)
+    
+    except Shop.DoesNotExist:
+        return None
+
+# API endpoint for price formatting
+def format_price_api(request):
+    """API endpoint for dynamic price formatting"""
+    price = request.GET.get('price', 0)
+    lang = request.GET.get('lang', 'en')
+    
+    try:
+        price_usd = Decimal(str(price))
+        
+        if lang == 'my':
+            rate = ExchangeRate.get_current_rate('USD', 'MMK')
+            formatted_price = format_myanmar_currency(price_usd * rate)
+        else:
+            formatted_price = format_usd_currency(price_usd)
+        
+        return JsonResponse({
+            'formatted_price': formatted_price,
+            'success': True
+        })
+    except:
+        return JsonResponse({
+            'formatted_price': '$0.00',
+            'success': False
+        })
+
     
 # Cart View (With Specific Shop)
 def shop_cart_view(request):
+    current_language = translation.get_language()
     shop_views = Shop.objects.all()
     cart_data = request.session.get('cart_data', {})
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
     shop_carts = []
     cart_total_amount = 0
     grand_total_quantity = 0  # Track total quantity of all items
@@ -443,6 +807,8 @@ def shop_cart_view(request):
                 shop_total += item_total
                 shop_quantity += int(item['qty'])  # Sum quantities
                 grand_total_quantity += int(item['qty'])  # Add to grand total
+            
+            
             
             cart_total_amount += shop_total
             shop_carts.append({
@@ -466,15 +832,20 @@ def shop_cart_view(request):
         'cart_total_amount': cart_total_amount,
     })
       
-# Delete from cart (With Specific Shop)        
+# # Delete from cart (With Specific Shop)        
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST, require_GET
 
+#updated
+# flame/views.py - Update your delete and update functions
+
 def delete_item_from_shop_cart(request):
     product_id = str(request.GET.get('id'))
     shop_id = str(request.GET.get('sid'))
+    current_language = translation.get_language()
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
     
     try:
         if 'cart_data' in request.session:
@@ -507,27 +878,31 @@ def delete_item_from_shop_cart(request):
                     for item in shop.values()
                 )
                 
-                context = {
-                    "shop_id": shop_id,
-                    "shop_total": shop_total,
-                    "shop_quantity": shop_quantity,
-                    "grand_total": grand_total,
-                    "total_quantity": total_quantity
-                }
+                # Prepare shop cart data for rendering
+                shop_html = ""
+                if shop_id in cart_data:
+                    shop = Shop.objects.get(shop_id=shop_id)
+                    shop_cart_data = {
+                        'shop': shop,
+                        'products': cart_data[shop_id],
+                        'total': shop_total,
+                        'shop_quantity': shop_quantity,
+                        'item_count': len(cart_data[shop_id]),
+                        'shop_id': shop_id,
+                    }
+                    
+                    # Render with language context
+                    from django.template.loader import render_to_string
+                    shop_html = render_to_string("flame/async/shop-cart-list.html", {
+                        "shop_cart": shop_cart_data,
+                        "current_language": current_language,
+                        "exchange_rate": exchange_rate,
+                    })
                 
                 return JsonResponse({
                     "status": "success",
                     "data": {
-                        "shop_html": render_to_string("flame/async/shop-cart-list.html", {
-                            "shop_cart": {
-                                "shop": Shop.objects.get(shop_id=shop_id),
-                                "products": cart_data.get(shop_id, {}),
-                                "total": float(shop_total),
-                                "shop_quantity": shop_quantity,
-                                "item_count": len(cart_data.get(shop_id, {})),
-                                "shop_id": shop_id,
-                            }
-                        }) if shop_id in cart_data else "",
+                        "shop_html": shop_html if shop_id in cart_data else None,
                         "grand_total": float(grand_total),
                         "total_quantity": total_quantity,
                         "shop_total": shop_total,
@@ -539,11 +914,13 @@ def delete_item_from_shop_cart(request):
     
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
-# Update Cart (With Specific Shop)
+
 def update_shop_cart(request):
     product_id = str(request.GET.get('id'))
     shop_id = str(request.GET.get('sid'))
     new_qty = int(request.GET.get('qty', 1))
+    current_language = translation.get_language()
+    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
     
     try:
         if 'cart_data' in request.session:
@@ -559,7 +936,7 @@ def update_shop_cart(request):
                     int(item['qty']) * float(item['price']) 
                     for item in cart_data[shop_id].values()
                 )
-                shop_quantity = sum(  # Total quantity for shop
+                shop_quantity = sum(
                     int(item['qty']) 
                     for item in cart_data[shop_id].values()
                 )
@@ -568,7 +945,7 @@ def update_shop_cart(request):
                     for shop in cart_data.values() 
                     for item in shop.values()
                 )
-                total_quantity = sum(  # Grand total quantity
+                total_quantity = sum(
                     int(item['qty']) 
                     for shop in cart_data.values() 
                     for item in shop.values()
@@ -591,87 +968,348 @@ def update_shop_cart(request):
     
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+# def delete_item_from_shop_cart(request):
+#     product_id = str(request.GET.get('id'))
+#     shop_id = str(request.GET.get('sid'))
+    
+#     try:
+#         if 'cart_data' in request.session:
+#             cart_data = request.session['cart_data']
+            
+#             if shop_id in cart_data and product_id in cart_data[shop_id]:
+#                 del cart_data[shop_id][product_id]
+                
+#                 if not cart_data[shop_id]:
+#                     del cart_data[shop_id]
+                
+#                 request.session.modified = True
+                
+#                 # Calculate updated totals
+#                 shop_total = 0
+#                 shop_quantity = 0
+#                 if shop_id in cart_data:
+#                     for p_id, item in cart_data[shop_id].items():
+#                         shop_total += int(item['qty']) * float(item['price'])
+#                         shop_quantity += int(item['qty'])
+                
+#                 grand_total = sum(
+#                     int(item['qty']) * float(item['price']) 
+#                     for shop in cart_data.values() 
+#                     for item in shop.values()
+#                 )
+#                 total_quantity = sum(
+#                     int(item['qty']) 
+#                     for shop in cart_data.values() 
+#                     for item in shop.values()
+#                 )
+                
+#                 context = {
+#                     "shop_id": shop_id,
+#                     "shop_total": shop_total,
+#                     "shop_quantity": shop_quantity,
+#                     "grand_total": grand_total,
+#                     "total_quantity": total_quantity
+#                 }
+                
+#                 return JsonResponse({
+#                     "status": "success",
+#                     "data": {
+#                         "shop_html": render_to_string("flame/async/shop-cart-list.html", {
+#                             "shop_cart": {
+#                                 "shop": Shop.objects.get(shop_id=shop_id),
+#                                 "products": cart_data.get(shop_id, {}),
+#                                 "total": float(shop_total),
+#                                 "shop_quantity": shop_quantity,
+#                                 "item_count": len(cart_data.get(shop_id, {})),
+#                                 "shop_id": shop_id,
+#                             }
+#                         }) if shop_id in cart_data else "",
+#                         "grand_total": float(grand_total),
+#                         "total_quantity": total_quantity,
+#                         "shop_total": shop_total,
+#                         "shop_quantity": shop_quantity
+#                     }
+#                 })
+                
+#         return JsonResponse({"status": "error", "message": "Item not found"}, status=404)
+    
+#     except Exception as e:
+#         return JsonResponse({"status": "error", "message": str(e)}, status=500)
+# # Update Cart (With Specific Shop)
+# def update_shop_cart(request):
+#     product_id = str(request.GET.get('id'))
+#     shop_id = str(request.GET.get('sid'))
+#     new_qty = int(request.GET.get('qty', 1))
+    
+#     try:
+#         if 'cart_data' in request.session:
+#             cart_data = request.session['cart_data']
+            
+#             if shop_id in cart_data and product_id in cart_data[shop_id]:
+#                 cart_data[shop_id][product_id]['qty'] = new_qty
+#                 request.session.modified = True
+                
+#                 # Calculate updated totals
+#                 item_total = new_qty * float(cart_data[shop_id][product_id]['price'])
+#                 shop_total = sum(
+#                     int(item['qty']) * float(item['price']) 
+#                     for item in cart_data[shop_id].values()
+#                 )
+#                 shop_quantity = sum(  # Total quantity for shop
+#                     int(item['qty']) 
+#                     for item in cart_data[shop_id].values()
+#                 )
+#                 grand_total = sum(
+#                     int(item['qty']) * float(item['price']) 
+#                     for shop in cart_data.values() 
+#                     for item in shop.values()
+#                 )
+#                 total_quantity = sum(  # Grand total quantity
+#                     int(item['qty']) 
+#                     for shop in cart_data.values() 
+#                     for item in shop.values()
+#                 )
+                
+#                 return JsonResponse({
+#                     "status": "success",
+#                     "data": {
+#                         "item_total": float(item_total),
+#                         "shop_total": float(shop_total),
+#                         "shop_quantity": shop_quantity,
+#                         "grand_total": float(grand_total),
+#                         "total_quantity": total_quantity,
+#                         "shop_id": shop_id,
+#                         "product_id": product_id,
+#                     }
+#                 })
+                
+#         return JsonResponse({"status": "error", "message": "Item not found"}, status=404)
+    
+#     except Exception as e:
+#         return JsonResponse({"status": "error", "message": str(e)}, status=500)
 # Checkout View (With Specific Shop)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 @login_required
 def shop_checkout_view(request, sid):
-    shop_views=Shop.objects.all()
-
+    from django.utils import translation
+    from flame.models import ExchangeRate
+    from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
+    from decimal import Decimal
+    
+    shop_views = Shop.objects.all()
+    current_language = translation.get_language()
+    
     try:
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    except:
+        exchange_rate = Decimal('3500')
+    
+    try:
+        # Get shop first
         shop = Shop.objects.get(shop_id=sid)
+        
+        # Get cart data for this specific shop
         cart_data = request.session.get('cart_data', {}).get(sid, {})
         
         if not cart_data:
-            messages.warning(request, "Your cart for this shop is empty")
-            return redirect('flame:cart')
+            messages.warning(request, _("Your cart for this shop is empty"))
+            return redirect('flame:shop-cart')
 
-        # Create order with shop reference
-        order_total = sum(item['qty'] * item['price'] for item in cart_data.values())
+        # Calculate order total in USD
+        order_total = sum(
+            int(item.get('qty', 0)) * float(item.get('price', 0)) 
+            for item in cart_data.values()
+        )
+        
+        # Create order
         order = CartOrder.objects.create(
             user=request.user,
             shop=shop,
             price=order_total,
-            order_type='shop'
+            order_type='shop',
+            paid_status=False
         )
         
-        # Create order items
+        # Create order items and prepare display data
+        cart_items_display = []
         for product_id, item in cart_data.items():
+            # Create order item in database
             CartOrderItem.objects.create(
                 order=order,
-                # product_id=item['pid'],
-                item=item['title'],
-                image=item['image'],
-                qty=item['qty'],
-                price=item['price'],
-                total=item['qty'] * item['price']
+                item=item.get('title', ''),
+                image=item.get('image', ''),
+                qty=int(item.get('qty', 1)),
+                price=float(item.get('price', 0)),
+                total=int(item.get('qty', 1)) * float(item.get('price', 0))
             )
+            
+            # Prepare display data with currency formatting
+            item_data = {
+                'title': item.get('title', ''),
+                'image': item.get('image', ''),
+                'qty': int(item.get('qty', 1)),
+                'price': float(item.get('price', 0)),
+                'total': int(item.get('qty', 1)) * float(item.get('price', 0))
+            }
+            
+            # Add formatted prices based on language
+            if current_language == 'my':
+                price_mmk = Decimal(str(item_data['price'])) * exchange_rate
+                total_mmk = Decimal(str(item_data['total'])) * exchange_rate
+                
+                item_data['price_display'] = format_myanmar_currency(price_mmk)
+                item_data['total_display'] = format_myanmar_currency(total_mmk)
+                item_data['price_usd_display'] = f"(${item_data['price']:.2f})"
+                item_data['qty_display'] = convert_to_myanmar_numerals(str(item_data['qty']))
+            else:
+                item_data['price_display'] = f"${item_data['price']:.2f}"
+                item_data['total_display'] = f"${item_data['total']:.2f}"
+                item_data['price_usd_display'] = None
+                item_data['qty_display'] = str(item_data['qty'])
+            
+            cart_items_display.append(item_data)
 
-        # Shop-specific PayPal integration
+        # Format total for display
+        if current_language == 'my':
+            total_mmk = Decimal(str(order_total)) * exchange_rate
+            cart_total_display = format_myanmar_currency(total_mmk)
+            cart_total_usd_display = f"(${order_total:.2f})"
+        else:
+            cart_total_display = f"${order_total:.2f}"
+            cart_total_usd_display = None
+
+        # PayPal configuration (always in USD)
         paypal_dict = {
-            'business': shop.paypal_email,  # Use shop's PayPal email
+            'business': shop.paypal_email if shop.paypal_email else settings.PAYPAL_RECEIVER_EMAIL,
             'amount': order_total,
-            'item_name': f"Order-{order.id}-{shop.title}",
-            'invoice': f"INVOICE-{order.id}-{sid}",
+            'item_name': f"Order #{order.id} from {shop.title}",
+            'invoice': f"INVOICE-{order.id}",
             'currency_code': "USD",
             'notify_url': request.build_absolute_uri(reverse("flame:paypal-ipn")),
             'return_url': request.build_absolute_uri(reverse("flame:payment-completed", args=[sid])),
             'cancel_url': request.build_absolute_uri(reverse("flame:payment-failed")),
         }
         
-        paypal_payment_button = PayPalPaymentsForm(button_type='pay',initial=paypal_dict)
+        paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
         
+        # Get active address
         try:
-            active_address = Address.objects.get(user=request.user, status = True)
+            active_address = Address.objects.get(user=request.user, status=True)
         except:
-            active_address =None
-            messages.warning(request, "Please add a shipping address")
-            
-        
+            active_address = None
+            messages.warning(request, _("Please add a shipping address"))
 
-        return render(request, 'flame/checkout.html', {
+        context = {
             "shop_views": shop_views,
             'order': order,
             'shop': shop,
+            'cart_items': cart_items_display,
             'cart_total_amount': order_total,
+            'cart_total_display': cart_total_display,
+            'cart_total_usd_display': cart_total_usd_display,
             'paypal_payment_button': paypal_payment_button,
-            'active_address':active_address,
             'active_address': active_address,
             'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
-            'cart_data': cart_data,
             'sid': sid,
-        })
+            'current_language': current_language,
+            'exchange_rate': float(exchange_rate),
+            'is_myanmar': current_language == 'my',
+        }
+        
+        return render(request, 'flame/checkout.html', context)
 
     except Shop.DoesNotExist:
-        messages.error(request, "Invalid shop")
-        return redirect('flame:cart')
+        messages.error(request, _("Shop not found"))
+        return redirect('flame:shop-cart')
+    except Exception as e:
+        print(f"Checkout error: {str(e)}")
+        messages.error(request, _("An error occurred during checkout"))
+        return redirect('flame:shop-cart')
+# @login_required
+# def shop_checkout_view(request, sid):
+#     shop_views=Shop.objects.all()
+
+#     try:
+#         shop = Shop.objects.get(shop_id=sid)
+#         cart_data = request.session.get('cart_data', {}).get(sid, {})
+        
+#         if not cart_data:
+#             messages.warning(request, "Your cart for this shop is empty")
+#             return redirect('flame:cart')
+
+#         # Create order with shop reference
+#         order_total = sum(item['qty'] * item['price'] for item in cart_data.values())
+#         order = CartOrder.objects.create(
+#             user=request.user,
+#             shop=shop,
+#             price=order_total,
+#             order_type='shop'
+#         )
+        
+#         # Create order items
+#         for product_id, item in cart_data.items():
+#             CartOrderItem.objects.create(
+#                 order=order,
+#                 # product_id=item['pid'],
+#                 item=item['title'],
+#                 image=item['image'],
+#                 qty=item['qty'],
+#                 price=item['price'],
+#                 total=item['qty'] * item['price']
+#             )
+
+#         # Shop-specific PayPal integration
+#         paypal_dict = {
+#             'business': shop.paypal_email,  # Use shop's PayPal email
+#             'amount': order_total,
+#             'item_name': f"Order-{order.id}-{shop.title}",
+#             'invoice': f"INVOICE-{order.id}-{sid}",
+#             'currency_code': "USD",
+#             'notify_url': request.build_absolute_uri(reverse("flame:paypal-ipn")),
+#             'return_url': request.build_absolute_uri(reverse("flame:payment-completed", args=[sid])),
+#             'cancel_url': request.build_absolute_uri(reverse("flame:payment-failed")),
+#         }
+        
+#         paypal_payment_button = PayPalPaymentsForm(button_type='pay',initial=paypal_dict)
+        
+#         try:
+#             active_address = Address.objects.get(user=request.user, status = True)
+#         except:
+#             active_address =None
+#             messages.warning(request, "Please add a shipping address")
+            
+        
+
+#         return render(request, 'flame/checkout.html', {
+#             "shop_views": shop_views,
+#             'order': order,
+#             'shop': shop,
+#             'cart_total_amount': order_total,
+#             'paypal_payment_button': paypal_payment_button,
+#             'active_address':active_address,
+#             'active_address': active_address,
+#             'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+#             'cart_data': cart_data,
+#             'sid': sid,
+#         })
+
+#     except Shop.DoesNotExist:
+#         messages.error(request, "Invalid shop")
+#         return redirect('flame:cart')
     
 
 #checkout stripe implementation
 @csrf_exempt
 def create_checkout_session(request, sid):
+    from django.utils import translation
+    from flame.models import ExchangeRate
+    
     try:
         shop = Shop.objects.get(shop_id=sid)
         user = request.user
+        current_language = translation.get_language()
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
         
         # Get cart data from session
         cart_data = request.session.get('cart_data', {}).get(sid, {})
@@ -681,17 +1319,25 @@ def create_checkout_session(request, sid):
         # Create line items from cart
         line_items = []
         for item_id, item in cart_data.items():
+            # Prepare item name with language support
+            item_name = item['title']
+            if current_language == 'my':
+                # Add MMK price info to item name for clarity
+                mmk_price = Decimal(str(item['price'])) * exchange_rate
+                from flame.utils.myanmar_utils import convert_to_myanmar_numerals
+                mmk_formatted = convert_to_myanmar_numerals(f"{mmk_price:,.0f}")
+                item_name = f"{item['title']} ({mmk_formatted} ကျပ်)"
+            
             line_items.append({
                 'price_data': {
-                    'currency': 'usd',
+                    'currency': 'usd',  # Always charge in USD
                     'product_data': {
-                        'name': item['title'],
+                        'name': item_name,
                     },
                     'unit_amount': int(float(item['price']) * 100),  # Convert to cents
                 },
                 'quantity': item['qty'],
             })
-            
         
         # Create Stripe checkout session
         checkout_session = stripe.checkout.Session.create(   
@@ -706,20 +1352,76 @@ def create_checkout_session(request, sid):
             metadata={
                 'shop_id': sid,
                 'user_id': user.id,
+                'language': current_language,
+                'exchange_rate': str(exchange_rate),
             }
         )
         
-        
-        return JsonResponse({'session_id': checkout_session.id,
-                             'checkout_url': checkout_session.url,
-                             'success_url':  request.build_absolute_uri(reverse('flame:payment-completed', args=[sid])
-                    )
-                             })
+        return JsonResponse({
+            'session_id': checkout_session.id,
+            'checkout_url': checkout_session.url,
+            'success_url': request.build_absolute_uri(
+                reverse('flame:payment-completed', args=[sid])
+            )
+        })
     
     except Shop.DoesNotExist:
         return JsonResponse({'error': 'Shop not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+# @csrf_exempt
+# def create_checkout_session(request, sid):
+#     try:
+#         shop = Shop.objects.get(shop_id=sid)
+#         user = request.user
+        
+#         # Get cart data from session
+#         cart_data = request.session.get('cart_data', {}).get(sid, {})
+#         if not cart_data:
+#             return JsonResponse({'error': 'Cart is empty'}, status=400)
+        
+#         # Create line items from cart
+#         line_items = []
+#         for item_id, item in cart_data.items():
+#             line_items.append({
+#                 'price_data': {
+#                     'currency': 'usd',
+#                     'product_data': {
+#                         'name': item['title'],
+#                     },
+#                     'unit_amount': int(float(item['price']) * 100),  # Convert to cents
+#                 },
+#                 'quantity': item['qty'],
+#             })
+            
+        
+#         # Create Stripe checkout session
+#         checkout_session = stripe.checkout.Session.create(   
+#             customer_email=user.email,
+#             payment_method_types=['card'],
+#             line_items=line_items,
+#             mode='payment',
+#             success_url=request.build_absolute_uri(
+#                 reverse('flame:payment-completed', args=[sid])
+#             ) + "?session_id={CHECKOUT_SESSION_ID}",
+#             cancel_url=request.build_absolute_uri(reverse('flame:payment-failed')),
+#             metadata={
+#                 'shop_id': sid,
+#                 'user_id': user.id,
+#             }
+#         )
+        
+        
+#         return JsonResponse({'session_id': checkout_session.id,
+#                              'checkout_url': checkout_session.url,
+#                              'success_url':  request.build_absolute_uri(reverse('flame:payment-completed', args=[sid])
+#                     )
+#                              })
+    
+#     except Shop.DoesNotExist:
+#         return JsonResponse({'error': 'Shop not found'}, status=404)
+#     except Exception as e:
+#         return JsonResponse({'error': str(e)}, status=500)
     
 @require_GET
 def stripe_session_status(request):
@@ -833,30 +1535,126 @@ def fulfill_order(session):
 
 
 # Payment Completed View (With Specific Shop)
+# flame/views.py - Updated payment completed view
+
 @login_required
 def shop_payment_completed_view(request, sid):
-    shop_views=Shop.objects.all()
+    from django.utils import translation
+    from flame.models import ExchangeRate
+    from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
+    from decimal import Decimal
+    
+    shop_views = Shop.objects.all()
+    current_language = translation.get_language()
+    
+    try:
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    except:
+        exchange_rate = Decimal('3500')
+    
     try:
         shop = Shop.objects.get(shop_id=sid)
+        
+        # Get the most recent order for this user and shop
         order = CartOrder.objects.filter(
             user=request.user, 
             shop=shop
         ).order_by('-id').first()
+        
+        if not order:
+            messages.error(request, _("Order not found"))
+            return redirect('flame:home')
+        
+        # Prepare order items with formatted prices
+        order_items_display = []
+        for item in order.cartorderitem_set.all():
+            item_data = {
+                'item': item.item,
+                'image': item.image,
+                'qty': item.qty,
+                'price': float(item.price),
+                'total': float(item.total),
+            }
+            
+            # Format based on language
+            if current_language == 'my':
+                price_mmk = Decimal(str(item.price)) * exchange_rate
+                total_mmk = Decimal(str(item.total)) * exchange_rate
+                
+                item_data['price_display'] = format_myanmar_currency(price_mmk)
+                item_data['total_display'] = format_myanmar_currency(total_mmk)
+                item_data['price_usd'] = f"(${item.price:.2f})"
+                item_data['qty_display'] = convert_to_myanmar_numerals(str(item.qty))
+            else:
+                item_data['price_display'] = f"${item.price:.2f}"
+                item_data['total_display'] = f"${item.total:.2f}"
+                item_data['price_usd'] = None
+                item_data['qty_display'] = str(item.qty)
+            
+            order_items_display.append(item_data)
+        
+        # Format order total
+        if current_language == 'my':
+            total_mmk = Decimal(str(order.price)) * exchange_rate
+            order_total_display = format_myanmar_currency(total_mmk)
+            order_total_usd = f"(${order.price:.2f})"
+            order_id_display = convert_to_myanmar_numerals(str(order.id))
+        else:
+            order_total_display = f"${order.price:.2f}"
+            order_total_usd = None
+            order_id_display = str(order.id)
         
         # Clear shop's cart after successful payment
         if 'cart_data' in request.session and sid in request.session['cart_data']:
             del request.session['cart_data'][sid]
             request.session.modified = True
 
-        return render(request, 'flame/payment-completed.html', {
+        context = {
             'shop_views': shop_views,
             'order': order,
-            'shop': shop
-        })
+            'order_items': order_items_display,
+            'shop': shop,
+            'order_total_display': order_total_display,
+            'order_total_usd': order_total_usd,
+            'order_id_display': order_id_display,
+            'current_language': current_language,
+            'exchange_rate': float(exchange_rate),
+            'is_myanmar': current_language == 'my',
+        }
+        
+        return render(request, 'flame/payment-completed.html', context)
 
     except Shop.DoesNotExist:
-        messages.error(request, "Invalid shop")
+        messages.error(request, _("Invalid shop"))
         return redirect('flame:home')
+    except Exception as e:
+        print(f"Payment completed error: {str(e)}")
+        messages.error(request, _("An error occurred"))
+        return redirect('flame:home')
+# @login_required
+# def shop_payment_completed_view(request, sid):
+#     shop_views=Shop.objects.all()
+#     try:
+#         shop = Shop.objects.get(shop_id=sid)
+#         order = CartOrder.objects.filter(
+#             user=request.user, 
+#             shop=shop
+#         ).order_by('-id').first()
+        
+#         # Clear shop's cart after successful payment
+#         if 'cart_data' in request.session and sid in request.session['cart_data']:
+#             del request.session['cart_data'][sid]
+#             request.session.modified = True
+
+#         return render(request, 'flame/payment-completed.html', {
+#             'shop_views': shop_views,
+#             'order': order,
+#             'shop': shop
+#         })
+
+#     except Shop.DoesNotExist:
+#         messages.error(request, "Invalid shop")
+#         return redirect('flame:home')
 
 
 # Payment Failed View

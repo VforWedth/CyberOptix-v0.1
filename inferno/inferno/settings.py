@@ -102,6 +102,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'flame.context_processors.default', #new added for context processor
+                'flame.context_processors.currency_context',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.template.context_processors.csrf',
@@ -182,9 +183,19 @@ MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
 # Cache settings
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        
     }
+}
+
+# Currency settings
+CURRENCY_SETTINGS = {
+    'DEFAULT_CURRENCY': 'USD',
+    'SUPPORTED_CURRENCIES': ['USD', 'MMK'],
+    'EXCHANGE_RATE_API_KEY': 'https://api.exchangerate-api.com/v4/latest/USD',  # If using paid API
+    'EXCHANGE_RATE_CACHE_TIMEOUT': 3600,  # 1 hour
+    'DEFAULT_MMK_RATE': 3000,  # Fallback rate
 }
 
 # --- Parler Settings ---

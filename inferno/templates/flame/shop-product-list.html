@@ -42,7 +42,7 @@
             <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
             <h5 class="card-title">{{ p.title }}</h5>
             <div class="card-footer">
-                <span class="price">${{ p.price }}</span>
+                <span class="price"> {% include 'flame/includes/price_display.html' with p=product %}</span>
                 <a href="{% url 'flame:product-detail' p.p_id %}" class="btn btn-primary" style="text-decoration: none;">
                     {% trans "View Product" %}
                 </a>

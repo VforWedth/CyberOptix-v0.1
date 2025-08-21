@@ -1,154 +1,370 @@
+<!-- templates/flame/checkout.html -->
 {% extends 'partials/base.html' %}
 {% load math_filters %}
+{% load myanmar_filter %}
 {% load static %}
 {% load i18n %}
+
 {% block content %}
-
-
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/checkout.css' %}">
-    <style>
-      
-    </style>
+
 <body style="background-color:rgb(21, 40, 56);">
     <div class="container">
-        {% comment %} <h2>Checkout</h2>
-        {% if total_cart_items  %}
-        <p>There {% if total_cart_items == 1 %}is{% else %} are {%endif%}<span id="cart-count">{{ item_count }}</span> products{{total_cart_items|pluralize}} in your cart</p>
-        {% else %}
-        <p>You don't have any items in your cart. Go back and Continue Browsing</p>
-        {%endif%} {% endcomment %}
-        {% if order %}
-        <h2>{% blocktrans %}Checking out from {{ shop.title }}{% endblocktrans %}</h2>
+        <!-- Shop Information Section -->
+        {% if shop %}
+        <h2>{% trans "Checking out from" %} {{ shop.title }}</h2>
         <div class="shop-info">
+            {% if shop.paypal_email %}
             <p>{% trans "PayPal Account:" %} {{ shop.paypal_email }}</p>
-            <p>{% trans "Order ID:" %} #{{ shop.id }}</p>
+            {% endif %}
+            <p>
+                {% trans "Order ID:" %} 
+                {% if is_myanmar %}
+                    #{{ order.id|to_myanmar_numerals }}
+                {% else %}
+                    #{{ order.id }}
+                {% endif %}
+            </p>
+            
+            {% if is_myanmar %}
+            <div class="exchange-rate-info">
+                <p class="text-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Current Exchange Rate:" %} 
+                    ၁ USD = {{ exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </p>
+            </div>
+            {% endif %}
         </div>
         {% else %}
-        <h2>{% trans "General Order Checkout" %}</h2>
+        <h2>{% trans "Checkout" %}</h2>
         {% endif %}
 
-        {% comment %} <div class="coupon-box">
-            <input type="text" placeholder="Enter Coupon Code">
-            <button>Apply Coupon</button>
-        </div> {% endcomment %}
         <div class="checkout-content">
+            <!-- Billing Details -->
             <div class="billing-details">
                 <h3>{% trans "Billing Details" %}</h3>
                 
                 <form>
-                    <input type="text" value = "{{ request.user.username|title }}" placeholder="First name *" required>
-                    <input type="text" value = "{{ active_address.mobile }}"placeholder="Mobile" required>
-                    <input type="text" value = "{{ active_address.address }}"  placeholder="Address *" required>
-                    {% comment %} <input type="text" placeholder="Address line 2"> {% endcomment %}
-                    {% comment %}
-                    <select required>
-                        <option>Select an option...</option>
-                    </select>
-                     <input type="text" placeholder="City / Town *" required>
-                    <input type="text" placeholder="Postcode / ZIP *" required>
-                    <input type="text" placeholder="Phone *" required>
-                    <input type="email" placeholder="Email address *" required>
-                    <input type="text" placeholder="Company Name">
-                    <textarea placeholder="Additional Information"></textarea> {% endcomment %}
+                    <input type="text" 
+                           value="{{ request.user.username|title }}" 
+                           placeholder="{% trans 'Name' %} *" 
+                           required>
+                    
+                    {% if active_address %}
+                    <input type="text" 
+                           value="{{ active_address.mobile }}"
+                           placeholder="{% trans 'Mobile' %}" 
+                           required>
+                    <input type="text" 
+                           value="{{ active_address.address }}"  
+                           placeholder="{% trans 'Address' %} *" 
+                           required>
+                    {% else %}
+                    <input type="text" 
+                           placeholder="{% trans 'Mobile' %}" 
+                           required>
+                    <input type="text" 
+                           placeholder="{% trans 'Address' %} *" 
+                           required>
+                    {% endif %}
                 </form>
-                
             </div>
+            
+            <!-- Order Summary -->
             <div class="order-summary">
                 <h3>{% trans "Your Order" %}</h3>
-                {% comment %} <p><strong>Product</strong> <strong>Name</strong> <strong>Count</strong> <strong>Price</strong><strong>Subtotal</strong></p> {% endcomment %}
                 
-                <p><strong>{% trans "Subtotal:" %}</strong> <span id="subtotal">${{ cart_total_amount|floatformat:2 }}</span></p>
+                <!-- Order Items from cart_items -->
                 <div class="cart-items">
-                {% for item in order.cartorderitem_set.all %}
-                    <div class="item checkout-item" data-item-id="{{item_id}}" data-shop-id="{% if group.type == 'shop' %}{{ group.shop.shop_id }}{% endif %}">
-                        <img src="{{item.image}}" alt="{{item.title}}">
-                        <p>{{item.item}} x {{item.qty}} - ${{item.price|floatformat:2}}</p>
-                        <p><strong class="item-subtotal">${{ item.price|multiply:item.qty|floatformat:2 }}</strong></p>
-                    </div>
-                {% endfor %}
+                    {% if cart_items %}
+                        {% for item in cart_items %}
+                        <div class="item checkout-item">
+                            <img src="{{ item.image }}" alt="{{ item.title }}">
+                            <div class="item-info">
+                                <p class="item-title">{{ item.title }}</p>
+                                <p class="item-qty">
+                                    {% trans "Qty:" %} {{ item.qty_display }} × {{ item.price_display }}
+                                    {% if item.price_usd_display %}
+                                        <small>{{ item.price_usd_display }}</small>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <p class="item-total">
+                                <strong>{{ item.total_display }}</strong>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    {% elif order.cartorderitem_set.all %}
+                        <!-- Fallback to order items if cart_items not available -->
+                        {% for item in order.cartorderitem_set.all %}
+                        <div class="item checkout-item">
+                            <img src="{{ item.image }}" alt="{{ item.item }}">
+                            <div class="item-info">
+                                <p class="item-title">{{ item.item }}</p>
+                                <p class="item-qty">
+                                    {% trans "Qty:" %} 
+                                    {% if is_myanmar %}
+                                        {{ item.qty|to_myanmar_numerals }} × 
+                                        {{ item.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                        <small>({{ item.price|floatformat:2|to_myanmar_numerals }} USD)</small>
+                                    {% else %}
+                                        {{ item.qty }} × ${{ item.price|floatformat:2 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <p class="item-total">
+                                <strong>
+                                    {% if is_myanmar %}
+                                        {{ item.total|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                    {% else %}
+                                        ${{ item.total|floatformat:2 }}
+                                    {% endif %}
+                                </strong>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                <div>
-                    {{ paypal_payment_button.render|safe }}
+                
+                <!-- Order Total -->
+                <div class="order-total-section">
+                    <hr>
+                    <p class="subtotal-row">
+                        <strong>{% trans "Subtotal:" %}</strong>
+                        <span id="subtotal">{{ cart_total_display }}</span>
+                        {% if cart_total_usd_display %}
+                            <small>{{ cart_total_usd_display }}</small>
+                        {% endif %}
+                    </p>
                     
+                    <p class="shipping-row">
+                        <strong>{% trans "Shipping:" %}</strong>
+                        <span>{% trans "Free" %}</span>
+                    </p>
+                    
+                    <hr>
+                    
+                    <p class="total-row">
+                        <strong>{% trans "Total:" %}</strong>
+                        <strong class="order-total">
+                            {{ cart_total_display }}
+                            {% if cart_total_usd_display %}
+                                <small class="d-block">{{ cart_total_usd_display }}</small>
+                            {% endif %}
+                        </strong>
+                    </p>
                 </div>
-                <div class="paypal-branding">
-                  <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" 
-                       alt="Powered by PayPal">
+                
+                {% if is_myanmar %}
+                <div class="payment-notice alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Note: Payment will be processed in USD" %}
                 </div>
+                {% endif %}
+                
+                <!-- Payment Options -->
+                <div class="payment-buttons">
+                    <!-- PayPal -->
+                    <div class="paypal-button-container">
+                        {{ paypal_payment_button.render|safe }}
+                    </div>
+                    
+                    <div class="paypal-branding">
+                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" 
+                             alt="Powered by PayPal">
+                    </div>
 
-                <div id="qr-code" style="width:200px; height:200px; margin:20px auto;"></div>
+                    <div id="qr-code" style="width:200px; height:200px; margin:20px auto;"></div>
 
-                <button class="btn btn-primary back-to-cart" id="stripe-checkout-button" style="background-color: #6772e5;"><i class="fab fa-stripe mr-2"></i> {% trans "Pay with Stripe" %}</button><br>
-                <button class="back-to-cart"><a href="{% url 'flame:product-list' %}" style="text-decoration: none;color: inherit;"> {% trans "Go back to Explore More" %} </a></button>
+                    <!-- Stripe -->
+                    <button class="btn btn-primary back-to-cart" 
+                            id="stripe-checkout-button" 
+                            style="background-color: #6772e5;">
+                        <i class="fab fa-stripe mr-2"></i> 
+                        {% trans "Pay with Stripe" %}
+                    </button>
+                    
+                    <br>
+                    
+                    <!-- Back Button -->
+                    <button class="back-to-cart">
+                        <a href="{% url 'flame:product-list' %}" 
+                           style="text-decoration: none;color: inherit;">
+                            {% trans "Go back to Explore More" %}
+                        </a>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <script src={% static 'assets/js/function.js' %}></script>
+    
+    <script src="{% static 'assets/js/function.js' %}"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
     <script>
-
-          // Initialize Stripe
+        // Initialize Stripe
         const stripe = Stripe('{{ stripe_public_key }}');
         
-        
-document.addEventListener('DOMContentLoaded', () => {
-  const btn       = document.getElementById('stripe-checkout-button');
-  const qrBox     = document.getElementById('qr-code');
-  const shopId    = '{{ sid }}';
-  const csrfToken = '{{ csrf_token }}';
-
-  btn.addEventListener('click', async () => {
-    btn.disabled   = true;
-    btn.textContent= 'Generating QR…';
-
-    // 1) Create session
-    const resp = await fetch(`/api/create-checkout-session/${shopId}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
-      },
-      body: JSON.stringify({})
-    });
-    const data = await resp.json();
-    if (!resp.ok || data.error) {
-      alert(data.error || 'Could not start checkout.');
-      return;
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('stripe-checkout-button');
+            const qrBox = document.getElementById('qr-code');
+            const shopId = '{{ sid }}';
+            const csrfToken = '{{ csrf_token }}';
+            
+            btn.addEventListener('click', async () => {
+                btn.disabled = true;
+                btn.textContent = '{% trans "Generating QR..." %}';
+                
+                try {
+                    // Create session
+                    const resp = await fetch(`/api/create-checkout-session/${shopId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify({})
+                    });
+                    
+                    const data = await resp.json();
+                    if (!resp.ok || data.error) {
+                        alert(data.error || '{% trans "Could not start checkout." %}');
+                        btn.disabled = false;
+                        btn.textContent = '{% trans "Pay with Stripe" %}';
+                        return;
+                    }
+                    
+                    // Render QR code
+                    if (qrBox) {
+                        qrBox.innerHTML = ''; // Clear existing QR
+                        new QRCode(qrBox, {
+                            text: data.checkout_url,
+                            width: 200,
+                            height: 200
+                        });
+                    }
+                    
+                    // Update button
+                    btn.textContent = '{% trans "Scan QR to Pay or Click Here" %}';
+                    btn.disabled = false;
+                    btn.onclick = () => window.location = data.checkout_url;
+                    
+                    // Start polling for payment status
+                    const pollInterval = setInterval(async () => {
+                        try {
+                            const statusResp = await fetch(
+                                `/api/stripe-session-status/?session_id=${data.session_id}`
+                            );
+                            const statusData = await statusResp.json();
+                            if (statusData.paid) {
+                                clearInterval(pollInterval);
+                                window.location = data.success_url;
+                            }
+                        } catch(e) {
+                            console.error('Polling error', e);
+                        }
+                    }, 3000);
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('{% trans "An error occurred. Please try again." %}');
+                    btn.disabled = false;
+                    btn.textContent = '{% trans "Pay with Stripe" %}';
+                }
+            });
+        });
+    </script>
+    
+    <style>
+    /* Additional styles for better display */
+    .shop-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
     }
+    
+    .exchange-rate-info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+    
+    .checkout-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .checkout-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 4px;
+    }
+    
+    .item-info {
+        flex: 1;
+    }
+    
+    .item-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+    
+    .item-qty {
+        color: #6c757d;
+        font-size: 0.9em;
+    }
+    
+    .item-total {
+        text-align: right;
+        min-width: 120px;
+    }
+    
+    .order-total-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    
+    .subtotal-row, .shipping-row, .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+    
+    .total-row {
+        font-size: 1.2em;
+        color: #333;
+    }
+    
+    .payment-notice {
+        padding: 10px 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+    
+    .payment-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    /* Myanmar language specific */
+    html[lang="my"] .order-total,
+    html[lang="my"] .item-total {
+        font-family: 'Padauk', sans-serif;
+    }
+    </style>
+</body>
 
-    // 2) Render the QR code for customers to scan
-    new QRCode(qrBox, {
-      text: data.checkout_url,
-      width: 200,
-      height: 200
-    });
+<br><br><br>
+<hr>
 
-    // 3) Also let them click the same button
-    btn.textContent = 'Scan QR to Pay or Click Here';
-    btn.disabled    = false;
-    btn.onclick     = () => window.location = data.checkout_url;
-
-    // 4) Start polling for payment status
-    const pollInterval = setInterval(async () => {
-      try {
-        const statusResp = await fetch(
-          `/api/stripe-session-status/?session_id=${data.session_id}`
-        );
-        const statusData = await statusResp.json();
-        if (statusData.paid) {
-          clearInterval(pollInterval);
-          window.location = data.success_url;
-        }
-      } catch(e) {
-        console.error('Polling error', e);
-      }
-    }, 3000); // every 3 seconds
-  });
-});
-</script>
-    </body>
-    <br><br><br>
-    <hr>
-      
 {% endblock content %}

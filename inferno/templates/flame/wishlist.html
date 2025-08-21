@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load math_filters %}
+{% load myanmar_filter %}
 {% load static %}
 {% load i18n %}
 {% block content %}
@@ -126,7 +127,7 @@
             </div>
             <div class="product-info">
                 <div class="product-name">{{ w.product.title }}</div>
-                <div class="product-price current-product-price-{{ w.product.id }}" id="current-product-price">${{ w.product.price }}</div>
+                <div class="product-price current-product-price-{{ w.product.id }}" id="current-product-price"> {% include 'flame/price_display.html' with product=w.product %}</div>
                 <div class="stock-status">
                     {% if w.product.in_stock %}
                         {% trans "In Stock" %}
