@@ -47,33 +47,37 @@ def get_price_display(product_or_price, old_price=None, language_code=None):
             price_usd = product_or_price
             old_price_usd = old_price
         
-        # Rest of the function remains the same...
         result = {}
         
+        # Get exchange rate for both languages
+        try:
+            rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        except Exception as e:
+            logger.error(f"Error getting exchange rate: {e}")
+            rate = Decimal('3500')  # Fallback rate
+        
         if language_code == 'my':
-            # Get exchange rate with fallback
-            try:
-                rate = ExchangeRate.get_current_rate('USD', 'MMK')
-            except Exception as e:
-                logger.error(f"Error getting exchange rate: {e}")
-                rate = Decimal('3500')  # Fallback rate
-            
-            # Convert to MMK
+            # Myanmar display - MMK primary, USD secondary
             price_mmk = price_usd * rate
             formatted = f"{price_mmk:,.0f}"
             result['primary_price'] = to_myanmar_numerals(formatted) + " ကျပ်"
             
             # Add USD equivalent
             usd_formatted = f"${price_usd:,.2f}"
-            result['secondary_price'] = f"({to_myanmar_numerals(usd_formatted)})"
+            result['secondary_price'] = f"({to_myanmar_numerals(usd_formatted)} ဒေါ်လာ)"
             
             if old_price_usd:
                 old_price_mmk = old_price_usd * rate
                 old_formatted = f"{old_price_mmk:,.0f}"
                 result['old_price'] = to_myanmar_numerals(old_formatted) + " ကျပ်"
         else:
-            # English display
+            # English display - USD primary, MMK secondary
             result['primary_price'] = f"${price_usd:,.2f}"
+            
+            # Add MMK equivalent
+            price_mmk = price_usd * rate
+            formatted_mmk = f"{price_mmk:,.0f}"
+            result['secondary_price'] = f"{formatted_mmk} MMK"
             
             if old_price_usd:
                 result['old_price'] = f"${old_price_usd:,.2f}"
@@ -122,15 +126,15 @@ def format_currency_amount(amount, language_code=None):
     try:
         from flame.models import ExchangeRate
         
+        # Get exchange rate for both languages
+        try:
+            rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        except Exception as e:
+            logger.error(f"Error getting exchange rate: {e}")
+            rate = Decimal('3500')  # Fallback rate
+        
         if language_code == 'my':
-            # Get exchange rate with fallback
-            try:
-                rate = ExchangeRate.get_current_rate('USD', 'MMK')
-            except Exception as e:
-                logger.error(f"Error getting exchange rate: {e}")
-                rate = Decimal('3500')  # Fallback rate
-            
-            # Convert to MMK
+            # Myanmar display - MMK primary, USD secondary
             price_mmk = amount * rate
             formatted_mmk = f"{price_mmk:,.0f}"
             
@@ -142,10 +146,13 @@ def format_currency_amount(amount, language_code=None):
                 'secondary': f"({to_myanmar_numerals(usd_formatted)} ဒေါ်လာ)"
             }
         else:
-            # English display
+            # English display - USD primary, MMK secondary
+            price_mmk = amount * rate
+            formatted_mmk = f"{price_mmk:,.0f}"
+            
             return {
                 'primary': f"${amount:,.2f}",
-                'secondary': None
+                'secondary': f"{formatted_mmk} MMK"
             }
             
     except Exception as e:

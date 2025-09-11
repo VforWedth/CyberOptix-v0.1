@@ -1,19 +1,21 @@
 <!-- templates/flame/includes/price_display.html -->
 {% load myanmar_filter %}
 
-{% if IS_MYANMAR %}
-    {% if product.old_price and product.old_price > product.price %}
-        <span class="old-price">{{ product.old_price|multiply:EXCHANGE_RATE|floatformat:0|to_myanmar_numerals }} ကျပ်</span>
+{% get_price_display product as price_info %}
+
+<div class="price-display">
+    {% if price_info.old_price %}
+        <span class="old-price text-muted text-decoration-line-through">
+            {{ price_info.old_price }}
+        </span>
     {% endif %}
-    <span class="current-price">
-        {{ product.price|multiply:EXCHANGE_RATE|floatformat:0|to_myanmar_numerals }} ကျပ်
-        <small class="text-muted d-block">
-            ({{ product.price|floatformat:2|to_myanmar_numerals }} ဒေါ်လာ)
-        </small>
+    
+    <span class="current-price fw-bold">
+        {{ price_info.primary_price }}
+        {% if price_info.secondary_price %}
+            <small class="text-muted d-block">
+                {{ price_info.secondary_price }}
+            </small>
+        {% endif %}
     </span>
-{% else %}
-    {% if product.old_price and product.old_price > product.price %}
-        <span class="old-price">${{ product.old_price|floatformat:2 }}</span>
-    {% endif %}
-    <span class="current-price">${{ product.price|floatformat:2 }}</span>
-{% endif %}
+</div>

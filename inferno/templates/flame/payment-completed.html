@@ -461,7 +461,7 @@
         });
     }
     
-    // Add success message
+    {% comment %} // Add success message
     document.addEventListener('DOMContentLoaded', function() {
         // Show success notification
         const successMsg = document.createElement('div');
@@ -474,7 +474,7 @@
         setTimeout(function() {
             successMsg.remove();
         }, 5000);
-    });
+    }); {% endcomment %}
 </script>
 </body>
 

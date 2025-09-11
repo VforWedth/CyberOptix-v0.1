@@ -1,4 +1,280 @@
+<!-- templates/userauths/sign-up.html -->
 {% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+
+<main>
+<div class="container">
+    <div class="form-container">
+        <div class="col-1">
+            <div class="image-layer">
+                <div class="featured-words">
+                    <h2>{% trans "Join" %} <span>CyberOptix</span></h2>
+                    <p>{% trans "Create your account and start shopping for amazing laptops!" %}</p>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-2">
+            <div class="btn-box">
+                <button id="login" class="btn">{% trans "Login" %}</button>
+                <button id="register" class="btn btn-1">{% trans "Register" %}</button>
+            </div>
+            
+            <form class="register-form" method="POST" action="{% url 'userauths:sign-up' %}" id="registerForm">
+                {% csrf_token %}
+                <h2 class="form-title">{% trans "Create Account" %}</h2>
+                
+                <!-- Progress indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <!-- Messages -->
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="form-inputs">
+                    <div class="input-box">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" 
+                               name="username" 
+                               class="input-field" 
+                               id="username"
+                               placeholder="{% trans 'Username' %}" 
+                               value="{{ form.username.value|default:'' }}"
+                               required>
+                        <span class="input-status" id="usernameStatus"></span>
+                        {% if form.username.errors %}
+                            <div class="field-error">{{ form.username.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-box">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" 
+                               name="email" 
+                               class="input-field" 
+                               id="email"
+                               placeholder="{% trans 'Email Address' %}" 
+                               value="{{ form.email.value|default:'' }}"
+                               required>
+                        <span class="input-status" id="emailStatus"></span>
+                        {% if form.email.errors %}
+                            <div class="field-error">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-box">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" 
+                               name="phone_number" 
+                               class="input-field" 
+                               placeholder="{% trans 'Phone Number (Optional)' %}" 
+                               value="{{ form.phone_number.value|default:'' }}">
+                    </div>
+                    
+                    <div class="input-box">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" 
+                               name="password1" 
+                               class="input-field" 
+                               id="password1"
+                               placeholder="{% trans 'Password' %}" 
+                               required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password1')"></i>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar" id="strengthBar"></div>
+                            <span class="strength-text" id="strengthText"></span>
+                        </div>
+                        {% if form.password1.errors %}
+                            <div class="field-error">{{ form.password1.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="input-box">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" 
+                               name="password2" 
+                               class="input-field" 
+                               id="password2"
+                               placeholder="{% trans 'Confirm Password' %}" 
+                               required>
+                        <i class="fas fa-eye toggle-password" onclick="togglePassword('password2')"></i>
+                        <span class="input-status" id="passwordMatch"></span>
+                        {% if form.password2.errors %}
+                            <div class="field-error">{{ form.password2.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                    
+                        
+                    
+                    <div class="terms-box">
+                        <input type="checkbox" name="terms_accepted" id="terms" required>
+                        <label for="terms">
+                            {% trans "I agree to the" %} 
+                            <a href="#" onclick="showTerms(event)">{% trans "Terms and Conditions" %}</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="input-submit" id="submitBtn">
+                    <span>{% trans "Create Account" %}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="form-footer">
+                    <p>{% trans "Already have an account?" %} 
+                        <a href="{% url 'userauths:sign-in' %}">{% trans "Login" %}</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Password toggle
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const icon = field.nextElementSibling;
+    
+    if (field.type === 'password') {
+        field.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        field.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+// Password strength checker
+document.getElementById('password1').addEventListener('input', function(e) {
+    const password = e.target.value;
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+    const inputBox = this.closest('.input-box');
+    let strength = 0;
+    
+    if (password.length >= 8) strength++;
+    if (password.match(/[a-z]/)) strength++;
+    if (password.match(/[A-Z]/)) strength++;
+    if (password.match(/[0-9]/)) strength++;
+    if (password.match(/[^a-zA-Z0-9]/)) strength++;
+    
+    const widths = ['0%', '20%', '40%', '60%', '80%', '100%'];
+    const colors = ['#ff0000', '#ff4444', '#ff8800', '#ffaa00', '#88dd00', '#00dd00'];
+    const texts = ['', '{% trans "Very Weak" %}', '{% trans "Weak" %}', '{% trans "Fair" %}', '{% trans "Good" %}', '{% trans "Strong" %}'];
+    
+    strengthBar.style.width = widths[strength];
+    strengthBar.style.backgroundColor = colors[strength];
+    strengthText.textContent = texts[strength];
+    
+    if (password.length > 0) {
+        document.getElementById('passwordStrength').style.display = 'block';
+        inputBox.classList.add('with-strength');
+    } else {
+        document.getElementById('passwordStrength').style.display = 'none';
+        inputBox.classList.remove('with-strength');
+    }
+});
+
+// Password match checker
+document.getElementById('password2').addEventListener('input', function(e) {
+    const password1 = document.getElementById('password1').value;
+    const password2 = e.target.value;
+    const matchStatus = document.getElementById('passwordMatch');
+    
+    if (password2.length > 0) {
+        if (password1 === password2) {
+            matchStatus.innerHTML = '<i class="fas fa-check" style="color: green;"></i>';
+        } else {
+            matchStatus.innerHTML = '<i class="fas fa-times" style="color: red;"></i>';
+        }
+    } else {
+        matchStatus.innerHTML = '';
+    }
+});
+
+// Real-time username validation
+document.getElementById('username').addEventListener('blur', function(e) {
+    const username = e.target.value;
+    const status = document.getElementById('usernameStatus');
+    
+    if (username.length >= 3) {
+        // You can add AJAX check here for username availability
+        status.innerHTML = '<i class="fas fa-check" style="color: green;"></i>';
+    } else if (username.length > 0) {
+        status.innerHTML = '<i class="fas fa-times" style="color: red;"></i>';
+    }
+});
+
+// Email validation
+document.getElementById('email').addEventListener('blur', function(e) {
+    const email = e.target.value;
+    const status = document.getElementById('emailStatus');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (emailRegex.test(email)) {
+        // You can add AJAX check here for email availability
+        status.innerHTML = '<i class="fas fa-check" style="color: green;"></i>';
+    } else if (email.length > 0) {
+        status.innerHTML = '<i class="fas fa-times" style="color: red;"></i>';
+    }
+});
+
+// Form progress
+const inputs = document.querySelectorAll('.register-form .input-field[required]');
+const progressBar = document.getElementById('progressBar');
+
+function updateProgress() {
+    let filled = 0;
+    inputs.forEach(input => {
+        if (input.value.trim() !== '') filled++;
+    });
+    const progress = (filled / inputs.length) * 100;
+    progressBar.style.width = progress + '%';
+}
+
+inputs.forEach(input => {
+    input.addEventListener('input', updateProgress);
+});
+
+// Navigation
+document.getElementById('login').addEventListener('click', () => {
+    window.location.href = "{% url 'userauths:sign-in' %}";
+});
+
+document.getElementById('register').addEventListener('click', () => {
+    window.location.href = "{% url 'userauths:sign-up' %}";
+});
+
+// Show terms modal
+function showTerms(e) {
+    e.preventDefault();
+    alert('{% trans "Terms and Conditions will be displayed here" %}');
+    // You can implement a modal here
+}
+</script>
+</main>
+{% endblock content %}
+
+{% comment %} {% extends 'partials/base.html' %}
 {% load static %}
 {% load i18n %}
 {% block content %}
@@ -109,7 +385,7 @@
                 </div>
             </div>
         </div>
-    </footer> {% endcomment %}
+    </footer> =
 </div> 
     <!-- **** Footer Area End **** -->   
     <br> 
@@ -139,4 +415,4 @@
 
 </main>
 {% endblock content %}
-        
+         {% endcomment %}

@@ -174,7 +174,7 @@
             {% for r in reviews %}
             <div class="review-card">
               <div class="review-header">
-                <img src="{% static 'C:\Users\L-182\Downloads\Telegram Desktop\RealCyberOptix\CyberOptix\inferno\static\assets\images\avatar-01.jpg' %}" alt="User"> 
+                <img src="{% static "static\assets\images\P.png" %}" alt="User"> 
                 <strong>{{ r.user.username|title }}</strong> - <span>{{ r.date|date:"d M, Y" }}</span>
                 <div class="stars">
                   {% for s in r.rating|ljust:r.rating %}

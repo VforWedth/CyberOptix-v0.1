@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LaptopMart Myanmar 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-21 10:08+0630\n"
-"PO-Revision-Date: 2025-08-21 10:22+0630\n"
+"POT-Creation-Date: 2025-08-22 10:28+0630\n"
+"PO-Revision-Date: 2025-08-22 11:08+0630\n"
 "Last-Translator:   <lorendrain47@gmail.com>\n"
 "Language-Team: Burmese <my@laptopmart.mm>\n"
 "Language: my\n"
@@ -46,7 +46,6 @@ msgid "Your Cart is Empty"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
 
 #: .\flame\views.py:1116
-#| msgid "Your Cart is Empty"
 msgid "Your cart for this shop is empty"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
 
@@ -74,11 +73,11 @@ msgstr "မှားယွင်းသောဆိုင်"
 msgid "An error occurred"
 msgstr "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်"
 
-#: .\inferno\settings.py:156
+#: .\inferno\settings.py:175
 msgid "English"
 msgstr "အင်္ဂလိပ်"
 
-#: .\inferno\settings.py:157
+#: .\inferno\settings.py:176
 msgid "Burmese"
 msgstr "မြန်မာ"
 
@@ -321,7 +320,6 @@ msgstr[0] ""
 "          "
 
 #: .\templates\flame\checkout.html:15
-#| msgid "Checking out from %(shop.title)s"
 msgid "Checking out from"
 msgstr "ဝယ်ယူသည့်ဆိုင်"
 
@@ -342,7 +340,6 @@ msgid "Billing Details"
 msgstr "ငွေရှင်းမှုအသေးစိတ်"
 
 #: .\templates\flame\checkout.html:51
-#| msgid "Full Name"
 msgid "Name"
 msgstr "အမည်အပြည့်အစုံ"
 
@@ -564,7 +561,7 @@ msgstr "စုစုပေါင်းပမာဏ"
 
 #: .\templates\flame\payment-completed.html:358
 msgid "Total Amount Due"
-msgstr "ပေးရန်ကျန်ငွေစုစုပေါင်း"
+msgstr "ပေးဆောင်ရန်ငွေစုစုပေါင်း"
 
 #: .\templates\flame\payment-completed.html:366
 msgid "Payment Status:"
@@ -580,10 +577,6 @@ msgstr "US ဒေါ်လာဖြင့်ငွေပေးချေမှု
 
 #: .\templates\flame\payment-completed.html:379
 #, python-format
-#| msgid ""
-#| "\n"
-#| "            <p><strong>Thank you for your business, %(user|title)s!</strong></p>\n"
-#| "        "
 msgid ""
 "\n"
 "                Thank you for your business, %(user)s!\n"
@@ -612,10 +605,6 @@ msgstr "PDF ဒေါင်းလုဒ်လုပ်ရန်"
 #: .\templates\flame\payment-completed.html:457
 msgid "Error generating PDF. Please try again."
 msgstr "PDF ထုတ်ယူရာတွင်အမှားဖြစ်နေသည်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ"
-
-#: .\templates\flame\payment-completed.html:470
-msgid "Payment completed successfully!"
-msgstr "ငွေပေးချေမှုအောင်မြင်စွာပြီးဆုံးပါပြီ!"
 
 #: .\templates\flame\payment-failed.html:52
 msgid "PAYMENT FAILED"
@@ -796,7 +785,6 @@ msgstr "ကြယ် ၃ ပွင့်"
 #: .\templates\flame\product-detail.html:175
 #: .\templates\flame\shop-product-detail.html:204
 #, python-format
-#| msgid "5 %"
 msgid "5%%"
 msgstr "၅ %"
 
@@ -817,8 +805,9 @@ msgstr "သုံးသပ်ချက်တင်သွင်းရန်"
 
 #: .\templates\flame\product-detail.html:217
 #: .\templates\flame\shop-product-detail.html:246
-#: .\templates\userauths\sign-in.html:20 .\templates\userauths\sign-in.html:27
-#: .\templates\userauths\sign-in.html:49 .\templates\userauths\sign-up.html:20
+#: .\templates\userauths\sign-in.html:24 .\templates\userauths\sign-in.html:30
+#: .\templates\userauths\sign-in.html:79 .\templates\userauths\sign-up.html:25
+#: .\templates\userauths\sign-up.html:141
 msgid "Login"
 msgstr "အကောင့်ဝင်ရန်"
 
@@ -828,54 +817,54 @@ msgid "to write a review."
 msgstr "သုံးသပ်ချက်ရေးသားရန်"
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:181
+#: .\templates\partials\base.html:266
 msgid "All Rights Reserved 2024-2025"
 msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:184
+#: .\templates\partials\base.html:269
 msgid "Information"
 msgstr "အချက်အလက်"
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:186
+#: .\templates\partials\base.html:271
 msgid "About Us"
 msgstr "ကျွန်ုပ်တို့အကြောင်း"
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:191
+#: .\templates\partials\base.html:276
 msgid "Helpful Links"
 msgstr "အသုံးဝင်သောလင့်ခ်များ"
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:193
+#: .\templates\partials\base.html:278
 msgid "Services"
 msgstr "ဝန်ဆောင်မှုများ"
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:194
+#: .\templates\partials\base.html:279
 msgid "Privacy Policy"
 msgstr "ကိုယ်ရေးအချက်အလက်မူဝါဒ"
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:195
+#: .\templates\partials\base.html:280
 msgid "Terms & Condition"
 msgstr "စည်းကမ်းချက်များ"
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:200
+#: .\templates\partials\base.html:285
 msgid "Contact Us"
 msgstr "ဆက်သွယ်ရန်"
 
 #: .\templates\flame\product-list.html:700
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                %(brand)s <i class=\"fas fa-laptop me-2\"></i>\n"
 "            "
 msgstr ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"         %(brand)s <i class=\"fas fa-laptop me-2\"></i>\n"
 "          "
 
 #: .\templates\flame\product-list.html:707
@@ -889,14 +878,14 @@ msgstr ""
 "                        %(filter)s ခု"
 
 #: .\templates\flame\product-list.html:714
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                %(category)s <i class=\"fas fa-laptop me-2\"></i>\n"
 "            "
 msgstr ""
 "\n"
-"              သင့်တွင် %(shopcount)s ဆိုင်မှ ပစ္စည်း %(totalcartitems)s ခုရှိသည်\n"
+"       %(category)s <i class=\"fas fa-laptop me-2\"></i>\n"
 "          "
 
 #: .\templates\flame\product-list.html:720
@@ -969,7 +958,7 @@ msgstr "အမှာစာလိုင်း ခြေရာခံရန်"
 msgid "My Address"
 msgstr "ကျွန်ုပ်၏လိပ်စာ"
 
-#: .\templates\flame\profile.html:35
+#: .\templates\flame\profile.html:35 .\userauths\views.py:265
 msgid "My Profile"
 msgstr "ကျွန်ုပ်၏ပရိုဖိုင်"
 
@@ -990,6 +979,7 @@ msgid "Customer"
 msgstr "ဖောက်သည်"
 
 #: .\templates\flame\profile.html:60 .\templates\flame\profile.html:245
+#: .\userauths\forms.py:104
 msgid "Phone Number"
 msgstr "ဖုန်းနံပါတ်"
 
@@ -997,7 +987,7 @@ msgstr "ဖုန်းနံပါတ်"
 msgid "Not Verified"
 msgstr "မအတည်ပြုရသေး"
 
-#: .\templates\flame\profile.html:71
+#: .\templates\flame\profile.html:71 .\templates\userauths\sign-up.html:72
 msgid "Email Address"
 msgstr "အီးမေးလ်လိပ်စာ"
 
@@ -1076,14 +1066,6 @@ msgstr "ရှာဖွေမည့်အရာ"
 
 #: .\templates\flame\shop-cart.html:21
 #, python-format
-#| msgid ""
-#| "\n"
-#| "                    You have %(totalcartitems)s item from %(shopcount)s shop\n"
-#| "                "
-#| msgid_plural ""
-#| "\n"
-#| "                    You have %(totalcartitems)s items from %(shopcount)s shops\n"
-#| "                "
 msgid ""
 "\n"
 "    You have %(totalcartitems)s item from %(shopcount)s shop\n"
@@ -1096,14 +1078,6 @@ msgstr[0] ""
 
 #: .\templates\flame\shop-cart.html:36
 #, python-format
-#| msgid ""
-#| "\n"
-#| "                            %(itemcount)s item\n"
-#| "                        "
-#| msgid_plural ""
-#| "\n"
-#| "                            %(itemcount)s items\n"
-#| "                        "
 msgid ""
 "\n"
 "                        %(itemcount)s item\n"
@@ -1234,11 +1208,11 @@ msgstr "မေးလေ့ရှိသောမေးခွန်းများ
 msgid "Sign Out"
 msgstr "ထွက်ရန်"
 
-#: .\templates\partials\base.html:106
+#: .\templates\partials\base.html:106 .\userauths\views.py:194
 msgid "Sign In"
 msgstr "အကောင့်ဝင်ရန်"
 
-#: .\templates\partials\base.html:109
+#: .\templates\partials\base.html:109 .\templates\userauths\sign-in.html:100
 msgid "Sign up"
 msgstr "အကောင့်ဖွင့်ရန်"
 
@@ -1246,65 +1220,641 @@ msgstr "အကောင့်ဖွင့်ရန်"
 msgid "All"
 msgstr "အားလုံး"
 
-#: .\templates\userauths\sign-in.html:13 .\templates\userauths\sign-up.html:13
+#: .\templates\userauths\password_reset.html:16
+#| msgid "Password"
+msgid "Password Recovery"
+msgstr "စကားဝှက်ပြန်လည်ရယူခြင်း"
+
+#: .\templates\userauths\password_reset.html:17
+msgid "Don't worry! It happens. We'll help you reset your password."
+msgstr ""
+"စိတ်မပူပါနဲ့! ဖြစ်တတ်ပါတယ်။ ကျွန်ုပ်တို့ သင့်စကားဝှက်ကို ပြန်လည်သတ်မှတ်ရန် "
+"ကူညီပေးပါမယ်။"
+
+#: .\templates\userauths\password_reset.html:22
+#| msgid "Enter a valid email address."
+msgid "Enter your email address"
+msgstr "မှန်ကန်သော အီးမေးလ်လိပ်စာထည့်ပါ။"
+
+#: .\templates\userauths\password_reset.html:26
+msgid "Check your email inbox"
+msgstr "သင့်အီးမေးလ်စာအဝင်ကို စစ်ဆေးပါ"
+
+#: .\templates\userauths\password_reset.html:30
+msgid "Click the reset link"
+msgstr "ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ကို နှိပ်ပါ"
+
+#: .\templates\userauths\password_reset.html:34
+msgid "Set your new password"
+msgstr "သင့်စကားဝှက်အသစ်ကို သတ်မှတ်ပါ"
+
+#: .\templates\userauths\password_reset.html:44
+#: .\templates\userauths\password_reset_comirm.html:73
+#| msgid "Password"
+msgid "Reset Password"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်မည်"
+
+#: .\templates\userauths\password_reset.html:57
+msgid ""
+"Enter the email address associated with your account and we'll send you a "
+"link to reset your password."
+msgstr ""
+"\"သင့်အကောင့်နှင့် ချိတ်ဆက်ထားသော အီးမေးလ်လိပ်စာထည့်ပါ၊ "
+"စကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ပို့ပေးပါမည်။"
+
+#: .\templates\userauths\password_reset.html:66
+#| msgid "Email Address"
+msgid "Your Email Address"
+msgstr "သင့်၏အီးမေးလ်လိပ်စာ"
+
+#: .\templates\userauths\password_reset.html:73
+msgid "Send Reset Link"
+msgstr "ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ပို့မည်"
+
+#: .\templates\userauths\password_reset.html:78
+msgid "Remember your password?"
+msgstr "စကားဝှက်မှတ်မိပြီလား?"
+
+#: .\templates\userauths\password_reset.html:79
+#: .\templates\userauths\password_reset_done.html:29
+msgid "Back to Login"
+msgstr "အကောင့်ဝင်ရန် ပြန်သွားမည်"
+
+#: .\templates\userauths\password_reset_comirm.html:16
+#| msgid "Password"
+msgid "Create New Password"
+msgstr "လျှို့ဝှက်နံပါတ် အသစ်ပြုလုပ်ပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:17
+#| msgid "Set your new password"
+msgid "Almost there! Enter your new password below."
+msgstr "နီးစပ်ပြီ! သင့်စကားဝှက်အသစ်ကို အောက်တွင်ထည့်သွင်းပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:20
+#| msgid "Password"
+msgid "Password Requirements:"
+msgstr "စကားဝှက် လိုအပ်ချက်များ:"
+
+#: .\templates\userauths\password_reset_comirm.html:22
+#| msgid "Your password must contain at least 8 characters."
+msgid "At least 8 characters"
+msgstr "သင့်စကားဝှက်တွင် အနည်းဆုံး စာလုံးရေ ၈ လုံးပါဝင်ရမည်။"
+
+#: .\templates\userauths\password_reset_comirm.html:23
+#| msgid "Enter a number."
+msgid "Include letters and numbers"
+msgstr "အက္ခရာများနှင့် ဂဏန်းများ ပါဝင်ရမည်"
+
+#: .\templates\userauths\password_reset_comirm.html:24
+msgid "Use a mix of upper and lowercase"
+msgstr "\"အကြီးစာလုံး နှင့် အသေး စာလုံးများ ရောစပ်သုံးပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:25
+msgid "Consider adding special characters"
+msgstr "အထူးစာလုံးများ ထည့်သွင်းရန် စဉ်းစားပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:36
+#| msgid "Set your new password"
+msgid "Set New Password"
+msgstr "သင့်စကားဝှက်အသစ်ကို သတ်မှတ်ပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:55
+#| msgid "Password"
+msgid "New Password"
+msgstr "လျှို့ဝှက်နံပါတ်အသစ်"
+
+#: .\templates\userauths\password_reset_comirm.html:66
+#| msgid "Confirm Password"
+msgid "Confirm New Password"
+msgstr "လျှို့ဝှက်နံပါတ်အသစ်ကိုအတည်ပြုပါ"
+
+#: .\templates\userauths\password_reset_comirm.html:80
+#| msgid "Send Reset Link"
+msgid "Invalid Reset Link"
+msgstr "ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ပို့မည်"
+
+#: .\templates\userauths\password_reset_comirm.html:81
+msgid "This password reset link is invalid or has expired."
+msgstr ""
+"ဤစကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်သည် မမှန်ကန်ပါ သို့မဟုတ် "
+"သက်တမ်းကုန်သွားပါပြီ"
+
+#: .\templates\userauths\password_reset_comirm.html:82
+msgid "Password reset links are valid for 24 hours."
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်များ၏ သက်တမ်းသည် ၂၄ နာရီဖြစ်သည်"
+
+#: .\templates\userauths\password_reset_comirm.html:85
+msgid "Request New Link"
+msgstr "လင့်ခ်အသစ်တောင်းမည်"
+
+#: .\templates\userauths\password_reset_complete.html:14
+#| msgid "Password"
+msgid "Password Reset Successful!"
+msgstr "လျှို့ဝှက်နံပါတ် ပြန်လည်သတ်မှတ်ပြီးပါပြီ!"
+
+#: .\templates\userauths\password_reset_complete.html:15
+msgid "Your password has been successfully reset."
+msgstr "သင့်စကားဝှက်ကို အောင်မြင်စွာ ပြန်လည်သတ်မှတ်ပြီးပါပြီ"
+
+#: .\templates\userauths\password_reset_complete.html:16
+#| msgid "Set your new password"
+msgid "You can now login with your new password."
+msgstr "သင့်စကားဝှက်အသစ်ဖြင့် အကောင့်ဝင်နိုင်ပါပြီ"
+
+#: .\templates\userauths\password_reset_complete.html:20
+#| msgid "Login"
+msgid "Login Now"
+msgstr "အကောင့်ဝင်ရန်"
+
+#: .\templates\userauths\password_reset_complete.html:24
+msgid "Security Tips:"
+msgstr "လုံခြုံရေး အကြံပြုချက်များ:"
+
+#: .\templates\userauths\password_reset_complete.html:26
+#: .\templates\userauths\password_reset_email_html.html:115
+msgid "Never share your password with anyone"
+msgstr "သင့်စကားဝှက်ကို ဘယ်သူ့ကိုမှ မျှဝေမထားပါနှင့်"
+
+#: .\templates\userauths\password_reset_complete.html:27
+msgid "Use unique passwords for different accounts"
+msgstr "ကွဲပြားသောအကောင့်များအတွက် ထူးခြားသောစကားဝှက်များသုံးပါ"
+
+#: .\templates\userauths\password_reset_complete.html:28
+msgid "Enable two-factor authentication when available"
+msgstr "ရနိုင်ပါက နှစ်ဆင့်ခွင် အတည်ပြုခြင်းကို ဖွင့်ပါ"
+
+#: .\templates\userauths\password_reset_done.html:14
+#| msgid "Payment completed successfully!"
+msgid "Email Sent Successfully!"
+msgstr "အီးမေးလ် အောင်မြင်စွာပို့ပြီးပါပြီ!"
+
+#: .\templates\userauths\password_reset_done.html:15
+msgid "We've sent you an email with instructions to reset your password."
+msgstr ""
+"သင့်စကားဝှက်ပြန်လည်သတ်မှတ်ရန် ညွှန်ကြားချက်များပါသော အီးမေးလ်တစ်စောင် "
+"ပို့ပေးပြီးပါပြီ"
+
+#: .\templates\userauths\password_reset_done.html:16
+msgid "Please check your inbox and follow the link to create a new password."
+msgstr ""
+"ကျေးဇူးပြု၍ သင့်အီးမေးလ်အဝင်ကို စစ်ဆေးပြီး စကားဝှက်အသစ်ဖန်တီးရန် လင့်ခ်ကို "
+"လိုက်နာပါ"
+
+#: .\templates\userauths\password_reset_done.html:19
+msgid "Didn't receive the email?"
+msgstr "အီးမေးလ် မရရှိဘူးလား?"
+
+#: .\templates\userauths\password_reset_done.html:21
+msgid "Check your spam or junk folder"
+msgstr "သင့် spam သို့မဟုတ် junk folder ကို စစ်ဆေးပါ"
+
+#: .\templates\userauths\password_reset_done.html:22
+msgid "Make sure you entered the correct email"
+msgstr "သင်ထည့်သွင်းလိုက်သော အီးမေးလ်လိပ်စာ မှန်ကန်ကြောင်း သေချာပါစေ"
+
+#: .\templates\userauths\password_reset_done.html:23
+msgid "Wait a few minutes and check again"
+msgstr "မိနစ်အနည်းငယ်စောင့်ပြီး ထပ်မံစစ်ဆေးပါ"
+
+#: .\templates\userauths\password_reset_done.html:32
+msgid "Try Again"
+msgstr "ထပ်ကြိုးစားပါ"
+
+#: .\templates\userauths\password_reset_email_html.html:8
+msgid "Password Reset - CyberOptix"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ခြင်း - CyberOptix"
+
+#: .\templates\userauths\password_reset_email_html.html:82
+#| msgid "Password"
+msgid "Password Reset Request"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် တောင်းဆိုခြင်း"
+
+#: .\templates\userauths\password_reset_email_html.html:86
+msgid "Hello"
+msgstr "မင်္ဂလာပါ"
+
+#: .\templates\userauths\password_reset_email_html.html:88
+msgid ""
+"We received a request to reset your password for your CyberOptix account."
+msgstr ""
+"သင့် CyberOptix အကောင့်အတွက် စကားဝှက်ပြန်လည်သတ်မှတ်ရန် တောင်းဆိုချက်ကို "
+"ကျွန်ုပ်တို့ လက်ခံရရှိပါသည်"
+
+#: .\templates\userauths\password_reset_email_html.html:90
+msgid "Click the button below to create a new password:"
+msgstr "စကားဝှက်အသစ်ဖန်တီးရန် အောက်ပါခလုတ်ကို နှိပ်ပါ:"
+
+#: .\templates\userauths\password_reset_email_html.html:94
+#| msgid "Password"
+msgid "Reset My Password"
+msgstr "ကျွန်ုပ်၏စကားဝှက်ကို ပြန်လည်သတ်မှတ်မည်"
+
+#: .\templates\userauths\password_reset_email_html.html:99
+msgid "Or copy and paste this link into your browser:"
+msgstr "သို့မဟုတ် ဤလင့်ခ်ကို ကူးယူ၍ သင့်ဘရောက်ဆာထဲသို့ ထည့်သွင်းပါ:"
+
+#: .\templates\userauths\password_reset_email_html.html:106
+msgid "Important:"
+msgstr "\"အရေးကြီးသည်:"
+
+#: .\templates\userauths\password_reset_email_html.html:107
+msgid "This link will expire in 24 hours for security reasons."
+msgstr ""
+"လုံခြုံရေးအကြောင်းပြချက်ဖြင့် ဤလင့်ခ်၏ သက်တမ်းသည် ၂၄ နာရီအတွင်း "
+"ကုန်ဆုံးပါမည်"
+
+#: .\templates\userauths\password_reset_email_html.html:110
+msgid ""
+"If you didn't request this password reset, please ignore this email. Your "
+"password will remain unchanged."
+msgstr ""
+"သင်သည် ဤစကားဝှက်ပြန်လည်သတ်မှတ်ရန် မတောင်းဆိုပါက၊ ဤအီးမေးလ်ကို လျစ်လျူရှုပါ။ "
+"သင့်စကားဝှက် မပြောင်းလဲပါ"
+
+#: .\templates\userauths\password_reset_email_html.html:112
+msgid "For security reasons, we recommend that you:"
+msgstr ""
+"လုံခြုံရေးအကြောင်းပြချက်ဖြင့်၊ ကျွန်ုပ်တို့ သင့်အား အောက်ပါအတိုင်း "
+"အကြံပြုအပ်ပါသည်:"
+
+#: .\templates\userauths\password_reset_email_html.html:114
+#| msgid "Set your new password"
+msgid "Use a strong, unique password"
+msgstr "အားကောင်းပြီး ထူးခြားသောစကားဝှက်ကို အသုံးပြုပါ"
+
+#: .\templates\userauths\password_reset_email_html.html:116
+msgid "Enable two-factor authentication if available"
+msgstr "ရနိုင်ပါက နှစ်ဆင့် အတည်ပြုခြင်းကို ဖွင့်ပါ"
+
+#: .\templates\userauths\password_reset_email_html.html:121
+msgid "Best regards,"
+msgstr "ကျေးဇူးတင်လျက်,"
+
+#: .\templates\userauths\password_reset_email_html.html:122
+#| msgid "CyberOptix"
+msgid "The CyberOptix Team"
+msgstr "CyberOptix အဖွဲ့အစည်း"
+
+#: .\templates\userauths\password_reset_email_html.html:125
+msgid "This is an automated message, please do not reply to this email."
+msgstr ""
+"ဤသည်မှာ အလိုအလျောက်ပို့သော မက်ဆေ့ချ်ဖြစ်ပါသည်၊ ဤအီးမေးလ်ကို "
+"ပြန်လည်မဖြေကြားပါနှင့်"
+
+#: .\templates\userauths\password_reset_email_html.html:126
+#| msgid ""
+#| "If you have any questions about this invoice, please contact our support "
+#| "team."
+msgid "If you need assistance, please contact our support team."
+msgstr ""
+"ဤငွေတောင်းခံလွှာနှင့်ပတ်သက်ပြီး မေးမြန်းလိုသည်များရှိပါက ကျွန်ုပ်တို့၏ "
+"ဝန်ဆောင်မှုအဖွဲ့ကို ဆက်သွယ်ပါ။"
+
+#: .\templates\userauths\password_reset_email_html.html:130
+#| msgid "All Rights Reserved 2024-2025"
+msgid "All rights reserved."
+msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
+
+#: .\templates\userauths\password_reset_subject.txt:3
+msgid "Password Reset Request - CyberOptix"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် တောင်းဆိုခြင်း - CyberOptix"
+
+#: .\templates\userauths\sign-in.html:15
 msgid "Welcome to"
 msgstr "ကြိုဆိုပါ၏"
 
-#: .\templates\userauths\sign-in.html:14 .\templates\userauths\sign-up.html:14
-msgid "Explore the latest laptops and exclusive deals tailored for you !"
+#: .\templates\userauths\sign-in.html:16
+#| msgid ""
+#| "Explore the latest laptops and exclusive deals tailored for you !"
+msgid "Explore the latest laptops and exclusive deals tailored for you!"
 msgstr ""
 "သင့်အတွက်သီးသန့်ပြင်ဆင်ထားသော နောက်ဆုံးပေါ်လက်တော့များနှင့် "
 "အထူးလျှော့စျေးများကို လာရောက်ကြည့်ရှုလိုက်ပါ!"
 
-#: .\templates\userauths\sign-in.html:21 .\templates\userauths\sign-up.html:21
+#: .\templates\userauths\sign-in.html:25 .\templates\userauths\sign-up.html:26
 msgid "Register"
 msgstr "မှတ်ပုံတင်ရန်"
 
-#: .\templates\userauths\sign-in.html:40 .\userauths\forms.py:12
-msgid "Username"
-msgstr "အသုံးပြုသူအမည်"
+#: .\templates\userauths\sign-in.html:50 .\userauths\forms.py:180
+#: .\userauths\forms.py:183
+#| msgid "Username"
+msgid "Username or Email"
+msgstr "အသုံးပြုသူအမည် (သို့မဟုတ်) အီးမေးလ်"
 
-#: .\templates\userauths\sign-in.html:43 .\userauths\forms.py:26
+#: .\templates\userauths\sign-in.html:61 .\templates\userauths\sign-up.html:96
+#: .\userauths\forms.py:84 .\userauths\forms.py:86 .\userauths\forms.py:188
+#: .\userauths\forms.py:191
 msgid "Password"
 msgstr "လျှို့ဝှက်နံပါတ်"
 
-#: .\templates\userauths\sign-in.html:46
+#: .\templates\userauths\sign-in.html:70 .\userauths\forms.py:196
+#| msgid "December"
+msgid "Remember me"
+msgstr "ကျွန်ုပ်ကို မှတ်ထားပါ"
+
+#: .\templates\userauths\sign-in.html:73
 msgid "Forgot Password?"
 msgstr "လျှို့ဝှက်နံပါတ်မေ့နေပါသလား?"
 
-#: .\templates\userauths\sign-up.html:26 .\templates\userauths\sign-up.html:63
-msgid "Sign Up"
-msgstr "အကောင့်ဖွင့်ရန်"
+#: .\templates\userauths\sign-in.html:84
+msgid "OR"
+msgstr "သို့မဟုတ်"
 
-#: .\userauths\forms.py:15
+#: .\templates\userauths\sign-in.html:99
+#| msgid "Already have an account?"
+msgid "Don't have an account?"
+msgstr "အကောင့်မရှိဘူးလား?"
+
+#: .\templates\userauths\sign-up.html:15
+msgid "Join"
+msgstr "အကောင့်ဖွင့်မည်"
+
+#: .\templates\userauths\sign-up.html:16
+msgid "Create your account and start shopping for amazing laptops!"
+msgstr "သင့်အကောင့်ဖန်တီးပြီး ပစ္စည်းများ စတင်ဝယ်ယူပါ!"
+
+#: .\templates\userauths\sign-up.html:31
+#: .\templates\userauths\sign-up.html:135
+#| msgid "PayPal Account:"
+msgid "Create Account"
+msgstr "အကောင့်ပြုလုပ်မည်"
+
+#: .\templates\userauths\sign-up.html:57 .\userauths\forms.py:66
+#: .\userauths\forms.py:68
+msgid "Username"
+msgstr "အသုံးပြုသူအမည်"
+
+#: .\templates\userauths\sign-up.html:86 .\userauths\forms.py:107
+#| msgid "Phone Number"
+msgid "Phone Number (Optional)"
+msgstr "ဖုန်းနံပါတ် (ချန်လှပ်ထားနိုင်သည်)"
+
+#: .\templates\userauths\sign-up.html:114 .\userauths\forms.py:95
+msgid "Confirm Password"
+msgstr "လျှို့ဝှက်နံပါတ်ကိုအတည်ပြုပါ"
+
+#: .\templates\userauths\sign-up.html:128
+msgid "I agree to the"
+msgstr "ကျွန်ုပ်သဘောတူပါသည်"
+
+#: .\templates\userauths\sign-up.html:129
+#| msgid "Terms & Condition"
+msgid "Terms and Conditions"
+msgstr "စည်းမျဥ်းစည်းကမ်းများ"
+
+#: .\templates\userauths\sign-up.html:140
+msgid "Already have an account?"
+msgstr "အကောင့်ရှိပြီးသားလား?"
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Very Weak"
+msgstr "အလွန်အားနည်းသည်"
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Weak"
+msgstr "အားနည်းသည်"
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Fair"
+msgstr "သာမန်"
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Good"
+msgstr "ကောင်းသည်"
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Strong"
+msgstr "အားကောင်းသည်"
+
+#: .\templates\userauths\sign-up.html:270
+msgid "Terms and Conditions will be displayed here"
+msgstr "စည်းမျဉ်းစည်းကမ်းများကို ဤနေရာတွင် ပြသပါမည်"
+
+#: .\userauths\forms.py:72
 msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 "လိုအပ်ပါသည်။ အက္ခရာ၊ ဂဏန်းနှင့် @ / . / + / - / _ တို့ကိုသာ အသုံးပြုပြီး "
 "စာလုံးရေ ၁၅၀ လုံးထက် မကျော်ရပါ။"
 
-#: .\userauths\forms.py:19
+#: .\userauths\forms.py:75 .\userauths\forms.py:77
 msgid "Email"
 msgstr "အီးမေးလ်:"
 
-#: .\userauths\forms.py:29
-msgid "Your password must contain at least 8 characters."
+#: .\userauths\forms.py:81
+msgid "We'll send a verification email to this address."
+msgstr "ဤလိပ်စာသို့ အတည်ပြုအီးမေးလ်ပို့ပါမည်"
+
+#: .\userauths\forms.py:90
+#| msgid "Your password must contain at least 8 characters."
+msgid ""
+"Your password must contain at least 8 characters, including letters and "
+"numbers."
 msgstr "သင့်စကားဝှက်တွင် အနည်းဆုံး စာလုံးရေ ၈ လုံးပါဝင်ရမည်။"
 
-#: .\userauths\forms.py:34
-msgid "Confirm Password"
-msgstr "လျှို့ဝှက်နံပါတ်ကိုအတည်ပြုပါ"
+#: .\userauths\forms.py:93
+msgid "Password confirmation"
+msgstr "စကားဝှက်အတည်ပြုခြင်း"
 
-#: .\userauths\forms.py:37
+#: .\userauths\forms.py:99
 msgid "Enter the same password as before, for verification."
 msgstr "စစ်မှန်ကြောင်း အတည်ပြုရန် ယခင်စကားဝှက်အတူတူ ထည့်ပါ။"
 
-#: .\userauths\forms.py:47
+#: .\userauths\forms.py:116
+msgid "I accept the terms and conditions"
+msgstr "ကျွန်ုပ်သည် စည်းမျဉ်းစည်းကမ်းများကို လက်ခံသဘောတူပါသည်"
+
+#: .\userauths\forms.py:122
+#| msgid "I accept the terms and conditions"
+msgid "You must accept the terms and conditions to register."
+msgstr "မှတ်ပုံတင်ရန် စည်းမျဉ်းစည်းကမ်းများကို လက်ခံရမည်"
+
+#: .\userauths\forms.py:134
+#| msgid "This field is required."
+msgid "Email is required."
+msgstr "အီးမေးလ်လိပ်စာ လိုအပ်ပါသည်"
+
+#: .\userauths\forms.py:136
 msgid "This email address is already in use."
 msgstr "ဤအီးမေးလ်လိပ်စာကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
 
-#: .\userauths\forms.py:53
+#: .\userauths\forms.py:142
+#| msgid "This field is required."
+msgid "Username is required."
+msgstr "အသုံးပြုသူအမည် လိုအပ်ပါသည်"
+
+#: .\userauths\forms.py:144
 msgid "This username is already taken."
 msgstr "ဤအသုံးပြုသူအမည်ကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
+
+#: .\userauths\forms.py:146
+#| msgid "Your password must contain at least 8 characters."
+msgid "Username must be at least 3 characters long."
+msgstr "အသုံးပြုသူအမည်တွင် အနည်းဆုံး စာလုံး ၃ လုံး ပါဝင်ရမည်"
+
+#: .\userauths\forms.py:152
+#| msgid "This field is required."
+msgid "Password is required."
+msgstr "စကားဝှက် လိုအပ်ပါသည်"
+
+#: .\userauths\forms.py:154
+#| msgid "Your password must contain at least 8 characters."
+msgid "Password must be at least 8 characters long."
+msgstr "စကားဝှက်တွင် အနည်းဆုံး စာလုံး ၈ လုံး ပါဝင်ရမည်"
+
+#: .\userauths\forms.py:156
+#| msgid "Your password must contain at least 8 characters."
+msgid "Password must contain both letters and numbers."
+msgstr "စကားဝှက်တွင် အက္ခရာများနှင့် ဂဏန်းများ နှစ်မျိုးလုံး ပါဝင်ရမည်"
+
+#: .\userauths\forms.py:165
+#| msgid "Enter a valid domain name."
+msgid "Please enter a valid phone number."
+msgstr "မှန်ကန်သောဖုန်းနံပါတ်ကို ထည့်သွင်းပါ"
+
+#: .\userauths\models.py:42
+#| msgid "Email address"
+msgid "email address"
+msgstr "အီးမေးလ်လိပ်စာ"
+
+#: .\userauths\models.py:43
+#| msgid "Username"
+msgid "username"
+msgstr "အသုံးပြုသူအမည်"
+
+#: .\userauths\models.py:44
+msgid "bio"
+msgstr "ကိုယ်ရေးအကျဉ်း"
+
+#: .\userauths\models.py:47
+msgid "shop administrator"
+msgstr "ဆိုင်စီမံခန့်ခွဲသူ"
+
+#: .\userauths\models.py:48
+#| msgid "Verified"
+msgid "email verified"
+msgstr "အီးမေးလ် အတည်ပြုပြီး"
+
+#: .\userauths\models.py:53
+msgid "preferred language"
+msgstr "နှစ်သက်ရာဘာသာစကား"
+
+#: .\userauths\models.py:60
+msgid "last password change"
+msgstr "နောက်ဆုံးစကားဝှက်ပြောင်းလဲမှု"
+
+#: .\userauths\models.py:61
+msgid "failed login attempts"
+msgstr "မအောင်မြင်သောအကောင့်ဝင်ရန်ကြိုးစားမှုများ"
+
+#: .\userauths\models.py:62
+msgid "last failed login"
+msgstr "နောက်ဆုံးမအောင်မြင်သောအကောင့်ဝင်မှု"
+
+#: .\userauths\models.py:63
+msgid "account locked"
+msgstr "အကောင့်သော့ခတ်ထားသည်"
+
+#: .\userauths\models.py:66
+#| msgid "Phone Number"
+msgid "phone number"
+msgstr "ဖုန်းနံပါတ်"
+
+#: .\userauths\models.py:67
+msgid "date of birth"
+msgstr "မွေးသက္ကရာဇ်"
+
+#: .\userauths\models.py:73
+msgid "user"
+msgstr "အသုံးပြုသူ"
+
+#: .\userauths\models.py:74
+msgid "users"
+msgstr "အသုံးပြုသူမျာ"
+
+#: .\userauths\views.py:86 .\userauths\views.py:131
+msgid "You are already logged in."
+msgstr "သင် အကောင့်ဝင်ပြီးသားဖြစ်သည်"
+
+#: .\userauths\views.py:104
+msgid "Account created! Please check your email to verify your account."
+msgstr "အကောင့်ဖန်တီးပြီးပါပြီ! သင့်အကောင့်အတည်ပြုရန် အီးမေးလ်စစ်ဆေးပါ"
+
+#: .\userauths\views.py:108
+msgid ""
+"Account created but we couldn't send verification email. Please contact "
+"support."
+msgstr ""
+"အကောင့်ဖန်တီးပြီးသော်လည်း အတည်ပြုအီးမေးလ်ပို့၍မရပါ။ ကျေးဇူးပြု၍ "
+"အကူအညီတောင်းပါ"
+
+#: .\userauths\views.py:123
+msgid "Sign Up"
+msgstr "အကောင့်ဖွင့်ရန်"
+
+#: .\userauths\views.py:154
+msgid ""
+"Your account has been locked due to multiple failed login attempts. Please "
+"contact support."
+msgstr ""
+"များပြားလှသော မအောင်မြင်သည့် အကောင့်ဝင်ကြိုးစားမှုများကြောင့် သင့်အကောင့်ကို"
+" သော့ခတ်ထားပါသည်။ ကျေးဇူးပြု၍ အကူအညီတောင်းပါ"
+
+#: .\userauths\views.py:179
+msgid "Please verify your email address to access all features."
+msgstr "အရည်အသွေးအားလုံးကို အသုံးပြုနိုင်ရန် သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုပ"
+
+#: .\userauths\views.py:181
+#, python-format
+msgid "Welcome back, %(username)s!"
+msgstr "ပြန်လည်ကြိုဆိုပါသည်၊ %(username)s!"
+
+#: .\userauths\views.py:191
+msgid "Invalid username/email or password."
+msgstr "မှားယွင်းသောအသုံးပြုသူအမည်/အီးမေးလ် သို့မဟုတ် စကားဝှက်"
+
+#: .\userauths\views.py:204
+#, python-format
+msgid "You have been logged out successfully. Goodbye, %(username)s!"
+msgstr "အကောင့်မှ အောင်မြင်စွာထွက်ပြီးပါပြီ။ နှုတ်ဆက်ပါတယ်၊ %(username)s!"
+
+#: .\userauths\views.py:216
+#| msgid "Products Available in CyberOptix"
+msgid "Verify your email - CyberOptix"
+msgstr "သင့်အီးမေးလ်ကို အတည်ပြုပါ - CyberOptix"
+
+#: .\userauths\views.py:217
+#, python-format
+msgid ""
+"\n"
+"    Hi %(username)s,\n"
+"    \n"
+"    Please click the link below to verify your email address:\n"
+"    %(link)s\n"
+"    \n"
+"    If you didn't create an account, please ignore this email.\n"
+"    \n"
+"    Best regards,\n"
+"    CyberOptix Team\n"
+"    "
+msgstr ""
+"\n"
+"မင်္ဂလာပါ %(username)s၊\n"
+"\n"
+"ကျေးဇူးပြု၍ သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုရန် အောက်ပါလင့်ခ်ကို နှိပ်ပါ:\n"
+"%(link)s\n"
+"\n"
+"သင်သည် အကောင့်ဖန်တီးခြင်းမရှိပါက ဤအီးမေးလ်ကို လျစ်လျူရှုပါ။\n"
+"\n"
+"ကျေးဇူးတင်လျက်၊\n"
+"CyberOptix အဖွဲ့\""
+
+#: .\userauths\views.py:248
+msgid "Your email has been verified successfully!"
+msgstr "သင့်အီးမေးလ်လိပ်စာကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ!"
+
+#: .\userauths\views.py:254
+msgid "Invalid verification link."
+msgstr "မမှန်ကန်သော အတည်ပြုရန် လင့်ခ်"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
@@ -1446,6 +1996,8 @@ msgstr[0] ""
 "ဤတန်ဖိုးတွင် အနည်းဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
 "%(show_value)d လုံး)။"
 msgstr[1] ""
+"ဤတန်ဖိုးတွင် အများဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
+"%(show_value)d လုံး)။"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:512
 #, python-format
@@ -1459,6 +2011,8 @@ msgstr[0] ""
 "ဤတန်ဖိုးတွင် အများဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
 "%(show_value)d လုံး)။"
 msgstr[1] ""
+"ဤတန်ဖိုးတွင် အများဆုံး %(limit_value)d လုံး ပါဝင်ကြောင်း သေချာပါစေ (လက်ရှိ "
+"%(show_value)d လုံး)"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:535
 #: .\venv\Lib\site-packages\django\forms\fields.py:359
@@ -2602,6 +3156,23 @@ msgstr "Django လူထု"
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
 msgid "Connect, get help, or contribute"
 msgstr "ချိတ်ဆက်ပါ၊ အကူအညီရယူပါ၊ သို့မဟုတ် ပါဝင်ပါ"
+
+#~ msgid "Exclusive member discounts"
+#~ msgstr "အထူးအဖွဲ့ဝင်လျှော့စျေးများ"
+
+#, fuzzy
+#~ msgid "Track your orders easily"
+#~ msgstr "သင့်အမှာစာလိုင်း ခြေရာခံရန်"
+
+#, fuzzy
+#~ msgid "Save items to wishlist"
+#~ msgstr "ကြိုက်နှစ်သက်သောစာရင်းသို့ ထည့်ရန်"
+
+#~ msgid "Fast checkout process"
+#~ msgstr "မြန်ဆန်သော ငွေရှင်းလုပ်ငန်းစဉ်"
+
+#~ msgid "Preferred Language"
+#~ msgstr "နှစ်သက်ရာဘာသာစကား"
 
 #~ msgid "SALE!"
 #~ msgstr "လျှော့စျေး!"

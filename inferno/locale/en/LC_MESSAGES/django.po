@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-21 10:08+0630\n"
+"POT-Creation-Date: 2025-08-22 10:28+0630\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,11 +74,11 @@ msgstr ""
 msgid "An error occurred"
 msgstr ""
 
-#: .\inferno\settings.py:156
+#: .\inferno\settings.py:175
 msgid "English"
 msgstr ""
 
-#: .\inferno\settings.py:157
+#: .\inferno\settings.py:176
 msgid "Burmese"
 msgstr ""
 
@@ -584,10 +584,6 @@ msgstr ""
 msgid "Error generating PDF. Please try again."
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:470
-msgid "Payment completed successfully!"
-msgstr ""
-
 #: .\templates\flame\payment-failed.html:52
 msgid "PAYMENT FAILED"
 msgstr ""
@@ -782,8 +778,9 @@ msgstr ""
 
 #: .\templates\flame\product-detail.html:217
 #: .\templates\flame\shop-product-detail.html:246
-#: .\templates\userauths\sign-in.html:20 .\templates\userauths\sign-in.html:27
-#: .\templates\userauths\sign-in.html:49 .\templates\userauths\sign-up.html:20
+#: .\templates\userauths\sign-in.html:24 .\templates\userauths\sign-in.html:30
+#: .\templates\userauths\sign-in.html:79 .\templates\userauths\sign-up.html:25
+#: .\templates\userauths\sign-up.html:141
 msgid "Login"
 msgstr ""
 
@@ -793,42 +790,42 @@ msgid "to write a review."
 msgstr ""
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:181
+#: .\templates\partials\base.html:266
 msgid "All Rights Reserved 2024-2025"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:184
+#: .\templates\partials\base.html:269
 msgid "Information"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:186
+#: .\templates\partials\base.html:271
 msgid "About Us"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:191
+#: .\templates\partials\base.html:276
 msgid "Helpful Links"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:193
+#: .\templates\partials\base.html:278
 msgid "Services"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:194
+#: .\templates\partials\base.html:279
 msgid "Privacy Policy"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:195
+#: .\templates\partials\base.html:280
 msgid "Terms & Condition"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:200
+#: .\templates\partials\base.html:285
 msgid "Contact Us"
 msgstr ""
 
@@ -926,7 +923,7 @@ msgstr ""
 msgid "My Address"
 msgstr ""
 
-#: .\templates\flame\profile.html:35
+#: .\templates\flame\profile.html:35 .\userauths\views.py:265
 msgid "My Profile"
 msgstr ""
 
@@ -947,6 +944,7 @@ msgid "Customer"
 msgstr ""
 
 #: .\templates\flame\profile.html:60 .\templates\flame\profile.html:245
+#: .\userauths\forms.py:104
 msgid "Phone Number"
 msgstr ""
 
@@ -954,7 +952,7 @@ msgstr ""
 msgid "Not Verified"
 msgstr ""
 
-#: .\templates\flame\profile.html:71
+#: .\templates\flame\profile.html:71 .\templates\userauths\sign-up.html:72
 msgid "Email Address"
 msgstr ""
 
@@ -1172,11 +1170,11 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: .\templates\partials\base.html:106
+#: .\templates\partials\base.html:106 .\userauths\views.py:194
 msgid "Sign In"
 msgstr ""
 
-#: .\templates\partials\base.html:109
+#: .\templates\partials\base.html:109 .\templates\userauths\sign-in.html:100
 msgid "Sign up"
 msgstr ""
 
@@ -1184,60 +1182,553 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:13 .\templates\userauths\sign-up.html:13
+#: .\templates\userauths\password_reset.html:16
+msgid "Password Recovery"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:17
+msgid "Don't worry! It happens. We'll help you reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:22
+msgid "Enter your email address"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:26
+msgid "Check your email inbox"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:30
+msgid "Click the reset link"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:34
+msgid "Set your new password"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:44
+#: .\templates\userauths\password_reset_comirm.html:73
+msgid "Reset Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:57
+msgid ""
+"Enter the email address associated with your account and we'll send you a "
+"link to reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:66
+msgid "Your Email Address"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:73
+msgid "Send Reset Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:78
+msgid "Remember your password?"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:79
+#: .\templates\userauths\password_reset_done.html:29
+msgid "Back to Login"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:16
+msgid "Create New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:17
+msgid "Almost there! Enter your new password below."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:20
+msgid "Password Requirements:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:22
+msgid "At least 8 characters"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:23
+msgid "Include letters and numbers"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:24
+msgid "Use a mix of upper and lowercase"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:25
+msgid "Consider adding special characters"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:36
+msgid "Set New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:55
+msgid "New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:66
+msgid "Confirm New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:80
+msgid "Invalid Reset Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:81
+msgid "This password reset link is invalid or has expired."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:82
+msgid "Password reset links are valid for 24 hours."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:85
+msgid "Request New Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:14
+msgid "Password Reset Successful!"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:15
+msgid "Your password has been successfully reset."
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:16
+msgid "You can now login with your new password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:20
+msgid "Login Now"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:24
+msgid "Security Tips:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:26
+#: .\templates\userauths\password_reset_email_html.html:115
+msgid "Never share your password with anyone"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:27
+msgid "Use unique passwords for different accounts"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:28
+msgid "Enable two-factor authentication when available"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:14
+msgid "Email Sent Successfully!"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:15
+msgid "We've sent you an email with instructions to reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:16
+msgid "Please check your inbox and follow the link to create a new password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:19
+msgid "Didn't receive the email?"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:21
+msgid "Check your spam or junk folder"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:22
+msgid "Make sure you entered the correct email"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:23
+msgid "Wait a few minutes and check again"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:32
+msgid "Try Again"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:8
+msgid "Password Reset - CyberOptix"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:82
+msgid "Password Reset Request"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:86
+msgid "Hello"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:88
+msgid ""
+"We received a request to reset your password for your CyberOptix account."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:90
+msgid "Click the button below to create a new password:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:94
+msgid "Reset My Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:99
+msgid "Or copy and paste this link into your browser:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:106
+msgid "Important:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:107
+msgid "This link will expire in 24 hours for security reasons."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:110
+msgid ""
+"If you didn't request this password reset, please ignore this email. Your "
+"password will remain unchanged."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:112
+msgid "For security reasons, we recommend that you:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:114
+msgid "Use a strong, unique password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:116
+msgid "Enable two-factor authentication if available"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:121
+msgid "Best regards,"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:122
+msgid "The CyberOptix Team"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:125
+msgid "This is an automated message, please do not reply to this email."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:126
+msgid "If you need assistance, please contact our support team."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:130
+msgid "All rights reserved."
+msgstr ""
+
+#: .\templates\userauths\password_reset_subject.txt:3
+msgid "Password Reset Request - CyberOptix"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:15
 msgid "Welcome to"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:14 .\templates\userauths\sign-up.html:14
-msgid "Explore the latest laptops and exclusive deals tailored for you !"
+#: .\templates\userauths\sign-in.html:16
+msgid "Explore the latest laptops and exclusive deals tailored for you!"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:21 .\templates\userauths\sign-up.html:21
+#: .\templates\userauths\sign-in.html:25 .\templates\userauths\sign-up.html:26
 msgid "Register"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:40 .\userauths\forms.py:12
-msgid "Username"
+#: .\templates\userauths\sign-in.html:50 .\userauths\forms.py:180
+#: .\userauths\forms.py:183
+msgid "Username or Email"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:43 .\userauths\forms.py:26
+#: .\templates\userauths\sign-in.html:61 .\templates\userauths\sign-up.html:96
+#: .\userauths\forms.py:84 .\userauths\forms.py:86 .\userauths\forms.py:188
+#: .\userauths\forms.py:191
 msgid "Password"
 msgstr ""
 
-#: .\templates\userauths\sign-in.html:46
+#: .\templates\userauths\sign-in.html:70 .\userauths\forms.py:196
+msgid "Remember me"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:73
 msgid "Forgot Password?"
 msgstr ""
 
-#: .\templates\userauths\sign-up.html:26 .\templates\userauths\sign-up.html:63
-msgid "Sign Up"
+#: .\templates\userauths\sign-in.html:84
+msgid "OR"
 msgstr ""
 
-#: .\userauths\forms.py:15
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+#: .\templates\userauths\sign-in.html:99
+msgid "Don't have an account?"
 msgstr ""
 
-#: .\userauths\forms.py:19
-msgid "Email"
+#: .\templates\userauths\sign-up.html:15
+msgid "Join"
 msgstr ""
 
-#: .\userauths\forms.py:29
-msgid "Your password must contain at least 8 characters."
+#: .\templates\userauths\sign-up.html:16
+msgid "Create your account and start shopping for amazing laptops!"
 msgstr ""
 
-#: .\userauths\forms.py:34
+#: .\templates\userauths\sign-up.html:31
+#: .\templates\userauths\sign-up.html:135
+msgid "Create Account"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:57 .\userauths\forms.py:66
+#: .\userauths\forms.py:68
+msgid "Username"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:86 .\userauths\forms.py:107
+msgid "Phone Number (Optional)"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:114 .\userauths\forms.py:95
 msgid "Confirm Password"
 msgstr ""
 
-#: .\userauths\forms.py:37
+#: .\templates\userauths\sign-up.html:128
+msgid "I agree to the"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:129
+msgid "Terms and Conditions"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:140
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Very Weak"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Weak"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Fair"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Good"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:182
+msgid "Strong"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:270
+msgid "Terms and Conditions will be displayed here"
+msgstr ""
+
+#: .\userauths\forms.py:72
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: .\userauths\forms.py:75 .\userauths\forms.py:77
+msgid "Email"
+msgstr ""
+
+#: .\userauths\forms.py:81
+msgid "We'll send a verification email to this address."
+msgstr ""
+
+#: .\userauths\forms.py:90
+msgid ""
+"Your password must contain at least 8 characters, including letters and "
+"numbers."
+msgstr ""
+
+#: .\userauths\forms.py:93
+msgid "Password confirmation"
+msgstr ""
+
+#: .\userauths\forms.py:99
 msgid "Enter the same password as before, for verification."
 msgstr ""
 
-#: .\userauths\forms.py:47
+#: .\userauths\forms.py:116
+msgid "I accept the terms and conditions"
+msgstr ""
+
+#: .\userauths\forms.py:122
+msgid "You must accept the terms and conditions to register."
+msgstr ""
+
+#: .\userauths\forms.py:134
+msgid "Email is required."
+msgstr ""
+
+#: .\userauths\forms.py:136
 msgid "This email address is already in use."
 msgstr ""
 
-#: .\userauths\forms.py:53
+#: .\userauths\forms.py:142
+msgid "Username is required."
+msgstr ""
+
+#: .\userauths\forms.py:144
 msgid "This username is already taken."
+msgstr ""
+
+#: .\userauths\forms.py:146
+msgid "Username must be at least 3 characters long."
+msgstr ""
+
+#: .\userauths\forms.py:152
+msgid "Password is required."
+msgstr ""
+
+#: .\userauths\forms.py:154
+msgid "Password must be at least 8 characters long."
+msgstr ""
+
+#: .\userauths\forms.py:156
+msgid "Password must contain both letters and numbers."
+msgstr ""
+
+#: .\userauths\forms.py:165
+msgid "Please enter a valid phone number."
+msgstr ""
+
+#: .\userauths\models.py:42
+msgid "email address"
+msgstr ""
+
+#: .\userauths\models.py:43
+msgid "username"
+msgstr ""
+
+#: .\userauths\models.py:44
+msgid "bio"
+msgstr ""
+
+#: .\userauths\models.py:47
+msgid "shop administrator"
+msgstr ""
+
+#: .\userauths\models.py:48
+msgid "email verified"
+msgstr ""
+
+#: .\userauths\models.py:53
+msgid "preferred language"
+msgstr ""
+
+#: .\userauths\models.py:60
+msgid "last password change"
+msgstr ""
+
+#: .\userauths\models.py:61
+msgid "failed login attempts"
+msgstr ""
+
+#: .\userauths\models.py:62
+msgid "last failed login"
+msgstr ""
+
+#: .\userauths\models.py:63
+msgid "account locked"
+msgstr ""
+
+#: .\userauths\models.py:66
+msgid "phone number"
+msgstr ""
+
+#: .\userauths\models.py:67
+msgid "date of birth"
+msgstr ""
+
+#: .\userauths\models.py:73
+msgid "user"
+msgstr ""
+
+#: .\userauths\models.py:74
+msgid "users"
+msgstr ""
+
+#: .\userauths\views.py:86 .\userauths\views.py:131
+msgid "You are already logged in."
+msgstr ""
+
+#: .\userauths\views.py:104
+msgid "Account created! Please check your email to verify your account."
+msgstr ""
+
+#: .\userauths\views.py:108
+msgid ""
+"Account created but we couldn't send verification email. Please contact "
+"support."
+msgstr ""
+
+#: .\userauths\views.py:123
+msgid "Sign Up"
+msgstr ""
+
+#: .\userauths\views.py:154
+msgid ""
+"Your account has been locked due to multiple failed login attempts. Please "
+"contact support."
+msgstr ""
+
+#: .\userauths\views.py:179
+msgid "Please verify your email address to access all features."
+msgstr ""
+
+#: .\userauths\views.py:181
+#, python-format
+msgid "Welcome back, %(username)s!"
+msgstr ""
+
+#: .\userauths\views.py:191
+msgid "Invalid username/email or password."
+msgstr ""
+
+#: .\userauths\views.py:204
+#, python-format
+msgid "You have been logged out successfully. Goodbye, %(username)s!"
+msgstr ""
+
+#: .\userauths\views.py:216
+msgid "Verify your email - CyberOptix"
+msgstr ""
+
+#: .\userauths\views.py:217
+#, python-format
+msgid ""
+"\n"
+"    Hi %(username)s,\n"
+"    \n"
+"    Please click the link below to verify your email address:\n"
+"    %(link)s\n"
+"    \n"
+"    If you didn't create an account, please ignore this email.\n"
+"    \n"
+"    Best regards,\n"
+"    CyberOptix Team\n"
+"    "
+msgstr ""
+
+#: .\userauths\views.py:248
+msgid "Your email has been verified successfully!"
+msgstr ""
+
+#: .\userauths\views.py:254
+msgid "Invalid verification link."
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16

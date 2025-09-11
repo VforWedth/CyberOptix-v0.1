@@ -151,6 +151,7 @@
 
     
     <br><br>
+    {% comment %} 
     {% if messages %}
         {% for message in messages %}
         
@@ -163,8 +164,91 @@
         setTimeout (() => {
             $(".alert").alert("close")
         },3000)
-    </script>
+    </script> {% endcomment %}
 
+
+    <!-- Alert Container -->
+<div class="alert-container" id="alertContainer">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert-message alert-{{ message.tags }}" id="alert-{{ forloop.counter }}">
+            <div class="alert-content">
+                <i class="alert-icon 
+                    {% if message.tags == 'success' %}fas fa-check-circle
+                    {% elif message.tags == 'error' or message.tags == 'danger' %}fas fa-exclamation-circle
+                    {% elif message.tags == 'warning' %}fas fa-exclamation-triangle
+                    {% elif message.tags == 'info' %}fas fa-info-circle
+                    {% else %}fas fa-info-circle{% endif %}"></i>
+                <span class="alert-text">{{ message }}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('alert-{{ forloop.counter }}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Enhanced Alert Script -->
+<script>
+// Function to close alert
+function closeAlert(alertId) {
+    const alert = document.getElementById(alertId);
+    if (alert) {
+        alert.classList.add('alert-fadeout');
+        setTimeout(() => {
+            alert.remove();
+        }, 300);
+    }
+}
+
+// Auto-dismiss alerts after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert-message');
+    alerts.forEach((alert, index) => {
+        setTimeout(() => {
+            if (document.contains(alert)) {
+                closeAlert(alert.id);
+            }
+        }, 5000); // 5 seconds delay
+    });
+});
+
+// Function to show new alerts dynamically (for AJAX requests)
+function showDynamicAlert(type, message) {
+    const container = document.getElementById('alertContainer');
+    const alertId = 'alert-dynamic-' + Date.now();
+    
+    const iconMap = {
+        'success': 'fas fa-check-circle',
+        'danger': 'fas fa-exclamation-circle',
+        'error': 'fas fa-exclamation-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+    
+    const alertHTML = `
+        <div class="alert-message alert-${type}" id="${alertId}">
+            <div class="alert-content">
+                <i class="alert-icon ${iconMap[type] || 'fas fa-info-circle'}"></i>
+                <span class="alert-text">${message}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('${alertId}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', alertHTML);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        closeAlert(alertId);
+    }, 5000);
+}
+</script>
 
     {% block content %}
 

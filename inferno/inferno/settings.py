@@ -36,7 +36,32 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = "userauths:sign-in"
+# LOGIN_URL = "userauths:sign-in"
+
+# Security settings
+CSRF_COOKIE_SECURE = False  # Set to True in production
+SECURE_SSL_REDIRECT = False  # Set to True in production
+
+# Email settings for user authentication and notifications
+# For development - use console backend (emails printed to terminal)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# For production - use Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')  # Your Gmail address
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')  # Gmail App Password
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='CyberOptix <noreply@cyberoptix.com>')
+
+# Email timeout settings
+EMAIL_TIMEOUT = 10
+
+# Authentication settings
+LOGIN_URL = '/user/sign-in/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/user/sign-in/'
 
 AUTH_USER_MODEL = 'userauths.User'
 
@@ -179,6 +204,11 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 MODELTRANSLATION_LANGUAGES = ('en', 'my')
 MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
 
+# Session settings for authentication
+SESSION_COOKIE_AGE = 86400 * 30  # 30 days
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_HTTPONLY = True
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Cache settings
 CACHES = {

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from flame.models import (
     Brand, Product, Category, Shop, ExchangeRate,
@@ -36,7 +37,12 @@ class ExchangeRateAdmin(admin.ModelAdmin):
     
     def effective_rate_display(self, obj):
         rate = obj.get_effective_rate()
-        return format_html('<strong>{:.2f}</strong>', rate)
+        # Ensure rate is a numeric type before formatting
+        try:
+            numeric_rate = float(rate)
+            return format_html('<strong>{:.2f}</strong>', numeric_rate)
+        except (TypeError, ValueError):
+            return format_html('<strong>{}</strong>', rate)  # Fallback for non-numeric values
     effective_rate_display.short_description = 'Effective Rate'
     
     def save_model(self, request, obj, form, change):
@@ -52,7 +58,7 @@ class ExchangeRateAdmin(admin.ModelAdmin):
         if update_exchange_rates_from_api():
             self.message_user(request, "Exchange rates updated successfully!")
         else:
-            self.message_user(request, "Failed to update exchange rates. Check logs.", level='ERROR')
+            self.message_user(request, "Failed to update exchange rates. Check logs.", level=messages.ERROR)
     update_rates_from_api.short_description = "Update rates from API"
 
 class ProductAdmin(admin.ModelAdmin):
@@ -139,3 +145,4 @@ admin.site.register(CartOrderItem, CartOrderItemAdmin)
 admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(Wishlist, WishlistAdmin)
 admin.site.register(Address, AddressAdmin)
+admin.site.register(ExchangeRate, ExchangeRateAdmin)

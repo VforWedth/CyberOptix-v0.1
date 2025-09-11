@@ -646,7 +646,8 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                {% if is_myanmar %}
+    {% include 'flame/price_display.html' with product=product %}
+                {% comment %} {% if is_myanmar %}
                 {% if product.old_price and product.old_price > product.price %}
                     <span class="old-price">
                         {{ product.old_price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
@@ -663,8 +664,8 @@
                     <span class="old-price">${{product.old_price|floatformat:2}}</span>
                 {% endif %}
                 <span class="current-price current-product-price-{{product.id}}">${{product.price|floatformat:2}}</span>
-            {% endif %}
-                    </div>
+            {% endif %}{% endcomment %}
+                    </div> 
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" style="border:none;text-decoration: none;">
                     <button class="btn" >{% trans "View Product"%}</button>
