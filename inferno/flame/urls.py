@@ -28,8 +28,12 @@ urlpatterns = [
     #Tags
     #here will be tag list URLS
     
-    #Add Review
-    path("ajax-add-review/<int:pid>/", views.ajax_add_review, name= "ajax_add_review"),
+    # Reviews
+    path("ajax-add-review/<int:pid>/", views.ajax_add_review, name="ajax_add_review"),
+    path("enhanced-add-review/<int:pid>/", views.enhanced_add_review, name="enhanced-add-review"),
+    path("mark-review-helpful/<int:review_id>/", views.mark_review_helpful, name="mark-review-helpful"),
+    path("report-review/<int:review_id>/", views.report_review, name="report-review"),
+    path("api/product/<int:product_id>/reviews/", views.product_reviews_api, name="product-reviews-api"),
     
     # Search 
     path("search/", views.search_view ,name="search"),
@@ -49,12 +53,20 @@ urlpatterns = [
     # path("delete-from-cart/",views.delete_item_from_cart, name="delete-from-cart"),
     # path("update-cart/",views.update_cart, name="update-cart"),
     
-     # API URLs
+    # API URLs
     path("api/format-price/", views.format_price_api, name="format-price-api"),
+    path("api/states/", views.get_states_api, name="states-api"),
+    path("api/cities-by-state/", views.get_cities_by_state_api, name="cities-by-state-api"),
+    path("api/townships-by-city/", views.get_townships_by_city_api, name="townships-by-city-api"),
+    path("api/calculate-shipping/", views.calculate_shipping_fee_api, name="calculate-shipping-api"),
+    path("api/store-checkout-address/", views.store_checkout_address_api, name="store-checkout-address-api"),
     
     # Check out 
     path('checkout/shop/<str:sid>/', views.shop_checkout_view, name='shop-checkout'),
     # path("checkout/home/", views.home_checkout_view, name="home-checkout"),
+    
+    # Cash on Delivery Payment
+    path('cod-payment/<str:sid>/', views.cod_payment_view, name='cod-payment'),
     
     # Paypal
     path("paypal/", include('paypal.standard.ipn.urls')),
@@ -68,6 +80,11 @@ urlpatterns = [
     
     # Customer Profile
     path('profile/',views.customer_profile,name='profile'),
+
+    # Shop Profile Management
+    path('shop/<str:shop_id>/profile/', views.shop_profile_view, name='shop-profile'),
+    path('shop/<str:shop_id>/update-location/', views.update_shop_location, name='update-shop-location'),
+    path('shop/<str:shop_id>/manage-shipping/', views.manage_shipping_rates, name='manage-shipping-rates'),
     
     # Order Details
     path('profile/order/<int:id>',views.order_detail,name='order-detail'),
@@ -119,6 +136,41 @@ urlpatterns = [
     path("Terms-and-Conditions/", views.Terms, name= "Terms"),
     
     # Return Policy
-    path("Return-Policy/", views.ReturnPolicy, name= "ReturnPolicy"),
+    path("Return-Policy/", views.ReturnPolicy, name="ReturnPolicy"),
+    
+    # ================================ ORDER TRACKING & MANAGEMENT ================================
+    
+    # Order Management
+    path("orders/", views.order_list_view, name="order-list"),
+    path("orders/<str:order_number>/", views.order_detail_view, name="order-detail"),
+    path("orders/<str:order_number>/track/", views.track_order_view, name="track-order"),
+    path("orders/<str:order_number>/cancel/", views.cancel_order_view, name="cancel-order"),
+    path("orders/<str:order_number>/return/", views.return_order_view, name="return-order"),
+    
+    # Order API
+    path("api/orders/<str:order_number>/status/", views.order_status_api, name="order-status-api"),
+    
+    # ================================ RECOMMENDATION SYSTEM ================================
+    
+    # Recommendations
+    path("recommendations/", views.user_recommendations_view, name="user-recommendations"),
+    path("api/product/<int:product_id>/recommendations/", views.product_recommendations_api, name="product-recommendations-api"),
+    
+    # ================================ ANALYTICS & REPORTING ================================
+    
+    # Analytics Dashboards
+    path("admin/analytics/", views.analytics_dashboard_view, name="analytics-dashboard"),
+    path("admin/analytics/product/<int:product_id>/", views.product_analytics_view, name="product-analytics"),
+    path("admin/inventory/", views.inventory_dashboard_view, name="inventory-dashboard"),
+    path("admin/inventory/bulk-restock/", views.bulk_restock_view, name="bulk-restock"),
+    
+    # Analytics API
+    path("api/sales-report/", views.sales_report_api, name="sales-report-api"),
+    
+    # ================================ EMAIL MANAGEMENT ================================
+    
+    # Email Management
+    path("email/preferences/", views.email_preferences_view, name="email-preferences"),
+    path("unsubscribe/<int:user_id>/", views.email_unsubscribe_view, name="email-unsubscribe"),
     
 ]

@@ -1,0 +1,645 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fas fa-calendar-alt text-primary"></i>
+                        {% trans "Content Calendar" %}
+                    </h2>
+                    <p class="text-muted mb-0">{% trans "Plan and schedule your social media content" %}</p>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quickPostModal">
+                        <i class="fas fa-plus"></i> {% trans "Quick Post" %}
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-eye"></i> {% trans "View" %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="#" onclick="switchView('month')">
+                                <i class="fas fa-calendar"></i> {% trans "Month View" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('week')">
+                                <i class="fas fa-calendar-week"></i> {% trans "Week View" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="switchView('list')">
+                                <i class="fas fa-list"></i> {% trans "List View" %}
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Navigation -->
+            <div class="card shadow mb-4">
+                <div class="card-body py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="calendar-nav">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="previousMonth()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h5 class="mx-3 mb-0" id="currentMonth">{{ current_month|date:"F Y" }}</h5>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="nextMonth()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-legend">
+                            <span class="legend-item">
+                                <span class="legend-color published"></span> {% trans "Published" %}
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color scheduled"></span> {% trans "Scheduled" %}
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color draft"></span> {% trans "Draft" %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="card shadow" id="calendarView">
+                <div class="card-body p-0">
+                    <div class="calendar-container">
+                        <!-- Calendar Header -->
+                        <div class="calendar-header">
+                            <div class="calendar-day-header">{% trans "Sun" %}</div>
+                            <div class="calendar-day-header">{% trans "Mon" %}</div>
+                            <div class="calendar-day-header">{% trans "Tue" %}</div>
+                            <div class="calendar-day-header">{% trans "Wed" %}</div>
+                            <div class="calendar-day-header">{% trans "Thu" %}</div>
+                            <div class="calendar-day-header">{% trans "Fri" %}</div>
+                            <div class="calendar-day-header">{% trans "Sat" %}</div>
+                        </div>
+                        
+                        <!-- Calendar Body -->
+                        <div class="calendar-body" id="calendarGrid">
+                            <!-- Calendar cells will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List View (Hidden by default) -->
+            <div class="card shadow d-none" id="listView">
+                <div class="card-header">
+                    <h6 class="m-0 font-weight-bold text-primary">{% trans "Upcoming Posts" %}</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Content" %}</th>
+                                    <th>{% trans "Platforms" %}</th>
+                                    <th>{% trans "Scheduled Date" %}</th>
+                                    <th>{% trans "Status" %}</th>
+                                    <th>{% trans "Actions" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="postsList">
+                                {% for post in scheduled_posts %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if post.image %}
+                                                    <img src="{{ post.image.url }}" alt="Post image" 
+                                                         class="post-thumb me-2">
+                                                {% endif %}
+                                                <div>
+                                                    <p class="mb-1">{{ post.content|truncatechars:60 }}</p>
+                                                    <small class="text-muted">{{ post.hashtags }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {% for platform in post.platforms.all %}
+                                                <span class="badge bg-secondary me-1">
+                                                    <i class="fab fa-{{ platform.platform|lower }}"></i>
+                                                    {{ platform.platform }}
+                                                </span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <span class="text-nowrap">{{ post.scheduled_date|date:"M d, Y" }}</span><br>
+                                            <small class="text-muted">{{ post.scheduled_date|date:"g:i A" }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge 
+                                                {% if post.status == 'published' %}bg-success
+                                                {% elif post.status == 'scheduled' %}bg-warning
+                                                {% elif post.status == 'draft' %}bg-secondary
+                                                {% else %}bg-danger{% endif %}">
+                                                {{ post.get_status_display }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-outline-primary" onclick="editPost({{ post.id }})">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger" onclick="deletePost({{ post.id }})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">
+                                            {% trans "No scheduled posts found" %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Post Modal -->
+<div class="modal fade" id="quickPostModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus"></i> {% trans "Schedule New Post" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="quickPostForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="quickPostContent" class="form-label">{% trans "Content" %}</label>
+                        <textarea class="form-control" id="quickPostContent" name="content" rows="4" 
+                                  placeholder="{% trans 'What would you like to share?' %}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quickPostImage" class="form-label">{% trans "Image" %}</label>
+                        <input type="file" class="form-control" id="quickPostImage" name="image" accept="image/*">
+                        <div class="form-text">{% trans "Recommended size: 1200x630px" %}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quickPostHashtags" class="form-label">{% trans "Hashtags" %}</label>
+                        <input type="text" class="form-control" id="quickPostHashtags" name="hashtags" 
+                               placeholder="#hashtag1 #hashtag2">
+                        <div class="form-text">{% trans "Separate hashtags with spaces" %}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="quickPostDate" class="form-label">{% trans "Schedule Date" %}</label>
+                            <input type="date" class="form-control" id="quickPostDate" name="scheduled_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="quickPostTime" class="form-label">{% trans "Schedule Time" %}</label>
+                            <input type="time" class="form-control" id="quickPostTime" name="scheduled_time" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{% trans "Platforms" %}</label>
+                        <div class="platform-selection">
+                            {% for account in social_accounts %}
+                                {% if account.is_active %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                               name="platforms" value="{{ account.id }}" 
+                                               id="quick_platform_{{ account.id }}" checked>
+                                        <label class="form-check-label" for="quick_platform_{{ account.id }}">
+                                            <i class="fab fa-{{ account.platform|lower }}"></i>
+                                            {{ account.platform }} (@{{ account.username }})
+                                        </label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="schedulePost()">
+                    <i class="fas fa-calendar-plus"></i> {% trans "Schedule Post" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Post Detail Modal -->
+<div class="modal fade" id="postDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-eye"></i> {% trans "Post Details" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="postDetailContent">
+                <!-- Post details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="editCurrentPost()">
+                    <i class="fas fa-edit"></i> {% trans "Edit Post" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.calendar-container {
+    min-height: 600px;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.calendar-day-header {
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #495057;
+    border-right: 1px solid #dee2e6;
+}
+
+.calendar-day-header:last-child {
+    border-right: none;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day {
+    min-height: 120px;
+    border-right: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    padding: 8px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calendar-day:hover {
+    background-color: #f8f9fa;
+}
+
+.calendar-day:last-child,
+.calendar-day:nth-child(7n) {
+    border-right: none;
+}
+
+.calendar-day.other-month {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+}
+
+.calendar-day.today {
+    background-color: #e3f2fd;
+    border: 2px solid #2196f3;
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.post-item {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin-bottom: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.post-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-item.published {
+    border-left: 3px solid #28a745;
+    background: #d4edda;
+}
+
+.post-item.scheduled {
+    border-left: 3px solid #ffc107;
+    background: #fff3cd;
+}
+
+.post-item.draft {
+    border-left: 3px solid #6c757d;
+    background: #f8f9fa;
+}
+
+.legend-item {
+    margin-left: 20px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    margin-right: 6px;
+    display: inline-block;
+}
+
+.legend-color.published { background: #28a745; }
+.legend-color.scheduled { background: #ffc107; }
+.legend-color.draft { background: #6c757d; }
+
+.platform-selection .form-check {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.post-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.calendar-nav {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .calendar-day {
+        min-height: 80px;
+        font-size: 12px;
+    }
+    
+    .legend-item {
+        margin: 5px 10px 5px 0;
+        display: block;
+    }
+    
+    .calendar-legend {
+        margin-top: 10px;
+    }
+}
+</style>
+
+<script>
+let currentDate = new Date('{{ current_month|date:"Y-m-d" }}');
+let currentView = 'month';
+let posts = {{ posts_json|safe }};
+
+// Initialize calendar
+document.addEventListener('DOMContentLoaded', function() {
+    renderCalendar();
+});
+
+function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    
+    // Update month display
+    document.getElementById('currentMonth').textContent = 
+        new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    
+    // Get first day of month and number of days
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    
+    const calendarGrid = document.getElementById('calendarGrid');
+    calendarGrid.innerHTML = '';
+    
+    // Previous month days
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const day = daysInPrevMonth - i;
+        const dayElement = createDayElement(day, true, new Date(year, month - 1, day));
+        calendarGrid.appendChild(dayElement);
+    }
+    
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = createDayElement(day, false, new Date(year, month, day));
+        calendarGrid.appendChild(dayElement);
+    }
+    
+    // Next month days to fill grid
+    const totalCells = calendarGrid.children.length;
+    const remainingCells = 42 - totalCells; // 6 rows × 7 days
+    
+    for (let day = 1; day <= remainingCells; day++) {
+        const dayElement = createDayElement(day, true, new Date(year, month + 1, day));
+        calendarGrid.appendChild(dayElement);
+    }
+}
+
+function createDayElement(day, isOtherMonth, date) {
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'calendar-day';
+    if (isOtherMonth) dayDiv.classList.add('other-month');
+    
+    // Check if today
+    const today = new Date();
+    if (date.toDateString() === today.toDateString()) {
+        dayDiv.classList.add('today');
+    }
+    
+    dayDiv.innerHTML = `<div class="day-number">${day}</div>`;
+    
+    // Add posts for this date
+    const dayPosts = getPostsForDate(date);
+    dayPosts.forEach(post => {
+        const postDiv = document.createElement('div');
+        postDiv.className = `post-item ${post.status}`;
+        postDiv.textContent = post.content.substring(0, 20) + '...';
+        postDiv.onclick = (e) => {
+            e.stopPropagation();
+            viewPostDetails(post.id);
+        };
+        dayDiv.appendChild(postDiv);
+    });
+    
+    // Make day clickable to add new post
+    dayDiv.onclick = () => {
+        openQuickPost(date);
+    };
+    
+    return dayDiv;
+}
+
+function getPostsForDate(date) {
+    return posts.filter(post => {
+        const postDate = new Date(post.scheduled_date);
+        return postDate.toDateString() === date.toDateString();
+    });
+}
+
+function previousMonth() {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+}
+
+function nextMonth() {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+}
+
+function switchView(view) {
+    currentView = view;
+    
+    // Update active state
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    if (view === 'list') {
+        document.getElementById('calendarView').classList.add('d-none');
+        document.getElementById('listView').classList.remove('d-none');
+    } else {
+        document.getElementById('calendarView').classList.remove('d-none');
+        document.getElementById('listView').classList.add('d-none');
+    }
+}
+
+function openQuickPost(date) {
+    const modal = new bootstrap.Modal(document.getElementById('quickPostModal'));
+    
+    // Set date
+    const dateStr = date.toISOString().split('T')[0];
+    document.getElementById('quickPostDate').value = dateStr;
+    
+    modal.show();
+}
+
+function schedulePost() {
+    const form = document.getElementById('quickPostForm');
+    const formData = new FormData(form);
+    
+    // Combine date and time
+    const date = formData.get('scheduled_date');
+    const time = formData.get('scheduled_time');
+    formData.set('scheduled_date', date + 'T' + time);
+    
+    fetch('{% url "flame:schedule-post" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while scheduling the post.');
+    });
+}
+
+function viewPostDetails(postId) {
+    fetch(`/api/social/post/${postId}/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('postDetailContent').innerHTML = `
+                    <div class="post-detail">
+                        <div class="mb-3">
+                            <strong>{% trans "Content" %}:</strong>
+                            <p class="mt-2">${data.post.content}</p>
+                        </div>
+                        ${data.post.image ? `
+                            <div class="mb-3">
+                                <strong>{% trans "Image" %}:</strong><br>
+                                <img src="${data.post.image}" alt="Post image" class="img-fluid mt-2" style="max-height: 200px;">
+                            </div>
+                        ` : ''}
+                        <div class="mb-3">
+                            <strong>{% trans "Platforms" %}:</strong>
+                            ${data.post.platforms.map(p => `<span class="badge bg-secondary me-1"><i class="fab fa-${p.platform.toLowerCase()}"></i> ${p.platform}</span>`).join('')}
+                        </div>
+                        <div class="mb-3">
+                            <strong>{% trans "Scheduled Date" %}:</strong>
+                            ${new Date(data.post.scheduled_date).toLocaleString()}
+                        </div>
+                        <div class="mb-3">
+                            <strong>{% trans "Status" %}:</strong>
+                            <span class="badge ${data.post.status === 'published' ? 'bg-success' : data.post.status === 'scheduled' ? 'bg-warning' : 'bg-secondary'}">${data.post.status}</span>
+                        </div>
+                    </div>
+                `;
+                
+                const modal = new bootstrap.Modal(document.getElementById('postDetailModal'));
+                modal.show();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function editPost(postId) {
+    // This would open an edit modal
+    console.log('Edit post:', postId);
+}
+
+function deletePost(postId) {
+    if (confirm('{% trans "Are you sure you want to delete this post?" %}')) {
+        fetch(`/api/social/post/${postId}/delete/`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the post.');
+        });
+    }
+}
+</script>
+{% endblock %}

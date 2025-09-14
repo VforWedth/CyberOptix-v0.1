@@ -1,0 +1,130 @@
+[
+{
+  "model": "flame.wishlist",
+  "pk": 42,
+  "fields": {
+    "user": [
+      "desphixdjango@gmail.com"
+    ],
+    "product": 84,
+    "date": "2025-05-09T19:44:29.455Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 69,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 64,
+    "date": "2025-08-16T21:06:20.957Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 71,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 92,
+    "date": "2025-08-21T01:42:59.385Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 74,
+  "fields": {
+    "user": [
+      "user1123@gmail.com"
+    ],
+    "product": 15,
+    "date": "2025-08-21T04:35:27.186Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 75,
+  "fields": {
+    "user": [
+      "user1123@gmail.com"
+    ],
+    "product": 17,
+    "date": "2025-08-21T04:35:31.061Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 76,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 90,
+    "date": "2025-08-21T11:24:06.273Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 77,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 95,
+    "date": "2025-08-21T16:04:11.609Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 78,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 65,
+    "date": "2025-08-22T00:20:45.202Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 79,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 221,
+    "date": "2025-08-22T04:57:11.492Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 80,
+  "fields": {
+    "user": null,
+    "product": 215,
+    "date": "2025-08-22T11:42:10.829Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 81,
+  "fields": {
+    "user": null,
+    "product": 217,
+    "date": "2025-08-22T11:42:15.782Z"
+  }
+},
+{
+  "model": "flame.wishlist",
+  "pk": 82,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 38,
+    "date": "2025-09-12T04:35:43.787Z"
+  }
+}
+]

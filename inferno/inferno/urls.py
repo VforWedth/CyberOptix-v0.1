@@ -32,6 +32,10 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),  # Language switching
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('rosetta/', include('rosetta.urls')),  # Translation interface
+    
+    # API URLs (outside i18n_patterns for consistent API access)
+    path('api/', include('api.urls')),
+    
     # path('innwa/',include("innwaShop.urls")),
     # path('unique/',include("unique.urls")),
     # path('citicom/',include("citicomshop.urls")),

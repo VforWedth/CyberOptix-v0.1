@@ -1,0 +1,484 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fas fa-chart-line text-primary"></i>
+                        {% trans "Analytics Dashboard" %}
+                    </h2>
+                    <p class="text-muted mb-0">{{ date_range }}</p>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" 
+                            id="dateRangeDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-calendar"></i> {% trans "Date Range" %}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="?days=7">{% trans "Last 7 days" %}</a></li>
+                        <li><a class="dropdown-item" href="?days=30">{% trans "Last 30 days" %}</a></li>
+                        <li><a class="dropdown-item" href="?days=90">{% trans "Last 90 days" %}</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {% trans "Total Revenue" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalRevenue">
+                                        ${{ recent_sales.aggregate_total_revenue|floatformat:2 }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        {% trans "Total Orders" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalOrders">
+                                        {{ recent_sales.aggregate_total_orders }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        {% trans "Average Order Value" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="avgOrderValue">
+                                        ${{ recent_sales.aggregate_avg_order_value|floatformat:2 }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-chart-bar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        {% trans "New Customers" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="newCustomers">
+                                        {{ recent_sales.aggregate_new_customers }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Sales Trend Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Sales Trend" %}
+                            </h6>
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                                    <div class="dropdown-header">{% trans "Options" %}:</div>
+                                    <a class="dropdown-item" href="#" onclick="exportChart('sales')">
+                                        <i class="fas fa-download"></i> {% trans "Export Chart" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Status Distribution -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Order Status Distribution" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="orderStatusChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                {% for status in order_status_distribution %}
+                                    <span class="mr-2">
+                                        <i class="fas fa-circle text-{% cycle 'primary' 'success' 'warning' 'danger' 'info' 'secondary' %}"></i>
+                                        {{ status.product_status|title }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Top Products -->
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Top Performing Products" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            {% if top_products %}
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans "Product" %}</th>
+                                                <th>{% trans "Revenue" %}</th>
+                                                <th>{% trans "Growth" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in top_products %}
+                                                <tr>
+                                                    <td>{{ product.product__title|truncatechars:30 }}</td>
+                                                    <td class="font-weight-bold text-primary">
+                                                        ${{ product.total_revenue|floatformat:2 }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-success">+12%</span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-4">
+                                    <i class="fas fa-chart-bar fa-2x text-gray-400 mb-3"></i>
+                                    <p class="text-muted">{% trans "No product data available" %}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Recent Activity" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                {% for sale in recent_sales|slice:":5" %}
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker bg-primary">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <p class="mb-1">
+                                                        <strong>{{ sale.total_orders }}</strong> {% trans "orders placed" %}
+                                                    </p>
+                                                    <small class="text-muted">{{ sale.date|date:"M d, Y" }}</small>
+                                                </div>
+                                                <span class="badge badge-primary">
+                                                    ${{ sale.total_revenue|floatformat:2 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="text-center py-4">
+                                        <i class="fas fa-clock fa-2x text-gray-400 mb-3"></i>
+                                        <p class="text-muted">{% trans "No recent activity" %}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Tables -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Daily Sales Report" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="salesTable">
+                                    <thead>
+                                        <tr>
+                                            <th>{% trans "Date" %}</th>
+                                            <th>{% trans "Orders" %}</th>
+                                            <th>{% trans "Revenue" %}</th>
+                                            <th>{% trans "Items Sold" %}</th>
+                                            <th>{% trans "New Customers" %}</th>
+                                            <th>{% trans "Avg Order Value" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for sale in recent_sales %}
+                                            <tr>
+                                                <td>{{ sale.date|date:"M d, Y" }}</td>
+                                                <td>{{ sale.total_orders }}</td>
+                                                <td class="font-weight-bold text-success">
+                                                    ${{ sale.total_revenue|floatformat:2 }}
+                                                </td>
+                                                <td>{{ sale.total_items_sold }}</td>
+                                                <td>{{ sale.new_customers }}</td>
+                                                <td>${{ sale.average_order_value|floatformat:2 }}</td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">
+                                                    {% trans "No sales data available" %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary {
+    border-left: 4px solid #4A5C6A;
+}
+
+.border-left-success {
+    border-left: 4px solid #28a745;
+}
+
+.border-left-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.border-left-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.chart-area {
+    position: relative;
+    height: 320px;
+}
+
+.chart-pie {
+    position: relative;
+    height: 245px;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Sales Trend Chart
+const salesCtx = document.getElementById('salesChart').getContext('2d');
+const salesChart = new Chart(salesCtx, {
+    type: 'line',
+    data: {
+        labels: [
+            {% for sale in recent_sales %}
+                '{{ sale.date|date:"M d" }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            label: '{% trans "Revenue" %}',
+            data: [
+                {% for sale in recent_sales %}
+                    {{ sale.total_revenue }},
+                {% endfor %}
+            ],
+            borderColor: '#4A5C6A',
+            backgroundColor: 'rgba(74, 92, 106, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return '$' + value;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Order Status Pie Chart
+const statusCtx = document.getElementById('orderStatusChart').getContext('2d');
+const statusChart = new Chart(statusCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [
+            {% for status in order_status_distribution %}
+                '{{ status.product_status|title }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            data: [
+                {% for status in order_status_distribution %}
+                    {{ status.count }},
+                {% endfor %}
+            ],
+            backgroundColor: ['#4A5C6A', '#28a745', '#ffc107', '#dc3545', '#17a2b8']
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
+});
+
+// Auto-refresh data every 5 minutes
+setInterval(function() {
+    fetch('/api/sales-report/?days=7')
+        .then(response => response.json())
+        .then(data => {
+            // Update charts with new data
+            salesChart.data.labels = data.labels;
+            salesChart.data.datasets[0].data = data.revenue;
+            salesChart.update();
+            
+            // Update summary cards
+            document.getElementById('totalRevenue').textContent = '$' + data.revenue.reduce((a, b) => a + b, 0).toFixed(2);
+            document.getElementById('totalOrders').textContent = data.orders.reduce((a, b) => a + b, 0);
+        })
+        .catch(error => console.error('Error updating data:', error));
+}, 300000); // 5 minutes
+
+// Export chart function
+function exportChart(chartType) {
+    let chart = chartType === 'sales' ? salesChart : statusChart;
+    let url = chart.toBase64Image();
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = chartType + '-chart.png';
+    a.click();
+}
+</script>
+{% endblock %}

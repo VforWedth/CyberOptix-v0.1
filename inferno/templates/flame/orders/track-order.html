@@ -1,0 +1,364 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h2>
+                    <i class="fas fa-truck text-primary"></i>
+                    {% trans "Track Your Order" %}
+                </h2>
+                <p class="lead">{% trans "Order" %} #{{ order.order_number }}</p>
+                {% if order.tracking_number %}
+                    <p class="text-muted">
+                        {% trans "Tracking Number" %}: 
+                        <span class="font-monospace fw-bold">{{ order.tracking_number }}</span>
+                    </p>
+                {% endif %}
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="card mb-5">
+                <div class="card-body p-4">
+                    <div class="order-tracker">
+                        <div class="row text-center">
+                            <div class="col-md-2 order-status {% if tracking_info.progress_percentage >= 20 %}completed{% endif %}">
+                                <div class="icon-circle">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h6 class="mt-3">{% trans "Order Placed" %}</h6>
+                                <p class="text-muted small">
+                                    {% if order.order_date %}
+                                        {{ order.order_date|date:"M d, Y" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-2 order-status {% if tracking_info.progress_percentage >= 40 %}completed{% endif %}">
+                                <div class="icon-circle">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <h6 class="mt-3">{% trans "Payment Confirmed" %}</h6>
+                                <p class="text-muted small">
+                                    {% if order.confirmed_at %}
+                                        {{ order.confirmed_at|date:"M d, Y" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-2 order-status {% if tracking_info.progress_percentage >= 60 %}completed{% endif %}">
+                                <div class="icon-circle">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <h6 class="mt-3">{% trans "Processing" %}</h6>
+                                <p class="text-muted small">
+                                    {% if order.processed_at %}
+                                        {{ order.processed_at|date:"M d, Y" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-2 order-status {% if tracking_info.progress_percentage >= 80 %}completed{% endif %}">
+                                <div class="icon-circle">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <h6 class="mt-3">{% trans "Shipped" %}</h6>
+                                <p class="text-muted small">
+                                    {% if order.shipped_at %}
+                                        {{ order.shipped_at|date:"M d, Y" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="col-md-2 order-status {% if tracking_info.progress_percentage >= 100 %}completed{% endif %}">
+                                <div class="icon-circle">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h6 class="mt-3">{% trans "Delivered" %}</h6>
+                                <p class="text-muted small">
+                                    {% if order.delivered_at %}
+                                        {{ order.delivered_at|date:"M d, Y" }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Line -->
+                        <div class="progress-line">
+                            <div class="progress-fill" style="width: {{ tracking_info.progress_percentage }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Order Timeline -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-history"></i>
+                                {% trans "Order Timeline" %}
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                {% for history in status_history %}
+                                    <div class="timeline-item {% if forloop.first %}active{% endif %}">
+                                        <div class="timeline-marker">
+                                            <i class="fas fa-circle"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <h6 class="mb-1">{{ history.get_status_display }}</h6>
+                                                    <p class="text-muted mb-2">
+                                                        {{ history.timestamp|date:"F d, Y \a\t H:i" }}
+                                                    </p>
+                                                    {% if history.notes %}
+                                                        <p class="mb-0">{{ history.notes }}</p>
+                                                    {% endif %}
+                                                    {% if history.location %}
+                                                        <p class="mb-0">
+                                                            <i class="fas fa-map-marker-alt text-muted"></i>
+                                                            {{ history.location }}
+                                                        </p>
+                                                    {% endif %}
+                                                    {% if history.carrier %}
+                                                        <p class="mb-0">
+                                                            <i class="fas fa-truck text-muted"></i>
+                                                            {{ history.carrier }}
+                                                        </p>
+                                                    {% endif %}
+                                                </div>
+                                                {% if forloop.first %}
+                                                    <span class="badge bg-primary">{% trans "Latest" %}</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="text-center py-4">
+                                        <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                                        <p>{% trans "No tracking information available yet." %}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <!-- Current Status Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-info-circle"></i>
+                                {% trans "Current Status" %}
+                            </h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="status-icon mb-3">
+                                <i class="fas fa-{% if order.product_status == 'delivered' %}check-circle text-success{% elif order.product_status == 'shipped' %}truck text-primary{% elif order.product_status == 'processing' %}cog fa-spin text-warning{% elif order.product_status == 'cancelled' %}times-circle text-danger{% else %}clock text-muted{% endif %} fa-3x"></i>
+                            </div>
+                            <h4 class="mb-2">{{ order.get_product_status_display }}</h4>
+                            <div class="progress mb-3" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ tracking_info.progress_percentage }}%"
+                                     aria-valuenow="{{ tracking_info.progress_percentage }}" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                            <p class="text-muted">
+                                {{ tracking_info.progress_percentage }}% {% trans "Complete" %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Info -->
+                    {% if order.estimated_delivery or order.delivery_address %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {% trans "Delivery Info" %}
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                {% if order.estimated_delivery %}
+                                    <div class="mb-3">
+                                        <h6>{% trans "Estimated Delivery" %}</h6>
+                                        <p class="mb-0">
+                                            <i class="fas fa-calendar text-primary"></i>
+                                            {{ order.estimated_delivery|date:"F d, Y" }}
+                                        </p>
+                                    </div>
+                                {% endif %}
+                                {% if order.delivery_address %}
+                                    <div>
+                                        <h6>{% trans "Delivery Address" %}</h6>
+                                        <p class="mb-0">{{ order.delivery_address }}</p>
+                                        {% if order.delivery_phone %}
+                                            <p class="text-muted mb-0">
+                                                <i class="fas fa-phone"></i> {{ order.delivery_phone }}
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-tools"></i>
+                                {% trans "Actions" %}
+                            </h5>
+                        </div>
+                        <div class="card-body d-grid gap-2">
+                            <a href="{% url 'flame:order-detail' order.order_number %}" 
+                               class="btn btn-outline-primary">
+                                <i class="fas fa-eye"></i> {% trans "View Order Details" %}
+                            </a>
+                            {% if tracking_info.can_cancel %}
+                                <a href="{% url 'flame:cancel-order' order.order_number %}" 
+                                   class="btn btn-outline-danger">
+                                    <i class="fas fa-times"></i> {% trans "Cancel Order" %}
+                                </a>
+                            {% endif %}
+                            {% if tracking_info.can_return %}
+                                <a href="{% url 'flame:return-order' order.order_number %}" 
+                                   class="btn btn-outline-warning">
+                                    <i class="fas fa-undo"></i> {% trans "Return Order" %}
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'flame:order-list' %}" 
+                               class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left"></i> {% trans "Back to Orders" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.order-tracker {
+    position: relative;
+    padding: 20px 0;
+}
+
+.order-status .icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.order-status.completed .icon-circle {
+    background: #4A5C6A;
+    color: white;
+}
+
+.progress-line {
+    position: absolute;
+    top: 50px;
+    left: 10%;
+    right: 10%;
+    height: 4px;
+    background: #e9ecef;
+    z-index: -1;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #4A5C6A;
+    transition: width 0.5s ease;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-item.active .timeline-marker {
+    background: #4A5C6A;
+    color: white;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 3px solid #4A5C6A;
+}
+
+.progress-bar {
+    background-color: #4A5C6A;
+}
+</style>
+
+<script>
+// Auto refresh tracking status every 30 seconds
+setInterval(function() {
+    fetch(`/api/orders/{{ order.order_number }}/status/`)
+        .then(response => response.json())
+        .then(data => {
+            // Update progress bar
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.width = data.progress_percentage + '%';
+                progressBar.setAttribute('aria-valuenow', data.progress_percentage);
+            }
+            
+            // Update progress text
+            const progressText = document.querySelector('.progress-bar').parentElement.nextElementSibling;
+            if (progressText) {
+                progressText.textContent = data.progress_percentage + '% {% trans "Complete" %}';
+            }
+        })
+        .catch(error => console.error('Error updating tracking status:', error));
+}, 30000);
+</script>
+{% endblock %}

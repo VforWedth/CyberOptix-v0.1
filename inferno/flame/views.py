@@ -2,7 +2,13 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.dateformat import format as date_format
 from django.utils import timezone
 from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest
-from flame.models import Brand, Product,ExchangeRate, Category, Shop, CartOrder, CartOrderItem, ProductImages, ProductReview , Wishlist, Address
+from userauths.models import User
+from flame.models import (
+    Brand, Product, ExchangeRate, Category, Shop, CartOrder, CartOrderItem, 
+    ProductImages, ProductReview, Wishlist, Address, OrderStatusHistory,
+    UserBehavior, RecommendationList, RecommendationItem, EmailLog,
+    InventoryLog, ProductAnalytics, SalesAnalytics
+)
 
 from django.db.models import Count,Avg,F, ExpressionWrapper, FloatField
 from flame.forms import ProductReviewForm
@@ -51,11 +57,11 @@ def home(request):
         # Use translated fields in ordering
     if current_language == 'my':
         popular_qs = base_qs.annotate(
-            review_count=Count('productreview')
+            review_count=Count('reviews')
         ).order_by('-review_count', '-date')[:10]
     else:
         popular_qs = base_qs.annotate(
-            review_count=Count('productreview')
+            review_count=Count('reviews')
         ).order_by('-review_count', '-date')[:10]
         
     # 2) Discounted Items: where price < old_price
@@ -148,7 +154,7 @@ def product_list_view(request):
     # Prepare special sections (always show these)
     popular_items = (
         base_qs
-        .annotate(review_count=Count('productreview'))
+        .annotate(review_count=Count('reviews'))
         .order_by('-review_count', '-date')[:10]
     )
     
@@ -309,39 +315,262 @@ def shop_product_detail_view(request, pid, sid):
 
 @login_required
 # Review view
-def ajax_add_review(request,pid):
+def ajax_add_review(request, pid):
     product = Product.objects.get(pk=pid)
     user = request.user
    
     review = ProductReview.objects.create(
-        user = user,
-        product = product,
-        review = request.POST['review'],
-        rating = request.POST['rating'],
+        user=user,
+        product=product,
+        review=request.POST['review'],
+        rating=request.POST['rating'],
     )
     context = {
-
-        'user' : user.username,
-        'review' : request.POST['review'],
-        'rating' : request.POST['rating'],
-        
+        'user': user.username,
+        'review': request.POST['review'],
+        'rating': request.POST['rating'],
     }
     
     # Format the date
     review_date = date_format(review.date, 'd M, Y')
     
-    average_reviews = ProductReview.objects.filter(product = product).aggregate(rating = Avg('rating'))   
+    average_reviews = ProductReview.objects.filter(product=product).aggregate(rating=Avg('rating'))   
     
-    return JsonResponse(
-        {
-            'bool' : True,
-            'context' : context,
-            'review': request.POST['review'],
-            'rating': request.POST['rating'],
-            'date': review_date,  # Send formatted date
-            'average_reviews' : average_reviews,
+    return JsonResponse({
+        'bool': True,
+        'context': context,
+        'review': request.POST['review'],
+        'rating': request.POST['rating'],
+        'date': review_date,
+        'average_reviews': average_reviews,
+    })
+
+@login_required
+def enhanced_add_review(request, pid):
+    """Enhanced review submission with detailed ratings"""
+    product = get_object_or_404(Product, pk=pid)
+    
+    # Check if user can review this product
+    if not product.can_user_review(request.user):
+        return JsonResponse({
+            'success': False,
+            'error': _("You cannot review this product")
+        }, status=400)
+    
+    if request.method == 'POST':
+        from flame.forms import EnhancedProductReviewForm
+        form = EnhancedProductReviewForm(request.POST)
+        
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            
+            # Check if this is a verified purchase
+            from flame.models import CartOrderItem
+            has_purchased = CartOrderItem.objects.filter(
+                order__user=request.user,
+                product=product,
+                order__product_status='delivered'
+            ).exists()
+            
+            review.is_verified_purchase = has_purchased
+            review.save()
+            
+            # Track user behavior
+            UserBehavior.objects.create(
+                user=request.user,
+                product=product,
+                action='review',
+                session_id=request.session.session_key,
+                ip_address=request.META.get('REMOTE_ADDR'),
+                score=5.0  # High score for review action
+            )
+            
+            # Calculate new averages
+            reviews_summary = product.reviews.filter(is_approved=True).aggregate(
+                avg_rating=Avg('rating'),
+                avg_quality=Avg('quality_rating'),
+                avg_value=Avg('value_rating'),
+                avg_delivery=Avg('delivery_rating'),
+                total_reviews=Count('id')
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': _("Review submitted successfully"),
+                'review_data': {
+                    'id': review.id,
+                    'title': review.title,
+                    'review': review.review,
+                    'rating': review.rating,
+                    'quality_rating': review.quality_rating,
+                    'value_rating': review.value_rating,
+                    'delivery_rating': review.delivery_rating,
+                    'date': date_format(review.date, 'd M, Y'),
+                    'user': request.user.username,
+                    'is_verified': review.is_verified_purchase,
+                },
+                'averages': reviews_summary
+            })
+        else:
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+@login_required
+def mark_review_helpful(request, review_id):
+    """Mark a review as helpful or unhelpful"""
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Invalid request method'}, status=405)
+    
+    review = get_object_or_404(ProductReview, id=review_id)
+    is_helpful = request.POST.get('helpful') == 'true'
+    
+    from flame.models import ReviewHelpful
+    
+    # Remove any existing vote by this user
+    ReviewHelpful.objects.filter(user=request.user, review=review).delete()
+    
+    # Add new vote
+    ReviewHelpful.objects.create(
+        user=request.user,
+        review=review,
+        is_helpful=is_helpful
+    )
+    
+    # Update review counters
+    helpful_count = ReviewHelpful.objects.filter(review=review, is_helpful=True).count()
+    unhelpful_count = ReviewHelpful.objects.filter(review=review, is_helpful=False).count()
+    
+    review.helpful_count = helpful_count
+    review.unhelpful_count = unhelpful_count
+    review.save()
+    
+    return JsonResponse({
+        'success': True,
+        'helpful_count': helpful_count,
+        'unhelpful_count': unhelpful_count
+    })
+
+@login_required
+def report_review(request, review_id):
+    """Report an inappropriate review"""
+    review = get_object_or_404(ProductReview, id=review_id)
+    
+    if request.method == 'POST':
+        from flame.forms import ReviewReportForm
+        form = ReviewReportForm(request.POST)
+        
+        if form.is_valid():
+            # Check if user has already reported this review
+            from flame.models import ReviewReport
+            existing_report = ReviewReport.objects.filter(
+                review=review,
+                reported_by=request.user
+            ).first()
+            
+            if existing_report:
+                return JsonResponse({
+                    'success': False,
+                    'error': _("You have already reported this review")
+                })
+            
+            report = form.save(commit=False)
+            report.review = review
+            report.reported_by = request.user
+            report.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': _("Review reported successfully. We will review it shortly.")
+            })
+        else:
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+
+def product_reviews_api(request, product_id):
+    """API endpoint for product reviews with pagination and filtering"""
+    product = get_object_or_404(Product, id=product_id)
+    
+    # Get query parameters
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 10))
+    rating_filter = request.GET.get('rating')
+    sort_by = request.GET.get('sort', '-date')
+    verified_only = request.GET.get('verified') == 'true'
+    
+    # Build queryset
+    reviews = product.reviews.filter(is_approved=True)
+    
+    if rating_filter:
+        reviews = reviews.filter(rating=int(rating_filter))
+    
+    if verified_only:
+        reviews = reviews.filter(is_verified_purchase=True)
+    
+    # Apply sorting
+    if sort_by == 'helpful':
+        reviews = reviews.order_by('-helpful_count', '-date')
+    elif sort_by == 'rating_high':
+        reviews = reviews.order_by('-rating', '-date')
+    elif sort_by == 'rating_low':
+        reviews = reviews.order_by('rating', '-date')
+    else:
+        reviews = reviews.order_by('-date')
+    
+    # Pagination
+    from django.core.paginator import Paginator
+    paginator = Paginator(reviews, per_page)
+    page_obj = paginator.get_page(page)
+    
+    # Serialize reviews
+    reviews_data = []
+    for review in page_obj:
+        reviews_data.append({
+            'id': review.id,
+            'title': review.title,
+            'review': review.review,
+            'rating': review.rating,
+            'quality_rating': review.quality_rating,
+            'value_rating': review.value_rating,
+            'delivery_rating': review.delivery_rating,
+            'date': review.date.isoformat(),
+            'user': review.user.username,
+            'is_verified': review.is_verified_purchase,
+            'is_featured': review.is_featured,
+            'helpful_count': review.helpful_count,
+            'unhelpful_count': review.unhelpful_count,
+        })
+    
+    # Get rating breakdown
+    rating_breakdown = product.get_rating_breakdown()
+    
+    data = {
+        'reviews': reviews_data,
+        'pagination': {
+            'page': page_obj.number,
+            'total_pages': page_obj.paginator.num_pages,
+            'total_reviews': page_obj.paginator.count,
+            'has_next': page_obj.has_next(),
+            'has_previous': page_obj.has_previous(),
+        },
+        'summary': {
+            'average_rating': product.get_average_rating(),
+            'total_reviews': product.get_review_count(),
+            'verified_reviews': product.get_verified_review_count(),
+            'rating_breakdown': rating_breakdown,
         }
-    )     
+    }
+    
+    return JsonResponse(data)     
 
 #search views
 def search_view(request):
@@ -785,7 +1014,174 @@ def format_price_api(request):
             'success': False
         })
 
-    
+# ================================ LOCATION API ENDPOINTS ================================
+
+def get_states_api(request):
+    """API endpoint to get all Myanmar states"""
+    try:
+        from flame.models import MyanmarState
+        states = MyanmarState.objects.all().order_by('name')
+
+        states_data = []
+        for state in states:
+            states_data.append({
+                'id': state.id,
+                'name': state.name,
+                'name_mm': state.name_mm,
+                'code': state.code
+            })
+
+        return JsonResponse({
+            'states': states_data
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_cities_by_state_api(request):
+    """API endpoint to get cities by state"""
+    state_id = request.GET.get('state_id')
+
+    if not state_id:
+        return JsonResponse({'error': 'State ID required'}, status=400)
+
+    try:
+        from flame.models import MyanmarCity
+        cities = MyanmarCity.objects.filter(state_id=state_id).order_by('name')
+
+        cities_data = []
+        for city in cities:
+            cities_data.append({
+                'id': city.id,
+                'name': city.name,
+                'name_mm': city.name_mm,
+                'is_major_city': city.is_major_city
+            })
+
+        return JsonResponse({
+            'cities': cities_data
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_townships_by_city_api(request):
+    """API endpoint to get townships by city"""
+    city_id = request.GET.get('city_id')
+
+    if not city_id:
+        return JsonResponse({'error': 'City ID required'}, status=400)
+
+    try:
+        from flame.models import MyanmarTownship
+        townships = MyanmarTownship.objects.filter(city_id=city_id).order_by('name')
+
+        townships_data = []
+        for township in townships:
+            townships_data.append({
+                'id': township.id,
+                'name': township.name,
+                'name_mm': township.name_mm
+            })
+
+        return JsonResponse({
+            'townships': townships_data
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+def store_checkout_address_api(request):
+    """API endpoint to store checkout address data in session"""
+    if request.method == 'POST':
+        try:
+            import json
+            address_data = json.loads(request.body)
+            request.session['checkout_address_data'] = address_data
+            request.session.modified = True
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+def calculate_shipping_fee_api(request):
+    """API endpoint to calculate shipping fees"""
+    shop_id = request.GET.get('shop_id')
+    customer_city_id = request.GET.get('customer_city_id')
+
+    if not shop_id or not customer_city_id:
+        return JsonResponse({'error': 'Shop ID and Customer City ID required'}, status=400)
+
+    try:
+        from flame.models import Shop, MyanmarCity, ShippingRate, ExchangeRate
+        from decimal import Decimal
+
+        shop = Shop.objects.get(shop_id=shop_id)
+        customer_city = MyanmarCity.objects.get(id=customer_city_id)
+
+        # Get current exchange rate
+        try:
+            exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+        except:
+            exchange_rate = Decimal('3500')
+
+        shipping_fee_mmk = Decimal('0')
+        shipping_fee_usd = Decimal('0')
+
+        # Check if shop has location data
+        if shop.city and shop.state:
+            # Try to find exact shipping rate
+            try:
+                shipping_rate = ShippingRate.objects.get(
+                    shop=shop,
+                    from_city=shop.city,
+                    to_city=customer_city
+                )
+                shipping_fee_mmk = shipping_rate.rate_mmk
+                shipping_fee_usd = shipping_rate.rate_usd
+            except ShippingRate.DoesNotExist:
+                # Use default rates based on location relationship
+                if shop.city == customer_city:
+                    # Same city - free or minimal shipping
+                    shipping_fee_mmk = Decimal('1000')  # 1,000 MMK for same city
+                    shipping_fee_usd = Decimal('0.30')
+                elif shop.state == customer_city.state:
+                    # Same state - moderate shipping
+                    shipping_fee_mmk = Decimal('3000')  # 3,000 MMK for same state
+                    shipping_fee_usd = Decimal('1.00')
+                else:
+                    # Different state - higher shipping
+                    shipping_fee_mmk = Decimal('5000')  # 5,000 MMK for different state
+                    shipping_fee_usd = Decimal('1.50')
+        else:
+            # Shop doesn't have location data - use default
+            shipping_fee_mmk = Decimal('3000')
+            shipping_fee_usd = Decimal('1.00')
+
+        # Format the results
+        current_language = translation.get_language()
+        is_myanmar = current_language == 'my'
+
+        from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency
+
+        if is_myanmar:
+            shipping_fee_display = format_myanmar_currency(shipping_fee_mmk)
+            shipping_fee_alt_display = format_usd_currency(shipping_fee_usd)
+        else:
+            shipping_fee_display = format_usd_currency(shipping_fee_usd)
+            shipping_fee_alt_display = format_myanmar_currency(shipping_fee_mmk)
+
+        return JsonResponse({
+            'shipping_fee_mmk': float(shipping_fee_mmk),
+            'shipping_fee_usd': float(shipping_fee_usd),
+            'shipping_fee_display': shipping_fee_display,
+            'shipping_fee_alt_display': shipping_fee_alt_display,
+            'is_myanmar': is_myanmar,
+            'is_same_city': shop.city == customer_city if shop.city else False,
+            'is_same_state': shop.state == customer_city.state if shop.state else False,
+            'exchange_rate': float(exchange_rate)
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 # Cart View (With Specific Shop)
 def shop_cart_view(request):
     current_language = translation.get_language()
@@ -1093,7 +1489,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 @login_required
 def shop_checkout_view(request, sid):
     from django.utils import translation
-    from flame.models import ExchangeRate
+    from flame.models import ExchangeRate, MyanmarState, MyanmarCity, MyanmarTownship
     from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
     from decimal import Decimal
     
@@ -1127,8 +1523,10 @@ def shop_checkout_view(request, sid):
             user=request.user,
             shop=shop,
             price=order_total,
+            total_amount=order_total,
             order_type='shop',
-            paid_status=False
+            paid_status=False,
+            payment_method='paypal'  # Default for checkout page
         )
         
         # Create order items and prepare display data
@@ -1200,6 +1598,9 @@ def shop_checkout_view(request, sid):
             active_address = None
             messages.warning(request, _("Please add a shipping address"))
 
+        # Get Myanmar location data for the form
+        myanmar_states = MyanmarState.objects.all().order_by('name')
+
         context = {
             "shop_views": shop_views,
             'order': order,
@@ -1215,8 +1616,9 @@ def shop_checkout_view(request, sid):
             'current_language': current_language,
             'exchange_rate': float(exchange_rate),
             'is_myanmar': current_language == 'my',
+            'myanmar_states': myanmar_states,
         }
-        
+
         return render(request, 'flame/checkout.html', context)
 
     except Shop.DoesNotExist:
@@ -1443,23 +1845,56 @@ def stripe_payment_completed_view(request, sid):
     try:
         shop = Shop.objects.get(shop_id=sid)
         session_id = request.GET.get('session_id')
-        
+
         if session_id:
             # Verify payment with Stripe
             session = stripe.checkout.Session.retrieve(session_id)
-            
+
             if session.payment_status == 'paid':
                 # Create order record
                 cart_data = request.session.get('cart_data', {}).get(sid, {})
                 order_total = sum(item['qty'] * item['price'] for item in cart_data.values())
-                
+
+                # Try to get address data from session (JavaScript stored it)
+                address_data = request.session.get('checkout_address_data', {})
+                shipping_fee = float(address_data.get('shipping_fee', 0))
+                total_with_shipping = order_total + shipping_fee
+
+                # Build delivery address if available
+                delivery_address = ""
+                if address_data:
+                    try:
+                        from flame.models import MyanmarState, MyanmarCity, MyanmarTownship
+                        state = MyanmarState.objects.get(id=address_data.get('state')) if address_data.get('state') else None
+                        city = MyanmarCity.objects.get(id=address_data.get('city')) if address_data.get('city') else None
+                        township = MyanmarTownship.objects.get(id=address_data.get('township')) if address_data.get('township') else None
+
+                        parts = []
+                        if address_data.get('street_address'):
+                            parts.append(address_data.get('street_address'))
+                        if township:
+                            parts.append(township.name)
+                        if city:
+                            parts.append(city.name)
+                        if state:
+                            parts.append(state.name)
+                        if address_data.get('landmark'):
+                            parts.append(f"Near {address_data.get('landmark')}")
+
+                        delivery_address = ", ".join(parts)
+                    except:
+                        pass  # If address lookup fails, use empty string
+
                 order = CartOrder.objects.create(
                     user=request.user,
                     shop=shop,
                     price=order_total,
+                    shipping_cost=shipping_fee,
+                    total_amount=total_with_shipping,
                     order_type='shop',
                     payment_method='stripe',
                     paid_status=True,
+                    delivery_address=delivery_address,
                     stripe_payment_intent=session.payment_intent
                 )
                 
@@ -1593,14 +2028,21 @@ def shop_payment_completed_view(request, sid):
             
             order_items_display.append(item_data)
         
-        # Format order total
+        # Format order total and shipping
         if current_language == 'my':
-            total_mmk = Decimal(str(order.price)) * exchange_rate
+            subtotal_mmk = Decimal(str(order.price)) * exchange_rate
+            shipping_mmk = Decimal(str(order.shipping_cost)) * exchange_rate
+            total_mmk = Decimal(str(order.total_amount)) * exchange_rate
+
+            order_subtotal_display = format_myanmar_currency(subtotal_mmk)
+            order_shipping_display = format_myanmar_currency(shipping_mmk) if order.shipping_cost > 0 else _("Free")
             order_total_display = format_myanmar_currency(total_mmk)
-            order_total_usd = f"(${order.price:.2f})"
+            order_total_usd = f"(${order.total_amount:.2f})"
             order_id_display = convert_to_myanmar_numerals(str(order.id))
         else:
-            order_total_display = f"${order.price:.2f}"
+            order_subtotal_display = f"${order.price:.2f}"
+            order_shipping_display = f"${order.shipping_cost:.2f}" if order.shipping_cost > 0 else _("Free")
+            order_total_display = f"${order.total_amount:.2f}"
             order_total_usd = None
             order_id_display = str(order.id)
         
@@ -1614,9 +2056,14 @@ def shop_payment_completed_view(request, sid):
             'order': order,
             'order_items': order_items_display,
             'shop': shop,
+            'order_subtotal_display': order_subtotal_display,
+            'order_shipping_display': order_shipping_display,
             'order_total_display': order_total_display,
             'order_total_usd': order_total_usd,
             'order_id_display': order_id_display,
+            'delivery_address': order.delivery_address,
+            'delivery_phone': order.delivery_phone,
+            'payment_method': order.get_payment_method_display(),
             'current_language': current_language,
             'exchange_rate': float(exchange_rate),
             'is_myanmar': current_language == 'my',
@@ -1662,17 +2109,162 @@ def shop_payment_completed_view(request, sid):
 def payment_failed_view(request):
     return render(request, 'flame/payment-failed.html')
 
+@login_required
+def cod_payment_view(request, sid):
+    """Handle Cash on Delivery payment processing"""
+    from django.utils import translation
+    from flame.models import ExchangeRate
+    from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
+    from decimal import Decimal
+    
+    if request.method != 'POST':
+        return redirect('flame:shop-checkout', sid=sid)
+    
+    shop_views = Shop.objects.all()
+    current_language = translation.get_language()
+    
+    try:
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    except:
+        exchange_rate = Decimal('3500')
+    
+    try:
+        # Get shop
+        shop = Shop.objects.get(shop_id=sid)
+        
+        # Get cart data for this specific shop
+        cart_data = request.session.get('cart_data', {}).get(sid, {})
+        
+        if not cart_data:
+            messages.error(request, _("Your cart for this shop is empty"))
+            return redirect('flame:shop-cart')
+        
+        # Calculate order total in USD
+        order_total = sum(
+            int(item.get('qty', 0)) * float(item.get('price', 0)) 
+            for item in cart_data.values()
+        )
+        
+        # Get delivery address from form data
+        state_id = request.POST.get('state')
+        city_id = request.POST.get('city')
+        township_id = request.POST.get('township')
+        street_address = request.POST.get('street_address')
+        landmark = request.POST.get('landmark', '')
+        shipping_fee = float(request.POST.get('shipping_fee', 0))
+
+        if not all([state_id, city_id, street_address]):
+            messages.error(request, _("Please fill in your complete delivery address"))
+            return redirect('flame:shop-checkout', sid=sid)
+
+        try:
+            from flame.models import MyanmarState, MyanmarCity, MyanmarTownship
+
+            state = MyanmarState.objects.get(id=state_id)
+            city = MyanmarCity.objects.get(id=city_id, state=state)
+            township = None
+            if township_id:
+                township = MyanmarTownship.objects.get(id=township_id, city=city)
+
+            # Create or update user's address
+            address_data = {
+                'state': state,
+                'city': city,
+                'township': township,
+                'street_address': street_address,
+                'landmark': landmark,
+            }
+
+            # Try to get user's active address, create if not exists
+            try:
+                active_address = Address.objects.get(user=request.user, status=True)
+                # Update existing address
+                for field, value in address_data.items():
+                    setattr(active_address, field, value)
+                active_address.save()
+            except Address.DoesNotExist:
+                # Create new address
+                active_address = Address.objects.create(
+                    user=request.user,
+                    status=True,
+                    **address_data
+                )
+
+            # Build delivery address string
+            delivery_parts = [street_address]
+            if township:
+                delivery_parts.append(township.name)
+            delivery_parts.extend([city.name, state.name])
+            if landmark:
+                delivery_parts.append(f"Near {landmark}")
+
+            delivery_address = ", ".join(delivery_parts)
+            delivery_phone = active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else "Not provided"
+
+        except (MyanmarState.DoesNotExist, MyanmarCity.DoesNotExist, MyanmarTownship.DoesNotExist):
+            messages.error(request, _("Invalid delivery location selected"))
+            return redirect('flame:shop-checkout', sid=sid)
+        
+        # Calculate total with shipping
+        total_with_shipping = order_total + shipping_fee
+
+        # Create order with COD payment method
+        order = CartOrder.objects.create(
+            user=request.user,
+            shop=shop,
+            price=order_total,
+            shipping_cost=shipping_fee,
+            total_amount=total_with_shipping,
+            order_type='shop',
+            paid_status=False,  # COD orders are not paid immediately
+            payment_method='cod',
+            delivery_address=delivery_address,
+            delivery_phone=delivery_phone,
+            product_status='pending'  # COD orders start as pending
+        )
+        
+        # Create order items
+        for product_id, item in cart_data.items():
+            CartOrderItem.objects.create(
+                order=order,
+                invoice_no=f"INVOICE-COD-{order.id}",
+                product_status='pending',
+                item=item.get('title', ''),
+                image=item.get('image', ''),
+                qty=int(item.get('qty', 1)),
+                price=float(item.get('price', 0)),
+                total=int(item.get('qty', 1)) * float(item.get('price', 0))
+            )
+        
+        # Clear cart for this shop after successful order creation
+        if 'cart_data' in request.session and sid in request.session['cart_data']:
+            del request.session['cart_data'][sid]
+            request.session.modified = True
+        
+        # Add success message
+        messages.success(request, _("Cash on Delivery order placed successfully! You will pay when your order is delivered."))
+        
+        # Redirect to payment completed page
+        return redirect('flame:payment-completed', sid=sid)
+        
+    except Shop.DoesNotExist:
+        messages.error(request, _("Shop not found"))
+        return redirect('flame:home')
+    except Exception as e:
+        messages.error(request, _("An error occurred while processing your order. Please try again."))
+        return redirect('flame:shop-checkout', sid=sid)
+
 # Profile View
 def customer_profile(request):
     shop_views=Shop.objects.all()
 
     orders = CartOrder.objects.filter(user=request.user).order_by('-id')
     address = Address.objects.filter(user=request.user)
-    
+
     if request.method == "POST":
         address = request.POST.get("address")
         mobile = request.POST.get("mobile")
-        
+
         new_address = Address.objects.create(
             user = request.user,
             address= address,
@@ -1680,15 +2272,204 @@ def customer_profile(request):
         )
         messages.success(request, "Address Added Successfully")
         return redirect('flame:profile')
-    
+
     context ={
         "shop_views": shop_views,
 
         "orders": orders,
         "address":address,
-        
+
     }
     return render(request, 'flame/profile.html', context)
+
+# ================================ SHOP PROFILE MANAGEMENT ================================
+
+@login_required
+def shop_profile_view(request, shop_id):
+    """Shop profile management with location and shipping settings"""
+    from django.utils import translation
+    from flame.models import MyanmarState, MyanmarCity, MyanmarTownship, ShippingRate
+    from flame.forms import ShopLocationForm, ShippingRateForm
+
+    try:
+        shop = get_object_or_404(Shop, shop_id=shop_id, user=request.user)
+
+        current_language = translation.get_language()
+        myanmar_states = MyanmarState.objects.all().order_by('name')
+        myanmar_cities = MyanmarCity.objects.all().order_by('name')
+
+        # Initialize forms
+        location_form = ShopLocationForm(instance=shop)
+        shipping_form = ShippingRateForm()
+
+        # Get existing shipping rates for this shop
+        shipping_rates = ShippingRate.objects.filter(shop=shop).select_related(
+            'from_city', 'from_state', 'to_city', 'to_state'
+        ).order_by('to_state__name', 'to_city__name')
+
+        # Get recent orders for this shop
+        try:
+            recent_orders = CartOrder.objects.filter(
+                cartorderitem__product__shop=shop
+            ).distinct().order_by('-date')[:10]
+        except:
+            recent_orders = []
+
+        context = {
+            'shop': shop,
+            'myanmar_states': myanmar_states,
+            'myanmar_cities': myanmar_cities,
+            'shipping_rates': shipping_rates,
+            'recent_orders': recent_orders,
+            'location_form': location_form,
+            'shipping_form': shipping_form,
+            'is_myanmar': current_language == 'my',
+            'current_language': current_language,
+        }
+
+        return render(request, 'flame/shop_profile.html', context)
+
+    except Shop.DoesNotExist:
+        messages.error(request, _("Shop not found or you don't have permission to access it"))
+        return redirect('flame:home')
+
+@login_required
+def update_shop_location(request, shop_id):
+    """Update shop location information"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    try:
+        from flame.forms import ShopLocationForm
+
+        shop = get_object_or_404(Shop, shop_id=shop_id, user=request.user)
+
+        form = ShopLocationForm(request.POST, instance=shop)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, _("Shop location updated successfully"))
+            return JsonResponse({
+                'success': True,
+                'message': _("Shop location updated successfully"),
+                'shop_address': shop.get_shop_full_address() if hasattr(shop, 'get_shop_full_address') else f"{shop.state}, {shop.city}, {shop.township}"
+            })
+        else:
+            errors = []
+            for field, field_errors in form.errors.items():
+                errors.extend([f"{field}: {error}" for error in field_errors])
+            return JsonResponse({'error': '; '.join(errors)}, status=400)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def manage_shipping_rates(request, shop_id):
+    """Manage shipping rates for a shop"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    try:
+        from flame.models import MyanmarCity, ShippingRate
+        from flame.forms import ShippingRateForm
+        from decimal import Decimal
+
+        shop = get_object_or_404(Shop, shop_id=shop_id, user=request.user)
+        action = request.POST.get('action')
+
+        if action == 'add_rate':
+            if not shop.city or not shop.state:
+                return JsonResponse({'error': 'Shop location must be set first'}, status=400)
+
+            # Use form for validation
+            form_data = {
+                'to_city': request.POST.get('to_city_id'),
+                'rate_mmk': request.POST.get('rate_mmk'),
+                'rate_usd': request.POST.get('rate_usd'),
+                'estimated_days': request.POST.get('estimated_days', 3),
+                'is_active': request.POST.get('is_active', 'on') == 'on',
+            }
+
+            form = ShippingRateForm(form_data)
+
+            if form.is_valid():
+                try:
+                    to_city = form.cleaned_data['to_city']
+
+                    shipping_rate, created = ShippingRate.objects.update_or_create(
+                        shop=shop,
+                        from_city=shop.city,
+                        to_city=to_city,
+                        defaults={
+                            'from_state': shop.state,
+                            'to_state': to_city.state,
+                            'rate_mmk': form.cleaned_data['rate_mmk'],
+                            'rate_usd': form.cleaned_data['rate_usd'],
+                            'estimated_days': form.cleaned_data['estimated_days'],
+                            'is_active': form.cleaned_data['is_active'],
+                        }
+                    )
+
+                    return JsonResponse({
+                        'success': True,
+                        'message': _("Shipping rate {} successfully").format(_("created") if created else _("updated")),
+                        'rate': {
+                            'id': shipping_rate.id,
+                            'to_city': to_city.name,
+                            'to_state': to_city.state.name,
+                            'rate_mmk': float(shipping_rate.rate_mmk),
+                            'rate_usd': float(shipping_rate.rate_usd),
+                            'estimated_days': shipping_rate.estimated_days,
+                            'is_active': shipping_rate.is_active,
+                        }
+                    })
+
+                except Exception as e:
+                    return JsonResponse({'error': 'Failed to save shipping rate'}, status=400)
+            else:
+                errors = []
+                for field, field_errors in form.errors.items():
+                    errors.extend([f"{field}: {error}" for error in field_errors])
+                return JsonResponse({'error': '; '.join(errors)}, status=400)
+
+        elif action == 'delete_rate':
+            rate_id = request.POST.get('rate_id')
+
+            try:
+                shipping_rate = ShippingRate.objects.get(id=rate_id, shop=shop)
+                shipping_rate.delete()
+
+                return JsonResponse({
+                    'success': True,
+                    'message': _("Shipping rate deleted successfully")
+                })
+
+            except ShippingRate.DoesNotExist:
+                return JsonResponse({'error': 'Shipping rate not found'}, status=404)
+
+        elif action == 'toggle_rate':
+            rate_id = request.POST.get('rate_id')
+
+            try:
+                shipping_rate = ShippingRate.objects.get(id=rate_id, shop=shop)
+                shipping_rate.is_active = not shipping_rate.is_active
+                shipping_rate.save()
+
+                return JsonResponse({
+                    'success': True,
+                    'message': _("Shipping rate {} successfully").format(_("activated") if shipping_rate.is_active else _("deactivated")),
+                    'is_active': shipping_rate.is_active
+                })
+
+            except ShippingRate.DoesNotExist:
+                return JsonResponse({'error': 'Shipping rate not found'}, status=404)
+
+        else:
+            return JsonResponse({'error': 'Invalid action'}, status=400)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 # Order Detail View (In Profile)
 def order_detail(request, id):
@@ -2173,3 +2954,457 @@ def ContactUs(request):
 #################################################################################### Original View Logic ####################################################################################
 #################################################################################### Original View Logic ####################################################################################
 #################################################################################### Original View Logic ####################################################################################
+
+# ================================ ORDER TRACKING & MANAGEMENT VIEWS ================================
+
+@login_required
+def order_list_view(request):
+    """List all orders for the current user"""
+    orders = CartOrder.objects.filter(user=request.user).order_by('-order_date')
+    
+    # Apply filters
+    status_filter = request.GET.get('status')
+    if status_filter:
+        orders = orders.filter(product_status=status_filter)
+    
+    # Pagination
+    from django.core.paginator import Paginator
+    paginator = Paginator(orders, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+        'orders': page_obj.object_list,
+        'status_choices': CartOrder._meta.get_field('product_status').choices,
+        'current_status': status_filter,
+    }
+    
+    return render(request, 'flame/orders/order-list.html', context)
+
+@login_required
+def order_detail_view(request, order_number):
+    """Detailed view of a specific order"""
+    order = get_object_or_404(CartOrder, order_number=order_number, user=request.user)
+    
+    from flame.services.order_service import OrderService
+    tracking_info = OrderService.get_order_tracking_info(order)
+    
+    # Get order items
+    order_items = order.cartorderitem_set.all()
+    
+    context = {
+        'order': order,
+        'tracking_info': tracking_info,
+        'order_items': order_items,
+        'can_cancel': order.can_be_cancelled(),
+        'can_return': order.can_be_returned(),
+    }
+    
+    return render(request, 'flame/orders/order-detail.html', context)
+
+@login_required
+def track_order_view(request, order_number):
+    """Track order status and progress"""
+    order = get_object_or_404(CartOrder, order_number=order_number, user=request.user)
+    
+    from flame.services.order_service import OrderService
+    tracking_info = OrderService.get_order_tracking_info(order)
+    
+    # Track user behavior
+    UserBehavior.objects.create(
+        user=request.user,
+        action='track_order',
+        session_id=request.session.session_key,
+        ip_address=request.META.get('REMOTE_ADDR'),
+    )
+    
+    context = {
+        'order': order,
+        'tracking_info': tracking_info,
+        'status_history': tracking_info['status_history'],
+        'progress_percentage': tracking_info['progress_percentage'],
+    }
+    
+    return render(request, 'flame/orders/track-order.html', context)
+
+@login_required 
+def cancel_order_view(request, order_number):
+    """Cancel an order"""
+    order = get_object_or_404(CartOrder, order_number=order_number, user=request.user)
+    
+    if not order.can_be_cancelled():
+        messages.error(request, _("This order cannot be cancelled"))
+        return redirect('flame:order-detail', order_number=order_number)
+    
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '')
+        
+        from flame.services.order_service import OrderService
+        OrderService.update_order_status(
+            order=order,
+            new_status='cancelled',
+            user=request.user,
+            notes=f"Cancelled by customer. Reason: {reason}"
+        )
+        
+        # Send notification
+        from flame.services.notification_service import NotificationService
+        NotificationService.send_order_notification(order, 'cancelled')
+        
+        messages.success(request, _("Your order has been cancelled successfully"))
+        return redirect('flame:order-detail', order_number=order_number)
+    
+    context = {
+        'order': order,
+    }
+    
+    return render(request, 'flame/orders/cancel-order.html', context)
+
+@login_required
+def return_order_view(request, order_number):
+    """Request order return"""
+    order = get_object_or_404(CartOrder, order_number=order_number, user=request.user)
+    
+    if not order.can_be_returned():
+        messages.error(request, _("This order cannot be returned"))
+        return redirect('flame:order-detail', order_number=order_number)
+    
+    if request.method == 'POST':
+        reason = request.POST.get('reason', '')
+        
+        from flame.services.order_service import OrderService
+        OrderService.update_order_status(
+            order=order,
+            new_status='returned',
+            user=request.user,
+            notes=f"Return requested by customer. Reason: {reason}"
+        )
+        
+        messages.success(request, _("Return request submitted successfully"))
+        return redirect('flame:order-detail', order_number=order_number)
+    
+    context = {
+        'order': order,
+    }
+    
+    return render(request, 'flame/orders/return-order.html', context)
+
+def order_status_api(request, order_number):
+    """API endpoint for order status updates"""
+    try:
+        if request.user.is_authenticated:
+            order = CartOrder.objects.get(order_number=order_number, user=request.user)
+        else:
+            # Allow guest tracking with email verification
+            email = request.GET.get('email')
+            if not email:
+                return JsonResponse({'error': 'Email required for guest tracking'}, status=400)
+            order = CartOrder.objects.get(order_number=order_number, user__email=email)
+        
+        from flame.services.order_service import OrderService
+        tracking_info = OrderService.get_order_tracking_info(order)
+        
+        data = {
+            'order_number': order.order_number,
+            'status': order.product_status,
+            'status_display': order.get_product_status_display(),
+            'progress_percentage': tracking_info['progress_percentage'],
+            'estimated_delivery': order.estimated_delivery.isoformat() if order.estimated_delivery else None,
+            'tracking_number': order.tracking_number,
+            'last_update': tracking_info.get('last_update').isoformat() if tracking_info.get('last_update') else None,
+            'current_location': tracking_info.get('current_location', ''),
+        }
+        
+        return JsonResponse(data)
+        
+    except CartOrder.DoesNotExist:
+        return JsonResponse({'error': 'Order not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+# ================================ RECOMMENDATION VIEWS ================================
+
+@login_required
+def user_recommendations_view(request):
+    """Show personalized recommendations for user"""
+    # Get active recommendation lists
+    recommendations = RecommendationList.objects.filter(
+        user=request.user,
+        is_active=True,
+        expires_at__gt=timezone.now()
+    ).prefetch_related('recommendationitem_set__product')
+    
+    # Group recommendations by type
+    recommendation_groups = {}
+    for rec_list in recommendations:
+        rec_type = rec_list.get_recommendation_type_display()
+        if rec_type not in recommendation_groups:
+            recommendation_groups[rec_type] = []
+        
+        items = rec_list.recommendationitem_set.all().order_by('rank')[:10]
+        recommendation_groups[rec_type].extend([item.product for item in items])
+    
+    context = {
+        'recommendation_groups': recommendation_groups,
+    }
+    
+    return render(request, 'flame/recommendations/user-recommendations.html', context)
+
+def product_recommendations_api(request, product_id):
+    """API endpoint for product-based recommendations"""
+    try:
+        product = Product.objects.get(id=product_id)
+        
+        # Get similar products
+        similar_products = product.get_similar_products(limit=8)
+        
+        # Get frequently bought together
+        frequently_bought = product.get_frequently_bought_together(limit=8)
+        
+        # Track user behavior
+        if request.user.is_authenticated:
+            UserBehavior.objects.create(
+                user=request.user,
+                product=product,
+                action='view',
+                session_id=request.session.session_key,
+                ip_address=request.META.get('REMOTE_ADDR'),
+            )
+        
+        data = {
+            'similar_products': [
+                {
+                    'id': p.id,
+                    'title': p.title,
+                    'price': float(p.price),
+                    'image': p.image.url if p.image else '',
+                    'url': f'/product/{p.p_id}/'
+                }
+                for p in similar_products
+            ],
+            'frequently_bought': [
+                {
+                    'id': p.id,
+                    'title': p.title,
+                    'price': float(p.price),
+                    'image': p.image.url if p.image else '',
+                    'url': f'/product/{p.p_id}/'
+                }
+                for p in frequently_bought
+            ]
+        }
+        
+        return JsonResponse(data)
+        
+    except Product.DoesNotExist:
+        return JsonResponse({'error': 'Product not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+# ================================ ANALYTICS VIEWS ================================
+
+def analytics_dashboard_view(request):
+    """Analytics dashboard for admins"""
+    if not request.user.is_staff:
+        return redirect('flame:home')
+    
+    from datetime import timedelta, date
+    today = date.today()
+    week_ago = today - timedelta(days=7)
+    month_ago = today - timedelta(days=30)
+    
+    # Sales analytics
+    recent_sales = SalesAnalytics.objects.filter(date__gte=week_ago).order_by('-date')
+    
+    # Top products
+    top_products = ProductAnalytics.objects.filter(
+        date__gte=week_ago
+    ).values('product__title').annotate(
+        total_revenue=Count('revenue')
+    ).order_by('-total_revenue')[:10]
+    
+    # Order status distribution
+    order_status_dist = CartOrder.objects.filter(
+        order_date__date__gte=week_ago
+    ).values('product_status').annotate(
+        count=Count('id')
+    )
+    
+    context = {
+        'recent_sales': recent_sales,
+        'top_products': top_products,
+        'order_status_distribution': list(order_status_dist),
+        'date_range': f"{week_ago} to {today}",
+    }
+    
+    return render(request, 'flame/analytics/dashboard.html', context)
+
+def sales_report_api(request):
+    """API endpoint for sales reports"""
+    if not request.user.is_staff:
+        return JsonResponse({'error': 'Permission denied'}, status=403)
+    
+    from datetime import datetime, timedelta
+    
+    # Get date range from query params
+    days = int(request.GET.get('days', 30))
+    end_date = datetime.now().date()
+    start_date = end_date - timedelta(days=days)
+    
+    # Get sales data
+    sales_data = SalesAnalytics.objects.filter(
+        date__gte=start_date,
+        date__lte=end_date
+    ).order_by('date')
+    
+    data = {
+        'labels': [item.date.strftime('%Y-%m-%d') for item in sales_data],
+        'revenue': [float(item.total_revenue) for item in sales_data],
+        'orders': [item.total_orders for item in sales_data],
+        'customers': [item.new_customers + item.returning_customers for item in sales_data],
+    }
+    
+    return JsonResponse(data)
+
+# ================================ EMAIL NOTIFICATION VIEWS ================================
+
+@login_required
+def email_preferences_view(request):
+    """User email notification preferences"""
+    if request.method == 'POST':
+        # Update user email preferences
+        # This would typically involve a UserProfile or EmailPreference model
+        messages.success(request, _("Email preferences updated successfully"))
+        return redirect('flame:email-preferences')
+    
+    # Get user's email logs for display
+    recent_emails = EmailLog.objects.filter(
+        user=request.user
+    ).order_by('-created_at')[:20]
+    
+    context = {
+        'recent_emails': recent_emails,
+    }
+    
+    return render(request, 'flame/email/preferences.html', context)
+
+def email_unsubscribe_view(request, user_id):
+    """Unsubscribe from email notifications"""
+    try:
+        user = User.objects.get(id=user_id)
+        # Implement unsubscribe logic here
+        # This would typically involve updating user preferences
+        
+        messages.success(request, _("You have been unsubscribed from email notifications"))
+        
+    except User.DoesNotExist:
+        messages.error(request, _("Invalid unsubscribe link"))
+    
+    return render(request, 'flame/email/unsubscribe.html')
+
+# ================================ ADVANCED PRODUCT VIEWS ================================
+
+def product_analytics_view(request, product_id):
+    """Product analytics for shop owners"""
+    product = get_object_or_404(Product, id=product_id)
+    
+    # Check permissions
+    if not (request.user.is_staff or 
+            (product.shop and product.shop.user == request.user)):
+        return redirect('flame:home')
+    
+    from datetime import timedelta
+    thirty_days_ago = timezone.now() - timedelta(days=30)
+    
+    # Get product analytics
+    analytics = ProductAnalytics.objects.filter(
+        product=product,
+        date__gte=thirty_days_ago.date()
+    ).order_by('date')
+    
+    # Get reviews summary
+    reviews_summary = product.reviews.aggregate(
+        avg_rating=Avg('rating'),
+        total_reviews=Count('id'),
+        verified_reviews=Count('id', filter=Q(is_verified_purchase=True))
+    )
+    
+    # Get inventory logs
+    inventory_logs = InventoryLog.objects.filter(
+        product=product
+    ).order_by('-timestamp')[:20]
+    
+    context = {
+        'product': product,
+        'analytics': analytics,
+        'reviews_summary': reviews_summary,
+        'inventory_logs': inventory_logs,
+    }
+    
+    return render(request, 'flame/analytics/product-analytics.html', context)
+
+# ================================ INVENTORY MANAGEMENT VIEWS ================================
+
+@login_required
+def inventory_dashboard_view(request):
+    """Inventory management dashboard"""
+    if not request.user.is_staff:
+        return redirect('flame:home')
+    
+    # Get low stock products
+    low_stock_products = Product.objects.filter(
+        stock_count__lte=F('min_stock_level')
+    ).order_by('stock_count')[:20]
+    
+    # Get out of stock products
+    out_of_stock_products = Product.objects.filter(
+        stock_count=0
+    )[:20]
+    
+    # Recent inventory movements
+    recent_logs = InventoryLog.objects.order_by('-timestamp')[:50]
+    
+    context = {
+        'low_stock_products': low_stock_products,
+        'out_of_stock_products': out_of_stock_products,
+        'recent_logs': recent_logs,
+        'low_stock_count': low_stock_products.count(),
+        'out_of_stock_count': out_of_stock_products.count(),
+    }
+    
+    return render(request, 'flame/inventory/dashboard.html', context)
+
+@login_required
+def bulk_restock_view(request):
+    """Bulk restock products"""
+    if not request.user.is_staff:
+        return redirect('flame:home')
+    
+    if request.method == 'POST':
+        # Process bulk restock
+        restock_data = request.POST.getlist('restock_data')
+        updated_count = 0
+        
+        for item in restock_data:
+            try:
+                product_id, quantity, cost = item.split(',')
+                product = Product.objects.get(id=product_id)
+                product.restock(int(quantity), Decimal(cost) if cost else None)
+                updated_count += 1
+            except (ValueError, Product.DoesNotExist):
+                continue
+        
+        messages.success(request, f"Updated stock for {updated_count} products")
+        return redirect('flame:inventory-dashboard')
+    
+    # Get products that need restocking
+    products = Product.objects.filter(
+        stock_count__lte=F('min_stock_level')
+    ).order_by('stock_count')
+    
+    context = {
+        'products': products,
+    }
+    
+    return render(request, 'flame/inventory/bulk-restock.html', context)

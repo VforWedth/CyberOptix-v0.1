@@ -481,6 +481,61 @@ main::before {
     color: white;
 }
 
+/* Traditional Google Sign-In Button */
+.google-signin-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #3c4043;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    margin: 0 auto;
+}
+
+.google-signin-btn:hover {
+    border-color: #d2e3fc;
+    background-color: #f8f9fa;
+    box-shadow: 0 1px 3px rgba(0,0,0,.15);
+    text-decoration: none;
+    color: #3c4043;
+}
+
+.google-signin-btn:active {
+    background-color: #f1f3f4;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.google-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.google-text {
+    line-height: 1;
+    letter-spacing: 0.25px;
+    font-weight: 500;
+}
+
+.social-login {
+    justify-content: center;
+}
+
 /* Messages */
 .messages-container {
     width: 100%;

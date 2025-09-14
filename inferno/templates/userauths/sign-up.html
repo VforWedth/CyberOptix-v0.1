@@ -12,10 +12,22 @@
         <div class="col-1">
             <div class="image-layer">
                 <div class="featured-words">
-                    <h2>{% trans "Join" %} <span>CyberOptix</span></h2>
-                    <p>{% trans "Create your account and start shopping for amazing laptops!" %}</p>
-                    
-                    
+                    <h2>{% trans "Join" %} <span>LaptopMart Myanmar</span></h2>
+                    <p>{% trans "Create your Gmail account and start shopping for amazing laptops!" %}</p>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-check"></i>
+                            <span>{% trans "Gmail Verification Required" %}</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fab fa-google"></i>
+                            <span>{% trans "Google OAuth Supported" %}</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lock"></i>
+                            <span>{% trans "Secure Authentication" %}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,6 +36,26 @@
             <div class="btn-box">
                 <button id="login" class="btn">{% trans "Login" %}</button>
                 <button id="register" class="btn btn-1">{% trans "Register" %}</button>
+            </div>
+            
+            <!-- Google OAuth Option -->
+            <div class="oauth-section">
+                <a href="{% url 'userauths:google-login' %}" class="google-signin-btn">
+                    <div class="google-icon">
+                        <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="#000" fill-rule="evenodd">
+                                <path d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z" fill="#EA4335"></path>
+                                <path d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z" fill="#4285F4"></path>
+                                <path d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z" fill="#FBBC05"></path>
+                                <path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z" fill="#34A853"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <span class="google-text">{% trans "Sign up with Google" %}</span>
+                </a>
+                <div class="divider">
+                    <span>{% trans "or" %}</span>
+                </div>
             </div>
             
             <form class="register-form" method="POST" action="{% url 'userauths:sign-up' %}" id="registerForm">
@@ -40,7 +72,7 @@
                     <div class="messages-container">
                         {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">
-                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% elif message.tags == 'success' %}check-circle{% else %}info-circle{% endif %}"></i>
                             {{ message }}
                         </div>
                         {% endfor %}
@@ -224,18 +256,67 @@ document.getElementById('username').addEventListener('blur', function(e) {
     }
 });
 
-// Email validation
+// Enhanced Gmail validation with real-time checking
 document.getElementById('email').addEventListener('blur', function(e) {
-    const email = e.target.value;
+    const email = e.target.value.toLowerCase().trim();
     const status = document.getElementById('emailStatus');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailBox = this.closest('.input-box');
     
-    if (emailRegex.test(email)) {
-        // You can add AJAX check here for email availability
-        status.innerHTML = '<i class="fas fa-check" style="color: green;"></i>';
-    } else if (email.length > 0) {
-        status.innerHTML = '<i class="fas fa-times" style="color: red;"></i>';
+    if (!email) {
+        status.innerHTML = '';
+        emailBox.classList.remove('valid', 'invalid');
+        return;
     }
+    
+    // First check if it's a Gmail address
+    if (!email.endsWith('@gmail.com')) {
+        status.innerHTML = '<i class="fas fa-times" style="color: red;"></i> <span style="color: red; font-size: 12px;">{% trans "Only Gmail addresses are accepted" %}</span>';
+        emailBox.classList.add('invalid');
+        emailBox.classList.remove('valid');
+        return;
+    }
+    
+    // Gmail pattern validation
+    const gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailPattern.test(email)) {
+        status.innerHTML = '<i class="fas fa-times" style="color: red;"></i> <span style="color: red; font-size: 12px;">{% trans "Invalid Gmail format" %}</span>';
+        emailBox.classList.add('invalid');
+        emailBox.classList.remove('valid');
+        return;
+    }
+    
+    // Show loading state
+    status.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #4A5C6A;"></i> <span style="color: #4A5C6A; font-size: 12px;">{% trans "Checking..." %}</span>';
+    
+    // AJAX check for email availability and validity
+    fetch("{% url 'userauths:api-check-email' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.valid && !data.exists) {
+            status.innerHTML = '<i class="fas fa-check" style="color: green;"></i> <span style="color: green; font-size: 12px;">{% trans "Valid Gmail address" %}</span>';
+            emailBox.classList.add('valid');
+            emailBox.classList.remove('invalid');
+        } else if (data.exists) {
+            status.innerHTML = '<i class="fas fa-times" style="color: red;"></i> <span style="color: red; font-size: 12px;">{% trans "Email already registered" %}</span>';
+            emailBox.classList.add('invalid');
+            emailBox.classList.remove('valid');
+        } else {
+            status.innerHTML = '<i class="fas fa-times" style="color: red;"></i> <span style="color: red; font-size: 12px;">' + data.message + '</span>';
+            emailBox.classList.add('invalid');
+            emailBox.classList.remove('valid');
+        }
+    })
+    .catch(error => {
+        console.error('Error checking email:', error);
+        status.innerHTML = '<i class="fas fa-exclamation-triangle" style="color: orange;"></i> <span style="color: orange; font-size: 12px;">{% trans "Unable to verify email" %}</span>';
+    });
 });
 
 // Form progress

@@ -1,0 +1,98 @@
+[
+{
+  "model": "flame.shop",
+  "pk": 1,
+  "fields": {
+    "shop_id": "shop45hfg5e5ba",
+    "paypal_email": "lorendrain47@gmail.com",
+    "slug": "c_slug",
+    "title": "Citicom",
+    "title_translations": {},
+    "description_translations": {},
+    "image": "user_1/citicomlogo.jpg",
+    "description": "A client that's unhappy for a reason is a problem, a client that's unhappy though he or her can't",
+    "user": [
+      "citicomshop4@gmail.com"
+    ],
+    "address": "No. (186-188), Mahabandoola Garden Street, (Middle Block), Kyauktada Township, Yangon.",
+    "contact": "018-373175, 376564, 376566",
+    "chat_resp_time": "100",
+    "shipping_on_time": "100",
+    "authentic_rating": "100",
+    "days_return": "100",
+    "warranty_period": "100"
+  }
+},
+{
+  "model": "flame.shop",
+  "pk": 2,
+  "fields": {
+    "shop_id": "shop5be5a5h5bc",
+    "paypal_email": "lorendrain47@gmail.com",
+    "slug": "unique",
+    "title": "Unique",
+    "title_translations": {},
+    "description_translations": {},
+    "image": "user_1/uniquelogo.jpg",
+    "description": "100% free, Unsubscribe any time!",
+    "user": [
+      "uniqueshop4@gmail.com"
+    ],
+    "address": "27th & 65th Street Chanayethazan Tsp in Mandalay",
+    "contact": "+959 123 456 789",
+    "chat_resp_time": "100",
+    "shipping_on_time": "100",
+    "authentic_rating": "100",
+    "days_return": "100",
+    "warranty_period": "100"
+  }
+},
+{
+  "model": "flame.shop",
+  "pk": 3,
+  "fields": {
+    "shop_id": "shop4hgch15hha",
+    "paypal_email": "lorendrain47@gmail.com",
+    "slug": "ict",
+    "title": "ICT",
+    "title_translations": {},
+    "description_translations": {},
+    "image": "user_1/ictlogo.jpg",
+    "description": "We love to hear from you!",
+    "user": [
+      "ictshop4@gmail.com"
+    ],
+    "address": "369 Laydaungkan Road, Thingangyun 11071 Yangon, Myanmar",
+    "contact": "+959 76 544 1707",
+    "chat_resp_time": "100",
+    "shipping_on_time": "100",
+    "authentic_rating": "100",
+    "days_return": "100",
+    "warranty_period": "100"
+  }
+},
+{
+  "model": "flame.shop",
+  "pk": 4,
+  "fields": {
+    "shop_id": "shopc25hc4a4d4",
+    "paypal_email": "lorendrain47@gmail.com",
+    "slug": "innwa",
+    "title": "Innwa",
+    "title_translations": {},
+    "description_translations": {},
+    "image": "user_1/innwalogo2.jpg",
+    "description": "All your need is here.",
+    "user": [
+      "innwa4@gmail.com"
+    ],
+    "address": "No.(9), 75th Street, Bet 35th & 36th , Mandalay",
+    "contact": "+959 768887711",
+    "chat_resp_time": "100",
+    "shipping_on_time": "100",
+    "authentic_rating": "100",
+    "days_return": "100",
+    "warranty_period": "100"
+  }
+}
+]

@@ -1,0 +1,785 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Campaign Header -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'flame:social-dashboard' %}">{% trans "Social Media" %}</a>
+                            </li>
+                            <li class="breadcrumb-item active">{{ campaign.name }}</li>
+                        </ol>
+                    </nav>
+                    <h2>
+                        <i class="fas fa-bullhorn text-primary"></i>
+                        {{ campaign.name }}
+                    </h2>
+                    <p class="text-muted mb-0">{{ campaign.description }}</p>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCampaignModal">
+                        <i class="fas fa-edit"></i> {% trans "Edit Campaign" %}
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-cog"></i> {% trans "Actions" %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="duplicateCampaign()">
+                                <i class="fas fa-copy"></i> {% trans "Duplicate Campaign" %}
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="exportCampaign()">
+                                <i class="fas fa-download"></i> {% trans "Export Report" %}
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="archiveCampaign()">
+                                <i class="fas fa-archive"></i> {% trans "Archive Campaign" %}
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Campaign Status & Info -->
+            <div class="row mb-4">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="info-item">
+                                        <i class="fas fa-calendar-alt text-primary"></i>
+                                        <div>
+                                            <small class="text-muted">{% trans "Duration" %}</small>
+                                            <p class="mb-0">{{ campaign.start_date|date:"M d" }} - {{ campaign.end_date|date:"M d, Y" }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-item">
+                                        <i class="fas fa-dollar-sign text-success"></i>
+                                        <div>
+                                            <small class="text-muted">{% trans "Budget" %}</small>
+                                            <p class="mb-0">${{ campaign.budget|default:"Not set"|floatformat:2 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-item">
+                                        <i class="fas fa-chart-line text-info"></i>
+                                        <div>
+                                            <small class="text-muted">{% trans "Status" %}</small>
+                                            <p class="mb-0">
+                                                <span class="badge {% if campaign.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                                                    {{ campaign.get_status_display }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="info-item">
+                                        <i class="fas fa-edit text-warning"></i>
+                                        <div>
+                                            <small class="text-muted">{% trans "Posts" %}</small>
+                                            <p class="mb-0">{{ campaign.posts.count }} {% trans "total" %}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <div class="progress-circle">
+                                <canvas id="progressChart" width="120" height="120"></canvas>
+                                <div class="progress-text">
+                                    <span class="progress-percent">{{ campaign.progress }}%</span>
+                                    <small class="text-muted">{% trans "Complete" %}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="metric-card text-center">
+                        <div class="metric-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4 class="metric-value">{{ campaign_stats.total_impressions|default:0 }}</h4>
+                        <p class="metric-label">{% trans "Total Impressions" %}</p>
+                        <div class="metric-change">
+                            <span class="text-success">
+                                <i class="fas fa-arrow-up"></i> +12.5%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="metric-card text-center">
+                        <div class="metric-icon bg-success">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <h4 class="metric-value">{{ campaign_stats.total_clicks|default:0 }}</h4>
+                        <p class="metric-label">{% trans "Total Clicks" %}</p>
+                        <div class="metric-change">
+                            <span class="text-success">
+                                <i class="fas fa-arrow-up"></i> +8.3%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="metric-card text-center">
+                        <div class="metric-icon bg-info">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4 class="metric-value">{{ campaign_stats.total_engagement|default:0 }}</h4>
+                        <p class="metric-label">{% trans "Engagement" %}</p>
+                        <div class="metric-change">
+                            <span class="text-danger">
+                                <i class="fas fa-arrow-down"></i> -2.1%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="metric-card text-center">
+                        <div class="metric-icon bg-warning">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="metric-value">{{ campaign_stats.total_reach|default:0 }}</h4>
+                        <p class="metric-label">{% trans "Reach" %}</p>
+                        <div class="metric-change">
+                            <span class="text-success">
+                                <i class="fas fa-arrow-up"></i> +5.7%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Campaign Posts -->
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Campaign Posts" %}
+                            </h6>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">
+                                <i class="fas fa-plus"></i> {% trans "Add Post" %}
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            {% for post in campaign.posts.all %}
+                                <div class="post-item border-bottom pb-3 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="Post image" 
+                                                 class="post-thumbnail me-3">
+                                        {% endif %}
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <p class="mb-1">{{ post.content|truncatechars:120 }}</p>
+                                                    <div class="post-meta">
+                                                        {% for platform in post.platforms.all %}
+                                                            <span class="badge bg-secondary me-1">
+                                                                <i class="fab fa-{{ platform.platform|lower }}"></i>
+                                                                {{ platform.platform }}
+                                                            </span>
+                                                        {% endfor %}
+                                                        <small class="text-muted ms-2">
+                                                            {% if post.status == 'scheduled' %}
+                                                                <i class="fas fa-clock"></i> {{ post.scheduled_date|date:"M d, Y g:i A" }}
+                                                            {% elif post.status == 'published' %}
+                                                                <i class="fas fa-check-circle"></i> {{ post.published_at|date:"M d, Y g:i A" }}
+                                                            {% else %}
+                                                                <i class="fas fa-edit"></i> {% trans "Draft" %}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="post-actions">
+                                                    <span class="badge 
+                                                        {% if post.status == 'published' %}bg-success
+                                                        {% elif post.status == 'scheduled' %}bg-warning
+                                                        {% elif post.status == 'draft' %}bg-secondary
+                                                        {% else %}bg-danger{% endif %}">
+                                                        {{ post.get_status_display }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {% if post.status == 'published' %}
+                                                <div class="engagement-metrics">
+                                                    <div class="row text-center">
+                                                        <div class="col-3">
+                                                            <small class="text-muted d-block">{% trans "Likes" %}</small>
+                                                            <strong>{{ post.likes|default:0 }}</strong>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <small class="text-muted d-block">{% trans "Shares" %}</small>
+                                                            <strong>{{ post.shares|default:0 }}</strong>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <small class="text-muted d-block">{% trans "Comments" %}</small>
+                                                            <strong>{{ post.comments|default:0 }}</strong>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <small class="text-muted d-block">{% trans "Clicks" %}</small>
+                                                            <strong>{{ post.clicks|default:0 }}</strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="text-center py-4">
+                                    <i class="fas fa-edit fa-2x text-gray-400 mb-3"></i>
+                                    <p class="text-muted">{% trans "No posts in this campaign yet" %}</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPostModal">
+                                        {% trans "Add Your First Post" %}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Analytics -->
+                <div class="col-lg-4">
+                    <!-- Performance Chart -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Performance Over Time" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="performanceChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platform Breakdown -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Platform Breakdown" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            {% for platform_stat in platform_stats %}
+                                <div class="platform-stat mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <div>
+                                            <i class="fab fa-{{ platform_stat.platform|lower }} me-2"></i>
+                                            {{ platform_stat.platform }}
+                                        </div>
+                                        <strong>{{ platform_stat.engagement_rate|floatformat:1 }}%</strong>
+                                    </div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar" 
+                                             style="width: {{ platform_stat.engagement_rate }}%"></div>
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ platform_stat.total_posts }} {% trans "posts" %}, 
+                                        {{ platform_stat.total_engagement }} {% trans "interactions" %}
+                                    </small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Top Performing Posts -->
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Top Performing Posts" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            {% for post in top_posts %}
+                                <div class="top-post mb-3">
+                                    <p class="mb-1 small">{{ post.content|truncatechars:50 }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <small class="text-muted">{{ post.published_at|date:"M d" }}</small>
+                                        <small class="text-primary">
+                                            <strong>{{ post.engagement_score }} {% trans "engagement" %}</strong>
+                                        </small>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <p class="text-muted text-center">{% trans "No published posts yet" %}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Campaign Modal -->
+<div class="modal fade" id="editCampaignModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit"></i> {% trans "Edit Campaign" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCampaignForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="editCampaignName" class="form-label">{% trans "Campaign Name" %}</label>
+                        <input type="text" class="form-control" id="editCampaignName" 
+                               name="name" value="{{ campaign.name }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCampaignDescription" class="form-label">{% trans "Description" %}</label>
+                        <textarea class="form-control" id="editCampaignDescription" 
+                                  name="description" rows="3">{{ campaign.description }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editCampaignStartDate" class="form-label">{% trans "Start Date" %}</label>
+                            <input type="date" class="form-control" id="editCampaignStartDate" 
+                                   name="start_date" value="{{ campaign.start_date|date:'Y-m-d' }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editCampaignEndDate" class="form-label">{% trans "End Date" %}</label>
+                            <input type="date" class="form-control" id="editCampaignEndDate" 
+                                   name="end_date" value="{{ campaign.end_date|date:'Y-m-d' }}" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCampaignBudget" class="form-label">{% trans "Budget" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="editCampaignBudget" 
+                                   name="budget" step="0.01" value="{{ campaign.budget }}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="updateCampaign()">
+                    <i class="fas fa-save"></i> {% trans "Save Changes" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Post Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus"></i> {% trans "Add Post to Campaign" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPostForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="campaign_id" value="{{ campaign.id }}">
+                    
+                    <div class="mb-3">
+                        <label for="addPostContent" class="form-label">{% trans "Content" %}</label>
+                        <textarea class="form-control" id="addPostContent" name="content" rows="4" 
+                                  placeholder="{% trans 'What would you like to share?' %}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addPostImage" class="form-label">{% trans "Image" %}</label>
+                        <input type="file" class="form-control" id="addPostImage" name="image" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="addPostHashtags" class="form-label">{% trans "Hashtags" %}</label>
+                        <input type="text" class="form-control" id="addPostHashtags" name="hashtags" 
+                               placeholder="#hashtag1 #hashtag2">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="addPostDate" class="form-label">{% trans "Schedule Date" %}</label>
+                            <input type="date" class="form-control" id="addPostDate" name="scheduled_date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="addPostTime" class="form-label">{% trans "Schedule Time" %}</label>
+                            <input type="time" class="form-control" id="addPostTime" name="scheduled_time">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{% trans "Platforms" %}</label>
+                        <div class="platform-selection">
+                            {% for account in social_accounts %}
+                                {% if account.is_active %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                               name="platforms" value="{{ account.id }}" 
+                                               id="add_platform_{{ account.id }}">
+                                        <label class="form-check-label" for="add_platform_{{ account.id }}">
+                                            <i class="fab fa-{{ account.platform|lower }}"></i>
+                                            {{ account.platform }} (@{{ account.username }})
+                                        </label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="addPostToCampaign()">
+                    <i class="fas fa-save"></i> {% trans "Add Post" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-item i {
+    width: 30px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+}
+
+.metric-icon {
+    width: 60px;
+    height: 60px;
+    background: #4A5C6A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    margin: 0 auto 15px;
+}
+
+.metric-icon.bg-success { background: #28a745; }
+.metric-icon.bg-info { background: #17a2b8; }
+.metric-icon.bg-warning { background: #ffc107; }
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    color: #6c757d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.metric-change {
+    font-size: 13px;
+}
+
+.progress-circle {
+    position: relative;
+    display: inline-block;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.progress-percent {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4A5C6A;
+    display: block;
+}
+
+.post-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.engagement-metrics {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.platform-stat {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.platform-stat:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.top-post {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border-left: 3px solid #4A5C6A;
+}
+
+.platform-selection .form-check {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .metric-card {
+        margin-bottom: 20px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Progress Circle Chart
+const progressCtx = document.getElementById('progressChart').getContext('2d');
+const progressChart = new Chart(progressCtx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+            data: [{{ campaign.progress }}, {{ 100|add:campaign.progress|mul:-1 }}],
+            backgroundColor: ['#4A5C6A', '#e9ecef'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { enabled: false }
+        },
+        cutout: '80%'
+    }
+});
+
+// Performance Chart
+const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+const performanceChart = new Chart(performanceCtx, {
+    type: 'line',
+    data: {
+        labels: [
+            {% for day in performance_data %}
+                '{{ day.date|date:"M d" }}',
+            {% endfor %}
+        ],
+        datasets: [
+            {
+                label: '{% trans "Impressions" %}',
+                data: [
+                    {% for day in performance_data %}
+                        {{ day.impressions }},
+                    {% endfor %}
+                ],
+                borderColor: '#4A5C6A',
+                backgroundColor: 'rgba(74, 92, 106, 0.1)',
+                tension: 0.4
+            },
+            {
+                label: '{% trans "Engagement" %}',
+                data: [
+                    {% for day in performance_data %}
+                        {{ day.engagement }},
+                    {% endfor %}
+                ],
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                tension: 0.4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+function updateCampaign() {
+    const form = document.getElementById('editCampaignForm');
+    const formData = new FormData(form);
+    
+    fetch(`{% url "flame:update-campaign" campaign.id %}`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while updating the campaign.');
+    });
+}
+
+function addPostToCampaign() {
+    const form = document.getElementById('addPostForm');
+    const formData = new FormData(form);
+    
+    // Combine date and time
+    const date = formData.get('scheduled_date');
+    const time = formData.get('scheduled_time');
+    if (date && time) {
+        formData.set('scheduled_date', date + 'T' + time);
+    }
+    
+    fetch('{% url "flame:add-post-to-campaign" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while adding the post.');
+    });
+}
+
+function duplicateCampaign() {
+    if (confirm('{% trans "Are you sure you want to duplicate this campaign?" %}')) {
+        fetch(`{% url "flame:duplicate-campaign" campaign.id %}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while duplicating the campaign.');
+        });
+    }
+}
+
+function exportCampaign() {
+    window.location.href = `{% url "flame:export-campaign" campaign.id %}`;
+}
+
+function archiveCampaign() {
+    if (confirm('{% trans "Are you sure you want to archive this campaign? It will be moved to archived campaigns." %}')) {
+        fetch(`{% url "flame:archive-campaign" campaign.id %}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '{% url "flame:social-dashboard" %}';
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while archiving the campaign.');
+        });
+    }
+}
+</script>
+{% endblock %}

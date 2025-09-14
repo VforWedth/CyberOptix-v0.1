@@ -1,0 +1,146 @@
+[
+{
+  "model": "flame.productreview",
+  "pk": 29,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 218,
+    "order": null,
+    "title": "",
+    "review": "မဆိုးပါဘူး",
+    "rating": 1,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-08-20T09:22:15.674Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+},
+{
+  "model": "flame.productreview",
+  "pk": 28,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 216,
+    "order": null,
+    "title": "",
+    "review": "ကောင်းပါသည်",
+    "rating": 3,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-08-20T09:20:41.217Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+},
+{
+  "model": "flame.productreview",
+  "pk": 27,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 35,
+    "order": null,
+    "title": "",
+    "review": "မိုက်ပါတယ်",
+    "rating": 1,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-08-18T07:04:33.394Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+},
+{
+  "model": "flame.productreview",
+  "pk": 26,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 15,
+    "order": null,
+    "title": "",
+    "review": "Woww this is a nice product",
+    "rating": 5,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-07-09T11:52:17.382Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+},
+{
+  "model": "flame.productreview",
+  "pk": 25,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 14,
+    "order": null,
+    "title": "",
+    "review": "ggd",
+    "rating": 1,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-07-09T05:42:22.440Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+},
+{
+  "model": "flame.productreview",
+  "pk": 24,
+  "fields": {
+    "user": [
+      "lorendrain47@gmail.com"
+    ],
+    "product": 65,
+    "order": null,
+    "title": "",
+    "review": "jfdd;j",
+    "rating": 1,
+    "quality_rating": 5,
+    "value_rating": 5,
+    "delivery_rating": 5,
+    "is_verified_purchase": false,
+    "is_approved": true,
+    "is_featured": false,
+    "helpful_count": 0,
+    "unhelpful_count": 0,
+    "date": "2025-07-09T05:39:53.296Z",
+    "updated_at": "2025-09-12T02:52:55.796Z"
+  }
+}
+]

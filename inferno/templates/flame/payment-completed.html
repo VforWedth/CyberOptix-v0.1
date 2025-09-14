@@ -251,6 +251,15 @@
                 {{ request.user.username|title }}
             </p>
             <p><strong>{% trans "Email:" %}</strong> {{ request.user.email }}</p>
+            {% if delivery_address %}
+            <hr style="margin: 10px 0;">
+            <h4>{% trans "Delivery Address" %}</h4>
+            <p>{{ delivery_address }}</p>
+            {% if delivery_phone %}
+                <p><strong>{% trans "Phone:" %}</strong> {{ delivery_phone }}</p>
+            {% endif %}
+            {% endif %}
+            <p><strong>{% trans "Payment Method:" %}</strong> {{ payment_method }}</p>
         </div>
     </div>
 
@@ -324,10 +333,13 @@
             <tr class="total-row">
                 <td colspan="3" style="text-align: right;">{% trans "Subtotal" %}</td>
                 <td>
-                    {{ order_total_display }}
-                    {% if order_total_usd %}
-                        <small class="price-usd-ref d-block">{{ order_total_usd }}</small>
-                    {% endif %}
+                    {{ order_subtotal_display }}
+                </td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="3" style="text-align: right;">{% trans "Shipping" %}</td>
+                <td>
+                    {{ order_shipping_display }}
                 </td>
             </tr>
             <tr class="total-row">
@@ -341,7 +353,7 @@
                 </td>
             </tr>
             <tr class="total-row">
-                <td colspan="3" style="text-align: right;">{% trans "Grand Total" %}</td>
+                <td colspan="3" style="text-align: right;"><strong>{% trans "Grand Total" %}</strong></td>
                 <td>
                     <strong>
                         {{ order_total_display }}
@@ -355,22 +367,45 @@
     </table>
 
     <div class="invoice-total">
-        <h3>{% trans "Total Amount Due" %}</h3>
-        <h2>
-            {{ order_total_display }}
-            {% if order_total_usd %}
-                <small style="font-size: 0.6em; display: block;">{{ order_total_usd }}</small>
+        {% if order.payment_method == 'cod' %}
+            <h3>{% trans "Cash on Delivery Order" %}</h3>
+            <h2>
+                {{ order_total_display }}
+                {% if order_total_usd %}
+                    <small style="font-size: 0.6em; display: block;">{{ order_total_usd }}</small>
+                {% endif %}
+            </h2>
+            <p>
+                <strong>{% trans "Payment Status:" %}</strong>
+                <span class="badge badge-warning">{% trans "Pay on Delivery" %}</span>
+            </p>
+            <div class="alert alert-info mt-3" style="font-size: 0.9em;">
+                <i class="fas fa-hand-holding-usd"></i>
+                <strong>{% trans "Cash on Delivery Instructions:" %}</strong>
+                <ul class="mb-0 mt-2">
+                    <li>{% trans "Keep the exact amount ready when the delivery person arrives" %}</li>
+                    <li>{% trans "You can also pay with mobile money or cash" %}</li>
+                    <li>{% trans "Check your items before making the payment" %}</li>
+                </ul>
+            </div>
+        {% else %}
+            <h3>{% trans "Total Amount Due" %}</h3>
+            <h2>
+                {{ order_total_display }}
+                {% if order_total_usd %}
+                    <small style="font-size: 0.6em; display: block;">{{ order_total_usd }}</small>
+                {% endif %}
+            </h2>
+            <p>
+                <strong>{% trans "Payment Status:" %}</strong>
+                {% trans "Completed" %}
+            </p>
+            
+            {% if is_myanmar %}
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                {% trans "Payment processed in USD" %}
+            </p>
             {% endif %}
-        </h2>
-        <p>
-            <strong>{% trans "Payment Status:" %}</strong>
-            {% trans "Completed" %}
-        </p>
-        
-        {% if is_myanmar %}
-        <p style="font-size: 0.9em; margin-top: 10px;">
-            {% trans "Payment processed in USD" %}
-        </p>
         {% endif %}
     </div>
 

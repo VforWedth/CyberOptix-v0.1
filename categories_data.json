@@ -1,0 +1,32 @@
+[
+{
+  "model": "flame.category",
+  "pk": 1,
+  "fields": {
+    "c_id": "cat1hi4ai2fde",
+    "title": "Laptop",
+    "title_translations": {},
+    "image": "category/Citcom_Acer_1_2.jpg"
+  }
+},
+{
+  "model": "flame.category",
+  "pk": 2,
+  "fields": {
+    "c_id": "Apple Macbook",
+    "title": "Accessories",
+    "title_translations": {},
+    "image": "category/all.png"
+  }
+},
+{
+  "model": "flame.category",
+  "pk": 7,
+  "fields": {
+    "c_id": "catca5i3dgi1f",
+    "title": "Desktop",
+    "title_translations": {},
+    "image": "category/ICT_Macbookdesktop1.1.jpg"
+  }
+}
+]
