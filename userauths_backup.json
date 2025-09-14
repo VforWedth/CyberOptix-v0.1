@@ -473,8 +473,6 @@
     "email_verification_token": null,
     "email_verification_sent_at": null,
     "google_id": "102574517318858295554",
-    "google_access_token": "",
-    "google_refresh_token": "",
     "google_token_expires": "2025-09-12T17:07:28.464Z",
     "phone_number": "",
     "profile_picture": "",
