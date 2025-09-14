@@ -1,2 +1,5 @@
 .env
 .codegpt
+sqlite_data_backup.json
+userauth_backup.json
+wishlist_data.json
