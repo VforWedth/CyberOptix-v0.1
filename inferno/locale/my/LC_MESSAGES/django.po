@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LaptopMart Myanmar 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-22 10:28+0630\n"
-"PO-Revision-Date: 2025-08-22 11:08+0630\n"
+"POT-Creation-Date: 2025-09-19 17:53+0630\n"
+"PO-Revision-Date: 2025-09-20 00:18+0630\n"
 "Last-Translator:   <lorendrain47@gmail.com>\n"
 "Language-Team: Burmese <my@laptopmart.mm>\n"
 "Language: my\n"
@@ -17,67 +17,598 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.10.2\n"
 
+#: .\api\v1\serializers\auth.py:75
+#| msgid "Password confirmation"
+msgid "Password and password confirmation do not match."
+msgstr "စကားဝှက်နှင့် စကားဝှက်အတည်ပြုချက် မကိုက်ညီပါ။"
+
+#: .\api\v1\serializers\auth.py:85
+#| msgid "%(model_name)s with this %(field_label)s already exists."
+msgid "A user with this email already exists."
+msgstr "ဤအီးမေးလ်လိပ်စာဖြင့် အသုံးပြုသူရှိပြီးသားဖြစ်သည်။"
+
+#: .\api\v1\serializers\auth.py:95
+#| msgid "%(model_name)s with this %(field_label)s already exists."
+msgid "A user with this username already exists."
+msgstr "ဤအသုံးပြုသူအမည်ဖြင့် အသုံးပြုသူရှိပြီးသားဖြစ်သည်။"
+
+#: .\api\v1\serializers\auth.py:147
+#| msgid "Password confirmation"
+msgid "New password and confirmation do not match."
+msgstr "စကားဝှက်အသစ်နှင့် အတည်ပြုချက် မကိုက်ညီပါ။"
+
+#: .\api\v1\serializers\auth.py:157
+#| msgid "Password is required."
+msgid "Old password is incorrect."
+msgstr "စကားဝှက်အဟောင်း မှားယွင်းနေပါသည်။"
+
+#: .\api\v1\serializers\auth.py:173
+#| msgid "Enter your email address"
+msgid "No user found with this email address."
+msgstr "ဤအီးမေးလ်လိပ်စာဖြင့် အသုံးပြုသူမတွေ့ရှိပါ။"
+
+#: .\api\v1\serializers\auth.py:192
+#| msgid "Password confirmation"
+msgid "Password and confirmation do not match."
+msgstr "စကားဝှက်နှင့် အတည်ပြုချက် မကိုက်ညီပါ။"
+
+#: .\api\v1\views\address.py:74
+msgid "Address created successfully"
+msgstr "လိပ်စာအောင်မြင်စွာဖန်တီးပြီးပါပြီ"
+
+#: .\api\v1\views\address.py:90
+msgid "Address updated successfully"
+msgstr "လိပ်စာအောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
+
+#: .\api\v1\views\address.py:111
+#| msgid "Your email has been verified successfully!"
+msgid "Address deleted successfully"
+msgstr "လိပ်စာ အောင်မြင်စွာ ဖျက်ပြီးပါပြီ။"
+
+#: .\api\v1\views\address.py:129
+msgid "Address set as default successfully"
+msgstr "ပုံမှန်လိပ်စာအောင်မြင်စွာအဖြစ်သတ်မှတ်ပြီးပါပြီ"
+
+#: .\api\v1\views\address.py:143
+msgid "No default address found"
+msgstr "ပုံမှန်လိပ်စာမတွေ့ရှိပါ"
+
+#: .\api\v1\views\auth.py:46
+#| msgid "Your email has been verified successfully!"
+msgid "User registered successfully"
+msgstr "အသုံးပြုသူ အောင်မြင်စွာ မှတ်ပုံတင်ပြီးပါပြီ။"
+
+#: .\api\v1\views\auth.py:90
+#| msgid "Password Reset Successful!"
+msgid "Password changed successfully"
+msgstr "စကားဝှက် အောင်မြင်စွာ ပြောင်းလဲပြီးပါပြီ။"
+
+#: .\api\v1\views\auth.py:115
+#: .\templates\userauths\password_reset_email_html.html:8
+msgid "Password Reset - CyberOptix"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ခြင်း - CyberOptix"
+
+#: .\api\v1\views\auth.py:123
+#| msgid "Password Reset Request"
+msgid "Password reset email sent"
+msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် အီးမေးလ် ပို့ပြီးပါပြီ။"
+
+#: .\api\v1\views\auth.py:148
+msgid "Invalid or expired token"
+msgstr "မမှန်ကန် (သို့မဟုတ်) သက်တမ်းကုန်သွားသောတိုကင်"
+
+#: .\api\v1\views\auth.py:156
+#| msgid "Password Reset Successful!"
+msgid "Password reset successfully"
+msgstr "စကားဝှက် အောင်မြင်စွာ ပြန်လည်သတ်မှတ်ပြီးပါပြီ။"
+
+#: .\api\v1\views\auth.py:161
+#| msgid "Invalid shop"
+msgid "Invalid user"
+msgstr "မမှန်ကန်သော အသုံးပြုသူ"
+
+#: .\api\v1\views\auth.py:186
+msgid "Logged out successfully"
+msgstr "အောင်မြင်စွာအကောင့်မှထွက်ပြီးပါပြီ"
+
+#: .\api\v1\views\cart.py:131 .\api\v1\views\cart.py:218
+msgid "Insufficient stock. Only {} items available"
+msgstr "လက်ကျန်မလုံလောက်ပါ။ {} ခုသာရှိပါသည်"
+
+#: .\api\v1\views\cart.py:169
+msgid "Item added to cart successfully"
+msgstr "ပစ္စည်းအောင်မြင်စွာခြင်းတောင်းထည့်ပြီးပါပြီ"
+
+#: .\api\v1\views\cart.py:175 .\api\v1\views\cart.py:249
+#: .\api\v1\views\cart.py:299 .\api\v1\views\wishlist.py:67
+#: .\api\v1\views\wishlist.py:131 .\api\v1\views\wishlist.py:164
+#| msgid "Order not found"
+msgid "Product not found"
+msgstr "ထုတ်ကုန် မတွေ့ရှိပါ"
+
+#: .\api\v1\views\cart.py:197 .\api\v1\views\cart.py:264
+#| msgid "items in cart"
+msgid "Item not found in cart"
+msgstr "ခြင်းတောင်းထဲတွင် ပစ္စည်းမတွေ့ရှိပါ"
+
+#: .\api\v1\views\cart.py:213
+msgid "Item removed from cart"
+msgstr "ပစ္စည်းခြင်းတောင်းမှဖယ်ရှားပြီးပါပြီ"
+
+#: .\api\v1\views\cart.py:225
+msgid "Cart item updated successfully"
+msgstr "ခြင်းတောင်းထဲမှပစ္စည်းအောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
+
+#: .\api\v1\views\cart.py:293
+msgid "Item removed from cart successfully"
+msgstr "ခြင်းတောင်းမှပစ္စည်းကိုအောင်မြင်စွာဖယ်ရှားပြီးပါပြီ"
+
+#: .\api\v1\views\cart.py:313
+#| msgid "Email Sent Successfully!"
+msgid "Cart cleared successfully"
+msgstr "ခြင်းတောင်း အောင်မြင်စွာ ရှင်းလင်းပြီးပါပြီ။"
+
+#: .\api\v1\views\order.py:100
+#| msgid "Your Cart is Empty"
+msgid "Cart is empty"
+msgstr "ခြင်းတောင်း ထဲတွင် ဘာမှမရှိပါ"
+
+#: .\api\v1\views\order.py:108
+#| msgid "Order not found"
+msgid "Address not found"
+msgstr "လိပ်စာ မတွေ့ရှိပါ"
+
+#: .\api\v1\views\order.py:123
+msgid "Insufficient stock for {}. Only {} available"
+msgstr "{} အတွက်လက်ကျန်မလုံလောက်ပါ။ {} ခုသာရှိပါသည်"
+
+#: .\api\v1\views\order.py:152
+msgid "Product with ID {} not found"
+msgstr "{} ID ရှိထုတ်ကုန်မတွေ့ရှိပါ"
+
+#: .\api\v1\views\order.py:213
+msgid "Order(s) created successfully"
+msgstr "အော်ဒါအောင်မြင်စွာဖန်တီးပြီးပါပြီ"
+
+#: .\api\v1\views\order.py:275
+msgid "Order status updated successfully"
+msgstr "အော်ဒါအခြေအနေအောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
+
+#: .\api\v1\views\order.py:288
+msgid "Order cannot be cancelled at this stage"
+msgstr "ဤအဆင့်တွင်အော်ဒါမပယ်ဖျက်နိုင်ပါ"
+
+#: .\api\v1\views\order.py:315
+#| msgid "Your email has been verified successfully!"
+msgid "Order cancelled successfully"
+msgstr "အော်ဒါ အောင်မြင်စွာ ပယ်ဖျက်ပြီးပါပြီ။"
+
+#: .\api\v1\views\product.py:153 .\api\v1\views\product.py:189
+#: .\api\v1\views\product.py:240
+msgid "Authentication required"
+msgstr "ခွင့်ပြုချက်လိုအပ်ပါသည်"
+
+#: .\api\v1\views\product.py:173
+#| msgid "Add to wishlist"
+msgid "Product added to wishlist"
+msgstr "ထုတ်ကုန် စိတ်ကြိုက်စာရင်းထဲသို့ ထည့်ပြီးပါပြီ။"
+
+#: .\api\v1\views\product.py:178 .\api\v1\views\wishlist.py:126
+msgid "Product already in wishlist"
+msgstr " ထုတ်ကုန်စိတ်ကြိုက်စာရင်းထဲတွင်ရှိပြီးသားဖြစ်သည်"
+
+#: .\api\v1\views\product.py:210
+msgid "Product removed from wishlist"
+msgstr "ထုတ်ကုန်စိတ်ကြိုက်စာရင်းမှဖယ်ရှားပြီးပါပြီ"
+
+#: .\api\v1\views\product.py:215 .\api\v1\views\wishlist.py:168
+#| msgid "Add to wishlist"
+msgid "Product not in wishlist"
+msgstr "ထုတ်ကုန် စိတ်ကြိုက်စာရင်းထဲတွင် မရှိပါ"
+
+#: .\api\v1\views\product.py:249 .\flame\views.py:367
+msgid "You cannot review this product"
+msgstr "သင်ဤထုတ်ကုန်ကိုသုံးသပ်ချက်ပေးနိုင်ခြင်းမရှိပါ"
+
+#: .\api\v1\views\product.py:269
+#| msgid "Email Sent Successfully!"
+msgid "Review added successfully"
+msgstr "သုံးသပ်ချက် အောင်မြင်စွာ ထည့်ပြီးပါပြီ။"
+
+#: .\api\v1\views\shop.py:77
+#| msgid "Email Sent Successfully!"
+msgid "Shop created successfully"
+msgstr "ဆိုင် အောင်မြင်စွာ ဖန်တီးပြီးပါပြီ။"
+
+#: .\api\v1\views\shop.py:89
+msgid "You can only update your own shops"
+msgstr "သင်သင့်ကိုယ်ပိုင်ဆိုင်များကိုသာပြင်ဆင်နိုင်ပါသည်"
+
+#: .\api\v1\views\shop.py:114
+msgid "Shop updated successfully"
+msgstr "ဆိုင်အောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
+
+#: .\api\v1\views\shop.py:125
+msgid "You can only delete your own shops"
+msgstr "သင်သင့်ကိုယ်ပိုင်ဆိုင်များကိုသာဖျက်နိုင်ပါသည်"
+
+#: .\api\v1\views\shop.py:131
+msgid ""
+"Cannot delete shop with active products. Please remove or deactivate "
+"products first."
+msgstr ""
+"Active ဖြစ်နေသောထုတ်ကုန်များရှိသောဆိုင်ကိုမဖျက်နိုင်ပါ။ "
+"ကျေးဇူးပြု၍ထုတ်ကုန်များကိုအရင်ဖယ်ရှားသို့မဟုတ်ပိတ်သိမ်းပါ။"
+
+#: .\api\v1\views\shop.py:137
+#| msgid "Email Sent Successfully!"
+msgid "Shop deleted successfully"
+msgstr "ဆိုင် အောင်မြင်စွာ ဖျက်ပြီးပါပြီ။"
+
+#: .\api\v1\views\wishlist.py:61 .\api\v1\views\wishlist.py:122
+msgid "Product added to wishlist successfully"
+msgstr "ထုတ်ကုန်အောင်မြင်စွာစိတ်ကြိုက်စာရင်းထည့်ပြီးပါပြီ"
+
+#: .\api\v1\views\wishlist.py:86 .\api\v1\views\wishlist.py:159
+msgid "Product removed from wishlist successfully"
+msgstr "ထုတ်ကုန်အောင်မြင်စွာစိတ်ကြိုက်စာရင်းမှဖယ်ရှားပြီးပါပြီ"
+
+#: .\api\v1\views\wishlist.py:194
+#| msgid "Email Sent Successfully!"
+msgid "Wishlist cleared successfully"
+msgstr "စိတ်ကြိုက်စာရင်း အောင်မြင်စွာ ရှင်းလင်းပြီးပါပြီ။"
+
 #: .\flame\custom_translation_view.py:42
 msgid "Translations updated successfully"
-msgstr ""
+msgstr "ဘာသာပြန်ချက်များအောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
 
-#: .\flame\forms.py:6
+#: .\flame\forms.py:7
 msgid "Write your review here..."
 msgstr "ဤနေရာတွင် သုံးသပ်ချက်ရေးသားပါ..."
 
-#: .\flame\views.py:84
+#: .\flame\forms.py:25
+msgid "Summary of your review"
+msgstr "သင့်သုံးသပ်ချက်အကျဉ်းချုပ်"
+
+#: .\flame\forms.py:34
+msgid "Share your experience with this product..."
+msgstr "ဤထုတ်ကုန်နှင့်ပတ်သက်သည့်သင့်အတွေ့အကြုံကိုမျှဝေပါ..."
+
+#: .\flame\forms.py:46
+msgid "Quality Rating"
+msgstr "အရည်အသွေးအဆင့်သတ်မှတ်ချက်"
+
+#: .\flame\forms.py:52
+msgid "Value for Money"
+msgstr " ငွေကြေးတန်ဖိုး"
+
+#: .\flame\forms.py:58
+#| msgid "Delivery Address"
+msgid "Delivery Experience"
+msgstr "ပို့ဆောင်မှုအတွေ့အကြုံ"
+
+#: .\flame\forms.py:71
+msgid "Please provide a detailed review for low ratings."
+msgstr "ကျေးဇူးပြု၍နိမ့်သောအဆင့်သတ်မှတ်ချက်များအတွက်အသေးစိတ်သုံးသပ်ချက်ပေးပါ။"
+
+#: .\flame\forms.py:81
+msgid "Please explain why you're reporting this review..."
+msgstr "ကျေးဇူးပြု၍ဤသုံးသပ်ချက်ကိုအဘယ်ကြောင့်သတင်းပို့သည်ကိုရှင်းပြပါ..."
+
+#: .\flame\forms.py:99
+msgid "HTML content of the email template..."
+msgstr "အီးမေးလ်နမူနာပုံစံ၏ HTML အင်္ဂါရပ်များ..."
+
+#: .\flame\forms.py:107
+msgid "Plain text version (optional)..."
+msgstr "ရိုးရိုးစာသားဗားရှင်း (ချန်လှပ်ထားနိုင်သည်)..."
+
+#: .\flame\forms.py:128
+msgid "Write your social media post content..."
+msgstr "သင့်လူမှုမီဒီယာပို့စ်အကြောင်းအရာရေးပါ..."
+
+#: .\flame\forms.py:138
+msgid "Leave blank to post immediately"
+msgstr "ချက်ချင်းတင်နိုင်ရန်ဗလာချန်ထားပါ"
+
+#: .\flame\forms.py:155
+msgid "Upload CSV file with columns: product_id, quantity, cost_per_unit"
+msgstr "product_id, quantity, cost_per_unit ကော်လံများပါသော CSV ဖိုင်တင်ပါ"
+
+#: .\flame\forms.py:161
+msgid "Please upload a CSV file."
+msgstr "ကျေးဇူးပြု၍ CSV ဖိုင်တင်ပါ။"
+
+#: .\flame\forms.py:167 .\templates\flame\inventory\dashboard.html:334
+#| msgid "In Stock"
+msgid "Add Stock"
+msgstr "လက်ကျန်ထည့်သွင်းမည်"
+
+#: .\flame\forms.py:168
+#| msgid "In Stock"
+msgid "Remove Stock"
+msgstr "လက်ကျန်ဖယ်ရှားမည်"
+
+#: .\flame\forms.py:169
+msgid "Set Stock Level"
+msgstr "  Stock သတ်မှတ်မည်"
+
+#: .\flame\forms.py:170
+msgid "Mark as Damaged"
+msgstr " ပျက်စီးသည်ဟုသတ်မှတ်မည်"
+
+#: .\flame\forms.py:188
+msgid "Cost per unit (for restocking)"
+msgstr "တစ်ခုလျှင်ကုန်ကျစရိတ် (ပြန်လည်ဖြည့်တင်းရန်)"
+
+#: .\flame\forms.py:195
+msgid "Reason for adjustment..."
+msgstr "ညှိညှိရန်အကြောင်းပြချက်..."
+
+#: .\flame\forms.py:205
+#| msgid "Search products"
+msgid "Search products..."
+msgstr "ထုတ်ကုန်များ ရှာဖွေရန်..."
+
+#: .\flame\forms.py:238
+msgid "Relevance"
+msgstr "ဆက်စပ်မှု"
+
+#: .\flame\forms.py:239
+msgid "Newest First"
+msgstr "အသစ်ဆုံးမှစတင်"
+
+#: .\flame\forms.py:240
+msgid "Price: Low to High"
+msgstr "ဈေးနှုန်း: နိမ့်မှမြင့်"
+
+#: .\flame\forms.py:241
+msgid "Price: High to Low"
+msgstr "ဈေးနှုန်း: မြင့်မှနိမ့်"
+
+#: .\flame\forms.py:242
+msgid "Highest Rated"
+msgstr "အမြင့်ဆုံးအဆင့်သတ်မှတ်ခံရ"
+
+#: .\flame\forms.py:243
+#| msgid "Customer Reviews"
+msgid "Most Reviewed"
+msgstr "အများဆုံးသုံးသပ်ထားသော"
+
+#: .\flame\forms.py:254 .\templates\Shop\shop.html:391
+msgid "All Categories"
+msgstr "အမျိုးအစားအားလုံး"
+
+#: .\flame\forms.py:258 .\templates\Shop\shop.html:376
+msgid "All Brands"
+msgstr "ကုန်ပစ္စည်းအမှတ်တံဆိပ်အားလုံး"
+
+#: .\flame\forms.py:270 .\templates\flame\checkout.html:67
+#: .\templates\flame\shop_profile.html:108
+msgid "Select State/Region"
+msgstr "ပြည်နယ်/တိုင်းဒေသကြီးရွေးချယ်ပါ"
+
+#: .\flame\forms.py:280 .\templates\flame\shop_profile.html:126
+#: .\templates\flame\shop_profile.html:338
+msgid "Select City"
+msgstr "မြို့ရွေးချယ်ပါ"
+
+#: .\flame\forms.py:290 .\templates\flame\checkout.html:93
+#: .\templates\flame\checkout.html:477 .\templates\flame\checkout.html:489
+#: .\templates\flame\checkout.html:522
+msgid "Select Township"
+msgstr "မြို့နယ်ရွေးချယ်ပါ"
+
+#: .\flame\forms.py:298
+msgid "Building number, street name, landmark..."
+msgstr "အမှတ်၊ လမ်းအမည်၊ လမ်းဆုံလမ်းခွ..."
+
+#: .\flame\forms.py:301
+#| msgid "Seller Information"
+msgid "Detailed address information"
+msgstr "အသေးစိတ်လိပ်စာအချက်အလက်"
+
+#: .\flame\forms.py:335
+msgid "Select Destination City"
+msgstr "ပို့ဆောင်ရမည့်မြို့ရွေးချယ်ပါ"
+
+#: .\flame\forms.py:343
+msgid "Rate in MMK"
+msgstr "ကျပ်ဖြင့်နှုန်းထား"
+
+#: .\flame\forms.py:347
+msgid "Shipping rate in Myanmar Kyat"
+msgstr "မြန်မာကျပ်ဖြင့်ပို့ဆောင်ခနှုန်းထား"
+
+#: .\flame\forms.py:355
+msgid "Rate in USD"
+msgstr "အမေရိကန်ဒေါ်လာဖြင့်နှုန်းထား"
+
+#: .\flame\forms.py:359
+msgid "Shipping rate in US Dollars"
+msgstr "အမေရိကန်ဒေါ်လာဖြင့်ပို့ဆောင်ခနှုန်းထား"
+
+#: .\flame\forms.py:365
+msgid "Estimated delivery days"
+msgstr " ခန့်မှန်းပို့ဆောင်ရက်များ"
+
+#: .\flame\forms.py:369
+msgid "Estimated delivery time in days"
+msgstr "ရက်အလိုက်ခန့်မှန်းပို့ဆောင်ချိန်"
+
+#: .\flame\forms.py:378
+msgid "Enable this shipping option"
+msgstr "ဤပို့ဆောင်ရေးရွေးချယ်ခွင့်ကိုဖွင့်ပါ"
+
+#: .\flame\forms.py:391
+msgid "MMK rate must be greater than zero"
+msgstr "ကျပ်နှုန်းထားသည် သုညထက်ကြီးရမည်"
+
+#: .\flame\forms.py:394
+msgid "USD rate must be greater than zero"
+msgstr "အမေရိကန်ဒေါ်လာနှုန်းထားသည် သုညထက်ကြီးရမည်"
+
+#: .\flame\views.py:100
 msgid "Welcome to CyberOptix"
 msgstr "CyberOptix မှ ကြိုဆိုပါသည်"
 
-#: .\flame\views.py:102
+#: .\flame\views.py:118
 msgid "ဒက်စ်တော့"
 msgstr " Desktop"
 
-#: .\flame\views.py:103
+#: .\flame\views.py:119
 msgid "လက်ပ်တော့"
 msgstr "Laptop"
 
-#: .\flame\views.py:104
+#: .\flame\views.py:120
 msgid "အသုံး အဆောင်ပစ္စည်းများ"
 msgstr "Accessories"
 
-#: .\flame\views.py:825
+#: .\flame\views.py:411
+msgid "Review submitted successfully"
+msgstr "သုံးသပ်ချက်အောင်မြင်စွာတင်သွင်းပြီးပါပြီ"
+
+#: .\flame\views.py:489
+#| msgid "You are already logged in."
+msgid "You have already reported this review"
+msgstr "သင်သည် ဤသုံးသပ်ချက်ကို သတင်းပို့ပြီးသားဖြစ်သည်။"
+
+#: .\flame\views.py:499
+msgid "Review reported successfully. We will review it shortly."
+msgstr ""
+"သုံးသပ်ချက်အောင်မြင်စွာသတင်းပို့ပြီးပါပြီ။ "
+"ကျွန်ုပ်တို့အမြန်ဆုံးသုံးသပ်ပေးပါမည်။"
+
+#: .\flame\views.py:1254
 msgid "Your Cart is Empty"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
 
-#: .\flame\views.py:1116
+#: .\flame\views.py:1545 .\flame\views.py:2313
 msgid "Your cart for this shop is empty"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ဘာမှမရှိပါ"
 
-#: .\flame\views.py:1201
+#: .\flame\views.py:1633
 msgid "Please add a shipping address"
 msgstr "ကျေးဇူးပြု၍ ပို့ဆောင်ရေးလိပ်စာထည့်ပါ"
 
-#: .\flame\views.py:1223
+#: .\flame\views.py:1659 .\flame\views.py:2425
 msgid "Shop not found"
 msgstr "ဆိုင်ကိုမတွေ့ရှိပါ"
 
-#: .\flame\views.py:1227
+#: .\flame\views.py:1663
 msgid "An error occurred during checkout"
 msgstr "ငွေရှင်းချိန်တွင် အလွှဲအမှားတစ်ခုခုဖြစ်ပွားခဲ့သည်"
 
-#: .\flame\views.py:1565
+#: .\flame\views.py:2112
 msgid "Order not found"
 msgstr "အော်ဒါကိုမတွေ့ရှိပါ"
 
-#: .\flame\views.py:1628
+#: .\flame\views.py:2150 .\flame\views.py:2156 .\templates\flame\cart.html:230
+msgid "Free"
+msgstr "အခမဲ့"
+
+#: .\flame\views.py:2249
 msgid "Invalid shop"
 msgstr "မှားယွင်းသောဆိုင်"
 
-#: .\flame\views.py:1632
+#: .\flame\views.py:2253
 msgid "An error occurred"
 msgstr "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်"
 
-#: .\inferno\settings.py:175
+#: .\flame\views.py:2331
+msgid "Please fill in your complete delivery address"
+msgstr "ကျေးဇူးပြု၍ သင့်ပို့ဆောင်ရန်လိပ်စာအပြည့်အစုံဖြည့်ပါ"
+
+#: .\flame\views.py:2379
+#| msgid "Invalid verification link."
+msgid "Invalid delivery location selected"
+msgstr "မမှန်ကန်သော ပို့ဆောင်ရန်နေရာ ရွေးချယ်ထားသည်။"
+
+#: .\flame\views.py:2419
+msgid ""
+"Cash on Delivery order placed successfully! You will pay when your order is "
+"delivered."
+msgstr ""
+"လက်ခံရရှိစဉ်ငွေချေအော်ဒါအောင်မြင်စွာနေရာချပြီးပါပြီ! "
+"သင့်အော်ဒါပို့ဆောင်ပေးသောအခါတွင်ငွေချေရမည်။"
+
+#: .\flame\views.py:2428
+#| msgid "An error occurred. Please try again."
+msgid "An error occurred while processing your order. Please try again."
+msgstr ""
+"သင့်အော်ဒါကိုဆောင်ရွက်ရာတွင် အမှားတစ်ခုဖြစ်ပွားခဲ့သည်။ ကျေးဇူးပြု၍ "
+"ထပ်ကြိုးစားပါ။"
+
+#: .\flame\views.py:2513
+msgid "Shop not found or you don't have permission to access it"
+msgstr "ဆိုင်မတွေ့ရှိပါ သို့မဟုတ် ဝင်ရောက်ကြည့်ရှုခွင့်မရှိပါ"
+
+#: .\flame\views.py:2532 .\flame\views.py:2535
+msgid "Shop location updated successfully"
+msgstr "ဆိုင်တည်နေရာအောင်မြင်စွာပြင်ဆင်ပြီးပါပြီ"
+
+#: .\flame\views.py:2596 .\flame\views.py:2641
+msgid "Shipping rate {} successfully"
+msgstr "ပို့ဆောင်ခနှုန်းထား {} အောင်မြင်စွာ"
+
+#: .\flame\views.py:2596
+msgid "created"
+msgstr "ဖန်တီးပြီးပါပြီ"
+
+#: .\flame\views.py:2596
+msgid "updated"
+msgstr " ပြင်ဆင်ပြီးပါပြီ"
+
+#: .\flame\views.py:2625
+msgid "Shipping rate deleted successfully"
+msgstr "ပို့ဆောင်ခနှုန်းထားအောင်မြင်စွာဖျက်ပြီးပါပြီ"
+
+#: .\flame\views.py:2641
+msgid "activated"
+msgstr "ဖွင့်လိုက်ပါပြီ"
+
+#: .\flame\views.py:2641
+msgid "deactivated"
+msgstr "ပိတ်လိုက်ပါပြီ"
+
+#: .\flame\views.py:3201
+#| msgid "This field cannot be null."
+msgid "This order cannot be cancelled"
+msgstr "ဤအော်ဒါကို ပယ်ဖျက်၍မရပါ။"
+
+#: .\flame\views.py:3219
+#| msgid "Your email has been verified successfully!"
+msgid "Your order has been cancelled successfully"
+msgstr "သင့်အော်ဒါ အောင်မြင်စွာ ပယ်ဖျက်ပြီးပါပြီ။"
+
+#: .\flame\views.py:3234
+#| msgid "This field cannot be null."
+msgid "This order cannot be returned"
+msgstr "ဤအော်ဒါကို ပြန်လည်ပို့ဆောင်၍မရပါ။"
+
+#: .\flame\views.py:3248
+msgid "Return request submitted successfully"
+msgstr " ပြန်လည်ပို့ဆောင်ရန်တောင်းဆိုချက်အောင်မြင်စွာတင်သွင်းပြီးပါပြီ"
+
+#: .\flame\views.py:3442
+#| msgid "Email Sent Successfully!"
+msgid "Email preferences updated successfully"
+msgstr "အီးမေးလ် ဦးစားပေးချက်များ အောင်မြင်စွာ ပြင်ဆင်ပြီးပါပြီ။"
+
+#: .\flame\views.py:3463
+msgid "You have been unsubscribed from email notifications"
+msgstr "သင့်အား အီးမေးလ်အသိပေးချက်များမှ စာရင်းမှ ပယ်ဖျက်ပြီးပါပြီ"
+
+#: .\flame\views.py:3466
+#| msgid "Invalid Reset Link"
+msgid "Invalid unsubscribe link"
+msgstr "မမှန်ကန်သော စာရင်းမှပယ်ဖျက်ရန် လင့်ခ်"
+
+#: .\inferno\settings.py:224
 msgid "English"
 msgstr "အင်္ဂလိပ်"
 
-#: .\inferno\settings.py:176
+#: .\inferno\settings.py:225
 msgid "Burmese"
 msgstr "မြန်မာ"
 
@@ -94,34 +625,30 @@ msgstr "ခေါင်းစဉ်၊ စျေးနှုန်း သို�
 msgid "Search products"
 msgstr "ကုန်ပစ္စည်းများရှာဖွေရန်"
 
-#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:124
+#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:127
+#: .\templates\partials\base_offline.html:188
 msgid "Brand"
 msgstr "ကုန်အမှတ်တံဆိပ်"
-
-#: .\templates\Shop\shop.html:376
-msgid "All Brands"
-msgstr "ကုန်ပစ္စည်းအမှတ်တံဆိပ်အားလုံး"
 
 #: .\templates\Shop\shop.html:387
 msgid "Category"
 msgstr "အမျိုးအစား"
 
-#: .\templates\Shop\shop.html:391
-msgid "All Categories"
-msgstr "အမျိုးအစားအားလုံး"
-
 #: .\templates\Shop\shop.html:392 .\templates\flame\category.html:50
-#: .\templates\partials\base.html:137
+#: .\templates\partials\base.html:140
+#: .\templates\partials\base_offline.html:201
 msgid "Laptop"
 msgstr "လက်ပ်တော့"
 
 #: .\templates\Shop\shop.html:393 .\templates\flame\category.html:69
-#: .\templates\partials\base.html:138
+#: .\templates\partials\base.html:141
+#: .\templates\partials\base_offline.html:202
 msgid "Desktop"
 msgstr "ဒက်စ်တော့ပ်"
 
 #: .\templates\Shop\shop.html:394 .\templates\flame\category.html:87
-#: .\templates\partials\base.html:139
+#: .\templates\partials\base.html:142
+#: .\templates\partials\base_offline.html:203
 msgid "Accessories"
 msgstr "အသုံးအဆောင်ပစ္စည်းများ"
 
@@ -155,25 +682,162 @@ msgstr "%(ram)s RAM"
 #: .\templates\Shop\shop.html:468 .\templates\flame\async\product-list.html:8
 #: .\templates\flame\brand-product-list.html:47
 #: .\templates\flame\category-product-list.html:47
-#: .\templates\flame\home.html:670 .\templates\flame\home.html:713
-#: .\templates\flame\home.html:763 .\templates\flame\search.html:970
+#: .\templates\flame\home.html:672 .\templates\flame\home.html:715
+#: .\templates\flame\home.html:765 .\templates\flame\search.html:970
 #: .\templates\flame\shop-product-list.html:47
 #: .\templates\flame\wishlist.html:150
 msgid "View Product"
 msgstr "အသေးစိတ်ကြည့်ရန်"
 
+#: .\templates\flame\analytics\dashboard.html:13
+msgid "Analytics Dashboard"
+msgstr " ခွဲခြမ်းစိတ်ဖြာမှုဒိုင်ခွက်"
+
+#: .\templates\flame\analytics\dashboard.html:20
+#| msgid "Date out of range"
+msgid "Date Range"
+msgstr "ရက်စွဲအပိုင်းအခြား"
+
+#: .\templates\flame\analytics\dashboard.html:23
+#: .\templates\flame\social\analytics.html:24
+msgid "Last 7 days"
+msgstr "ပြီးခဲ့သော ၇ ရက်"
+
+#: .\templates\flame\analytics\dashboard.html:24
+#: .\templates\flame\social\analytics.html:25
+msgid "Last 30 days"
+msgstr " ပြီးခဲ့သော ၃၀ ရက်"
+
+#: .\templates\flame\analytics\dashboard.html:25
+#: .\templates\flame\social\analytics.html:26
+msgid "Last 90 days"
+msgstr "ပြီးခဲ့သော ၉၀ ရက်"
+
+#: .\templates\flame\analytics\dashboard.html:38
+#| msgid "Total Amount Due"
+msgid "Total Revenue"
+msgstr "စုစုပေါင်းဝင်ငွေ"
+
+#: .\templates\flame\analytics\dashboard.html:58
+#: .\templates\flame\orders\order-list.html:13
+#| msgid "Track Order"
+msgid "Total Orders"
+msgstr "စုစုပေါင်းအော်ဒါများ"
+
+#: .\templates\flame\analytics\dashboard.html:78
+#| msgid "General Order Payment"
+msgid "Average Order Value"
+msgstr "ပျမ်းမျှအော်ဒါတန်ဖိုး"
+
+#: .\templates\flame\analytics\dashboard.html:98
+#: .\templates\flame\analytics\dashboard.html:271
+#| msgid "Customer"
+msgid "New Customers"
+msgstr "ဖောက်သည်အသစ်များ"
+
+#: .\templates\flame\analytics\dashboard.html:119
+#| msgid "Latest Trendings"
+msgid "Sales Trend"
+msgstr "ရောင်းအားအလားအလာ"
+
+#: .\templates\flame\analytics\dashboard.html:127
+#| msgid "Actions"
+msgid "Options"
+msgstr "ရွေးချယ်စရာများ"
+
+#: .\templates\flame\analytics\dashboard.html:129
+msgid "Export Chart"
+msgstr "ဇယားထုတ်ယူမည်"
+
+#: .\templates\flame\analytics\dashboard.html:147
+msgid "Order Status Distribution"
+msgstr "အော်ဒါအခြေအနေဖြန့်ဖြူးမှု"
+
+#: .\templates\flame\analytics\dashboard.html:173
+#| msgid "Find Products"
+msgid "Top Performing Products"
+msgstr "ထိပ်တန်းစွမ်းဆောင်ရည်ထုတ်ကုန်များ"
+
+#: .\templates\flame\analytics\dashboard.html:182
+#: .\templates\flame\cart.html:186
+#: .\templates\flame\inventory\dashboard.html:136
+#: .\templates\flame\order-detail.html:86 .\templates\flame\profile.html:161
+#: .\templates\flame\shop-cart.html:45
+msgid "Product"
+msgstr "ကုန်ပစ္စည်း"
+
+#: .\templates\flame\analytics\dashboard.html:183
+#: .\templates\flame\analytics\dashboard.html:269
+#: .\templates\flame\analytics\dashboard.html:393
+msgid "Revenue"
+msgstr "ဝင်ငွေ"
+
+#: .\templates\flame\analytics\dashboard.html:184
+msgid "Growth"
+msgstr "ကြီးထွားမှု"
+
+#: .\templates\flame\analytics\dashboard.html:205
+msgid "No product data available"
+msgstr "ထုတ်ကုန်အချက်အလက်မရနိုင်ပါ"
+
+#: .\templates\flame\analytics\dashboard.html:217
+#: .\templates\flame\inventory\dashboard.html:205
+msgid "Recent Activity"
+msgstr "လတ်တလောလုပ်ဆောင်မှုများ"
+
+#: .\templates\flame\analytics\dashboard.html:231
+msgid "orders placed"
+msgstr "အော်ဒါများနေရာချထားသည်"
+
+#: .\templates\flame\analytics\dashboard.html:244
+#: .\templates\flame\inventory\dashboard.html:238
+msgid "No recent activity"
+msgstr "လတ်တလောလုပ်ဆောင်မှုမရှိပါ"
+
+#: .\templates\flame\analytics\dashboard.html:259
+msgid "Daily Sales Report"
+msgstr "နေ့စဉ်ရောင်းအားအစီရင်ခံစာ"
+
+#: .\templates\flame\analytics\dashboard.html:267
+#: .\templates\flame\profile.html:99
+#: .\templates\flame\social\analytics.html:223
+msgid "Date"
+msgstr "ရက်စွဲ"
+
+#: .\templates\flame\analytics\dashboard.html:268
+#: .\templates\flame\order-detail.html:69 .\templates\flame\profile.html:14
+#: .\templates\flame\shop_profile.html:18
+msgid "Orders"
+msgstr "အမှာစာများ"
+
+#: .\templates\flame\analytics\dashboard.html:270
+#| msgid "New Items "
+msgid "Items Sold"
+msgstr "ရောင်းချပြီးပစ္စည်းများ"
+
+#: .\templates\flame\analytics\dashboard.html:272
+msgid "Avg Order Value"
+msgstr "ပျမ်းမျှအော်ဒါတန်ဖိုး"
+
+#: .\templates\flame\analytics\dashboard.html:290
+msgid "No sales data available"
+msgstr "ရောင်းအားအချက်အလက်မရနိုင်ပါ"
+
 #: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:229
-#: .\templates\flame\checkout.html:142
+#: .\templates\flame\checkout.html:188
+#: .\templates\flame\checkout_offline.html:157
 msgid "Shipping:"
 msgstr "ပို့ဆောင်ခ:"
 
 #: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:233
-#: .\templates\flame\checkout.html:149
+#: .\templates\flame\checkout.html:195
+#: .\templates\flame\checkout_offline.html:166
 msgid "Total:"
 msgstr "စုစုပေါင်း:"
 
 #: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:241
-#: .\templates\flame\payment-completed.html:394
+#: .\templates\flame\checkout_offline.html:505
+#: .\templates\flame\payment-completed.html:429
 #: .\templates\flame\shop-cart.html:119
 msgid "Continue Shopping"
 msgstr "စျေးဝယ်ဆက်လက်လုပ်ဆောင်ရန်"
@@ -193,6 +857,7 @@ msgstr "ဆိုင်စုစုပေါင်း:"
 
 #: .\templates\flame\async\shop-cart-list.html:63
 #: .\templates\flame\checkout.html:40
+#: .\templates\flame\checkout_offline.html:51
 msgid "Checkout"
 msgstr "ငွေရှင်းမည်"
 
@@ -230,36 +895,38 @@ msgstr[0] ""
 msgid "You don't have any items in your cart"
 msgstr "သင့်ခြင်းတောင်းထဲတွင် ပစ္စည်းမရှိပါ"
 
-#: .\templates\flame\cart.html:186 .\templates\flame\order-detail.html:86
-#: .\templates\flame\profile.html:160 .\templates\flame\shop-cart.html:45
-msgid "Product"
-msgstr "ကုန်ပစ္စည်း"
-
 #: .\templates\flame\cart.html:187 .\templates\flame\shop-cart.html:46
 msgid "Unit Price"
 msgstr "တခုချင်းစျေးနှုန်း"
 
 #: .\templates\flame\cart.html:188 .\templates\flame\order-detail.html:89
+#: .\templates\flame\orders\cancel-order.html:53
+#: .\templates\flame\orders\order-detail.html:65
+#: .\templates\flame\orders\return-order.html:67
 #: .\templates\flame\product-detail.html:73
 #: .\templates\flame\shop-cart.html:47
-#: .\templates\flame\shop-product-detail.html:99
+#: .\templates\flame\shop-product-detail.html:94
 msgid "Quantity"
 msgstr "အရေအတွက်"
 
 #: .\templates\flame\cart.html:189
-#: .\templates\flame\payment-completed.html:325
+#: .\templates\flame\orders\order-detail.html:120
+#: .\templates\flame\orders\return-order.html:70
+#: .\templates\flame\payment-completed.html:334
 #: .\templates\flame\shop-cart.html:48
 msgid "Subtotal"
 msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး"
 
-#: .\templates\flame\cart.html:190 .\templates\flame\profile.html:102
-#: .\templates\flame\shop-cart.html:49
+#: .\templates\flame\cart.html:190
+#: .\templates\flame\email\preferences.html:255
+#: .\templates\flame\inventory\dashboard.html:140
+#: .\templates\flame\orders\track-order.html:218
+#: .\templates\flame\profile.html:103 .\templates\flame\shop-cart.html:49
+#: .\templates\flame\shop_profile.html:249
+#: .\templates\flame\social\campaign-detail.html:32
+#: .\templates\flame\social\post-calendar.html:105
 msgid "Actions"
 msgstr "လုပ်ဆောင်ချက်များ"
-
-#: .\templates\flame\cart.html:230 .\templates\flame\checkout.html:143
-msgid "Free"
-msgstr "အခမဲ့"
 
 #: .\templates\flame\category.html:16
 msgid "Latest Trendings"
@@ -320,78 +987,619 @@ msgstr[0] ""
 "          "
 
 #: .\templates\flame\checkout.html:15
+#: .\templates\flame\checkout_offline.html:26
 msgid "Checking out from"
 msgstr "ဝယ်ယူသည့်ဆိုင်"
 
 #: .\templates\flame\checkout.html:18
+#: .\templates\flame\checkout_offline.html:29
 msgid "PayPal Account:"
 msgstr "PayPal အကောင့်:"
 
 #: .\templates\flame\checkout.html:21
+#: .\templates\flame\checkout_offline.html:32
 msgid "Order ID:"
 msgstr "အမှာစာ ID: "
 
 #: .\templates\flame\checkout.html:33
+#: .\templates\flame\checkout_offline.html:44
 msgid "Current Exchange Rate:"
 msgstr "လက်ရှိငွေလဲနှုန်း"
 
 #: .\templates\flame\checkout.html:46
+#: .\templates\flame\checkout_offline.html:57
 msgid "Billing Details"
 msgstr "ငွေရှင်းမှုအသေးစိတ်"
 
 #: .\templates\flame\checkout.html:51
+#: .\templates\flame\checkout_offline.html:63
 msgid "Name"
 msgstr "အမည်အပြည့်အစုံ"
 
-#: .\templates\flame\checkout.html:57 .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout.html:56
+#: .\templates\flame\checkout_offline.html:69
 msgid "Mobile"
 msgstr "မိုဘိုင်းဖုန်းနံပါတ်"
 
-#: .\templates\flame\checkout.html:61 .\templates\flame\checkout.html:68
-#: .\templates\flame\profile.html:241
-msgid "Address"
-msgstr "လိပ်စာ"
+#: .\templates\flame\checkout.html:61
+#: .\templates\flame\checkout_offline.html:74
+#| msgid "Shop Address:"
+msgid "Shipping Address"
+msgstr "ပို့ဆောင်ရန်လိပ်စာ"
 
-#: .\templates\flame\checkout.html:76
+#: .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout_offline.html:78
+#: .\templates\flame\shop_profile.html:106
+msgid "State/Region"
+msgstr "ပြည်နယ်/တိုင်းဒေသကြီး"
+
+#: .\templates\flame\checkout.html:83
+#: .\templates\flame\checkout_offline.html:93
+msgid "City/Town"
+msgstr "မြို့/ခရိုင်"
+
+#: .\templates\flame\checkout.html:85 .\templates\flame\checkout.html:433
+#: .\templates\flame\checkout.html:445
+msgid "Select City/Town"
+msgstr "မြို့/ခရိုင်ရွေးချယ်ပါ"
+
+#: .\templates\flame\checkout.html:91
+#: .\templates\flame\checkout_offline.html:108
+#: .\templates\flame\shop_profile.html:144
+msgid "Township"
+msgstr "မြို့နယ်"
+
+#: .\templates\flame\checkout.html:99
+#: .\templates\flame\checkout_offline.html:118
+#: .\templates\flame\shop_profile.html:162
+#| msgid "Save Address"
+msgid "Street Address"
+msgstr "လမ်းလိပ်စာ"
+
+#: .\templates\flame\checkout.html:104
+#: .\templates\flame\checkout_offline.html:123
+msgid "Building No, Street Name"
+msgstr "အမှတ်၊ လမ်းအမည်"
+
+#: .\templates\flame\checkout.html:109
+#: .\templates\flame\checkout_offline.html:128
+msgid "Near Landmark"
+msgstr "လမ်းဆုံလမ်းခွအနီး"
+
+#: .\templates\flame\checkout.html:114
+#: .\templates\flame\checkout_offline.html:133
+msgid "Near landmark for easy delivery"
+msgstr "လွယ်ကူစွာပို့ဆောင်နိုင်ရန် လမ်းဆုံလမ်းခွအနီး"
+
+#: .\templates\flame\checkout.html:122
+#: .\templates\flame\checkout_offline.html:141
 msgid "Your Order"
 msgstr "သင့်၏အမှာစာ"
 
-#: .\templates\flame\checkout.html:87 .\templates\flame\checkout.html:106
+#: .\templates\flame\checkout.html:133 .\templates\flame\checkout.html:152
+#: .\templates\flame\checkout_offline.html:311
 msgid "Qty:"
 msgstr "အရေအတွက်:"
 
-#: .\templates\flame\checkout.html:134
+#: .\templates\flame\checkout.html:180
+#: .\templates\flame\checkout_offline.html:152
 msgid "Subtotal:"
 msgstr "စုစုပေါင်းအကြမ်းတန်ဖိုး:"
 
-#: .\templates\flame\checkout.html:162
+#: .\templates\flame\checkout.html:189
+#| msgid "email address"
+msgid "Please select address"
+msgstr "ကျေးဇူးပြု၍ လိပ်စာရွေးချယ်ပါ"
+
+#: .\templates\flame\checkout.html:208
+#: .\templates\flame\checkout_offline.html:179
 msgid "Note: Payment will be processed in USD"
 msgstr "မှတ်ချက်: ငွေပေးချေမှုကို US ဒေါ်လာဖြင့်ဆောင်ရွက်ပါမည်"
 
-#: .\templates\flame\checkout.html:185 .\templates\flame\checkout.html:235
-#: .\templates\flame\checkout.html:273
+#: .\templates\flame\checkout.html:214
+msgid "Choose Payment Method"
+msgstr "ငွေပေးချေမှုနည်းလမ်းရွေးချယ်ပါ"
+
+#: .\templates\flame\checkout.html:222
+#| msgid "Payment"
+msgid "Online Payments"
+msgstr "အွန်လိုင်းငွေပေးချေမှုများ"
+
+#: .\templates\flame\checkout.html:223
+msgid "PayPal, Stripe, KBZPay"
+msgstr "PayPal, Stripe, KBZPay"
+
+#: .\templates\flame\checkout.html:232 .\templates\flame\checkout.html:327
+#: .\templates\flame\checkout_offline.html:196
+#: .\templates\flame\checkout_offline.html:206
+msgid "Cash on Delivery"
+msgstr "အိမ်ရောက်ငွေချေစနစ်"
+
+#: .\templates\flame\checkout.html:233
+#: .\templates\flame\checkout_offline.html:197
+msgid "Pay when you receive your order"
+msgstr "သင့်အော်ဒါလက်ခံရရှိစဉ်တွင်ငွေချေပါ"
+
+#: .\templates\flame\checkout.html:248
+#| msgid "Pay with Stripe"
+msgid "Pay with PayPal"
+msgstr "PayPal ဖြင့်ငွေပေးချေမည်"
+
+#: .\templates\flame\checkout.html:265 .\templates\flame\checkout.html:746
+#: .\templates\flame\checkout.html:784
 msgid "Pay with Stripe"
 msgstr "Stripe ဖြင့်ငွေပေးချေရန်"
 
-#: .\templates\flame\checkout.html:194
+#: .\templates\flame\checkout.html:273
+msgid "or pay locally with"
+msgstr "သို့မဟုတ် တိုက်ရိုက်ငွေသားဖြင့်ငွေချေချေပါ"
+
+#: .\templates\flame\checkout.html:281
+msgid "Educational Demo Mode"
+msgstr "ပညာရေးဆိုင်ရာ သရုပ်ပြမုဒ်"
+
+#: .\templates\flame\checkout.html:282
+msgid ""
+"KBZPay integration running in demonstration mode for educational purposes"
+msgstr ""
+"KBZPay ချိတ်ဆက်မှုကို ပညာရေးရည်ရွယ်ချက်ဖြင့် သရုပ်ပြမုဒ်တွင်သာ "
+"လုပ်ဆောင်နေသည်"
+
+#: .\templates\flame\checkout.html:297
+#| msgid "Pay with Stripe"
+msgid "Pay with KBZPay"
+msgstr "KBZPay ဖြင့်ငွေပေးချေမည်"
+
+#: .\templates\flame\checkout.html:308
+msgid "Secure payment via 2C2P gateway"
+msgstr "2C2P ဂိတ်တ်ဝေမှတဆင့် လုံခြုံသောငွေပေးချေမှု"
+
+#: .\templates\flame\checkout.html:311 .\templates\flame\checkout.html:314
+msgid "Educational Testing:"
+msgstr "ပညာရေးဆိုင်ရာ စမ်းသပ်မှု:"
+
+#: .\templates\flame\checkout.html:315
+msgid "Actual charge will be 100-1000 MMK for testing purposes"
+msgstr "စမ်းသပ်မှုအတွက် အမှန်တကယ်ကောက်ခံမည့်ငွေပမာဏမှာ ၁၀၀-၁၀၀၀ ကျပ်ဖြစ်သည်"
+
+#: .\templates\flame\checkout.html:328
+#: .\templates\flame\checkout_offline.html:207
+msgid "You will pay for your order when it's delivered to your address."
+msgstr "သင့်လိပ်စာသို့ ပို့ဆောင်ပေးသောအခါတွင် သင့်အော်ဒါအတွက်ငွေချေရမည်"
+
+#: .\templates\flame\checkout.html:330
+#: .\templates\flame\checkout_offline.html:209
+msgid "No online payment required"
+msgstr "အွန်လိုင်းငွေပေးချေမှုမလိုအပ်ပါ"
+
+#: .\templates\flame\checkout.html:331
+#: .\templates\flame\checkout_offline.html:210
+msgid "Pay with cash to the delivery person"
+msgstr "ပို့ဆောင်သူထံသို့ ငွေသားဖြင့်ချေပါ"
+
+#: .\templates\flame\checkout.html:332
+msgid "Order will be processed immediately"
+msgstr "အော်ဒါကို ချက်ချင်းကိုင်တွယ်ဆောင်ရွက်ပေးပါမည်"
+
+#: .\templates\flame\checkout.html:354
+msgid "Confirm Cash on Delivery Order"
+msgstr "လက်ခံရရှိစဉ်ငွေချေအော်ဒါကို အတည်ပြုပါ"
+
+#: .\templates\flame\checkout.html:366
+#: .\templates\flame\checkout_offline.html:232
 msgid "Go back to Explore More"
 msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
 
-#: .\templates\flame\checkout.html:218
+#: .\templates\flame\checkout.html:439
+msgid "Loading cities..."
+msgstr " မြို့များအတွက်ခနစောင့်ပါ..."
+
+#: .\templates\flame\checkout.html:469
+msgid "Error loading cities"
+msgstr "မြို့များစောင့်ရာတွင်အမှားဖြစ်နေသည်"
+
+#: .\templates\flame\checkout.html:483
+msgid "Loading townships..."
+msgstr "မြို့နယ်များအတွက်ခနစောင့်ပါ..."
+
+#: .\templates\flame\checkout.html:516
+msgid "Error loading townships"
+msgstr "မြို့နယ်များစောင့်ရာတွင်အမှားဖြစ်နေသည်"
+
+#: .\templates\flame\checkout.html:531
+msgid "Please select city"
+msgstr "ကျေးဇူးပြု၍ မြို့ရွေးချယ်ပါ"
+
+#: .\templates\flame\checkout.html:536
+msgid "Calculating..."
+msgstr "တွက်ချက်နေသည်..."
+
+#: .\templates\flame\checkout.html:542 .\templates\flame\checkout.html:570
+msgid "Error calculating shipping"
+msgstr "ပို့ဆောင်ခတွက်ချက်ရာတွင်အမှားဖြစ်နေသည်"
+
+#: .\templates\flame\checkout.html:557
+msgid "Same city delivery"
+msgstr "တစ်မြို့တည်းပို့ဆောင်ခြင်း"
+
+#: .\templates\flame\checkout.html:559
+msgid "Same state delivery"
+msgstr "တစ်ပြည်နယ်တည်းပို့ဆောင်ခြင်း"
+
+#: .\templates\flame\checkout.html:729
 msgid "Generating QR..."
 msgstr "QR ကုဒ်ထုတ်နေသည်..."
 
-#: .\templates\flame\checkout.html:233
-msgid "Could not start checkout."
-msgstr "ငွေရှင်းလုပ်ငန်းစတင်နိုင်ခြင်းမရှိပါ"
+#: .\templates\flame\checkout.html:744
+msgid "Could not start checkout. Please check your address information."
+msgstr ""
+"ငွေရှင်းလုပ်ငန်းစတင်နိုင်ခြင်းမရှိပါ။ ကျေးဇူးပြု၍ "
+"သင့်လိပ်စာအချက်အလက်များကိုစစ်ဆေးပါ။"
 
-#: .\templates\flame\checkout.html:250
+#: .\templates\flame\checkout.html:761
 msgid "Scan QR to Pay or Click Here"
 msgstr "ငွေပေးချေရန် QR ကုဒ်ဖတ်ပါ သို့မဟုတ် ဤနေရာကိုနှိပ်ပါ"
 
-#: .\templates\flame\checkout.html:271
+#: .\templates\flame\checkout.html:782
 msgid "An error occurred. Please try again."
 msgstr "အမှားတစ်ခုဖြစ်ပွားခဲ့သည်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ"
+
+#: .\templates\flame\checkout.html:803
+msgid "Creating PayPal Payment..."
+msgstr "PayPal ငွေပေးချေမှုဖန်တီးနေသည်..."
+
+#: .\templates\flame\checkout_offline.html:18
+msgid "Offline Mode Active"
+msgstr "အော့ဖ်လိုင်းမုဒ် ဖွင့်ထားသည်"
+
+#: .\templates\flame\checkout_offline.html:19
+msgid ""
+"You can place Cash on Delivery orders. Your order will be submitted when "
+"you're back online."
+msgstr ""
+"လက်ခံရရှိစဉ်ငွေချေအော်ဒါများနေရာချနိုင်ပါသည်။ သင့်အော်ဒါကို "
+"အွန်လိုင်းပြန်ရောက်သောအခါတွင် တင်သွင်းပေးပါမည်။"
+
+#: .\templates\flame\checkout_offline.html:83
+msgid "Enter your state/region"
+msgstr "သင့်ပြည်နယ်/တိုင်းဒေသကြီးထည့်သွင်းပါ"
+
+#: .\templates\flame\checkout_offline.html:87
+msgid "Please enter your state/region manually (offline mode)"
+msgstr ""
+"ကျေးဇူးပြု၍ သင့်ပြည်နယ်/တိုင်းဒေသကြီးကို ကိုယ်တိုင်ထည့်သွင်းပါ "
+"(အော့ဖ်လိုင်းမုဒ်)"
+
+#: .\templates\flame\checkout_offline.html:98
+msgid "Enter your city/town"
+msgstr "သင့်မြို့/ခရိုင်ထည့်သွင်းပါ"
+
+#: .\templates\flame\checkout_offline.html:102
+msgid "Please enter your city/town manually (offline mode)"
+msgstr ""
+"ကျေးဇူးပြု၍ သင့်မြို့/ခရိုင်ကို ကိုယ်တိုင်ထည့်သွင်းပါ (အော့ဖ်လိုင်းမုဒ်)"
+
+#: .\templates\flame\checkout_offline.html:113
+msgid "Enter your township (optional)"
+msgstr "သင့်မြို့နယ်ထည့်သွင်းပါ (ချန်လှပ်ထားနိုင်သည်)"
+
+#: .\templates\flame\checkout_offline.html:159
+msgid "Standard shipping (will be calculated when online)"
+msgstr " စံပို့ဆောင်ခြင်း (အွန်လိုင်းရသောအခါတွက်ချက်ပေးမည်)"
+
+#: .\templates\flame\checkout_offline.html:170
+msgid "(+ shipping fee will be calculated when online)"
+msgstr "(+ ပို့ဆောင်ခကို အွန်လိုင်းရသောအခါတွက်ချက်ပေးမည်)"
+
+#: .\templates\flame\checkout_offline.html:185
+#| msgid "Payment to %(shop)s"
+msgid "Payment Method"
+msgstr "ငွေပေးချေမှုနည်းလမ်း"
+
+#: .\templates\flame\checkout_offline.html:189
+msgid "Only Cash on Delivery is available in offline mode"
+msgstr "အော့ဖ်လိုင်းမုဒ်တွင် လက်ခံရရှိစဉ်ငွေချေစနစ်သာရနိုင်သည်"
+
+#: .\templates\flame\checkout_offline.html:211
+msgid "Order will be saved and submitted when you're back online"
+msgstr ""
+"အော်ဒါကို သိမ်းဆည်းထားပြီး သင့်အွန်လိုင်းပြန်ရောက်သောအခါတွင် တင်သွင်းပေးမည်"
+
+#: .\templates\flame\checkout_offline.html:212
+msgid "You'll receive a confirmation notification when the order is submitted"
+msgstr "အော်ဒါတင်သွင်းသောအခါတွင် အတည်ပြုအသိပေးချက်လက်ခံရရှိမည်"
+
+#: .\templates\flame\checkout_offline.html:221
+msgid "Save Order for Offline Submission"
+msgstr "အော့ဖ်လိုင်းတင်သွင်းရန်အတွက် အော်ဒါသိမ်းဆည်းမည်"
+
+#: .\templates\flame\checkout_offline.html:389
+#| msgid "This field is required."
+msgid "This field is required"
+msgstr "ဤအကွက်ကို ဖြည့်ရန်လိုအပ်ပါသည်။"
+
+#: .\templates\flame\checkout_offline.html:493
+#| msgid "Email Sent Successfully!"
+msgid "Order Saved Successfully!"
+msgstr "အော်ဒါအောင်မြင်စွာသိမ်းဆည်းပြီးပါပြီ!"
+
+#: .\templates\flame\checkout_offline.html:495
+msgid "Your offline order has been saved"
+msgstr "သင့်အော့ဖ်လိုင်းအော်ဒါကို သိမ်းဆည်းပြီးပါပြီ"
+
+#: .\templates\flame\checkout_offline.html:497
+msgid "Order will be automatically submitted when you're back online"
+msgstr "သင့်အွန်လိုင်းပြန်ရောက်သောအခါတွင် အော်ဒါကိုအလိုအလျောက်တင်သွင်းပေးမည်"
+
+#: .\templates\flame\checkout_offline.html:498
+msgid "You'll receive a confirmation notification when submitted"
+msgstr "တင်သွင်းသောအခါတွင် အတည်ပြုအသိပေးချက်လက်ခံရရှိမည်"
+
+#: .\templates\flame\checkout_offline.html:499
+msgid "Shipping fee will be calculated and added when online"
+msgstr "အွန်လိုင်းရသောအခါတွင် ပို့ဆောင်ခကိုတွက်ချက်ပြီးပေါင်းထည့်ပေးမည်"
+
+#: .\templates\flame\checkout_offline.html:500
+msgid "Payment will be collected upon delivery"
+msgstr "ပို့ဆောင်ပေးသောအခါတွင်ငွေကောက်ခံမည်"
+
+#: .\templates\flame\checkout_offline.html:508
+msgid "Go to Home"
+msgstr "ပင်မစာမျက်နှာသို့သွားမည်"
+
+#: .\templates\flame\email\preferences.html:13
+#| msgid "Email Address"
+msgid "Email Preferences"
+msgstr "အီးမေးလ်ဦးစားပေးချက်များ"
+
+#: .\templates\flame\email\preferences.html:16
+msgid "Manage your email notification settings"
+msgstr "သင့်အီးမေးလ်အသိပေးချက်ဆက်တင်များကိုစီမံပါ"
+
+#: .\templates\flame\email\preferences.html:27
+#| msgid "Order not found"
+msgid "Order Notifications"
+msgstr "အော်ဒါအတည်ပြုချက်"
+
+#: .\templates\flame\email\preferences.html:29
+msgid "Receive updates about your orders"
+msgstr "သင့်အော်ဒါများနှင့်ပတ်သက်သောအချက်အလက်များလက်ခံရရှိရန်"
+
+#: .\templates\flame\email\preferences.html:37
+#| msgid "Password confirmation"
+msgid "Order Confirmation"
+msgstr "အော်ဒါအတည်ပြုချက်"
+
+#: .\templates\flame\email\preferences.html:38
+msgid "When your order is confirmed"
+msgstr "သင့်အော်ဒါအတည်ပြုသောအခါ"
+
+#: .\templates\flame\email\preferences.html:47
+#| msgid "Shipping:"
+msgid "Shipping Updates"
+msgstr "ပို့ဆောင်မှုအပ်ဒိတ်များ"
+
+#: .\templates\flame\email\preferences.html:48
+msgid "When your order ships"
+msgstr "သင့်အော်ဒါပို့ဆောင်သည့်အခါ"
+
+#: .\templates\flame\email\preferences.html:57
+#| msgid "Seller Information"
+msgid "Delivery Confirmation"
+msgstr "ပို့ဆောင်မှုအတည်ပြုချက်"
+
+#: .\templates\flame\email\preferences.html:58
+msgid "When your order is delivered"
+msgstr "သင့်အော်ဒါပို့ဆောင်ပေးသောအခါ"
+
+#: .\templates\flame\email\preferences.html:67
+#| msgid "Change"
+msgid "Order Changes"
+msgstr "အော်ဒါပြောင်းလဲမှုများ"
+
+#: .\templates\flame\email\preferences.html:68
+msgid "Cancellations and returns"
+msgstr "ပယ်ဖျက်ခြင်းနှင့်ပြန်လည်ပို့ဆောင်ခြင်းများ"
+
+#: .\templates\flame\email\preferences.html:81
+msgid "Marketing & Promotions"
+msgstr "စျေးကွက်ရှာဖွေခြင်းနှင့်ပရိုမိုးရှင်းများ"
+
+#: .\templates\flame\email\preferences.html:83
+msgid "Receive special offers and product recommendations"
+msgstr "အထူးအထွေ့နှင့်ထုတ်ကုန်အကြံပြုချက်များလက်ခံရရှိရန်"
+
+#: .\templates\flame\email\preferences.html:91
+msgid "Special Offers"
+msgstr "အထူးလျှော့စျေးများ"
+
+#: .\templates\flame\email\preferences.html:92
+msgid "Sales, discounts, and deals"
+msgstr "လျှော့ဈေးများနှင့် အထူးအဆိုပြုချက်များ"
+
+#: .\templates\flame\email\preferences.html:101
+#| msgid "View Product"
+msgid "New Products"
+msgstr "ထုတ်ကုန်အသစ်များ"
+
+#: .\templates\flame\email\preferences.html:102
+msgid "Latest arrivals and releases"
+msgstr "နောက်ဆုံးရောက်ရှိလာသောနှင့် ထုတ်ဝေလိုက်သောပစ္စည်းများ"
+
+#: .\templates\flame\email\preferences.html:111
+#: .\templates\flame\recommendations\user-recommendations.html:12
+msgid "Personalized Recommendations"
+msgstr "စိတ်ကြိုက်အကြံပြုချက်များ"
+
+#: .\templates\flame\email\preferences.html:112
+#| msgid "Product Image"
+msgid "Products you might like"
+msgstr "သင်ကြိုက်နှစ်သက်နိုင်သောထုတ်ကုန်များ"
+
+#: .\templates\flame\email\preferences.html:121
+msgid "Newsletter"
+msgstr "သတင်းလွှာ"
+
+#: .\templates\flame\email\preferences.html:122
+msgid "Weekly tech news and tips"
+msgstr "အပတ်စဉ်နည်းပညာသတင်းများနှင့် အကြံပြုချက်များ"
+
+#: .\templates\flame\email\preferences.html:135
+msgid "Account & Service"
+msgstr "အကောင့်နှင့် ဝန်ဆောင်မှု"
+
+#: .\templates\flame\email\preferences.html:137
+msgid "Important account and service updates"
+msgstr "အရေးကြီးသောအကောင့်နှင့်ဝန်ဆောင်မှုအပ်ဒိတ်များ"
+
+#: .\templates\flame\email\preferences.html:145
+msgid "Review Requests"
+msgstr "သုံးသပ်ချက်တောင်းဆိုမှုများ"
+
+#: .\templates\flame\email\preferences.html:146
+msgid "Rate and review your purchases"
+msgstr "သင့်ဝယ်ယူမှုများကိုအဆင့်သတ်မှတ်ပြီးသုံးသပ်ပါ"
+
+#: .\templates\flame\email\preferences.html:155
+#| msgid "Security Tips:"
+msgid "Security Alerts"
+msgstr "လုံခြုံရေးသတိပေးချက်များ"
+
+#: .\templates\flame\email\preferences.html:156
+#| msgid "Product Specifications"
+msgid "Account security notifications"
+msgstr "အကောင့်လုံခြုံရေးအသိပေးချက်များ"
+
+#: .\templates\flame\email\preferences.html:165
+msgid "Policy Updates"
+msgstr "မူဝါဒအပ်ဒိတ်များ"
+
+#: .\templates\flame\email\preferences.html:166
+msgid "Changes to terms and privacy"
+msgstr "စည်းမျဉ်းစည်းကမ်းများနှင့်ကိုယ်ရေးကိုယ်တာဆိုင်ရာပြောင်းလဲမှုများ"
+
+#: .\templates\flame\email\preferences.html:175
+msgid "Surveys & Feedback"
+msgstr "စစ်တမ်းကောက်ယူမှုများနှင့် အကြံပြုချက်များ"
+
+#: .\templates\flame\email\preferences.html:176
+msgid "Help improve our service"
+msgstr "ကျွန်ုပ်တို့၏ဝန်ဆောင်မှုကိုမြှင့်တင်ရန်ကူညီပါ"
+
+#: .\templates\flame\email\preferences.html:189
+#| msgid "Email is required."
+msgid "Email Frequency"
+msgstr "အီးမေးလ်ပို့သည့်အကြိမ်နှုန်း"
+
+#: .\templates\flame\email\preferences.html:191
+msgid "How often would you like to receive promotional emails?"
+msgstr "ကြော်ငြာအီးမေးလ်များကို မည်မျှကြာခဏလက်ခံရရှိလိုပါသနည်း"
+
+#: .\templates\flame\email\preferences.html:199
+msgid "Daily"
+msgstr "နေ့စဉ်"
+
+#: .\templates\flame\email\preferences.html:208
+msgid "Weekly"
+msgstr "အပတ်စဉ်"
+
+#: .\templates\flame\email\preferences.html:217
+msgid "Monthly"
+msgstr "လစဉ်"
+
+#: .\templates\flame\email\preferences.html:227
+msgid "Save Preferences"
+msgstr " ဦးစားပေးချက်များသိမ်းဆည်းမည်"
+
+#: .\templates\flame\email\preferences.html:230
+msgid "Unsubscribe from all emails"
+msgstr " အီးမေးလ်အားလုံးမှ စာရင်းမှပယ်ဖျက်မည်"
+
+#: .\templates\flame\email\preferences.html:242
+msgid "Recent Emails"
+msgstr "လတ်တလောပို့ထားသောအီးမေးလ်များ"
+
+#: .\templates\flame\email\preferences.html:251
+#| msgid "A JSON object"
+msgid "Subject"
+msgstr "ခေါင်းစဉ်"
+
+#: .\templates\flame\email\preferences.html:252
+msgid "Type"
+msgstr "အမျိုးအစား"
+
+#: .\templates\flame\email\preferences.html:253
+#: .\templates\flame\inventory\dashboard.html:139
+#: .\templates\flame\orders\cancel-order.html:34
+#: .\templates\flame\orders\return-order.html:35
+#: .\templates\flame\profile.html:100
+#: .\templates\flame\social\campaign-detail.html:78
+#: .\templates\flame\social\post-calendar.html:104
+#: .\templates\flame\social\post-calendar.html:604
+msgid "Status"
+msgstr "အခြေအနေ"
+
+#: .\templates\flame\email\preferences.html:254
+msgid "Sent"
+msgstr "ပို့ပြီး"
+
+#: .\templates\flame\email\preferences.html:273
+#: .\templates\flame\orders\track-order.html:77
+#| msgid "Delivery Address"
+msgid "Delivered"
+msgstr "ပို့ဆောင်ပြီး"
+
+#: .\templates\flame\email\preferences.html:277
+#: .\templates\flame\profile.html:398
+msgid "Failed"
+msgstr "မအောင်မြင်"
+
+#: .\templates\flame\email\preferences.html:281
+#: .\templates\flame\profile.html:121
+msgid "Pending"
+msgstr "ဆိုင်းငံ့ထား"
+
+#: .\templates\flame\email\preferences.html:287
+msgid "Opened"
+msgstr "ဖွင့်လှစ်ပြီး"
+
+#: .\templates\flame\email\preferences.html:316
+msgid "No emails sent yet"
+msgstr "မည်သည့်အီးမေးလ်မျှမပို့ရသေးပါ"
+
+#: .\templates\flame\email\preferences.html:317
+msgid "Your email history will appear here once we start sending you emails."
+msgstr ""
+"ကျွန်ုပ်တို့သင့်ထံအီးမေးလ်ပို့သည့်အခါ "
+"သင့်အီးမေးလ်မှတ်တမ်းဤနေရာတွင်ပေါ်လာပါမည်"
+
+#: .\templates\flame\email\preferences.html:333
+#| msgid "Email is required."
+msgid "Email Preview"
+msgstr "အီးမေးလ်အစမ်းကြည့်ရှုခြင်း"
+
+#: .\templates\flame\email\preferences.html:342
+#: .\templates\flame\orders\return-order.html:252
+#: .\templates\flame\social\post-calendar.html:261
+msgid "Close"
+msgstr "ပိတ်မည်"
+
+#: .\templates\flame\email\preferences.html:390
+#| msgid "Make sure you entered the correct email"
+msgid "Are you sure you want to resend this email?"
+msgstr "ဤအီးမေးလ်ကို ပြန်လည်ပို့လိုသည်မှာ သေချာပါသလား?"
+
+#: .\templates\flame\email\preferences.html:413
+msgid ""
+"Are you sure you want to unsubscribe from all emails? You will only receive "
+"critical account notifications."
+msgstr ""
+"အီးမေးလ်အားလုံးမှ စာရင်းမှပယ်ဖျက်လိုသည်မှာသေချာပါသလား? "
+"အရေးကြီးသောအကောင့်အသိပေးချက်များသာလက်ခံရရှိမည်"
+
+#: .\templates\flame\email\preferences.html:431
+msgid "Saving..."
+msgstr "သိမ်းဆည်းနေသည်..."
 
 #: .\templates\flame\home.html:561
 msgid "Your browser does not support the video tag."
@@ -414,6 +1622,8 @@ msgid "Best laptops for a refined lifestyle."
 msgstr "သင့်ဘဝအတွက် အကောင်းဆုံးလက်တော့များ"
 
 #: .\templates\flame\home.html:584
+#: .\templates\flame\orders\order-list.html:171
+#: .\templates\userauths\registration-complete.html:51
 msgid "Start Shopping"
 msgstr "စျေးဝယ်ရန်"
 
@@ -427,6 +1637,7 @@ msgstr ""
 "လက်တော့များ၊ နေ့စဉ်လိုအပ်သောပစ္စည်းများကို ရှာဖွေလိုက်ပါ"
 
 #: .\templates\flame\home.html:611 .\templates\flame\shop-list.html:25
+#: .\templates\flame\shop_profile.html:19
 msgid "View Shop"
 msgstr "ဆိုင်ကြည့်ရန်"
 
@@ -434,33 +1645,264 @@ msgstr "ဆိုင်ကြည့်ရန်"
 msgid "Most Popular Items"
 msgstr "လူကြိုက်အများဆုံးပစ္စည်းများ"
 
-#: .\templates\flame\home.html:684
+#: .\templates\flame\home.html:686
 msgid "New Items "
 msgstr "အသစ်ရောက်ပစ္စည်းများ"
 
-#: .\templates\flame\home.html:725
+#: .\templates\flame\home.html:727
 msgid "Discount Items "
 msgstr "လျှော့စျေးပစ္စည်းများ"
+
+#: .\templates\flame\inventory\dashboard.html:13
+msgid "Inventory Management"
+msgstr "လက်ကျန်စီမံခန့်ခွဲမှု"
+
+#: .\templates\flame\inventory\dashboard.html:15
+msgid "Monitor and manage your product inventory"
+msgstr "သင့်ထုတ်ကုန်လက်ကျန်များကိုစောင့်ကြည့်စီမံခန့်ခွဲပါ"
+
+#: .\templates\flame\inventory\dashboard.html:19
+msgid "Bulk Restock"
+msgstr "အစုလိုက်ပြန်လည်ဖြည့်တင်းခြင်း"
+
+#: .\templates\flame\inventory\dashboard.html:27
+msgid "Export Inventory"
+msgstr "လက်ကျန်ထုတ်ယူမည်"
+
+#: .\templates\flame\inventory\dashboard.html:30
+msgid "Generate Report"
+msgstr "အစီရင်ခံစာထုတ်လုပ်မည်"
+
+#: .\templates\flame\inventory\dashboard.html:44
+msgid "Low Stock Items"
+msgstr "လက်ကျန်နည်းပစ္စည်းများ"
+
+#: .\templates\flame\inventory\dashboard.html:64
+#: .\templates\flame\inventory\dashboard.html:166
+#: .\templates\flame\inventory\dashboard.html:383
+#: .\templates\flame\recommendations\user-recommendations.html:137
+#: .\templates\flame\wishlist.html:135
+msgid "Out of Stock"
+msgstr "ကုန်ပစ္စည်းလက်ကျန်မရှိ"
+
+#: .\templates\flame\inventory\dashboard.html:84
+#| msgid "Reset To All Products"
+msgid "Total Products"
+msgstr "စုစုပေါင်းထုတ်ကုန်များ"
+
+#: .\templates\flame\inventory\dashboard.html:104
+#| msgid "Total Amount Due"
+msgid "Total Stock Value"
+msgstr "စုစုပေါင်းလက်ကျန်တန်ဖိုး"
+
+#: .\templates\flame\inventory\dashboard.html:126
+msgid "Low Stock Alert"
+msgstr "လက်ကျန်နည်းသတိပေးချက်"
+
+#: .\templates\flame\inventory\dashboard.html:128
+msgid "items"
+msgstr "ပစ္စည်းများ"
+
+#: .\templates\flame\inventory\dashboard.html:137
+#| msgid "In Stock"
+msgid "Current Stock"
+msgstr "လက်ရှိလက်ကျန်"
+
+#: .\templates\flame\inventory\dashboard.html:138
+msgid "Min Level"
+msgstr "အနည်းဆုံးအဆင့်"
+
+#: .\templates\flame\inventory\dashboard.html:168
+#: .\templates\flame\inventory\dashboard.html:383
+#| msgid "In Stock"
+msgid "Low Stock"
+msgstr "လက်ကျန်နည်း"
+
+#: .\templates\flame\inventory\dashboard.html:175
+msgid "Restock"
+msgstr "ပြန်လည်ဖြည့်တင်းမည်"
+
+#: .\templates\flame\inventory\dashboard.html:191
+msgid "All products are well stocked!"
+msgstr "ထုတ်ကုန်အားလုံးလက်ကျန်ကောင်းစွာရှိပါသည်!"
+
+#: .\templates\flame\inventory\dashboard.html:192
+msgid "No low stock alerts at this time."
+msgstr "လက်ရှိတွင် လက်ကျန်နည်းသတိပေးချက်မရှိပါ"
+
+#: .\templates\flame\inventory\dashboard.html:225
+#| msgid "aug"
+msgid "ago"
+msgstr "က"
+
+#: .\templates\flame\inventory\dashboard.html:253
+msgid "Stock Status Distribution"
+msgstr "လက်ကျန်အခြေအနေဖြန့်ဖြူးမှု"
+
+#: .\templates\flame\inventory\dashboard.html:268
+msgid "Category Stock Levels"
+msgstr "အမျိုးအစားလက်ကျန်အဆင့်များ"
+
+#: .\templates\flame\inventory\dashboard.html:290
+#| msgid "Reset To All Products"
+msgid "Restock Product"
+msgstr "ထုတ်ကုန်ပြန်လည်ဖြည့်တင်းမည်"
+
+#: .\templates\flame\inventory\dashboard.html:301
+#| msgid "Quantity"
+msgid "Quantity to Add"
+msgstr "ထည့်သွင်းရန်အရေအတွက်"
+
+#: .\templates\flame\inventory\dashboard.html:309
+msgid "Cost per Unit"
+msgstr "တစ်ခုလျှင်ကုန်ကျစရိတ်"
+
+#: .\templates\flame\inventory\dashboard.html:317
+msgid "Leave blank if cost hasn't changed"
+msgstr "ကုန်ကျစရိတ်မပြောင်းလဲပါက ဗလာချန်ထားပါ"
+
+#: .\templates\flame\inventory\dashboard.html:323
+msgid "Notes"
+msgstr "မှတ်ချက်များ"
+
+#: .\templates\flame\inventory\dashboard.html:326
+msgid "Optional notes about this restock..."
+msgstr ""
+"ဤပြန်လည်ဖြည့်တင်းမှုနှင့်ပတ်သက်သော ချန်လှပ်ထားနိုင်သည့်မှတ်ချက်များ..."
+
+#: .\templates\flame\inventory\dashboard.html:331
+#: .\templates\flame\orders\order-list.html:105
+#: .\templates\flame\social\campaign-detail.html:390
+#: .\templates\flame\social\campaign-detail.html:465
+#: .\templates\flame\social\dashboard.html:351
+#: .\templates\flame\social\dashboard.html:407
+#: .\templates\flame\social\post-calendar.html:236
+msgid "Cancel"
+msgstr "ပယ်ဖျက်မည်"
+
+#: .\templates\flame\inventory\dashboard.html:383
+#: .\templates\flame\recommendations\user-recommendations.html:133
+#: .\templates\flame\wishlist.html:133
+msgid "In Stock"
+msgstr "ကုန်ပစ္စည်းလက်ကျန်"
+
+#: .\templates\flame\inventory\dashboard.html:411
+msgid "Stock Level"
+msgstr "လက်ကျန်အဆင့်"
+
+#: .\templates\flame\offline.html:12
+msgid "You're Offline"
+msgstr "သင်သည် အော့ဖ်လိုင်းဖြစ်နေသည်"
+
+#: .\templates\flame\offline.html:15
+msgid "It looks like you don't have an internet connection right now."
+msgstr "သင့်မှာလက်ရှိအင်တာနက်ချိတ်ဆက်မှုမရှိဟုထင်ရပါသည်။"
+
+#: .\templates\flame\offline.html:20
+msgid "What you can still do:"
+msgstr "သင်ဆက်လုပ်နိုင်သောအရာများ"
+
+#: .\templates\flame\offline.html:24
+#| msgid "Search products"
+msgid "Browse cached products"
+msgstr "ကက်ရှ်သိမ်းထားသောထုတ်ကုန်များကြည့်ရှုမည်"
+
+#: .\templates\flame\offline.html:28
+msgid "Manage your cart"
+msgstr "သင့်ခြင်းတောင်းကိုစီမံခြင်း"
+
+#: .\templates\flame\offline.html:32
+#| msgid "Add to wishlist"
+msgid "Update your wishlist"
+msgstr "သင့်စိတ်ကြိုက်စာရင်းကိုပြင်ဆင်မည်"
+
+#: .\templates\flame\offline.html:36
+msgid "View your profile"
+msgstr "သင့်ပရိုဖိုင်ကိုကြည့်ရှုခြင်း"
+
+#: .\templates\flame\offline.html:40
+#| msgid "Order History"
+msgid "Check order history"
+msgstr "အော်ဒါမှတ်တမ်းစစ်ဆေးမည်"
+
+#: .\templates\flame\offline.html:48
+msgid "Features requiring internet:"
+msgstr "အင်တာနက်လိုအပ်သောလုပ်ဆောင်ချက်များ:"
+
+#: .\templates\flame\offline.html:52
+msgid "Payment processing (except Cash on Delivery)"
+msgstr "ငွေပေးချေမှုဆောင်ရွက်ခြင်း (လက်ခံရရှိစဉ်ငွေချေမှုမှလွဲ၍)"
+
+#: .\templates\flame\offline.html:56
+msgid "Email notifications"
+msgstr "အီးမေးလ်အသိပေးချက်များ"
+
+#: .\templates\flame\offline.html:60
+msgid "Real-time inventory updates"
+msgstr "လက်ကျန်အချက်အလက်များကိုအချိန်နှင့်တစ်ပြေးညီအပ်ဒိတ်လုပ်ခြင်း"
+
+#: .\templates\flame\offline.html:64
+msgid "New user registration"
+msgstr "အသုံးပြုသူအသစ်မှတ်ပုံတင်ခြင်း"
+
+#: .\templates\flame\offline.html:74
+#: .\templates\partials\base_offline.html:107
+#: .\templates\userauths\password_reset_done.html:32
+msgid "Try Again"
+msgstr "ထပ်ကြိုးစားပါ"
+
+#: .\templates\flame\offline.html:80
+msgid "Browse Offline"
+msgstr "အော့ဖ်လိုင်းကြည့်ရှုခြင်း"
+
+#: .\templates\flame\offline.html:87
+msgid ""
+"Your offline actions will be automatically synced when you're back online."
+msgstr ""
+"သင့်အော့ဖ်လိုင်းလုပ်ဆောင်ချက်များကို အွန်လိုင်းပြန်ရောက်သောအခါ "
+"အလိုအလျောက်သင်ချန်ကူးပေးပါမည်။"
+
+#: .\templates\flame\offline.html:93
+#| msgid "Related Products"
+msgid "Cached Products"
+msgstr "ကက်ရှ်သိမ်းထားသောထုတ်ကုန်များ"
+
+#: .\templates\flame\offline.html:125
+#: .\templates\flame\shop-product-detail.html:112
+msgid "Add to Cart"
+msgstr "ခြင်းတောင်းထဲထည့်ရန်"
+
+#: .\templates\flame\offline.html:135
+msgid "No cached products available."
+msgstr "ကက်ရှ်သိမ်းထားသောထုတ်ကုန်များမရနိုင်ပါ။"
+
+#: .\templates\flame\offline.html:140
+msgid "Error loading cached products."
+msgstr "ကက်ရှ်သိမ်းထားသောထုတ်ကုန်များဖွင့်ရာတွင်အမှားဖြစ်နေသည်။"
+
+#: .\templates\flame\offline.html:157
+#| msgid "Add to cart"
+msgid "Added to offline cart!"
+msgstr "အော့ဖ်လိုင်းခြင်းတောင်းထဲသို့ထည့်ပြီးပါပြီ!"
 
 #: .\templates\flame\order-detail.html:67
 msgid "Profile picture"
 msgstr "ပရိုဖိုင်ဓာတ်ပုံ"
 
 #: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
-#: .\templates\partials\base.html:99
+#: .\templates\partials\base.html:102
+#: .\templates\partials\base_offline.html:163
 msgid "Profile"
 msgstr "ပရိုဖိုင်"
 
-#: .\templates\flame\order-detail.html:69 .\templates\flame\profile.html:14
-msgid "Orders"
-msgstr "အမှာစာများ"
-
-#: .\templates\flame\order-detail.html:70 .\templates\flame\profile.html:22
+#: .\templates\flame\order-detail.html:70 .\templates\flame\profile.html:23
+#: .\templates\flame\shop_profile.html:26
 msgid "Logout"
 msgstr "ထွက်ရန်"
 
-#: .\templates\flame\order-detail.html:77 .\templates\flame\profile.html:148
-#: .\templates\flame\profile.html:180
+#: .\templates\flame\order-detail.html:77
+#: .\templates\flame\orders\track-order.html:240
+#: .\templates\flame\profile.html:149 .\templates\flame\profile.html:181
 msgid "Back to Orders"
 msgstr "အမှာစာများသို့ ပြန်သွားရန်"
 
@@ -475,20 +1917,27 @@ msgstr ""
 "                အမှာစာအသေးစိတ်- ဘေလ်အမှတ်-%(invoice)s\n"
 "            "
 
-#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:161
+#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:162
+#: .\templates\flame\social\campaign-detail.html:422
+#: .\templates\flame\social\dashboard.html:312
+#: .\templates\flame\social\post-calendar.html:191
+#: .\templates\flame\social\post-calendar.html:591
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
 msgid "Image"
 msgstr "ပုံ"
 
 #: .\templates\flame\order-detail.html:88
-#: .\templates\flame\payment-completed.html:261
-#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:162
+#: .\templates\flame\orders\cancel-order.html:54
+#: .\templates\flame\payment-completed.html:270
+#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:163
 #: .\templates\flame\search.html:761
 msgid "Price"
 msgstr "စျေးနှုန်း"
 
-#: .\templates\flame\order-detail.html:90 .\templates\flame\profile.html:101
-#: .\templates\flame\profile.html:164
+#: .\templates\flame\order-detail.html:90
+#: .\templates\flame\orders\cancel-order.html:55
+#: .\templates\flame\orders\order-detail.html:143
+#: .\templates\flame\profile.html:102 .\templates\flame\profile.html:165
 msgid "Total"
 msgstr "စုစုပေါင်း"
 
@@ -496,6 +1945,603 @@ msgstr "စုစုပေါင်း"
 #, python-format
 msgid "Product image: %(title)s"
 msgstr "ထုတ်ကုန်ပုံ- %(title)s"
+
+#: .\templates\flame\orders\cancel-order.html:13
+#: .\templates\flame\orders\cancel-order.html:125
+#: .\templates\flame\orders\order-detail.html:34
+#: .\templates\flame\orders\track-order.html:229
+#| msgid "Track Order"
+msgid "Cancel Order"
+msgstr "အော်ဒါပယ်ဖျက်မည်"
+
+#: .\templates\flame\orders\cancel-order.html:21
+msgid "Are you sure you want to cancel this order?"
+msgstr "ဤအော်ဒါကိုပယ်ဖျက်လိုသည်မှာသေချာပါသလား?"
+
+#: .\templates\flame\orders\cancel-order.html:24
+msgid ""
+"This action cannot be undone. Once cancelled, you'll need to place a new "
+"order."
+msgstr ""
+"ဤလုပ်ဆောင်ချက်ကိုပြန်လည်ရုပ်သိမ်း၍မရပါ။ ပယ်ဖျက်ပြီးပါက "
+"အော်ဒါအသစ်တစ်ခုနေရာချရန်လိုအပ်ပါမည်။"
+
+#: .\templates\flame\orders\cancel-order.html:31
+#: .\templates\flame\orders\return-order.html:31
+#| msgid "Order Details:"
+msgid "Order Details"
+msgstr "အော်ဒါအသေးစိတ်များ"
+
+#: .\templates\flame\orders\cancel-order.html:32
+#: .\templates\flame\orders\return-order.html:32
+#| msgid "Phone Number"
+msgid "Order Number"
+msgstr "အော်ဒါနံပါတ်"
+
+#: .\templates\flame\orders\cancel-order.html:33
+#: .\templates\flame\orders\return-order.html:33
+#| msgid "Order ID"
+msgid "Order Date"
+msgstr "အော်ဒါရက်စွဲ"
+
+#: .\templates\flame\orders\cancel-order.html:39
+#: .\templates\flame\orders\return-order.html:40
+#| msgid "Grand Total"
+msgid "Order Total"
+msgstr "အော်ဒါစုစုပေါင်း"
+
+#: .\templates\flame\orders\cancel-order.html:47
+msgid "Items in this order"
+msgstr " ဤအော်ဒါထဲမှပစ္စည်းများ"
+
+#: .\templates\flame\orders\cancel-order.html:52
+#: .\templates\flame\payment-completed.html:269
+msgid "Item"
+msgstr "ပစ္စည်း"
+
+#: .\templates\flame\orders\cancel-order.html:82
+msgid "Reason for cancellation"
+msgstr "ပယ်ဖျက်ရန်အကြောင်းပြချက်"
+
+#: .\templates\flame\orders\cancel-order.html:85
+#: .\templates\flame\orders\return-order.html:86
+msgid "Please select a reason"
+msgstr "ကျေးဇူးပြု၍ အကြောင်းပြချက်တစ်ခုရွေးချယ်ပါ"
+
+#: .\templates\flame\orders\cancel-order.html:86
+#: .\templates\flame\orders\return-order.html:92
+msgid "Changed my mind"
+msgstr " စိတ်ပြောင်းသွားသည်"
+
+#: .\templates\flame\orders\cancel-order.html:87
+msgid "Found better price elsewhere"
+msgstr "အခြားနေရာတွင် ပိုကောင်းသောဈေးနှုန်းရှာတွေ့သည်"
+
+#: .\templates\flame\orders\cancel-order.html:88
+msgid "Delivery taking too long"
+msgstr "ပို့ဆောင်ချိန်ကြာမြင့်နေသည်"
+
+#: .\templates\flame\orders\cancel-order.html:89
+#| msgid "Payment Status:"
+msgid "Payment issues"
+msgstr "ငွေပေးချေမှုပြဿနာများ"
+
+#: .\templates\flame\orders\cancel-order.html:90
+msgid "Ordered by mistake"
+msgstr " အမှားဖြင့်အော်ဒါလုပ်မိသည်"
+
+#: .\templates\flame\orders\cancel-order.html:91
+msgid "Product no longer needed"
+msgstr "ထုတ်ကုန်မလိုအပ်တော့ပါ"
+
+#: .\templates\flame\orders\cancel-order.html:92
+#: .\templates\flame\orders\return-order.html:94
+msgid "Other reason"
+msgstr "အခြားအကြောင်းပြချက်"
+
+#: .\templates\flame\orders\cancel-order.html:98
+#| msgid "Additional Info"
+msgid "Additional comments"
+msgstr "အပိုမှတ်ချက်များ"
+
+#: .\templates\flame\orders\cancel-order.html:98
+msgid "optional"
+msgstr "ချန်လှပ်ထားနိုင်သည်"
+
+#: .\templates\flame\orders\cancel-order.html:102
+#: .\templates\flame\orders\cancel-order.html:164
+msgid "Please provide any additional details..."
+msgstr "ကျေးဇူးပြု၍ ထပ်ဆောင်းအသေးစိတ်အချက်အလက်များပေးပါ..."
+
+#: .\templates\flame\orders\cancel-order.html:110
+#| msgid "Information"
+msgid "Refund Information"
+msgstr "ငွေပြန်အမ်းအချက်အလက်"
+
+#: .\templates\flame\orders\cancel-order.html:113
+msgid ""
+"Since this order has been paid, you will receive a full refund within 5-7 "
+"business days after cancellation is processed."
+msgstr ""
+"ဤအော်ဒါငွေချေပြီးဖြစ်သောကြောင့်၊ ပယ်ဖျက်မှုဆောင်ရွက်ပြီးနောက် ၅-၇ ရက်အတွင်း "
+"ငွေပြန်အမ်းခံရရှိမည်ဖြစ်သည်။"
+
+#: .\templates\flame\orders\cancel-order.html:122
+#: .\templates\flame\orders\return-order.html:151
+#| msgid "Back to Orders"
+msgid "Back to Order"
+msgstr "အော်ဒါသို့ပြန်သွားမည်"
+
+#: .\templates\flame\orders\cancel-order.html:137
+msgid "Cancellation Policy"
+msgstr "ပယ်ဖျက်မှုမူဝါဒ"
+
+#: .\templates\flame\orders\cancel-order.html:142
+msgid "Orders can be cancelled before they are shipped."
+msgstr " ပို့ဆောင်မည့်အချိန်မတိုင်မီ အော်ဒါများကိုပယ်ဖျက်နိုင်ပါသည်။"
+
+#: .\templates\flame\orders\cancel-order.html:143
+msgid "Refunds for paid orders will be processed within 5-7 business days."
+msgstr ""
+"ငွေချေပြီးအော်ဒါများအတွက် ငွေပြန်အမ်းမှုကို ၅-၇ ရက်အတွင်းဆောင်ရွက်ပေးပါမည်။"
+
+#: .\templates\flame\orders\cancel-order.html:144
+msgid ""
+"Items that have already been shipped cannot be cancelled, but can be "
+"returned."
+msgstr ""
+"ပို့ဆောင်ပြီးသားပစ္စည်းများကို ပယ်ဖျက်၍မရသော်လည်း "
+"ပြန်လည်ပို့ဆောင်နိုင်ပါသည်။"
+
+#: .\templates\flame\orders\cancel-order.html:145
+msgid "Digital products cannot be cancelled once download links are sent."
+msgstr ""
+"ဒီဂျစ်တယ်ထုတ်ကုန်များကို ဒေါင်းလုဒ်လင့်ခ်များပို့ပြီးပါက ပယ်ဖျက်၍မရနိုင်ပါ။"
+
+#: .\templates\flame\orders\cancel-order.html:146
+msgid "Custom or personalized items may have different cancellation policies."
+msgstr ""
+" အထူးစီမံပြုလုပ်ထားသောပစ္စည်းများတွင် "
+"ကွဲပြားသောပယ်ဖျက်မှုမူဝါဒများရှိနိုင်သည်။"
+
+#: .\templates\flame\orders\cancel-order.html:161
+msgid "Please explain your reason for cancellation..."
+msgstr "ကျေးဇူးပြု၍ သင့်ပယ်ဖျက်ရန်အကြောင်းပြချက်ကိုရှင်းပြပါ..."
+
+#: .\templates\flame\orders\order-detail.html:14
+#: .\templates\flame\orders\order-list.html:52
+#: .\templates\flame\orders\track-order.html:15
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr "အမှာစာ"
+
+#: .\templates\flame\orders\order-detail.html:17
+#: .\templates\flame\orders\order-list.html:55
+msgid "Placed on"
+msgstr "နေရာချသည့်ရက်စွဲ"
+
+#: .\templates\flame\orders\order-detail.html:28
+#: .\templates\flame\orders\order-list.html:99
+#: .\templates\flame\profile.html:15
+msgid "Track Order"
+msgstr "အမှာစာလိုင်း ခြေရာခံရန်"
+
+#: .\templates\flame\orders\order-detail.html:40
+#: .\templates\flame\orders\return-order.html:13
+#: .\templates\flame\orders\track-order.html:235
+#| msgid "Your Order"
+msgid "Return Order"
+msgstr "အော်ဒါပြန်လည်ပို့ဆောင်မည်"
+
+#: .\templates\flame\orders\order-detail.html:52
+#| msgid "Order ID"
+msgid "Order Items"
+msgstr "အော်ဒါပစ္စည်းများ"
+
+#: .\templates\flame\orders\order-detail.html:83
+#: .\templates\flame\orders\track-order.html:101
+msgid "Order Timeline"
+msgstr "အော်ဒါအချိန်မှတ်တမ်း"
+
+#: .\templates\flame\orders\order-detail.html:116
+#| msgid "Order History"
+msgid "Order Summary"
+msgstr "အော်ဒါအကျဉ်းချုပ်"
+
+#: .\templates\flame\orders\order-detail.html:125
+#: .\templates\flame\payment-completed.html:340
+#| msgid "Shipping:"
+msgid "Shipping"
+msgstr "ပို့ဆောင်ခြင်း"
+
+#: .\templates\flame\orders\order-detail.html:131
+#: .\templates\flame\payment-completed.html:346
+msgid "Tax"
+msgstr "အခွန်"
+
+#: .\templates\flame\orders\order-detail.html:137
+#| msgid "Discount Items "
+msgid "Discount"
+msgstr "လျှော့စျေး"
+
+#: .\templates\flame\orders\order-detail.html:153
+#| msgid "Seller Information"
+msgid "Delivery Information"
+msgstr " ပို့ဆောင်မှုအချက်အလက်"
+
+#: .\templates\flame\orders\order-detail.html:157
+#: .\templates\flame\orders\track-order.html:200
+#: .\templates\flame\payment-completed.html:256
+#: .\templates\flame\product-detail.html:117
+#: .\templates\flame\shop-product-detail.html:140
+msgid "Delivery Address"
+msgstr "ပို့ဆောင်ရန်လိပ်စာ"
+
+#: .\templates\flame\orders\order-detail.html:167
+#: .\templates\flame\orders\track-order.html:191
+msgid "Estimated Delivery"
+msgstr " ခန့်မှန်းပို့ဆောင်မည့်ရက်စွဲ"
+
+#: .\templates\flame\orders\order-detail.html:173
+#: .\templates\flame\orders\track-order.html:18
+#| msgid "Track Order"
+msgid "Tracking Number"
+msgstr "ခြေရာခံနံပါတ်"
+
+#: .\templates\flame\orders\order-detail.html:184
+#| msgid "Orders"
+msgid "Order Progress"
+msgstr " အော်ဒါအခြေအနေ"
+
+#: .\templates\flame\orders\order-detail.html:195
+#: .\templates\flame\orders\order-list.html:122
+#: .\templates\flame\orders\track-order.html:174
+#: .\templates\flame\orders\track-order.html:358
+#: .\templates\flame\social\campaign-detail.html:107
+#| msgid "Completed"
+msgid "Complete"
+msgstr "ပြီးစီးပါပြီ"
+
+#: .\templates\flame\orders\order-list.html:10
+#| msgid "Orders"
+msgid "My Orders"
+msgstr "ကျွန်ုပ်၏အော်ဒါများ"
+
+#: .\templates\flame\orders\order-list.html:23
+#| msgid "Filters"
+msgid "Filter by Status"
+msgstr "အခြေအနေအလိုက်စစ်ထုတ်မည်"
+
+#: .\templates\flame\orders\order-list.html:25
+#| msgid "Orders"
+msgid "All Orders"
+msgstr "အော်ဒါအားလုံး"
+
+#: .\templates\flame\orders\order-list.html:35
+#: .\templates\flame\social\dashboard.html:153
+#| msgid "Filters"
+msgid "Filter"
+msgstr "စစ်ထုတ်မည်"
+
+#: .\templates\flame\orders\order-list.html:78
+#: .\templates\flame\payment-completed.html:271
+#: .\templates\flame\profile.html:164
+msgid "Qty"
+msgstr "အရေအတွက်"
+
+#: .\templates\flame\orders\order-list.html:85
+#: .\venv\Lib\site-packages\django\db\models\base.py:1572
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr "နှင့်"
+
+#: .\templates\flame\orders\order-list.html:85
+#| msgid "items"
+msgid "more items"
+msgstr "နောက်ထပ်ပစ္စည်းများ"
+
+#: .\templates\flame\orders\order-list.html:94
+#| msgid "Order Details:"
+msgid "View Details"
+msgstr "အသေးစိတ်ကြည့်ရှုမည်"
+
+#: .\templates\flame\orders\order-list.html:138
+msgid "Previous"
+msgstr " ရှေ့သို့"
+
+#: .\templates\flame\orders\order-list.html:158
+msgid "Next"
+msgstr "နောက်သို့"
+
+#: .\templates\flame\orders\order-list.html:168
+#| msgid "Orders"
+msgid "No Orders Yet"
+msgstr "အော်ဒါမရှိသေးပါ"
+
+#: .\templates\flame\orders\order-list.html:169
+msgid ""
+"You haven't placed any orders yet. Start shopping to see your orders here."
+msgstr ""
+"သင်သည်မည်သည့်အော်ဒါမျှမနေရာချရသေးပါ။ သင့်အော်ဒါများကိုဤနေရာတွင်ကြည့်ရှုရန် "
+"စျေးဝယ်ခြင်းစတင်ပါ။"
+
+#: .\templates\flame\orders\return-order.html:21
+#| msgid "Password Reset Request"
+msgid "Return Request"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်တောင်းဆိုချက်"
+
+#: .\templates\flame\orders\return-order.html:24
+msgid ""
+"Please provide details about your return request. Our team will review and "
+"contact you within 24 hours."
+msgstr ""
+"ကျေးဇူးပြု၍ သင့်ပြန်လည်ပို့ဆောင်ရန်တောင်းဆိုချက်အကြောင်းအသေးစိတ်ပေးပါ။ "
+"ကျွန်ုပ်တို့အဖွဲ့မှ ၂၄ နာရီအတွင်းသုံးသပ်ပြီးဆက်သွယ်ပေးပါမည်။"
+
+#: .\templates\flame\orders\return-order.html:34
+#| msgid "Delivery Address"
+msgid "Delivery Date"
+msgstr "ပို့ဆောင်မည့်ရက်စွဲ"
+
+#: .\templates\flame\orders\return-order.html:52
+msgid "Items to return"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်ပစ္စည်းများ"
+
+#: .\templates\flame\orders\return-order.html:83
+msgid "Reason for return"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်အကြောင်းပြချက်"
+
+#: .\templates\flame\orders\return-order.html:87
+msgid "Item is defective/damaged"
+msgstr "ပစ္စည်းချို့ယွင်းချက်ရှိသည်/ပျက်စီးနေသည်"
+
+#: .\templates\flame\orders\return-order.html:88
+msgid "Wrong item received"
+msgstr "မှားယွင်းသောပစ္စည်းလက်ခံရရှိသည်"
+
+#: .\templates\flame\orders\return-order.html:89
+msgid "Item not as described"
+msgstr "ပစ္စည်းသည်ဖော်ပြချက်နှင့်မကိုက်ညီပါ"
+
+#: .\templates\flame\orders\return-order.html:90
+msgid "Quality issues"
+msgstr " အရည်အသွေးဆိုင်ရာပြဿနာများ"
+
+#: .\templates\flame\orders\return-order.html:91
+msgid "Size/fit issues"
+msgstr "အရွယ်အစား/ကိုက်ညီမှုဆိုင်ရာပြဿနာများ"
+
+#: .\templates\flame\orders\return-order.html:93
+msgid "Item arrived too late"
+msgstr "ပစ္စည်းနောက်ကျစွာရောက်ရှိလာသည်"
+
+#: .\templates\flame\orders\return-order.html:101
+#| msgid "Description"
+msgid "Detailed description"
+msgstr "အသေးစိတ်ဖော်ပြချက်"
+
+#: .\templates\flame\orders\return-order.html:105
+#: .\templates\flame\orders\return-order.html:309
+msgid ""
+"Please provide a detailed description of the issue or reason for return..."
+msgstr ""
+"ကျေးဇူးပြု၍ "
+"ပြဿနာသို့မဟုတ်ပြန်လည်ပို့ဆောင်ရန်အကြောင်းပြချက်ကိုအသေးစိတ်ဖော်ပြပါ..."
+
+#: .\templates\flame\orders\return-order.html:107
+msgid ""
+"Please be as specific as possible. Include details about damage, defects, or"
+" any other issues."
+msgstr ""
+"ကျေးဇူးပြု၍ အသေးစိတ်ဖော်ပြပါ။ ပျက်စီးမှု၊ ချို့ယွင်းချက်များ သို့မဟုတ် "
+"အခြားပြဿနာများအကြောင်း အသေးစိတ်ထည့်သွင်းဖော်ပြပါ။"
+
+#: .\templates\flame\orders\return-order.html:114
+msgid "Preferred return method"
+msgstr "နှစ်သက်ရာပြန်လည်ပို့ဆောင်ရန်နည်းလမ်း"
+
+#: .\templates\flame\orders\return-order.html:117
+msgid "Schedule pickup from my address"
+msgstr "ကျွန်ုပ်၏လိပ်စာမှ လာရောက်ကောက်ယူရန်ချိန်းဆိုမည်"
+
+#: .\templates\flame\orders\return-order.html:118
+msgid "Drop off at store/service center"
+msgstr "ဆိုင်/ဝန်ဆောင်မှုစင်တာတွင် ချန်ထားခဲ့မည်"
+
+#: .\templates\flame\orders\return-order.html:119
+msgid "Mail return (prepaid label)"
+msgstr "ာတိုက်မှပြန်လည်ပို့ဆောင်ခြင်း (ကြိုတင်ငွေချေတံဆိပ်)"
+
+#: .\templates\flame\orders\return-order.html:126
+msgid "Preferred refund method"
+msgstr "နှစ်သက်ရာငွေပြန်အမ်းနည်းလမ်း"
+
+#: .\templates\flame\orders\return-order.html:129
+#| msgid "Try using a different payment method"
+msgid "Refund to original payment method"
+msgstr "မူရင်းငွေပေးချေမှုနည်းလမ်းသို့ငွေပြန်အမ်းမည်"
+
+#: .\templates\flame\orders\return-order.html:130
+msgid "Store credit"
+msgstr "ဆိုင်ချေးငွေ"
+
+#: .\templates\flame\orders\return-order.html:131
+#| msgid "Exchange Rate:"
+msgid "Exchange for another item"
+msgstr "အခြားပစ္စည်းနှင့်လဲမည်"
+
+#: .\templates\flame\orders\return-order.html:140
+#: .\templates\userauths\sign-up.html:160
+msgid "I agree to the"
+msgstr "ကျွန်ုပ်သဘောတူပါသည်"
+
+#: .\templates\flame\orders\return-order.html:142
+msgid "return policy and terms"
+msgstr "ပြန်လည်ပို့ဆောင်ရေးမူဝါဒနှင့်စည်းမျဉ်းများ"
+
+#: .\templates\flame\orders\return-order.html:154
+msgid "Submit Return Request"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်တောင်းဆိုချက်တင်သွင်းမည်"
+
+#: .\templates\flame\orders\return-order.html:166
+#| msgid "Related Products"
+msgid "Return Process"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်လုပ်ငန်းစဉ်"
+
+#: .\templates\flame\orders\return-order.html:176
+#| msgid "Submit Review"
+msgid "Submit Request"
+msgstr "တောင်းဆိုချက်တင်သွင်းမည်"
+
+#: .\templates\flame\orders\return-order.html:177
+msgid "Fill out the return form"
+msgstr "ပြန်လည်ပို့ဆောင်ရေးဖောင်ဖြည့်ပါ"
+
+#: .\templates\flame\orders\return-order.html:185
+#| msgid "Add a Review"
+msgid "Review"
+msgstr "သုံးသပ်ချက်"
+
+#: .\templates\flame\orders\return-order.html:186
+msgid "We review your request"
+msgstr "ကျွန်ုပ်တို့သင့်တောင်းဆိုချက်ကိုသုံးသပ်ပါမည်"
+
+#: .\templates\flame\orders\return-order.html:194
+#| msgid "New Items"
+msgid "Return Item"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်ပစ္စည်း"
+
+#: .\templates\flame\orders\return-order.html:195
+msgid "Send item back to us"
+msgstr "ပစ္စည်းကိုကျွန်ုပ်တို့ထံပြန်ပို့ပါ"
+
+#: .\templates\flame\orders\return-order.html:203
+msgid "Refund"
+msgstr "ငွေပြန်အမ်းခြင်း"
+
+#: .\templates\flame\orders\return-order.html:204
+msgid "Receive your refund"
+msgstr "သင့်ငွေပြန်အမ်းငွေကိုလက်ခံရရှိပါ"
+
+#: .\templates\flame\orders\return-order.html:221
+msgid "Return Policy"
+msgstr "ပြန်လည်ပို့ဆောင်ရေးမူဝါဒ"
+
+#: .\templates\flame\orders\return-order.html:226
+msgid "Return Eligibility"
+msgstr "ပြန်လည်ပို့ဆောင်ရန်အရည်အချင်း"
+
+#: .\templates\flame\orders\return-order.html:228
+msgid "Items must be returned within 30 days of delivery"
+msgstr "ပစ္စည်းများကို ပို့ဆောင်ပြီးနောက် ၃၀ ရက်အတွင်းပြန်ပို့ရမည်"
+
+#: .\templates\flame\orders\return-order.html:229
+msgid "Items must be in original condition and packaging"
+msgstr "ပစ္စည်းများသည် မူရင်းအခြေအနေနှင့်ထုပ်ပိုးမှုရှိရမည်"
+
+#: .\templates\flame\orders\return-order.html:230
+msgid "All accessories and documentation must be included"
+msgstr " ဆက်စပ်ပစ္စည်းများနှင့်စာရွက်စာတမ်းအားလုံးပါဝင်ရမည်"
+
+#: .\templates\flame\orders\return-order.html:231
+msgid "Items must not show signs of wear or damage caused by use"
+msgstr ""
+"ပစ္စည်းများတွင် အသုံးပြုမှုကြောင့်ဖြစ်သော စုတ်ပြဲမှု သို့မဟုတ် "
+"ပျက်စီးမှုလက္ခဏာများမရှိရ"
+
+#: .\templates\flame\orders\return-order.html:234
+msgid "Non-Returnable Items"
+msgstr "ပြန်လည်မပို့ဆောင်နိုင်သောပစ္စည်းများ"
+
+#: .\templates\flame\orders\return-order.html:236
+msgid "Software and digital products"
+msgstr "ဆော့ဖ်ဝဲနှင့်ဒီဂျစ်တယ်ထုတ်ကုန်များ"
+
+#: .\templates\flame\orders\return-order.html:237
+msgid "Customized or personalized items"
+msgstr "အထူးစီမံပြုလုပ်ထားသောပစ္စည်းများ"
+
+#: .\templates\flame\orders\return-order.html:238
+msgid "Items damaged by misuse"
+msgstr "အလွဲသုံးစားလုပ်မှုကြောင့်ပျက်စီးသောပစ္စည်းများ"
+
+#: .\templates\flame\orders\return-order.html:239
+msgid "Items without original packaging"
+msgstr "မူရင်းထုပ်ပိုးမှုမရှိသောပစ္စည်းများ"
+
+#: .\templates\flame\orders\return-order.html:242
+msgid "Refund Processing"
+msgstr "ငွေပြန်အမ်းမှုဆောင်ရွက်ခြင်း"
+
+#: .\templates\flame\orders\return-order.html:244
+msgid ""
+"Refunds are processed within 5-7 business days after we receive the item"
+msgstr "ပစ္စည်းလက်ခံရရှိပြီးနောက် ၅-၇ ရက်အတွင်းငွေပြန်အမ်းမှုဆောင်ရွက်ပါမည်"
+
+#: .\templates\flame\orders\return-order.html:245
+msgid "Refunds are issued to the original payment method"
+msgstr "ငွေပြန်အမ်းမှုကို မူရင်းငွေပေးချေမှုနည်းလမ်းဖြင့်ပြုလုပ်ပါမည်"
+
+#: .\templates\flame\orders\return-order.html:246
+msgid "Return shipping costs may be deducted from refund amount"
+msgstr "ပြန်လည်ပို့ဆောင်ခကုန်ကျစရိတ်ကို ငွေပြန်အမ်းငွေမှနှုတ်ယူနိုင်သည်"
+
+#: .\templates\flame\orders\return-order.html:247
+msgid "Restocking fees may apply for certain items"
+msgstr "အချို့သောပစ္စည်းများအတွက် ပြန်လည်သိုလှောင်ခကောက်ခံနိုင်သည်"
+
+#: .\templates\flame\orders\return-order.html:307
+msgid "Please explain your reason for return in detail..."
+msgstr ""
+"ကျေးဇူးပြု၍ သင့်ပြန်လည်ပို့ဆောင်ရန်အကြောင်းပြချက်ကိုအသေးစိတ်ရှင်းပြပါ..."
+
+#: .\templates\flame\orders\track-order.html:13
+#: .\templates\flame\profile.html:185
+msgid "Track Your Order"
+msgstr "သင့်အမှာစာလိုင်း ခြေရာခံရန်"
+
+#: .\templates\flame\orders\track-order.html:33
+#| msgid "Order ID"
+msgid "Order Placed"
+msgstr "အော်ဒါနေရာချပြီး"
+
+#: .\templates\flame\orders\track-order.html:44
+msgid "Payment Confirmed"
+msgstr "ငွေပေးချေမှုအတည်ပြုပြီး"
+
+#: .\templates\flame\orders\track-order.html:55
+msgid "Processing"
+msgstr "ဆောင်ရွက်ဆဲ"
+
+#: .\templates\flame\orders\track-order.html:66
+#| msgid "Shipping:"
+msgid "Shipped"
+msgstr "ပို့ဆောင်ပြီး"
+
+#: .\templates\flame\orders\track-order.html:135
+msgid "Latest"
+msgstr "နောက်ဆုံး"
+
+#: .\templates\flame\orders\track-order.html:143
+#| msgid "More information is available with DEBUG=True."
+msgid "No tracking information available yet."
+msgstr "ခြေရာခံအချက်အလက်ယခုမရနိုင်သေးပါ"
+
+#: .\templates\flame\orders\track-order.html:158
+#| msgid "Payment Status:"
+msgid "Current Status"
+msgstr "လက်ရှိအခြေအနေ"
+
+#: .\templates\flame\orders\track-order.html:185
+#| msgid "Delivery Address"
+msgid "Delivery Info"
+msgstr "ပို့ဆောင်မှုအချက်အလက်"
+
+#: .\templates\flame\orders\track-order.html:224
+#| msgid "Order Details:"
+msgid "View Order Details"
+msgstr "အော်ဒါအသေးစိတ်ကြည့်ရှုမည်"
 
 #: .\templates\flame\payment-completed.html:211
 msgid "INVOICE"
@@ -538,44 +2584,65 @@ msgstr "ဖောက်သည်:"
 msgid "Email:"
 msgstr "အီးမေးလ်:"
 
-#: .\templates\flame\payment-completed.html:260
-msgid "Item"
-msgstr "ပစ္စည်း"
+#: .\templates\flame\payment-completed.html:259
+msgid "Phone:"
+msgstr " ဖုန်း:"
 
 #: .\templates\flame\payment-completed.html:262
-#: .\templates\flame\profile.html:163
-msgid "Qty"
-msgstr "အရေအတွက်"
+#| msgid "Payment Status:"
+msgid "Payment Method:"
+msgstr "ငွေပေးချေမှုနည်းလမ်း:"
 
-#: .\templates\flame\payment-completed.html:263
+#: .\templates\flame\payment-completed.html:272
 msgid "Amount"
 msgstr "ပမာဏ"
 
-#: .\templates\flame\payment-completed.html:334
-msgid "Tax"
-msgstr "အခွန်"
-
-#: .\templates\flame\payment-completed.html:344
+#: .\templates\flame\payment-completed.html:356
 msgid "Grand Total"
 msgstr "စုစုပေါင်းပမာဏ"
 
-#: .\templates\flame\payment-completed.html:358
-msgid "Total Amount Due"
-msgstr "ပေးဆောင်ရန်ငွေစုစုပေါင်း"
+#: .\templates\flame\payment-completed.html:371
+msgid "Cash on Delivery Order"
+msgstr "အိမ်အရောက်ငွေချေအော်ဒါ"
 
-#: .\templates\flame\payment-completed.html:366
+#: .\templates\flame\payment-completed.html:379
+#: .\templates\flame\payment-completed.html:400
 msgid "Payment Status:"
 msgstr "ငွေပေးချေမှုအခြေအနေ:"
 
-#: .\templates\flame\payment-completed.html:367
+#: .\templates\flame\payment-completed.html:380
+msgid "Pay on Delivery"
+msgstr "ပို့ဆောင်စဉ်ငွေချေရန်"
+
+#: .\templates\flame\payment-completed.html:384
+msgid "Cash on Delivery Instructions:"
+msgstr "လက်ခံရရှိစဉ်ငွေချေညွှန်ကြားချက်များ:"
+
+#: .\templates\flame\payment-completed.html:386
+msgid "Keep the exact amount ready when the delivery person arrives"
+msgstr "ပို့ဆောင်သူရောက်ရှိစဉ်တွင် အတိအကျငွေပမာဏပြင်ဆင်ထားပါ"
+
+#: .\templates\flame\payment-completed.html:387
+msgid "You can also pay with mobile money or cash"
+msgstr "မိုဘိုင်းငွေ သို့မဟုတ် ငွေသားဖြင့်လည်းချေနိုင်သည်"
+
+#: .\templates\flame\payment-completed.html:388
+msgid "Check your items before making the payment"
+msgstr "ငွေမချေမီ သင့်ပစ္စည်းများကိုစစ်ဆေးပါ"
+
+#: .\templates\flame\payment-completed.html:392
+msgid "Total Amount Due"
+msgstr "ပေးဆောင်ရန်ငွေစုစုပေါင်း"
+
+#: .\templates\flame\payment-completed.html:401
 msgid "Completed"
 msgstr "ပြီးစီးပါပြီ"
 
-#: .\templates\flame\payment-completed.html:372
+#: .\templates\flame\payment-completed.html:406
 msgid "Payment processed in USD"
 msgstr "US ဒေါ်လာဖြင့်ငွေပေးချေမှုပြုလုပ်ထားသည်"
 
-#: .\templates\flame\payment-completed.html:379
+#: .\templates\flame\payment-completed.html:414
 #, python-format
 msgid ""
 "\n"
@@ -586,7 +2653,7 @@ msgstr ""
 "            ကျေးဇူးတင်ပါသည် %(user)s မှာယူပေးသောကြောင့်!\n"
 "        "
 
-#: .\templates\flame\payment-completed.html:383
+#: .\templates\flame\payment-completed.html:418
 msgid ""
 "If you have any questions about this invoice, please contact our support "
 "team."
@@ -594,15 +2661,15 @@ msgstr ""
 "ဤငွေတောင်းခံလွှာနှင့်ပတ်သက်ပြီး မေးမြန်းလိုသည်များရှိပါက ကျွန်ုပ်တို့၏ "
 "ဝန်ဆောင်မှုအဖွဲ့ကို ဆက်သွယ်ပါ။"
 
-#: .\templates\flame\payment-completed.html:388
+#: .\templates\flame\payment-completed.html:423
 msgid "Print Invoice"
 msgstr "ငွေတောင်းခံလွှာပုံနှိပ်ရန်"
 
-#: .\templates\flame\payment-completed.html:391
+#: .\templates\flame\payment-completed.html:426
 msgid "Download PDF"
 msgstr "PDF ဒေါင်းလုဒ်လုပ်ရန်"
 
-#: .\templates\flame\payment-completed.html:457
+#: .\templates\flame\payment-completed.html:492
 msgid "Error generating PDF. Please try again."
 msgstr "PDF ထုတ်ယူရာတွင်အမှားဖြစ်နေသည်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ"
 
@@ -683,54 +2750,54 @@ msgid "$"
 msgstr "$"
 
 #: .\templates\flame\product-detail.html:59
-#: .\templates\flame\shop-product-detail.html:82
+#: .\templates\flame\shop-product-detail.html:77
+#: .\templates\flame\shop_profile.html:53
+#: .\templates\flame\social\campaign-detail.html:360
+#: .\templates\flame\social\dashboard.html:381
 msgid "Description"
 msgstr "ဖော်ပြချက်"
 
 #: .\templates\flame\product-detail.html:60
-#: .\templates\flame\shop-product-detail.html:83
+#: .\templates\flame\shop-product-detail.html:78
 msgid "Additional Info"
 msgstr "အပိုအချက်အလက်"
 
 #: .\templates\flame\product-detail.html:61
-#: .\templates\flame\shop-product-detail.html:84
-#: .\templates\partials\base.html:56 .\templates\partials\base.html:67
+#: .\templates\flame\shop-product-detail.html:79
+#: .\templates\partials\base.html:59 .\templates\partials\base.html:70
+#: .\templates\partials\base_offline.html:120
+#: .\templates\partials\base_offline.html:131
 msgid "Shop"
 msgstr "ဆိုင်"
 
 #: .\templates\flame\product-detail.html:62
-#: .\templates\flame\shop-product-detail.html:88
+#: .\templates\flame\shop-product-detail.html:83
 #, python-format
 msgid "Reviews (%(count)s)"
 msgstr "သုံးသပ်ချက်များ (%(count)s)"
 
 #: .\templates\flame\product-detail.html:95
-#: .\templates\flame\shop-product-detail.html:123
+#: .\templates\flame\shop-product-detail.html:118
 msgid "Product Specifications"
 msgstr "ထုတ်ကုန်သတ်မှတ်ချက်များ"
 
 #: .\templates\flame\product-detail.html:109
-#: .\templates\flame\shop-product-detail.html:137
+#: .\templates\flame\shop-product-detail.html:132
 msgid "Seller Information"
 msgstr "ရောင်းချသူအချက်အလက်"
 
-#: .\templates\flame\product-detail.html:117
-#: .\templates\flame\shop-product-detail.html:145
-msgid "Delivery Address"
-msgstr "ပို့ဆောင်ရန်လိပ်စာ"
-
 #: .\templates\flame\product-detail.html:130
-#: .\templates\flame\shop-product-detail.html:158
+#: .\templates\flame\shop-product-detail.html:153
 msgid "Shop Address:"
 msgstr "ဆိုင်လိပ်စာ:"
 
 #: .\templates\flame\product-detail.html:131
-#: .\templates\flame\shop-product-detail.html:159
+#: .\templates\flame\shop-product-detail.html:154
 msgid "Contact Seller:"
 msgstr "ရောင်းချသူဆက်သွယ်ရန်:"
 
 #: .\templates\flame\product-detail.html:133
-#: .\templates\flame\shop-product-detail.html:162
+#: .\templates\flame\shop-product-detail.html:157
 #, python-format
 msgid ""
 "\n"
@@ -746,113 +2813,121 @@ msgstr[0] ""
 "          "
 
 #: .\templates\flame\product-detail.html:145
-#: .\templates\flame\shop-product-detail.html:174
+#: .\templates\flame\shop-product-detail.html:169
 msgid "Customer Reviews"
 msgstr "ဖောက်သည်သုံးသပ်ချက်များ"
 
 #: .\templates\flame\product-detail.html:147
-#: .\templates\flame\shop-product-detail.html:176
+#: .\templates\flame\shop-product-detail.html:171
 msgid "out of 5.0"
 msgstr "5.0 မှ"
 
 #: .\templates\flame\product-detail.html:163
-#: .\templates\flame\shop-product-detail.html:192
+#: .\templates\flame\shop-product-detail.html:187
 msgid "5 Star"
 msgstr "ကြယ် ၅ ပွင့်"
 
 #: .\templates\flame\product-detail.html:165
-#: .\templates\flame\shop-product-detail.html:194
+#: .\templates\flame\shop-product-detail.html:189
 #, python-format
 msgid "80%%"
 msgstr "၈၀%"
 
 #: .\templates\flame\product-detail.html:168
-#: .\templates\flame\shop-product-detail.html:197
+#: .\templates\flame\shop-product-detail.html:192
 msgid "4 Star"
 msgstr "ကြယ် ၄ ပွင့်"
 
 #: .\templates\flame\product-detail.html:170
-#: .\templates\flame\shop-product-detail.html:199
+#: .\templates\flame\shop-product-detail.html:194
 #, python-format
 msgid "15%%"
 msgstr "၁၅%"
 
 #: .\templates\flame\product-detail.html:173
-#: .\templates\flame\shop-product-detail.html:202
+#: .\templates\flame\shop-product-detail.html:197
 msgid "3 Star"
 msgstr "ကြယ် ၃ ပွင့်"
 
 #: .\templates\flame\product-detail.html:175
-#: .\templates\flame\shop-product-detail.html:204
+#: .\templates\flame\shop-product-detail.html:199
 #, python-format
 msgid "5%%"
 msgstr "၅ %"
 
 #: .\templates\flame\product-detail.html:195
-#: .\templates\flame\shop-product-detail.html:224
+#: .\templates\flame\shop-product-detail.html:219
 msgid "No reviews yet. Be the first to review!"
 msgstr "သုံးသပ်ချက်မရှိသေးပါ။ ပထမဆုံးသုံးသပ်သူဖြစ်ရန်!"
 
 #: .\templates\flame\product-detail.html:203
-#: .\templates\flame\shop-product-detail.html:232
+#: .\templates\flame\shop-product-detail.html:227
 msgid "Add a Review"
 msgstr "သုံးသပ်ချက်ထည့်ရန်"
 
 #: .\templates\flame\product-detail.html:213
-#: .\templates\flame\shop-product-detail.html:242
+#: .\templates\flame\shop-product-detail.html:237
 msgid "Submit Review"
 msgstr "သုံးသပ်ချက်တင်သွင်းရန်"
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:246
+#: .\templates\flame\shop-product-detail.html:241
 #: .\templates\userauths\sign-in.html:24 .\templates\userauths\sign-in.html:30
-#: .\templates\userauths\sign-in.html:79 .\templates\userauths\sign-up.html:25
-#: .\templates\userauths\sign-up.html:141
+#: .\templates\userauths\sign-in.html:79 .\templates\userauths\sign-up.html:37
+#: .\templates\userauths\sign-up.html:173
 msgid "Login"
 msgstr "အကောင့်ဝင်ရန်"
 
 #: .\templates\flame\product-detail.html:217
-#: .\templates\flame\shop-product-detail.html:246
+#: .\templates\flame\shop-product-detail.html:241
 msgid "to write a review."
 msgstr "သုံးသပ်ချက်ရေးသားရန်"
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:266
+#: .\templates\partials\base.html:269
+#: .\templates\partials\base_offline.html:315
 msgid "All Rights Reserved 2024-2025"
 msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:269
+#: .\templates\partials\base.html:272
+#: .\templates\partials\base_offline.html:318
 msgid "Information"
 msgstr "အချက်အလက်"
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:271
+#: .\templates\partials\base.html:274
+#: .\templates\partials\base_offline.html:320
 msgid "About Us"
 msgstr "ကျွန်ုပ်တို့အကြောင်း"
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:276
+#: .\templates\partials\base.html:279
+#: .\templates\partials\base_offline.html:325
 msgid "Helpful Links"
 msgstr "အသုံးဝင်သောလင့်ခ်များ"
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:278
+#: .\templates\partials\base.html:281
+#: .\templates\partials\base_offline.html:327
 msgid "Services"
 msgstr "ဝန်ဆောင်မှုများ"
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:279
+#: .\templates\partials\base.html:282
+#: .\templates\partials\base_offline.html:328
 msgid "Privacy Policy"
 msgstr "ကိုယ်ရေးအချက်အလက်မူဝါဒ"
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:280
+#: .\templates\partials\base.html:283
+#: .\templates\partials\base_offline.html:329
 msgid "Terms & Condition"
 msgstr "စည်းကမ်းချက်များ"
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:285
+#: .\templates\partials\base.html:288
+#: .\templates\partials\base_offline.html:334
 msgid "Contact Us"
 msgstr "ဆက်သွယ်ရန်"
 
@@ -935,12 +3010,12 @@ msgstr "ရှာဖွေရန်"
 #: .\templates\flame\product-list.html:792
 #, python-format
 msgid "%(min_price)s"
-msgstr ""
+msgstr "%(min_price)s"
 
 #: .\templates\flame\product-list.html:795
 #, python-format
 msgid "%(max_price)s"
-msgstr ""
+msgstr "%(max_price)s"
 
 #: .\templates\flame\product-list.html:807 .\templates\flame\search.html:794
 msgid "Custom price"
@@ -950,115 +3025,290 @@ msgstr "စိတ်ကြိုက်စျေးနှုန်း"
 msgid "Apply"
 msgstr "အတည်ပြုရန်"
 
-#: .\templates\flame\profile.html:15
-msgid "Track Order"
-msgstr "အမှာစာလိုင်း ခြေရာခံရန်"
-
 #: .\templates\flame\profile.html:16
 msgid "My Address"
 msgstr "ကျွန်ုပ်၏လိပ်စာ"
 
-#: .\templates\flame\profile.html:35 .\userauths\views.py:265
+#: .\templates\flame\profile.html:17
+#| msgid "Security Tips:"
+msgid "Security"
+msgstr "လုံခြုံရေး"
+
+#: .\templates\flame\profile.html:36
 msgid "My Profile"
 msgstr "ကျွန်ုပ်၏ပရိုဖိုင်"
 
-#: .\templates\flame\profile.html:37
+#: .\templates\flame\profile.html:38
 msgid "Edit Profile"
 msgstr "ပရိုဖိုင်ပြင်ဆင်ရန်"
 
-#: .\templates\flame\profile.html:44
+#: .\templates\flame\profile.html:45
 msgid "Full Name"
 msgstr "အမည်အပြည့်အစုံ"
 
-#: .\templates\flame\profile.html:52
+#: .\templates\flame\profile.html:53
 msgid "About Me"
 msgstr "ကိုယ်ရေးအကျဉ်း"
 
-#: .\templates\flame\profile.html:55
+#: .\templates\flame\profile.html:56
 msgid "Customer"
 msgstr "ဖောက်သည်"
 
-#: .\templates\flame\profile.html:60 .\templates\flame\profile.html:245
-#: .\userauths\forms.py:104
+#: .\templates\flame\profile.html:61 .\templates\flame\profile.html:246
 msgid "Phone Number"
 msgstr "ဖုန်းနံပါတ်"
 
-#: .\templates\flame\profile.html:65
+#: .\templates\flame\profile.html:66
 msgid "Not Verified"
 msgstr "မအတည်ပြုရသေး"
 
-#: .\templates\flame\profile.html:71 .\templates\userauths\sign-up.html:72
+#: .\templates\flame\profile.html:72 .\templates\userauths\sign-in.html:50
+#: .\templates\userauths\sign-up.html:104 .\userauths\forms.py:130
 msgid "Email Address"
 msgstr "အီးမေးလ်လိပ်စာ"
 
-#: .\templates\flame\profile.html:76
+#: .\templates\flame\profile.html:77
 msgid "Verified"
 msgstr "အတည်ပြုပြီး"
 
-#: .\templates\flame\profile.html:89
+#: .\templates\flame\profile.html:90
 msgid "Order History"
 msgstr "အမှာစာမှတ်တမ်း"
 
-#: .\templates\flame\profile.html:97
+#: .\templates\flame\profile.html:98
 msgid "Order ID"
 msgstr "အမှာစာ ID"
 
-#: .\templates\flame\profile.html:98
-msgid "Date"
-msgstr "ရက်စွဲ"
-
-#: .\templates\flame\profile.html:99
-msgid "Status"
-msgstr "အခြေအနေ"
-
-#: .\templates\flame\profile.html:100
+#: .\templates\flame\profile.html:101
 msgid "Payment"
 msgstr "ငွေပေးချေမှု"
 
-#: .\templates\flame\profile.html:118
+#: .\templates\flame\profile.html:119
 msgid "Paid"
 msgstr "ပေးပြီး"
 
-#: .\templates\flame\profile.html:120
-msgid "Pending"
-msgstr "ဆိုင်းငံ့ထား"
-
-#: .\templates\flame\profile.html:152
+#: .\templates\flame\profile.html:153
 msgid "Order Details:"
 msgstr "အမှာစာအသေးစိတ်:"
 
-#: .\templates\flame\profile.html:184
-msgid "Track Your Order"
-msgstr "သင့်အမှာစာလိုင်း ခြေရာခံရန်"
-
-#: .\templates\flame\profile.html:232
+#: .\templates\flame\profile.html:233
 msgid "Address Book"
 msgstr "လိပ်စာမှတ်တမ်း"
 
-#: .\templates\flame\profile.html:238
+#: .\templates\flame\profile.html:239
 msgid "Add New Address"
 msgstr "လိပ်စာအသစ်ထည့်ရန်"
 
-#: .\templates\flame\profile.html:250
+#: .\templates\flame\profile.html:242
+msgid "Address"
+msgstr "လိပ်စာ"
+
+#: .\templates\flame\profile.html:251
 msgid "Save Address"
 msgstr "လိပ်စာသိမ်းဆည်းရန်"
 
-#: .\templates\flame\profile.html:257
+#: .\templates\flame\profile.html:258
 msgid "Saved Addresses"
 msgstr "သိမ်းဆည်းထားသောလိပ်စာများ"
 
-#: .\templates\flame\profile.html:261
+#: .\templates\flame\profile.html:262
 #, python-format
 msgid "Address %(forloop.counter)s"
 msgstr "လိပ်စာ %(forloop.counter)s"
 
-#: .\templates\flame\profile.html:267
+#: .\templates\flame\profile.html:268
 msgid "Default"
 msgstr "မူရင်း"
 
-#: .\templates\flame\profile.html:270
+#: .\templates\flame\profile.html:271
 msgid "Make Default"
 msgstr "မူရင်းအဖြစ်သတ်မှတ်ရန်"
+
+#: .\templates\flame\profile.html:286
+#| msgid "Security Tips:"
+msgid "Security Settings"
+msgstr "လုံခြုံရေးဆက်တင်များ"
+
+#: .\templates\flame\profile.html:294
+#| msgid "Enable two-factor authentication if available"
+msgid "Two-Factor Authentication"
+msgstr "Two-Factor Auth အတည်ပြုခြင်း"
+
+#: .\templates\flame\profile.html:296
+msgid ""
+"Add an extra layer of security to your account by requiring a verification "
+"code from your mobile device."
+msgstr ""
+"သင့်မိုဘိုင်းကိရိယာမှ အတည်ပြုကုဒ်တောင်းခံခြင်းဖြင့် သင့်အကောင့်အား "
+"လုံခြုံရေးအပိုထပ်ဖြည့်ပါ။"
+
+#: .\templates\flame\profile.html:302
+msgid "Enabled"
+msgstr "ဖွင့်ထားသည်"
+
+#: .\templates\flame\profile.html:306
+msgid "Disabled"
+msgstr "ပိတ်ထားသည်"
+
+#: .\templates\flame\profile.html:315
+msgid "Two-factor authentication is currently enabled for your account."
+msgstr "သင့်အကောင့်အတွက် နှစ်ဆင့်ခွင် အတည်ပြုခြင်းကို လက်ရှိဖွင့်ထားသည်။"
+
+#: .\templates\flame\profile.html:316
+msgid ""
+"Use your authenticator app to generate verification codes when logging in."
+msgstr ""
+"အကောင့်ဝင်သောအခါ အတည်ပြုကုဒ်များထုတ်လုပ်ရန် သင့်အတည်ပြုအက်ပ်ကိုအသုံးပြုပါ။"
+
+#: .\templates\flame\profile.html:318
+msgid ""
+"Are you sure you want to disable two-factor authentication? This will make "
+"your account less secure."
+msgstr ""
+"နှစ်ဆင့်ခွင် အတည်ပြုခြင်းကိုပိတ်လိုသည်မှာသေချာပါသလား? "
+"ဤသည်သင့်အကောင့်ကိုလုံခြုံမှုနည်းစေပါမည်။"
+
+#: .\templates\flame\profile.html:321
+msgid "Disable 2FA"
+msgstr "2FA ပိတ်ရန်"
+
+#: .\templates\flame\profile.html:326
+msgid "Your account is not protected by two-factor authentication."
+msgstr "သင့်အကောင့်ကို 2FA အတည်ပြုခြင်းဖြင့် မကာကွယ်ထားပါ။"
+
+#: .\templates\flame\profile.html:327
+msgid "Enable 2FA to add an extra layer of security to your account."
+msgstr "သင့်အကောင့်အား လုံခြုံရေးအပိုထပ်ဖြည့်ရန် 2FA ကိုဖွင့်ပါ။"
+
+#: .\templates\flame\profile.html:330
+#: .\templates\userauths\two-factor-setup.html:104
+msgid "Enable 2FA"
+msgstr "2FA ဖွင့်ရန်"
+
+#: .\templates\flame\profile.html:340 .\templates\userauths\sign-in.html:61
+#: .\templates\userauths\sign-up.html:128 .\userauths\forms.py:25
+#: .\userauths\forms.py:27 .\userauths\forms.py:137
+msgid "Password"
+msgstr "လျှို့ဝှက်နံပါတ်"
+
+#: .\templates\flame\profile.html:342
+msgid "Keep your password strong and unique to protect your account."
+msgstr ""
+"သင့်အကောင့်ကိုကာကွယ်ရန် သင့်စကားဝှက်ကို အားကောင်းပြီးထူးခြားအောင်ထားပါ။"
+
+#: .\templates\flame\profile.html:348
+#| msgid "last password change"
+msgid "Last changed:"
+msgstr "နောက်ဆုံးပြောင်းလဲမှု:"
+
+#: .\templates\flame\profile.html:356
+#| msgid "Use a strong, unique password"
+msgid "Use a strong, unique password to keep your account secure."
+msgstr "သင့်အကောင့်လုံခြုံစေရန် အားကောင်းပြီးထူးခြားသောစကားဝှက်သုံးပါ"
+
+#: .\templates\flame\profile.html:359
+#| msgid "New Password"
+msgid "Change Password"
+msgstr "စကားဝှက်ပြောင်းမည်"
+
+#: .\templates\flame\profile.html:369
+msgid "Recent Login Activity"
+msgstr "လတ်တလောအကောင့်ဝင်မှုလုပ်ဆောင်ချက်များ"
+
+#: .\templates\flame\profile.html:371
+msgid "Review your recent login activity to ensure your account security."
+msgstr ""
+"သင့်အကောင့်လုံခြုံရေးသေချာစေရန် "
+"လတ်တလောအကောင့်ဝင်မှုလုပ်ဆောင်ချက်များကိုသုံးသပ်ပါ။"
+
+#: .\templates\flame\profile.html:382
+msgid "Google Sign-in"
+msgstr "Google အကောင့်ဝင်ရန်"
+
+#: .\templates\flame\profile.html:384
+#| msgid "Back to Login"
+msgid "Two-Factor Login"
+msgstr "Two-Factor အကောင့်ဝင်ခြင်း"
+
+#: .\templates\flame\profile.html:386
+#| msgid "Login"
+msgid "Email Login"
+msgstr "အီးမေးလ်အကောင့်ဝင်ခြင်း"
+
+#: .\templates\flame\profile.html:396
+msgid "Success"
+msgstr "အောင်မြင်ပါသည်"
+
+#: .\templates\flame\recommendations\user-recommendations.html:15
+msgid ""
+"Discover products tailored just for you based on your interests and shopping"
+" history"
+msgstr ""
+"သင့်စိတ်ဝင်စားမှုများနှင့် စျေးဝယ်မှတ်တမ်းများအပေါ်အခြေခံ၍ "
+"သင့်အတွက်သီးသန့်ဒီဇိုင်းထုတ်ထားသောထုတ်ကုန်များကိုရှာဖွေပါ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:30
+msgid "Products that are currently popular among all customers"
+msgstr "လက်ရှိမှာဖောက်သည်အားလုံးကြားတွင်ရေပန်းစားနေသောထုတ်ကုန်များ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:32
+msgid "Products loved by customers with similar taste"
+msgstr "ဖောက်သည်များကြိုက်နှစ်သက်သောထုတ်ကုန်များ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:34
+msgid "Products similar to ones you've viewed or bought"
+msgstr ""
+"သင်ကြည့်ရှုဖူးသို့မဟုတ်ဝယ်ယူဖူးသောထုတ်ကုန်များနှင့်ဆင်တူသောထုတ်ကုန်များ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:36
+msgid "Hot products trending right now"
+msgstr "လက်ရှိအချိန်တွင်တွင်ကျယ်နေသောခေတ်စားထုတ်ကုန်များ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:38
+msgid "Specially curated for you"
+msgstr "သင့်အတွက်အထူးရွေးချယ်စီစဉ်ပေးထားသည်"
+
+#: .\templates\flame\recommendations\user-recommendations.html:74
+#| msgid "Saturday"
+msgid "Featured"
+msgstr "အထူးပြသထားသော"
+
+#: .\templates\flame\recommendations\user-recommendations.html:79
+msgid "OFF"
+msgstr "လျှော့စျေး"
+
+#: .\templates\flame\recommendations\user-recommendations.html:111
+#| msgid "Customer Reviews"
+msgid "reviews"
+msgstr "သုံးသပ်ချက်များ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:151
+#| msgid "View Shop"
+msgid "View More"
+msgstr "နောက်ထပ်ကြည့်ရှုမည်"
+
+#: .\templates\flame\recommendations\user-recommendations.html:168
+msgid "No Recommendations Yet"
+msgstr "သတ်မှတ်ချက်များမရှိသေးပါ"
+
+#: .\templates\flame\recommendations\user-recommendations.html:170
+msgid ""
+"Start browsing and shopping to get personalized recommendations based on "
+"your interests!"
+msgstr ""
+"သင့်စိတ်ဝင်စားမှုများအပေါ်အခြေခံသောစိတ်ကြိုက်အကြံပြုချက်များရရှိရန် "
+"ကြည့်ရှုခြင်းနှင့်စျေးဝယ်ခြင်းစတင်ပါ!"
+
+#: .\templates\flame\recommendations\user-recommendations.html:175
+#: .\templates\userauths\registration-complete.html:65
+#| msgid "View Product"
+msgid "Browse Products"
+msgstr "ထုတ်ကုန်များကြည့်ရှုမည်"
+
+#: .\templates\flame\recommendations\user-recommendations.html:179
+#| msgid "Category"
+msgid "Shop by Category"
+msgstr "အမျိုးအစားအလိုက်ဝယ်ယူမည်"
 
 #: .\templates\flame\search.html:699
 msgid "Search For"
@@ -1136,22 +3386,726 @@ msgstr "%(title)s ၏ အခြားပုံ"
 msgid "Product Image"
 msgstr "ထုတ်ကုန်ပုံ"
 
-#: .\templates\flame\shop-product-detail.html:117
-msgid "Add to Cart"
-msgstr "ခြင်းတောင်းထဲထည့်ရန်"
-
-#: .\templates\flame\shop-product-detail.html:118
+#: .\templates\flame\shop-product-detail.html:113
 msgid "Countinue Browsing"
 msgstr "ဆက်လက်လှည့်လည်ကြည့်ရှုရန်"
 
-#: .\templates\flame\shop-product-detail.html:140
+#: .\templates\flame\shop-product-detail.html:135
 #, python-format
 msgid "Image for %(shop)s"
 msgstr "%(shop)s အတွက် ပုံ"
 
-#: .\templates\flame\shop-product-detail.html:213
+#: .\templates\flame\shop-product-detail.html:208
 msgid "User"
 msgstr "အသုံးပြုသူ"
+
+#: .\templates\flame\shop_profile.html:15
+#: .\templates\flame\shop_profile.html:39
+#| msgid "Information"
+msgid "Shop Information"
+msgstr "ဆိုင်အချက်အလက်"
+
+#: .\templates\flame\shop_profile.html:16
+#| msgid "Shop not found"
+msgid "Shop Location"
+msgstr "ဆိုင်တည်နေရာ"
+
+#: .\templates\flame\shop_profile.html:17
+#| msgid "Shipping:"
+msgid "Shipping Rates"
+msgstr "ပို့ဆောင်ခနှုန်းထားများ"
+
+#: .\templates\flame\shop_profile.html:45
+#| msgid "Name"
+msgid "Shop Name"
+msgstr "ဆိုင်အမည်"
+
+#: .\templates\flame\shop_profile.html:61
+#| msgid "Contact Us"
+msgid "Contact"
+msgstr "ဆက်သွယ်ရန်"
+
+#: .\templates\flame\shop_profile.html:69
+msgid "PayPal Email"
+msgstr "PayPal အီးမေးလ်"
+
+#: .\templates\flame\shop_profile.html:77
+#| msgid "Save Address"
+msgid "Current Address"
+msgstr "လက်ရှိလိပ်စာ"
+
+#: .\templates\flame\shop_profile.html:92
+msgid "Shop Location Management"
+msgstr "ဆိုင်တည်နေရာစီမံခန့်ခွဲမှု"
+
+#: .\templates\flame\shop_profile.html:95
+msgid ""
+"Setting your shop location helps calculate accurate shipping fees for "
+"customers."
+msgstr ""
+"သင့်ဆိုင်တည်နေရာသတ်မှတ်ခြင်းဖြင့် "
+"ဖောက်သည်များအတွက်တိကျသောပို့ဆောင်ခကိုတွက်ချက်နိုင်ပါသည်။"
+
+#: .\templates\flame\shop_profile.html:124
+msgid "City"
+msgstr " မြို့"
+
+#: .\templates\flame\shop_profile.html:146
+#: .\templates\flame\shop_profile.html:340
+#: .\templates\flame\shop_profile.html:370
+msgid "Select Township (Optional)"
+msgstr "မြို့နယ်ရွေးချယ်ပါ (ချန်လှပ်ထားနိုင်သည်)"
+
+#: .\templates\flame\shop_profile.html:165
+msgid "Building No, Street Name, etc."
+msgstr " အမှတ်၊ လမ်းအမည်၊ စသည်"
+
+#: .\templates\flame\shop_profile.html:172
+msgid "Update Shop Location"
+msgstr "ဆိုင်တည်နေရာပြင်ဆင်မည်"
+
+#: .\templates\flame\shop_profile.html:184
+msgid "Shipping Rate Management"
+msgstr "ပို့ဆောင်ခနှုန်းထားစီမံခန့်ခွဲမှု"
+
+#: .\templates\flame\shop_profile.html:188
+#: .\templates\flame\shop_profile.html:282
+msgid "Please set your shop location first to manage shipping rates."
+msgstr ""
+"ကျေးဇူးပြု၍ ပို့ဆောင်ခနှုန်းထားများစီမံရန် ဆိုင်တည်နေရာကိုအရင်သတ်မှတ်ပါ။"
+
+#: .\templates\flame\shop_profile.html:190
+msgid "Configure shipping rates from your shop to different cities."
+msgstr "သင့်ဆိုင်မှမတူညီသောမြို့များသို့ ပို့ဆောင်ခနှုန်းထားများကိုသတ်မှတ်ပါ။"
+
+#: .\templates\flame\shop_profile.html:199
+msgid "Add New Shipping Rate"
+msgstr "ပို့ဆောင်ခနှုန်းထားအသစ်ထည့်မည်"
+
+#: .\templates\flame\shop_profile.html:206
+msgid "To City"
+msgstr "မြို့တစ်မြို့သို့"
+
+#: .\templates\flame\shop_profile.html:208
+#: .\templates\flame\shop_profile.html:436
+msgid "Select destination city"
+msgstr "ပို့ရမည့်မြို့ရွေးချယ်ပါ"
+
+#: .\templates\flame\shop_profile.html:216
+#: .\templates\flame\shop_profile.html:247
+msgid "Rate (MMK)"
+msgstr "နှုန်းထား (ကျပ်)"
+
+#: .\templates\flame\shop_profile.html:223
+#: .\templates\flame\shop_profile.html:248
+msgid "Rate (USD)"
+msgstr "နှုန်းထား (ဒေါ်လာ)"
+
+#: .\templates\flame\shop_profile.html:232
+#| msgid "Address"
+msgid "Add"
+msgstr "ထည့်မည်"
+
+#: .\templates\flame\shop_profile.html:240
+#| msgid "Current Exchange Rate:"
+msgid "Current Shipping Rates"
+msgstr "လက်ရှိပို့ဆောင်ခနှုန်းထားများ"
+
+#: .\templates\flame\shop_profile.html:245
+msgid "From"
+msgstr "မှ"
+
+#: .\templates\flame\shop_profile.html:246
+msgid "To"
+msgstr "သို့"
+
+#: .\templates\flame\shop_profile.html:267
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr "ဖျက်ရန်"
+
+#: .\templates\flame\shop_profile.html:273
+#: .\templates\flame\shop_profile.html:509
+msgid "No shipping rates configured yet."
+msgstr "ပို့ဆောင်ခနှုန်းထားများမသတ်မှတ်ရသေးပါ။"
+
+#: .\templates\flame\shop_profile.html:284
+msgid "Set Shop Location"
+msgstr " ဆိုင်တည်နေရာသတ်မှတ်မည်"
+
+#: .\templates\flame\shop_profile.html:296
+#| msgid "Orders"
+msgid "Shop Orders"
+msgstr "ဆိုင်အော်ဒါများ"
+
+#: .\templates\flame\shop_profile.html:302
+msgid "Order management feature coming soon..."
+msgstr "အော်ဒါစီမံခန့်ခွဲမှုလုပ်ဆောင်ချက်များရောက်ရှိလာတော့မည်..."
+
+#: .\templates\flame\shop_profile.html:488
+msgid "Are you sure you want to delete this shipping rate?"
+msgstr "ဤပို့ဆောင်ခနှုန်းထားကိုဖျက်လိုသည်မှာသေချာပါသလား?"
+
+#: .\templates\flame\social\analytics.html:13
+msgid "Social Media Analytics"
+msgstr "လူမှုမီဒီယာခွဲခြမ်းစိတ်ဖြာမှု"
+
+#: .\templates\flame\social\analytics.html:15
+msgid "Track your social media performance and engagement"
+msgstr " သင့်လူမှုမီဒီယာအပြုအမူနှင့်ပါဝင်ဆောင်ရွက်မှုကိုခြေရာခံပါ"
+
+#: .\templates\flame\social\analytics.html:27
+msgid "Last year"
+msgstr "ပြီးခဲ့သည့်နှစ်"
+
+#: .\templates\flame\social\analytics.html:31
+#: .\templates\flame\social\campaign-detail.html:39
+msgid "Export Report"
+msgstr "အစီရင်ခံစာထုတ်ယူမည်"
+
+#: .\templates\flame\social\analytics.html:44
+msgid "Total Followers"
+msgstr "စုစုပေါင်းအကြိုက်တူသူများ"
+
+#: .\templates\flame\social\analytics.html:52
+msgid "this period"
+msgstr "ဤကာလအတွင်း"
+
+#: .\templates\flame\social\analytics.html:70
+msgid "Total Engagement"
+msgstr "စုစုပေါင်းပါဝင်ဆောင်ရွက်မှု"
+
+#: .\templates\flame\social\analytics.html:78
+msgid "rate"
+msgstr "နှုန်းထား"
+
+#: .\templates\flame\social\analytics.html:96
+#: .\templates\flame\social\dashboard.html:266
+#| msgid "Total"
+msgid "Total Reach"
+msgstr "စုစုပေါင်းရောက်ရှိမှု"
+
+#: .\templates\flame\social\analytics.html:104
+msgid "avg per post"
+msgstr "တစ်ပို့စ်လျှင်ပျမ်းမျှ"
+
+#: .\templates\flame\social\analytics.html:122
+#: .\templates\flame\social\dashboard.html:35
+#| msgid "Total"
+msgid "Total Posts"
+msgstr "စုစုပေါင်းပို့စ်များ"
+
+#: .\templates\flame\social\analytics.html:130
+msgid "this week"
+msgstr "ဤအပတ်အတွင်း"
+
+#: .\templates\flame\social\analytics.html:149
+msgid "Engagement Over Time"
+msgstr "အချိန်နှင့်အမျှပါဝင်ဆောင်ရွက်မှု"
+
+#: .\templates\flame\social\analytics.html:153
+#: .\templates\flame\social\analytics.html:224
+#: .\templates\flame\social\analytics.html:505
+#: .\templates\flame\social\analytics.html:613
+#: .\templates\flame\social\campaign-detail.html:151
+#: .\templates\flame\social\campaign-detail.html:650
+#: .\templates\flame\social\dashboard.html:274
+msgid "Engagement"
+msgstr "ပါဝင်ဆောင်ရွက်မှု"
+
+#: .\templates\flame\social\analytics.html:156
+#: .\templates\flame\social\analytics.html:225
+#: .\templates\flame\social\analytics.html:622
+#: .\templates\flame\social\campaign-detail.html:165
+msgid "Reach"
+msgstr "ရောက်ရှိမှု"
+
+#: .\templates\flame\social\analytics.html:159
+#: .\templates\flame\social\analytics.html:631
+#: .\templates\flame\social\campaign-detail.html:639
+#: .\templates\flame\social\dashboard.html:270
+msgid "Impressions"
+msgstr "မြင်တွေ့မှုများ"
+
+#: .\templates\flame\social\analytics.html:176
+msgid "Platform Performance"
+msgstr "ပလက်ဖောင်းစွမ်းဆောင်ရည်"
+
+#: .\templates\flame\social\analytics.html:195
+#: .\templates\flame\social\campaign-detail.html:91
+msgid "Posts"
+msgstr "ပို့စ်များ"
+
+#: .\templates\flame\social\analytics.html:196
+msgid "Followers"
+msgstr "ဖော်လိုဝါများ"
+
+#: .\templates\flame\social\analytics.html:213
+#: .\templates\flame\social\campaign-detail.html:315
+msgid "Top Performing Posts"
+msgstr "ထိပ်တန်းစွမ်းဆောင်ရည်ပို့စ်များ"
+
+#: .\templates\flame\social\analytics.html:221
+msgid "Post"
+msgstr "ပို့စ်"
+
+#: .\templates\flame\social\analytics.html:222
+msgid "Platform"
+msgstr "ပလက်ဖောင်း"
+
+#: .\templates\flame\social\analytics.html:270
+msgid "No posts data available"
+msgstr "ပို့စ်အချက်အလက်မရနိုင်ပါ"
+
+#: .\templates\flame\social\analytics.html:287
+msgid "Engagement Types"
+msgstr "ပါဝင်ဆောင်ရွက်မှုအမျိုးအစားများ"
+
+#: .\templates\flame\social\analytics.html:293
+#: .\templates\flame\social\campaign-detail.html:231
+msgid "Likes"
+msgstr "ကြိုက်နှစ်သက်မှုများ"
+
+#: .\templates\flame\social\analytics.html:304
+#: .\templates\flame\social\campaign-detail.html:239
+msgid "Comments"
+msgstr "မှတ်ချက်များ"
+
+#: .\templates\flame\social\analytics.html:315
+#: .\templates\flame\social\campaign-detail.html:235
+msgid "Shares"
+msgstr "မျှဝေမှုများ"
+
+#: .\templates\flame\social\analytics.html:326
+#: .\templates\flame\social\campaign-detail.html:243
+#: .\templates\flame\social\dashboard.html:278
+msgid "Clicks"
+msgstr "နှိပ်ချက်များ"
+
+#: .\templates\flame\social\analytics.html:341
+msgid "Best Posting Times"
+msgstr "အကောင်းဆုံးပို့စ်တင်ချိန်များ"
+
+#: .\templates\flame\social\analytics.html:359
+msgid "Not enough data available"
+msgstr "လုံလောက်သောအချက်အလက်မရနိုင်ပါ"
+
+#: .\templates\flame\social\analytics.html:369
+msgid "Growth Trends"
+msgstr "ကြီးထွားမှုအလားအလာများ"
+
+#: .\templates\flame\social\analytics.html:375
+msgid "Follower Growth"
+msgstr "‌ဖော်လိုဝါတိုးတက်မှု"
+
+#: .\templates\flame\social\analytics.html:384
+msgid "Engagement Growth"
+msgstr "ပါဝင်ဆောင်ရွက်မှုတိုးတက်မှု"
+
+#: .\templates\flame\social\analytics.html:393
+msgid "Reach Growth"
+msgstr "ရောက်ရှိမှုတိုးတက်မှု"
+
+#: .\templates\flame\social\analytics.html:648
+msgid "Exporting..."
+msgstr "ထုတ်ယူနေသည်..."
+
+#: .\templates\flame\social\analytics.html:674
+#| msgid "An error occurred. Please try again."
+msgid "Failed to export report. Please try again."
+msgstr "အစီရင်ခံစာထုတ်ယူရန်မအောင်မြင်ပါ။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ။"
+
+#: .\templates\flame\social\campaign-detail.html:15
+msgid "Social Media"
+msgstr "လူမှုမီဒီယာ"
+
+#: .\templates\flame\social\campaign-detail.html:28
+#: .\templates\flame\social\campaign-detail.html:346
+msgid "Edit Campaign"
+msgstr "ကမ်ပိန်းပြင်ဆင်မည်"
+
+#: .\templates\flame\social\campaign-detail.html:36
+msgid "Duplicate Campaign"
+msgstr "ကမ်ပိန်းပွားမည်"
+
+#: .\templates\flame\social\campaign-detail.html:43
+msgid "Archive Campaign"
+msgstr "ကမ်ပိန်းမော်ကွန်းတင်မည်"
+
+#: .\templates\flame\social\campaign-detail.html:60
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1863
+msgid "Duration"
+msgstr "ကြာချိန်"
+
+#: .\templates\flame\social\campaign-detail.html:69
+#: .\templates\flame\social\campaign-detail.html:379
+#: .\templates\flame\social\dashboard.html:397
+msgid "Budget"
+msgstr "ဘတ်ဂျက်"
+
+#: .\templates\flame\social\campaign-detail.html:92
+#| msgid "Total"
+msgid "total"
+msgstr "စုစုပေါင်း"
+
+#: .\templates\flame\social\campaign-detail.html:123
+msgid "Total Impressions"
+msgstr "စုစုပေါင်းမြင်တွေ့မှုများ"
+
+#: .\templates\flame\social\campaign-detail.html:137
+msgid "Total Clicks"
+msgstr "စုစုပေါင်းနှိပ်ချက်များ"
+
+#: .\templates\flame\social\campaign-detail.html:181
+msgid "Campaign Posts"
+msgstr "ကမ်ပိန်းပို့စ်များ"
+
+#: .\templates\flame\social\campaign-detail.html:184
+#: .\templates\flame\social\campaign-detail.html:468
+#| msgid "Add to Cart"
+msgid "Add Post"
+msgstr "ပို့စ်ထည့်မည်"
+
+#: .\templates\flame\social\campaign-detail.html:212
+#: .\templates\flame\social\post-calendar.html:61
+msgid "Draft"
+msgstr "မူကြမ်း"
+
+#: .\templates\flame\social\campaign-detail.html:255
+msgid "No posts in this campaign yet"
+msgstr "ဤကမ်ပိန်းတွင် ပို့စ်မရှိသေးပါ"
+
+#: .\templates\flame\social\campaign-detail.html:257
+msgid "Add Your First Post"
+msgstr "သင့်ပထမဆုံးပို့စ်ထည့်ပါ"
+
+#: .\templates\flame\social\campaign-detail.html:271
+msgid "Performance Over Time"
+msgstr "အချိန်နှင့်အမျှစွမ်းဆောင်ရည်"
+
+#: .\templates\flame\social\campaign-detail.html:285
+msgid "Platform Breakdown"
+msgstr "ပလက်ဖောင်းခွဲခြမ်းစိတ်ဖြာမှု"
+
+#: .\templates\flame\social\campaign-detail.html:303
+msgid "posts"
+msgstr "ပို့စ်များ"
+
+#: .\templates\flame\social\campaign-detail.html:304
+#| msgid "Actions"
+msgid "interactions"
+msgstr "အပြန်အလှန်တုံ့ပြန်မှုများ"
+
+#: .\templates\flame\social\campaign-detail.html:325
+msgid "engagement"
+msgstr "ပါဝင်ဆောင်ရွက်မှု"
+
+#: .\templates\flame\social\campaign-detail.html:330
+msgid "No published posts yet"
+msgstr "ထုတ်ဝေထားသောပို့စ်မရှိသေးပါ"
+
+#: .\templates\flame\social\campaign-detail.html:354
+#: .\templates\flame\social\dashboard.html:376
+msgid "Campaign Name"
+msgstr "ကမ်ပိန်းအမည်"
+
+#: .\templates\flame\social\campaign-detail.html:367
+#: .\templates\flame\social\dashboard.html:387
+msgid "Start Date"
+msgstr "စတင်ရက်စွဲ"
+
+#: .\templates\flame\social\campaign-detail.html:372
+#: .\templates\flame\social\dashboard.html:391
+#| msgid "Date"
+msgid "End Date"
+msgstr "ပြီးဆုံးမည့်ရက်စွဲ"
+
+#: .\templates\flame\social\campaign-detail.html:393
+#| msgid "Change"
+msgid "Save Changes"
+msgstr "ပြီးဆုံးမည့်ရက်စွဲ"
+
+#: .\templates\flame\social\campaign-detail.html:406
+msgid "Add Post to Campaign"
+msgstr "ကမ်ပိန်းသို့ပို့စ်ထည့်မည်"
+
+#: .\templates\flame\social\campaign-detail.html:416
+#: .\templates\flame\social\dashboard.html:303
+#: .\templates\flame\social\post-calendar.html:101
+#: .\templates\flame\social\post-calendar.html:185
+#: .\templates\flame\social\post-calendar.html:586
+msgid "Content"
+msgstr "အကြောင်းအရာ"
+
+#: .\templates\flame\social\campaign-detail.html:418
+#: .\templates\flame\social\dashboard.html:305
+#: .\templates\flame\social\post-calendar.html:187
+msgid "What would you like to share?"
+msgstr "သင်မျှဝေလိုသည်မှာအဘယ်နည်း"
+
+#: .\templates\flame\social\campaign-detail.html:427
+#: .\templates\flame\social\post-calendar.html:197
+msgid "Hashtags"
+msgstr "ဟက်ရှ်တက်များ"
+
+#: .\templates\flame\social\campaign-detail.html:434
+#: .\templates\flame\social\post-calendar.html:205
+msgid "Schedule Date"
+msgstr "ရက်စွဲချိန်းဆိုမည်"
+
+#: .\templates\flame\social\campaign-detail.html:438
+#: .\templates\flame\social\post-calendar.html:209
+msgid "Schedule Time"
+msgstr "အချိန်ချိန်းဆိုမည်"
+
+#: .\templates\flame\social\campaign-detail.html:444
+#: .\templates\flame\social\dashboard.html:317
+#: .\templates\flame\social\post-calendar.html:102
+#: .\templates\flame\social\post-calendar.html:215
+#: .\templates\flame\social\post-calendar.html:596
+msgid "Platforms"
+msgstr "ပလက်ဖောင်းများ"
+
+#: .\templates\flame\social\campaign-detail.html:736
+msgid "Are you sure you want to duplicate this campaign?"
+msgstr "ဤကမ်ပိန်းကိုပွားလိုသည်မှာသေချာပါသလား"
+
+#: .\templates\flame\social\campaign-detail.html:763
+msgid ""
+"Are you sure you want to archive this campaign? It will be moved to archived"
+" campaigns."
+msgstr ""
+"ဤကမ်ပိန်းကိုမော်ကွန်းတင်လိုသည်မှာသေချာပါသလား? "
+"၎င်းကိုမော်ကွန်းတင်ကမ်ပိန်းများသို့ရွှေ့ပါမည်"
+
+#: .\templates\flame\social\dashboard.html:13
+msgid "Social Media Management"
+msgstr "လူမှုမီဒီယာစီမံခန့်ခွဲမှု"
+
+#: .\templates\flame\social\dashboard.html:15
+msgid "Manage your social media presence and campaigns"
+msgstr "သင့်လူမှုမီဒီယာရှိနေမှုနှင့်ကမ်ပိန်းများကိုစီမံခန့်ခွဲပါ"
+
+#: .\templates\flame\social\dashboard.html:19
+#| msgid "New Password"
+msgid "New Post"
+msgstr "ပို့စ်အသစ်"
+
+#: .\templates\flame\social\dashboard.html:22
+msgid "New Campaign"
+msgstr "ကမ်ပိန်းအသစ်"
+
+#: .\templates\flame\social\dashboard.html:55
+#| msgid "Exchange Rate:"
+msgid "Engagement Rate"
+msgstr "ပါဝင်ဆောင်ရွက်မှုနှုန်း"
+
+#: .\templates\flame\social\dashboard.html:75
+msgid "Active Campaigns"
+msgstr "Active ကမ်ပိန်းများ"
+
+#: .\templates\flame\social\dashboard.html:95
+msgid "Followers Growth"
+msgstr "Followers တိုးတက်မှု"
+
+#: .\templates\flame\social\dashboard.html:116
+#| msgid "Payment Status:"
+msgid "Platform Status"
+msgstr "ပလက်ဖောင်းအခြေအနေ"
+
+#: .\templates\flame\social\dashboard.html:128
+msgid "Connected"
+msgstr "ချိတ်ဆက်ပြီး"
+
+#: .\templates\flame\social\dashboard.html:128
+#| msgid "Discounted items"
+msgid "Disconnected"
+msgstr "ချိတ်ဆက်မှုဖြတ်ထားသည်"
+
+#: .\templates\flame\social\dashboard.html:131
+msgid "followers"
+msgstr "‌ဖော်လိုဝါများ"
+
+#: .\templates\flame\social\dashboard.html:148
+msgid "Recent Posts"
+msgstr "လတ်တလောပို့စ်များ"
+
+#: .\templates\flame\social\dashboard.html:156
+#| msgid "All Shops"
+msgid "All Posts"
+msgstr "ပို့စ်အားလုံး"
+
+#: .\templates\flame\social\dashboard.html:157
+#: .\templates\flame\social\post-calendar.html:55
+msgid "Published"
+msgstr "ထုတ်ဝေပြီး"
+
+#: .\templates\flame\social\dashboard.html:158
+#: .\templates\flame\social\post-calendar.html:58
+msgid "Scheduled"
+msgstr "ချိန်းဆိုထားသည်"
+
+#: .\templates\flame\social\dashboard.html:159
+msgid "Drafts"
+msgstr "မူကြမ်းများ"
+
+#: .\templates\flame\social\dashboard.html:216
+msgid "No posts yet"
+msgstr "ပို့စ်မရှိသေးပါ"
+
+#: .\templates\flame\social\dashboard.html:218
+msgid "Create Your First Post"
+msgstr "သင့်ပထမဆုံးပို့စ်ကိုဖန်တီးပါ"
+
+#: .\templates\flame\social\dashboard.html:232
+#: .\templates\flame\social\post-calendar.html:94
+msgid "Upcoming Posts"
+msgstr "ရောက်ရှိလာမည့်ပို့စ်များ"
+
+#: .\templates\flame\social\dashboard.html:251
+msgid "No scheduled posts"
+msgstr "ချိန်းဆိုထားသောပို့စ်များမရှိပါ"
+
+#: .\templates\flame\social\dashboard.html:261
+msgid "This Week's Performance"
+msgstr "ဤအပတ်စွမ်းဆောင်ရည်"
+
+#: .\templates\flame\social\dashboard.html:295
+#| msgid "Create New Password"
+msgid "Create New Post"
+msgstr "ပို့စ်အသစ်ဖန်တီးမည်"
+
+#: .\templates\flame\social\dashboard.html:307
+#| msgid "At least 8 characters"
+msgid "characters"
+msgstr "စာလုံးများ"
+
+#: .\templates\flame\social\dashboard.html:312
+#: .\templates\flame\social\dashboard.html:397
+msgid "(optional)"
+msgstr " (ချန်လှပ်ထားနိုင်သည်)"
+
+#: .\templates\flame\social\dashboard.html:338
+msgid "Schedule for later"
+msgstr "နောက်မှချိန်းဆိုမည်"
+
+#: .\templates\flame\social\dashboard.html:344
+msgid "Schedule Date & Time"
+msgstr "ရက်စွဲနှင့်အချိန်ချိန်းဆိုမည်"
+
+#: .\templates\flame\social\dashboard.html:355
+#: .\templates\flame\social\dashboard.html:512
+msgid "Post Now"
+msgstr "အခုပို့မည်"
+
+#: .\templates\flame\social\dashboard.html:368
+#: .\templates\flame\social\dashboard.html:410
+msgid "Create Campaign"
+msgstr "ကမ်ပိန်းဖန်တီးမည်"
+
+#: .\templates\flame\social\dashboard.html:509
+#: .\templates\flame\social\post-calendar.html:239
+msgid "Schedule Post"
+msgstr "ပို့စ်ချိန်းဆိုမည်"
+
+#: .\templates\flame\social\post-calendar.html:13
+msgid "Content Calendar"
+msgstr "အကြောင်းအရာပြက္ခဒိန်"
+
+#: .\templates\flame\social\post-calendar.html:15
+msgid "Plan and schedule your social media content"
+msgstr "သင့်လူမှုမီဒီယာအကြောင်းအရာများကိုစီစဉ်ချိန်းဆိုပါ"
+
+#: .\templates\flame\social\post-calendar.html:19
+msgid "Quick Post"
+msgstr "အမြန်ပို့စ်"
+
+#: .\templates\flame\social\post-calendar.html:23
+#| msgid "View Shop"
+msgid "View"
+msgstr "ကြည့်ရှုမည်"
+
+#: .\templates\flame\social\post-calendar.html:27
+msgid "Month View"
+msgstr "လအားကြည့်ရှုမှု"
+
+#: .\templates\flame\social\post-calendar.html:30
+msgid "Week View"
+msgstr "အပတ်အားကြည့်ရှုမှု"
+
+#: .\templates\flame\social\post-calendar.html:33
+msgid "List View"
+msgstr "စာရင်းအားကြည့်ရှုမှု"
+
+#: .\templates\flame\social\post-calendar.html:74
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr "တနင်္ဂနွေ"
+
+#: .\templates\flame\social\post-calendar.html:75
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr "တနင်္လာ"
+
+#: .\templates\flame\social\post-calendar.html:76
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr "အင်္ဂါ"
+
+#: .\templates\flame\social\post-calendar.html:77
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr "ဗုဒ္ဓဟူး"
+
+#: .\templates\flame\social\post-calendar.html:78
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr "ကြာသပတေး"
+
+#: .\templates\flame\social\post-calendar.html:79
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr "သောကြာ"
+
+#: .\templates\flame\social\post-calendar.html:80
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr "စနေ"
+
+#: .\templates\flame\social\post-calendar.html:103
+#: .\templates\flame\social\post-calendar.html:600
+msgid "Scheduled Date"
+msgstr "ချိန်းဆိုထားသောရက်စွဲ"
+
+#: .\templates\flame\social\post-calendar.html:158
+msgid "No scheduled posts found"
+msgstr "ချိန်းဆိုထားသောပို့စ်များမတွေ့ရှိပါ"
+
+#: .\templates\flame\social\post-calendar.html:177
+msgid "Schedule New Post"
+msgstr "ပို့စ်အသစ်ချိန်းဆိုမည်"
+
+#: .\templates\flame\social\post-calendar.html:193
+msgid "Recommended size: 1200x630px"
+msgstr "အကြံပြုအရွယ်အစား: 1200x630px"
+
+#: .\templates\flame\social\post-calendar.html:200
+msgid "Separate hashtags with spaces"
+msgstr "ဟက်ရှ်တက်များကို နေရာလွတ်ဖြင့်ခွဲခြားပါ"
+
+#: .\templates\flame\social\post-calendar.html:252
+#| msgid "Order Details:"
+msgid "Post Details"
+msgstr "ပို့စ်အသေးစိတ်များ"
+
+#: .\templates\flame\social\post-calendar.html:264
+#| msgid "Edit Profile"
+msgid "Edit Post"
+msgstr "ပို့စ်ပြင်ဆင်မည်"
+
+#: .\templates\flame\social\post-calendar.html:623
+msgid "Are you sure you want to delete this post?"
+msgstr "ဤပို့စ်ကိုဖျက်လိုသည်မှာသေချာပါသလား?"
 
 #: .\templates\flame\wishlist.html:112
 msgid "Your Wishlist"
@@ -1172,56 +4126,61 @@ msgstr[0] ""
 "                ဤစာရင်းတွင် ပစ္စည်း <span id=\"itemCount\">%(count)s</span> ခုရှိသည်\n"
 "            "
 
-#: .\templates\flame\wishlist.html:133
-msgid "In Stock"
-msgstr "ကုန်ပစ္စည်းလက်ကျန်"
-
-#: .\templates\flame\wishlist.html:135
-msgid "Out of Stock"
-msgstr "ကုန်ပစ္စည်းလက်ကျန်မရှိ"
-
 #: .\templates\flame\wishlist.html:147
 msgid "Add to cart"
 msgstr "ခြင်းတောင်းထဲထည့်ရန်"
 
-#: .\templates\partials\base.html:10
+#: .\templates\partials\base.html:10 .\templates\partials\base_offline.html:10
 msgid "CyberOptix - Premium Laptops Myanmar"
 msgstr "CyberOptix - မြန်မာနိုင်ငံ၏ ပရီမီယံလက်တော့များ"
 
-#: .\templates\partials\base.html:51
+#: .\templates\partials\base.html:54
+#: .\templates\partials\base_offline.html:115
 msgid "CyberOptix"
 msgstr "CyberOptix"
 
-#: .\templates\partials\base.html:54
+#: .\templates\partials\base.html:57
+#: .\templates\partials\base_offline.html:118
 msgid "Home"
 msgstr "ပင်မစာမျက်နှာ"
 
-#: .\templates\partials\base.html:72
+#: .\templates\partials\base.html:75
+#: .\templates\partials\base_offline.html:136
 msgid "About"
 msgstr "ကျွန်ုပ်တို့အကြောင်း"
 
-#: .\templates\partials\base.html:73
+#: .\templates\partials\base.html:76
+#: .\templates\partials\base_offline.html:137
 msgid "FAQs"
 msgstr "မေးလေ့ရှိသောမေးခွန်းများ"
 
-#: .\templates\partials\base.html:102
+#: .\templates\partials\base.html:105
+#: .\templates\partials\base_offline.html:166
 msgid "Sign Out"
 msgstr "ထွက်ရန်"
 
-#: .\templates\partials\base.html:106 .\userauths\views.py:194
+#: .\templates\partials\base.html:109
+#: .\templates\partials\base_offline.html:170
 msgid "Sign In"
 msgstr "အကောင့်ဝင်ရန်"
 
-#: .\templates\partials\base.html:109 .\templates\userauths\sign-in.html:100
+#: .\templates\partials\base.html:112
+#: .\templates\partials\base_offline.html:173
+#: .\templates\userauths\sign-in.html:105
 msgid "Sign up"
 msgstr "အကောင့်ဖွင့်ရန်"
 
-#: .\templates\partials\base.html:129
+#: .\templates\partials\base.html:132
+#: .\templates\partials\base_offline.html:193
 msgid "All"
 msgstr "အားလုံး"
 
+#: .\templates\partials\base_offline.html:105
+msgid "You're offline. Some features may be limited."
+msgstr ""
+"င်သည် အော့ဖ်လိုင်းဖြစ်နေသည်။ အချို့လုပ်ဆောင်ချက်များ ကန့်သတ်ထားနိုင်သည်။"
+
 #: .\templates\userauths\password_reset.html:16
-#| msgid "Password"
 msgid "Password Recovery"
 msgstr "စကားဝှက်ပြန်လည်ရယူခြင်း"
 
@@ -1231,8 +4190,7 @@ msgstr ""
 "စိတ်မပူပါနဲ့! ဖြစ်တတ်ပါတယ်။ ကျွန်ုပ်တို့ သင့်စကားဝှက်ကို ပြန်လည်သတ်မှတ်ရန် "
 "ကူညီပေးပါမယ်။"
 
-#: .\templates\userauths\password_reset.html:22
-#| msgid "Enter a valid email address."
+#: .\templates\userauths\password_reset.html:22 .\userauths\forms.py:153
 msgid "Enter your email address"
 msgstr "မှန်ကန်သော အီးမေးလ်လိပ်စာထည့်ပါ။"
 
@@ -1250,7 +4208,6 @@ msgstr "သင့်စကားဝှက်အသစ်ကို သတ်မ�
 
 #: .\templates\userauths\password_reset.html:44
 #: .\templates\userauths\password_reset_comirm.html:73
-#| msgid "Password"
 msgid "Reset Password"
 msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်မည်"
 
@@ -1262,8 +4219,7 @@ msgstr ""
 "\"သင့်အကောင့်နှင့် ချိတ်ဆက်ထားသော အီးမေးလ်လိပ်စာထည့်ပါ၊ "
 "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ပို့ပေးပါမည်။"
 
-#: .\templates\userauths\password_reset.html:66
-#| msgid "Email Address"
+#: .\templates\userauths\password_reset.html:66 .\userauths\forms.py:210
 msgid "Your Email Address"
 msgstr "သင့်၏အီးမေးလ်လိပ်စာ"
 
@@ -1277,31 +4233,27 @@ msgstr "စကားဝှက်မှတ်မိပြီလား?"
 
 #: .\templates\userauths\password_reset.html:79
 #: .\templates\userauths\password_reset_done.html:29
+#: .\templates\userauths\two-factor-auth.html:80
 msgid "Back to Login"
 msgstr "အကောင့်ဝင်ရန် ပြန်သွားမည်"
 
 #: .\templates\userauths\password_reset_comirm.html:16
-#| msgid "Password"
 msgid "Create New Password"
 msgstr "လျှို့ဝှက်နံပါတ် အသစ်ပြုလုပ်ပါ"
 
 #: .\templates\userauths\password_reset_comirm.html:17
-#| msgid "Set your new password"
 msgid "Almost there! Enter your new password below."
 msgstr "နီးစပ်ပြီ! သင့်စကားဝှက်အသစ်ကို အောက်တွင်ထည့်သွင်းပါ"
 
 #: .\templates\userauths\password_reset_comirm.html:20
-#| msgid "Password"
 msgid "Password Requirements:"
 msgstr "စကားဝှက် လိုအပ်ချက်များ:"
 
 #: .\templates\userauths\password_reset_comirm.html:22
-#| msgid "Your password must contain at least 8 characters."
 msgid "At least 8 characters"
 msgstr "သင့်စကားဝှက်တွင် အနည်းဆုံး စာလုံးရေ ၈ လုံးပါဝင်ရမည်။"
 
 #: .\templates\userauths\password_reset_comirm.html:23
-#| msgid "Enter a number."
 msgid "Include letters and numbers"
 msgstr "အက္ခရာများနှင့် ဂဏန်းများ ပါဝင်ရမည်"
 
@@ -1314,22 +4266,20 @@ msgid "Consider adding special characters"
 msgstr "အထူးစာလုံးများ ထည့်သွင်းရန် စဉ်းစားပါ"
 
 #: .\templates\userauths\password_reset_comirm.html:36
-#| msgid "Set your new password"
 msgid "Set New Password"
 msgstr "သင့်စကားဝှက်အသစ်ကို သတ်မှတ်ပါ"
 
 #: .\templates\userauths\password_reset_comirm.html:55
-#| msgid "Password"
+#: .\userauths\forms.py:236 .\userauths\forms.py:238
 msgid "New Password"
 msgstr "လျှို့ဝှက်နံပါတ်အသစ်"
 
 #: .\templates\userauths\password_reset_comirm.html:66
-#| msgid "Confirm Password"
+#: .\userauths\forms.py:245 .\userauths\forms.py:247
 msgid "Confirm New Password"
 msgstr "လျှို့ဝှက်နံပါတ်အသစ်ကိုအတည်ပြုပါ"
 
 #: .\templates\userauths\password_reset_comirm.html:80
-#| msgid "Send Reset Link"
 msgid "Invalid Reset Link"
 msgstr "ပြန်လည်သတ်မှတ်ရန် လင့်ခ်ပို့မည်"
 
@@ -1348,7 +4298,6 @@ msgid "Request New Link"
 msgstr "လင့်ခ်အသစ်တောင်းမည်"
 
 #: .\templates\userauths\password_reset_complete.html:14
-#| msgid "Password"
 msgid "Password Reset Successful!"
 msgstr "လျှို့ဝှက်နံပါတ် ပြန်လည်သတ်မှတ်ပြီးပါပြီ!"
 
@@ -1357,12 +4306,10 @@ msgid "Your password has been successfully reset."
 msgstr "သင့်စကားဝှက်ကို အောင်မြင်စွာ ပြန်လည်သတ်မှတ်ပြီးပါပြီ"
 
 #: .\templates\userauths\password_reset_complete.html:16
-#| msgid "Set your new password"
 msgid "You can now login with your new password."
 msgstr "သင့်စကားဝှက်အသစ်ဖြင့် အကောင့်ဝင်နိုင်ပါပြီ"
 
 #: .\templates\userauths\password_reset_complete.html:20
-#| msgid "Login"
 msgid "Login Now"
 msgstr "အကောင့်ဝင်ရန်"
 
@@ -1384,7 +4331,6 @@ msgid "Enable two-factor authentication when available"
 msgstr "ရနိုင်ပါက နှစ်ဆင့်ခွင် အတည်ပြုခြင်းကို ဖွင့်ပါ"
 
 #: .\templates\userauths\password_reset_done.html:14
-#| msgid "Payment completed successfully!"
 msgid "Email Sent Successfully!"
 msgstr "အီးမေးလ် အောင်မြင်စွာပို့ပြီးပါပြီ!"
 
@@ -1401,6 +4347,7 @@ msgstr ""
 "လိုက်နာပါ"
 
 #: .\templates\userauths\password_reset_done.html:19
+#: .\templates\userauths\registration-complete.html:70
 msgid "Didn't receive the email?"
 msgstr "အီးမေးလ် မရရှိဘူးလား?"
 
@@ -1416,16 +4363,7 @@ msgstr "သင်ထည့်သွင်းလိုက်သော အီး�
 msgid "Wait a few minutes and check again"
 msgstr "မိနစ်အနည်းငယ်စောင့်ပြီး ထပ်မံစစ်ဆေးပါ"
 
-#: .\templates\userauths\password_reset_done.html:32
-msgid "Try Again"
-msgstr "ထပ်ကြိုးစားပါ"
-
-#: .\templates\userauths\password_reset_email_html.html:8
-msgid "Password Reset - CyberOptix"
-msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ခြင်း - CyberOptix"
-
 #: .\templates\userauths\password_reset_email_html.html:82
-#| msgid "Password"
 msgid "Password Reset Request"
 msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် တောင်းဆိုခြင်း"
 
@@ -1445,7 +4383,6 @@ msgid "Click the button below to create a new password:"
 msgstr "စကားဝှက်အသစ်ဖန်တီးရန် အောက်ပါခလုတ်ကို နှိပ်ပါ:"
 
 #: .\templates\userauths\password_reset_email_html.html:94
-#| msgid "Password"
 msgid "Reset My Password"
 msgstr "ကျွန်ုပ်၏စကားဝှက်ကို ပြန်လည်သတ်မှတ်မည်"
 
@@ -1478,7 +4415,6 @@ msgstr ""
 "အကြံပြုအပ်ပါသည်:"
 
 #: .\templates\userauths\password_reset_email_html.html:114
-#| msgid "Set your new password"
 msgid "Use a strong, unique password"
 msgstr "အားကောင်းပြီး ထူးခြားသောစကားဝှက်ကို အသုံးပြုပါ"
 
@@ -1491,7 +4427,6 @@ msgid "Best regards,"
 msgstr "ကျေးဇူးတင်လျက်,"
 
 #: .\templates\userauths\password_reset_email_html.html:122
-#| msgid "CyberOptix"
 msgid "The CyberOptix Team"
 msgstr "CyberOptix အဖွဲ့အစည်း"
 
@@ -1502,16 +4437,12 @@ msgstr ""
 "ပြန်လည်မဖြေကြားပါနှင့်"
 
 #: .\templates\userauths\password_reset_email_html.html:126
-#| msgid ""
-#| "If you have any questions about this invoice, please contact our support "
-#| "team."
 msgid "If you need assistance, please contact our support team."
 msgstr ""
 "ဤငွေတောင်းခံလွှာနှင့်ပတ်သက်ပြီး မေးမြန်းလိုသည်များရှိပါက ကျွန်ုပ်တို့၏ "
 "ဝန်ဆောင်မှုအဖွဲ့ကို ဆက်သွယ်ပါ။"
 
 #: .\templates\userauths\password_reset_email_html.html:130
-#| msgid "All Rights Reserved 2024-2025"
 msgid "All rights reserved."
 msgstr "မူပိုင်ခွင့်များအားလုံး ရရှိထားပါသည် ၂၀၂၄-၂၀၂၅"
 
@@ -1519,36 +4450,130 @@ msgstr "မူပိုင်ခွင့်များအားလုံး �
 msgid "Password Reset Request - CyberOptix"
 msgstr "စကားဝှက်ပြန်လည်သတ်မှတ်ရန် တောင်းဆိုခြင်း - CyberOptix"
 
+#: .\templates\userauths\registration-complete.html:14
 #: .\templates\userauths\sign-in.html:15
 msgid "Welcome to"
 msgstr "ကြိုဆိုပါ၏"
 
-#: .\templates\userauths\sign-in.html:16
+#: .\templates\userauths\registration-complete.html:15
 #| msgid ""
-#| "Explore the latest laptops and exclusive deals tailored for you !"
+#| "Account created! Please check your email to verify your account."
+msgid ""
+"Your account has been created successfully! Please check your email to get "
+"started."
+msgstr ""
+"သင့်အကောင့်အောင်မြင်စွာဖန်တီးပြီးပါပြီ! စတင်ရန်သင့်အီးမေးလ်ကိုစစ်ဆေးပါ။"
+
+#: .\templates\userauths\registration-complete.html:26
+#| msgid "Password Reset Successful!"
+msgid "Registration Successful!"
+msgstr "မှတ်ပုံတင်ခြင်းအောင်မြင်ပါသည်!"
+
+#: .\templates\userauths\registration-complete.html:29
+msgid "What happens next?"
+msgstr "နောက်ဘာဖြစ်မည်နည်း?"
+
+#: .\templates\userauths\registration-complete.html:35
+#| msgid "Check your email inbox"
+msgid "Check Your Email"
+msgstr "သင့်အီးမေးလ်စစ်ဆေးပါ"
+
+#: .\templates\userauths\registration-complete.html:36
+msgid ""
+"We've sent a verification email to your inbox. Click the verification link "
+"to activate your account."
+msgstr ""
+"သင့်အတည်ပြုအီးမေးလ်ကို သင့်စာအိုးထဲသို့ပို့ပြီးပါပြီ။ "
+"သင့်အကောင့်ကိုအသက်သွင်းရန် အတည်ပြုလင့်ခ်ကိုနှိပ်ပါ။"
+
+#: .\templates\userauths\registration-complete.html:43
+msgid "Verify Your Account"
+msgstr "သင့်အကောင့်ကိုအတည်ပြုပါ"
+
+#: .\templates\userauths\registration-complete.html:44
+msgid ""
+"Email verification is required to access all features and make purchases "
+"securely."
+msgstr ""
+"လုပ်ဆောင်ချက်အားလုံးကိုဝင်ရောက်ရန်နှင့် လုံခြုံစွာဝယ်ယူရန် "
+"အီးမေးလ်အတည်ပြုခြင်းလိုအပ်ပါသည်။"
+
+#: .\templates\userauths\registration-complete.html:52
+msgid ""
+"Browse thousands of laptops, add to wishlist, and enjoy exclusive deals!"
+msgstr ""
+"လက်ပ်တော့ထောင်ချီကြည့်ရှုပါ၊ စိတ်ကြိုက်စာရင်းထဲထည့်ပါ၊ နှင့် "
+"အထူးလျှော့စျေးများခံစားပါ!"
+
+#: .\templates\userauths\registration-complete.html:61
+#| msgid "Back to Login"
+msgid "Go to Login"
+msgstr "အကောင့်ဝင်ရန်သွားမည်"
+
+#: .\templates\userauths\registration-complete.html:74
+#| msgid "Invalid verification link."
+msgid "Resend verification email"
+msgstr "အတည်ပြုအီးမေးလ်ပြန်ပို့မည်"
+
+#: .\templates\userauths\registration-complete.html:78
+#: .\templates\userauths\two-factor-auth.html:90
+#| msgid "Contact Us"
+msgid "Contact support"
+msgstr "အကူအညီတောင်းရန်"
+
+#: .\templates\userauths\registration-complete.html:83
+msgid "Email not in inbox?"
+msgstr "အီးမေးလ်စာအိုးထဲမှာမရှိဘူးလား?"
+
+#: .\templates\userauths\registration-complete.html:85
+#| msgid "Check your spam or junk folder"
+msgid "Check your spam/junk folder"
+msgstr "သင့် spam သို့မဟုတ် junk folder ကို စစ်ဆေးပါ"
+
+#: .\templates\userauths\registration-complete.html:86
+#| msgid "Make sure you entered the correct email"
+msgid "Make sure you entered the correct email address"
+msgstr "သင်ထည့်သွင်းလိုက်သောအီးမေးလ်လိပ်စာမှန်ကန်ကြောင်းသေချာပါစေ"
+
+#: .\templates\userauths\registration-complete.html:87
+#| msgid "Wait a few minutes and check again"
+msgid "Wait a few minutes - emails can take time to arrive"
+msgstr " မိနစ်အနည်းငယ်စောင့်ပါ - အီးမေးလ်များရောက်ရှိရန်အချိန်ယူနိုင်သည်"
+
+#: .\templates\userauths\registration-complete.html:93
+#| msgid "Security Tips:"
+msgid "Security Notice"
+msgstr "လုံခြုံရေးအသိပေးချက်"
+
+#: .\templates\userauths\registration-complete.html:94
+msgid ""
+"For your protection, we require email verification before you can make "
+"purchases. This helps keep your account secure."
+msgstr ""
+"သင့်ကိုကာကွယ်ရန်၊ ဝယ်ယူမှုမပြုလုပ်မီ အီးမေးလ်အတည်ပြုခြင်းလိုအပ်ပါသည်။ "
+"ဤသည်သင့်အကောင့်လုံခြုံရေးကိုကူညီပေးသည်။"
+
+#: .\templates\userauths\registration-complete.html:333
+#| msgid "Pending"
+msgid "Sending..."
+msgstr "ပို့နေသည်..."
+
+#: .\templates\userauths\registration-complete.html:338
+msgid "Verification email has been resent! Please check your inbox."
+msgstr ""
+"အတည်ပြုအီးမေးလ်ကို ပြန်လည်ပို့ပြီးပါပြီ! ကျေးဇူးပြု၍ သင့်စာအိုးကိုစစ်ဆေးပါ။"
+
+#: .\templates\userauths\sign-in.html:16
 msgid "Explore the latest laptops and exclusive deals tailored for you!"
 msgstr ""
 "သင့်အတွက်သီးသန့်ပြင်ဆင်ထားသော နောက်ဆုံးပေါ်လက်တော့များနှင့် "
 "အထူးလျှော့စျေးများကို လာရောက်ကြည့်ရှုလိုက်ပါ!"
 
-#: .\templates\userauths\sign-in.html:25 .\templates\userauths\sign-up.html:26
+#: .\templates\userauths\sign-in.html:25 .\templates\userauths\sign-up.html:38
 msgid "Register"
 msgstr "မှတ်ပုံတင်ရန်"
 
-#: .\templates\userauths\sign-in.html:50 .\userauths\forms.py:180
-#: .\userauths\forms.py:183
-#| msgid "Username"
-msgid "Username or Email"
-msgstr "အသုံးပြုသူအမည် (သို့မဟုတ်) အီးမေးလ်"
-
-#: .\templates\userauths\sign-in.html:61 .\templates\userauths\sign-up.html:96
-#: .\userauths\forms.py:84 .\userauths\forms.py:86 .\userauths\forms.py:188
-#: .\userauths\forms.py:191
-msgid "Password"
-msgstr "လျှို့ဝှက်နံပါတ်"
-
-#: .\templates\userauths\sign-in.html:70 .\userauths\forms.py:196
-#| msgid "December"
+#: .\templates\userauths\sign-in.html:70 .\userauths\forms.py:144
 msgid "Remember me"
 msgstr "ကျွန်ုပ်ကို မှတ်ထားပါ"
 
@@ -1560,8 +4585,7 @@ msgstr "လျှို့ဝှက်နံပါတ်မေ့နေပါသ
 msgid "OR"
 msgstr "သို့မဟုတ်"
 
-#: .\templates\userauths\sign-in.html:99
-#| msgid "Already have an account?"
+#: .\templates\userauths\sign-in.html:104
 msgid "Don't have an account?"
 msgstr "အကောင့်မရှိဘူးလား?"
 
@@ -1570,291 +4594,541 @@ msgid "Join"
 msgstr "အကောင့်ဖွင့်မည်"
 
 #: .\templates\userauths\sign-up.html:16
-msgid "Create your account and start shopping for amazing laptops!"
-msgstr "သင့်အကောင့်ဖန်တီးပြီး ပစ္စည်းများ စတင်ဝယ်ယူပါ!"
+#| msgid "Create your account and start shopping for amazing laptops!"
+msgid "Create your Gmail account and start shopping for amazing laptops!"
+msgstr " သင့် Gmail အကောင့်ဖန်တီးပြီး အံ့ဖွယ်လက်ပ်တော့များစတင်ဝယ်ယူပါ!"
 
-#: .\templates\userauths\sign-up.html:31
-#: .\templates\userauths\sign-up.html:135
-#| msgid "PayPal Account:"
+#: .\templates\userauths\sign-up.html:20
+#| msgid "Email is required."
+msgid "Gmail Verification Required"
+msgstr "mail အတည်ပြုချက်လိုအပ်သည်"
+
+#: .\templates\userauths\sign-up.html:24
+msgid "Google OAuth Supported"
+msgstr "Google OAuth ထောက်ပံ့သည်"
+
+#: .\templates\userauths\sign-up.html:28
+msgid "Secure Authentication"
+msgstr "လုံခြုံသောခွင့်ပြုချက်"
+
+#: .\templates\userauths\sign-up.html:54
+msgid "Sign up with Google"
+msgstr "Google ဖြင့်အကောင့်ဖွင့်မည်"
+
+#: .\templates\userauths\sign-up.html:57
+#: .\venv\Lib\site-packages\django\utils\text.py:286
+msgid "or"
+msgstr "သို့မဟုတ်"
+
+#: .\templates\userauths\sign-up.html:63
+#: .\templates\userauths\sign-up.html:167
 msgid "Create Account"
 msgstr "အကောင့်ပြုလုပ်မည်"
 
-#: .\templates\userauths\sign-up.html:57 .\userauths\forms.py:66
-#: .\userauths\forms.py:68
+#: .\templates\userauths\sign-up.html:89 .\userauths\forms.py:12
 msgid "Username"
 msgstr "အသုံးပြုသူအမည်"
 
-#: .\templates\userauths\sign-up.html:86 .\userauths\forms.py:107
-#| msgid "Phone Number"
+#: .\templates\userauths\sign-up.html:118 .\userauths\forms.py:42
 msgid "Phone Number (Optional)"
 msgstr "ဖုန်းနံပါတ် (ချန်လှပ်ထားနိုင်သည်)"
 
-#: .\templates\userauths\sign-up.html:114 .\userauths\forms.py:95
+#: .\templates\userauths\sign-up.html:146 .\userauths\forms.py:35
 msgid "Confirm Password"
 msgstr "လျှို့ဝှက်နံပါတ်ကိုအတည်ပြုပါ"
 
-#: .\templates\userauths\sign-up.html:128
-msgid "I agree to the"
-msgstr "ကျွန်ုပ်သဘောတူပါသည်"
-
-#: .\templates\userauths\sign-up.html:129
-#| msgid "Terms & Condition"
+#: .\templates\userauths\sign-up.html:161
 msgid "Terms and Conditions"
 msgstr "စည်းမျဥ်းစည်းကမ်းများ"
 
-#: .\templates\userauths\sign-up.html:140
+#: .\templates\userauths\sign-up.html:172
 msgid "Already have an account?"
 msgstr "အကောင့်ရှိပြီးသားလား?"
 
-#: .\templates\userauths\sign-up.html:182
+#: .\templates\userauths\sign-up.html:214
 msgid "Very Weak"
 msgstr "အလွန်အားနည်းသည်"
 
-#: .\templates\userauths\sign-up.html:182
+#: .\templates\userauths\sign-up.html:214
 msgid "Weak"
 msgstr "အားနည်းသည်"
 
-#: .\templates\userauths\sign-up.html:182
+#: .\templates\userauths\sign-up.html:214
 msgid "Fair"
 msgstr "သာမန်"
 
-#: .\templates\userauths\sign-up.html:182
+#: .\templates\userauths\sign-up.html:214
 msgid "Good"
 msgstr "ကောင်းသည်"
 
-#: .\templates\userauths\sign-up.html:182
+#: .\templates\userauths\sign-up.html:214
 msgid "Strong"
 msgstr "အားကောင်းသည်"
 
-#: .\templates\userauths\sign-up.html:270
+#: .\templates\userauths\sign-up.html:273
+msgid "Only Gmail addresses are accepted"
+msgstr "Gmail လိပ်စာများသာလက်ခံသည်"
+
+#: .\templates\userauths\sign-up.html:282
+msgid "Invalid Gmail format"
+msgstr "မမှန်ကန်သော Gmail ဖော်မတ်"
+
+#: .\templates\userauths\sign-up.html:289
+msgid "Checking..."
+msgstr "စစ်ဆေးနေသည်..."
+
+#: .\templates\userauths\sign-up.html:303
+#| msgid "email address"
+msgid "Valid Gmail address"
+msgstr " မှန်ကန်သော Gmail လိပ်စာ"
+
+#: .\templates\userauths\sign-up.html:307
+#| msgid "Email is required."
+msgid "Email already registered"
+msgstr "အီးမေးလ်လိပ်စာမှတ်ပုံတင်ပြီးသားဖြစ်သည်"
+
+#: .\templates\userauths\sign-up.html:318
+#| msgid "Username or Email"
+msgid "Unable to verify email"
+msgstr "အီးမေးလ်အတည်ပြု၍မရပါ"
+
+#: .\templates\userauths\sign-up.html:351
 msgid "Terms and Conditions will be displayed here"
 msgstr "စည်းမျဉ်းစည်းကမ်းများကို ဤနေရာတွင် ပြသပါမည်"
 
-#: .\userauths\forms.py:72
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"လိုအပ်ပါသည်။ အက္ခရာ၊ ဂဏန်းနှင့် @ / . / + / - / _ တို့ကိုသာ အသုံးပြုပြီး "
-"စာလုံးရေ ၁၅၀ လုံးထက် မကျော်ရပါ။"
+#: .\templates\userauths\two-factor-auth.html:14
+msgid "Two-Factor"
+msgstr "နှစ်ဆင့်ခွင်"
 
-#: .\userauths\forms.py:75 .\userauths\forms.py:77
-msgid "Email"
-msgstr "အီးမေးလ်:"
+#: .\templates\userauths\two-factor-auth.html:14
+#| msgid "Syndication"
+msgid "Authentication"
+msgstr "ခွင့်ပြုချက်"
 
-#: .\userauths\forms.py:81
-msgid "We'll send a verification email to this address."
-msgstr "ဤလိပ်စာသို့ အတည်ပြုအီးမေးလ်ပို့ပါမည်"
-
-#: .\userauths\forms.py:90
-#| msgid "Your password must contain at least 8 characters."
+#: .\templates\userauths\two-factor-auth.html:15
 msgid ""
-"Your password must contain at least 8 characters, including letters and "
-"numbers."
-msgstr "သင့်စကားဝှက်တွင် အနည်းဆုံး စာလုံးရေ ၈ လုံးပါဝင်ရမည်။"
+"Enter the verification code from your authenticator app to complete login."
+msgstr "အကောင့်ဝင်ခြင်းပြီးဆုံးရန် သင့်အတည်ပြုအက်ပ်မှ အတည်ပြုကုဒ်ထည့်သွင်းပါ။"
 
-#: .\userauths\forms.py:93
+#: .\templates\userauths\two-factor-auth.html:23
+msgid "Verify Your Identity"
+msgstr "သင့်အထောက်အထားကိုအတည်ပြုပါ"
+
+#: .\templates\userauths\two-factor-auth.html:41
+msgid "Logging in as"
+msgstr "အကောင့်ဝင်ဆဲအဖြစ်"
+
+#: .\templates\userauths\two-factor-auth.html:51
+#: .\templates\userauths\two-factor-setup.html:91 .\userauths\forms.py:174
+msgid "Enter 6-digit code"
+msgstr "ဂဏန်း ၆ လုံးကုဒ်ထည့်ပါ"
+
+#: .\templates\userauths\two-factor-auth.html:61
+msgid "Authenticator App"
+msgstr "အတည်ပြုအက်ပ်"
+
+#: .\templates\userauths\two-factor-auth.html:62
+msgid "Open your authenticator app and enter the 6-digit code."
+msgstr "သင့်အတည်ပြုအက်ပ်ကိုဖွင့်ပြီး ဂဏန်း ၆ လုံးကုဒ်ထည့်ပါ။"
+
+#: .\templates\userauths\two-factor-auth.html:66
+#| msgid "Back to Orders"
+msgid "Backup Code"
+msgstr "အရန်ကုဒ်"
+
+#: .\templates\userauths\two-factor-auth.html:67
+msgid "Or enter one of your 8-character backup codes."
+msgstr "သို့မဟုတ် သင့်၏ ၈ လုံးပါအရန်ကုဒ်များထဲမှတစ်ခုထည့်ပါ။"
+
+#: .\templates\userauths\two-factor-auth.html:73
+msgid "Verify & Login"
+msgstr "အတည်ပြုပြီးဝင်မည်"
+
+#: .\templates\userauths\two-factor-auth.html:79
+msgid "Can't access your code?"
+msgstr " သင့်ကုဒ်ကိုမရနိုင်ဘူးလား?"
+
+#: .\templates\userauths\two-factor-auth.html:86
+msgid "Recovery Options"
+msgstr "ပြန်လည်ရယူရန်ရွေးချယ်စရာများ"
+
+#: .\templates\userauths\two-factor-auth.html:88
+msgid "Use backup code"
+msgstr "အရန်ကုဒ်သုံးမည်"
+
+#: .\templates\userauths\two-factor-auth.html:89
+#| msgid "account locked"
+msgid "Account recovery"
+msgstr "အကောင့်ပြန်လည်ရယူခြင်း"
+
+#: .\templates\userauths\two-factor-auth.html:246
+msgid "Enter 8-character backup code"
+msgstr "၈ လုံးပါအရန်ကုဒ်ထည့်ပါ"
+
+#: .\templates\userauths\two-factor-auth.html:267
+msgid "Session expires in"
+msgstr "ဆက်ရှင်သက်တမ်းကုန်ဆုံးချိန်"
+
+#: .\templates\userauths\two-factor-auth.html:271
+msgid "Session expired. Redirecting to login..."
+msgstr ""
+"ဆက်ရှင်သက်တမ်းကုန်ဆုံးသွားပါပြီ။ အကောင့်ဝင်ရန်လမ်းကြောင်းပြောင်းနေသည်..."
+
+#: .\templates\userauths\two-factor-setup.html:14
+#| msgid "Enable two-factor authentication if available"
+msgid "Enable Two-Factor Authentication"
+msgstr "နှစ်ဆင့်ခွင် အတည်ပြုခြင်းဖွင့်ရန်"
+
+#: .\templates\userauths\two-factor-setup.html:15
+msgid "Secure your account with an extra layer of protection."
+msgstr "အပိုကာကွယ်မှုအလွှာဖြင့် သင့်အကောင့်ကိုလုံခြုံစေပါ။"
+
+#: .\templates\userauths\two-factor-setup.html:34
+msgid "Install Authenticator App"
+msgstr "Authenticator အက်ပ်ထည့်သွင်းမည်"
+
+#: .\templates\userauths\two-factor-setup.html:35
+msgid "Download and install an authenticator app on your mobile device:"
+msgstr "သင့်မိုဘိုင်းကိရိယာပေါ်တွင် အတည်ပြုအက်ပ်ကိုဒေါင်းလုဒ်ဆွဲထည့်သွင်းပါ:"
+
+#: .\templates\userauths\two-factor-setup.html:39
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: .\templates\userauths\two-factor-setup.html:43
+msgid "Microsoft Authenticator"
+msgstr " Microsoft Authenticator"
+
+#: .\templates\userauths\two-factor-setup.html:47
+msgid "Authy"
+msgstr "Authy"
+
+#: .\templates\userauths\two-factor-setup.html:56
+msgid "Scan QR Code"
+msgstr "QR ကုဒ်စကင်န်ဖတ်မည်"
+
+#: .\templates\userauths\two-factor-setup.html:57
+msgid "Open your authenticator app and scan this QR code:"
+msgstr "သင့်အတည်ပြုအက်ပ်ကိုဖွင့်ပြီး ဤ QR ကုဒ်ကိုစကင်န်ဖတ်ပါ:"
+
+#: .\templates\userauths\two-factor-setup.html:65
+msgid "Can't scan?"
+msgstr "စကင်န်မဖတ်နိုင်ဘူးလား?"
+
+#: .\templates\userauths\two-factor-setup.html:66
+msgid "Manually enter this secret key:"
+msgstr "ဤလျှို့ဝှက်သော့ကို ကိုယ်တိုင်ထည့်သွင်းပါ:"
+
+#: .\templates\userauths\two-factor-setup.html:81
+msgid "Enter Verification Code"
+msgstr "အတည်ပြုကုဒ်ထည့်သွင်းမည်"
+
+#: .\templates\userauths\two-factor-setup.html:82
+msgid "Enter the 6-digit code from your authenticator app:"
+msgstr "သင့်အတည်ပြုအက်ပ်မှ ဂဏန်း ၆ လုံးကုဒ်ထည့်သွင်းပါ:"
+
+#: .\templates\userauths\two-factor-setup.html:110
+#| msgid "Back to Login"
+msgid "Back to Profile"
+msgstr "ပရိုဖိုင်သို့ပြန်သွားမည်"
+
+#: .\templates\userauths\two-factor-setup.html:118
+msgid "Important Security Notice"
+msgstr "အရေးကြီးလုံခြုံရေးအသိပေးချက်"
+
+#: .\templates\userauths\two-factor-setup.html:121
+msgid "Keep your authenticator app secure and backed up"
+msgstr "သင့်အတည်ပြုအက်ပ်ကို လုံခြုံစွာထားပြီး နောက်ခံကူးထားပါ"
+
+#: .\templates\userauths\two-factor-setup.html:122
+msgid "Save backup codes in a secure location"
+msgstr "အရန်ကုဒ်များကို လုံခြုံသောနေရာတွင် သိမ်းဆည်းထားပါ"
+
+#: .\templates\userauths\two-factor-setup.html:123
+#| msgid "Never share your password with anyone"
+msgid "Don't share your secret key with anyone"
+msgstr "သင့်လျှို့ဝှက်သော့ကိုဘယ်သူ့ကိုမျှမျှဝေပါနှင့်"
+
+#: .\templates\userauths\two-factor-setup.html:124
+msgid "Contact support if you lose access to your device"
+msgstr "သင့်ကိရိယာသို့ချိတ်ဆက်မှုပျောက်ဆုံးပါက အကူအညီတောင်းပါ"
+
+#: .\userauths\forms.py:15
+msgid "Choose a unique username (3-30 characters)"
+msgstr "ထူးခြားသောအသုံးပြုသူအမည်ရွေးချယ်ပါ (၃-၃၀ လုံး)"
+
+#: .\userauths\forms.py:19
+#| msgid "Email Address"
+msgid "Gmail Address"
+msgstr "Gmail လိပ်စာ"
+
+#: .\userauths\forms.py:22
+msgid "Please use a valid Gmail address for verification"
+msgstr "အတည်ပြုချက်အတွက် မှန်ကန်သော Gmail လိပ်စာသုံးပါ"
+
+#: .\userauths\forms.py:30 .\userauths\forms.py:242
+#| msgid ""
+#| "Your password must contain at least 8 characters, including letters and "
+#| "numbers."
+msgid "Password must be at least 8 characters long with letters and numbers"
+msgstr ""
+"စကားဝှက်တွင် အက္ခရာများနှင့် ဂဏန်းများပါဝင်ပြီး အနည်းဆုံး ၈ လုံးရှိရမည်"
+
+#: .\userauths\forms.py:33
 msgid "Password confirmation"
 msgstr "စကားဝှက်အတည်ပြုခြင်း"
 
-#: .\userauths\forms.py:99
-msgid "Enter the same password as before, for verification."
-msgstr "စစ်မှန်ကြောင်း အတည်ပြုရန် ယခင်စကားဝှက်အတူတူ ထည့်ပါ။"
-
-#: .\userauths\forms.py:116
-msgid "I accept the terms and conditions"
-msgstr "ကျွန်ုပ်သည် စည်းမျဉ်းစည်းကမ်းများကို လက်ခံသဘောတူပါသည်"
-
-#: .\userauths\forms.py:122
+#: .\userauths\forms.py:49
 #| msgid "I accept the terms and conditions"
-msgid "You must accept the terms and conditions to register."
-msgstr "မှတ်ပုံတင်ရန် စည်းမျဉ်းစည်းကမ်းများကို လက်ခံရမည်"
+msgid "I accept the Terms of Service and Privacy Policy"
+msgstr ""
+"ကျွန်ုပ်သည် ဝန်ဆောင်မှုစည်းမျဉ်းများနှင့် "
+"ကိုယ်ရေးကိုယ်တာမူဝါဒကိုလက်ခံသဘောတူပါသည်"
 
-#: .\userauths\forms.py:134
-#| msgid "This field is required."
-msgid "Email is required."
-msgstr "အီးမေးလ်လိပ်စာ လိုအပ်ပါသည်"
+#: .\userauths\forms.py:62
+msgid ""
+"Only Gmail addresses are supported for registration. Please use a valid "
+"@gmail.com email address."
+msgstr ""
+"မှတ်ပုံတင်ခြင်းအတွက် Gmail လိပ်စာများသာထောက်ပံ့သည်။ ကျေးဇူးပြု၍ မှန်ကန်သော "
+"@gmail.com အီးမေးလ်လိပ်စာသုံးပါ။"
 
-#: .\userauths\forms.py:136
-msgid "This email address is already in use."
-msgstr "ဤအီးမေးလ်လိပ်စာကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
+#: .\userauths\forms.py:69
+#| msgid "Enter a valid email address."
+msgid "Please enter a valid Gmail address."
+msgstr "ကျေးဇူးပြု၍ မှန်ကန်သော Gmail လိပ်စာထည့်သွင်းပါ။"
 
-#: .\userauths\forms.py:142
-#| msgid "This field is required."
-msgid "Username is required."
-msgstr "အသုံးပြုသူအမည် လိုအပ်ပါသည်"
+#: .\userauths\forms.py:73
+#| msgid "%(model_name)s with this %(field_label)s already exists."
+msgid "An account with this email already exists."
+msgstr "ဤအီးမေးလ်လိပ်စာဖြင့် အကောင့်ရှိပြီးသားဖြစ်သည်။"
 
-#: .\userauths\forms.py:144
-msgid "This username is already taken."
-msgstr "ဤအသုံးပြုသူအမည်ကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
-
-#: .\userauths\forms.py:146
-#| msgid "Your password must contain at least 8 characters."
+#: .\userauths\forms.py:82
 msgid "Username must be at least 3 characters long."
 msgstr "အသုံးပြုသူအမည်တွင် အနည်းဆုံး စာလုံး ၃ လုံး ပါဝင်ရမည်"
 
-#: .\userauths\forms.py:152
-#| msgid "This field is required."
-msgid "Password is required."
-msgstr "စကားဝှက် လိုအပ်ပါသည်"
+#: .\userauths\forms.py:85
+#| msgid "Username must be at least 3 characters long."
+msgid "Username must not exceed 30 characters."
+msgstr "အသုံးပြုသူအမည်သည် ၃၀ လုံးထက်မပိုရပါ။"
 
-#: .\userauths\forms.py:154
-#| msgid "Your password must contain at least 8 characters."
-msgid "Password must be at least 8 characters long."
-msgstr "စကားဝှက်တွင် အနည်းဆုံး စာလုံး ၈ လုံး ပါဝင်ရမည်"
+#: .\userauths\forms.py:90
+msgid ""
+"Username can only contain letters, numbers, dots, hyphens, and underscores."
+msgstr ""
+"အသုံးပြုသူအမည်တွင် အက္ခရာများ၊ ဂဏန်းများ၊ ပုဒ်ဖြတ်များ၊ ဟိုင်ဖန်များနှင့် "
+"အောက်မျဉ်းများသာပါဝင်နိုင်သည်။"
 
-#: .\userauths\forms.py:156
-#| msgid "Your password must contain at least 8 characters."
-msgid "Password must contain both letters and numbers."
-msgstr "စကားဝှက်တွင် အက္ခရာများနှင့် ဂဏန်းများ နှစ်မျိုးလုံး ပါဝင်ရမည်"
+#: .\userauths\forms.py:95
+msgid "This username is already taken."
+msgstr "ဤအသုံးပြုသူအမည်ကို အသုံးပြုပြီးသားဖြစ်ပါသည်။"
 
-#: .\userauths\forms.py:165
-#| msgid "Enter a valid domain name."
+#: .\userauths\forms.py:105
 msgid "Please enter a valid phone number."
 msgstr "မှန်ကန်သောဖုန်းနံပါတ်ကို ထည့်သွင်းပါ"
 
-#: .\userauths\models.py:42
-#| msgid "Email address"
-msgid "email address"
-msgstr "အီးမေးလ်လိပ်စာ"
+#: .\userauths\forms.py:113 .\userauths\forms.py:258
+msgid "Password must be at least 8 characters long."
+msgstr "စကားဝှက်တွင် အနည်းဆုံး စာလုံး ၈ လုံး ပါဝင်ရမည်"
 
-#: .\userauths\models.py:43
-#| msgid "Username"
-msgid "username"
-msgstr "အသုံးပြုသူအမည်"
+#: .\userauths\forms.py:116 .\userauths\forms.py:261
+#| msgid "Password must contain both letters and numbers."
+msgid "Password cannot be entirely numeric."
+msgstr "စကားဝှက်သည် လုံးဝဂဏန်းသက်သက်မဖြစ်ရပါ။"
 
-#: .\userauths\models.py:44
-msgid "bio"
-msgstr "ကိုယ်ရေးအကျဉ်း"
+#: .\userauths\forms.py:119 .\userauths\forms.py:264
+#| msgid "Password confirmation"
+msgid "Password is too common."
+msgstr "စကားဝှက်သည်အလွန်အဖြစ်များသည်။"
 
-#: .\userauths\models.py:47
-msgid "shop administrator"
-msgstr "ဆိုင်စီမံခန့်ခွဲသူ"
+#: .\userauths\forms.py:123 .\userauths\forms.py:268
+msgid "Password must contain both letters and numbers."
+msgstr "စကားဝှက်တွင် အက္ခရာများနှင့် ဂဏန်းများ နှစ်မျိုးလုံး ပါဝင်ရမည်"
 
-#: .\userauths\models.py:48
-#| msgid "Verified"
-msgid "email verified"
-msgstr "အီးမေးလ် အတည်ပြုပြီး"
+#: .\userauths\forms.py:156
+#| msgid "We'll send a verification email to this address."
+msgid "We'll send you a verification link"
+msgstr "ကျွန်ုပ်တို့သင့်ထံအတည်ပြုလင့်ခ်ပို့ပေးပါမည်"
 
-#: .\userauths\models.py:53
-msgid "preferred language"
-msgstr "နှစ်သက်ရာဘာသာစကား"
+#: .\userauths\forms.py:164
+#| msgid "This email address is already in use."
+msgid "This email is already verified."
+msgstr "ဤအီးမေးလ်လိပ်စာကိုအတည်ပြုပြီးသားဖြစ်သည်။"
 
-#: .\userauths\models.py:60
-msgid "last password change"
-msgstr "နောက်ဆုံးစကားဝှက်ပြောင်းလဲမှု"
+#: .\userauths\forms.py:167 .\userauths\forms.py:232
+msgid "No account found with this email address."
+msgstr "ဤအီးမေးလ်လိပ်စာဖြင့် အကောင့်မတွေ့ရှိပါ။"
 
-#: .\userauths\models.py:61
-msgid "failed login attempts"
-msgstr "မအောင်မြင်သောအကောင့်ဝင်ရန်ကြိုးစားမှုများ"
+#: .\userauths\forms.py:179
+msgid "Enter the 6-digit code from your authenticator app"
+msgstr "သင့်အတည်ပြုအက်ပ်မှ ဂဏန်း ၆ လုံးကုဒ်ထည့်သွင်းပါ"
 
-#: .\userauths\models.py:62
-msgid "last failed login"
-msgstr "နောက်ဆုံးမအောင်မြင်သောအကောင့်ဝင်မှု"
+#: .\userauths\forms.py:185 .\userauths\forms.py:204
+#| msgid "Please enter a valid phone number."
+msgid "Please enter a valid 6-digit code."
+msgstr "ကျေးဇူးပြု၍ မှန်ကန်သောဂဏန်း ၆ လုံးကုဒ်ထည့်သွင်းပါ။"
 
-#: .\userauths\models.py:63
-msgid "account locked"
-msgstr "အကောင့်သော့ခတ်ထားသည်"
+#: .\userauths\forms.py:214
+#| msgid ""
+#| "Enter the email address associated with your account and we'll send you a "
+#| "link to reset your password."
+msgid "Enter the email address associated with your account"
+msgstr "သင့်အကောင့်နှင့် ချိတ်ဆက်ထားသော အီးမေးလ်လိပ်စာထည့်ပါ"
 
-#: .\userauths\models.py:66
-#| msgid "Phone Number"
-msgid "phone number"
-msgstr "ဖုန်းနံပါတ်"
+#: .\userauths\forms.py:223
+msgid ""
+"Only Gmail addresses are supported. Please use a valid @gmail.com email "
+"address."
+msgstr ""
+"Gmail လိပ်စာများသာထောက်ပံ့သည်။ ကျေးဇူးပြု၍ မှန်ကန်သော @gmail.com "
+"အီးမေးလ်လိပ်စာသုံးပါ။"
 
-#: .\userauths\models.py:67
-msgid "date of birth"
-msgstr "မွေးသက္ကရာဇ်"
+#: .\userauths\forms.py:279
+msgid "The two password fields must match."
+msgstr "စကားဝှက်ကွက်လပ်နှစ်ခုကိုက်ညီရမည်။"
 
-#: .\userauths\models.py:73
-msgid "user"
-msgstr "အသုံးပြုသူ"
-
-#: .\userauths\models.py:74
-msgid "users"
-msgstr "အသုံးပြုသူမျာ"
-
-#: .\userauths\views.py:86 .\userauths\views.py:131
+#: .\userauths\views.py:22 .\userauths\views.py:56 .\userauths\views.py:321
 msgid "You are already logged in."
 msgstr "သင် အကောင့်ဝင်ပြီးသားဖြစ်သည်"
 
-#: .\userauths\views.py:104
-msgid "Account created! Please check your email to verify your account."
-msgstr "အကောင့်ဖန်တီးပြီးပါပြီ! သင့်အကောင့်အတည်ပြုရန် အီးမေးလ်စစ်ဆေးပါ"
-
-#: .\userauths\views.py:108
-msgid ""
-"Account created but we couldn't send verification email. Please contact "
-"support."
+#: .\userauths\views.py:37
+#, python-brace-format
+msgid "Welcome {user.username}! Please check your Gmail inbox "
 msgstr ""
-"အကောင့်ဖန်တီးပြီးသော်လည်း အတည်ပြုအီးမေးလ်ပို့၍မရပါ။ ကျေးဇူးပြု၍ "
-"အကူအညီတောင်းပါ"
+"ကြိုဆိုပါသည် {user.username}! ကျေးဇူးပြု၍ သင့် Gmail inbox ကိုစစ်ဆေးပါ"
 
-#: .\userauths\views.py:123
-msgid "Sign Up"
-msgstr "အကောင့်ဖွင့်ရန်"
+#: .\userauths\views.py:42 .\userauths\views.py:155
+#| msgid "Error generating PDF. Please try again."
+msgid "Failed to send verification email. Please try again."
+msgstr "အတည်ပြုအီးမေးလ်ပို့ရန်မအောင်မြင်ပါ။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ။"
 
-#: .\userauths\views.py:154
+#: .\userauths\views.py:72
 msgid ""
-"Your account has been locked due to multiple failed login attempts. Please "
-"contact support."
+"Please verify your email address before logging in. Check your Gmail inbox "
+"for the verification link."
 msgstr ""
-"များပြားလှသော မအောင်မြင်သည့် အကောင့်ဝင်ကြိုးစားမှုများကြောင့် သင့်အကောင့်ကို"
-" သော့ခတ်ထားပါသည်။ ကျေးဇူးပြု၍ အကူအညီတောင်းပါ"
+"အကောင့်မဝင်မီ သင့်အီးမေးလ်လိပ်စာကိုအတည်ပြုပါ။ အတည်ပြုလင့်ခ်အတွက် သင့် Gmail "
+"inbox ကိုစစ်ဆေးပါ။"
 
-#: .\userauths\views.py:179
-msgid "Please verify your email address to access all features."
-msgstr "အရည်အသွေးအားလုံးကို အသုံးပြုနိုင်ရန် သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုပ"
+#: .\userauths\views.py:92 .\userauths\views.py:269
+#, python-brace-format
+#| msgid "Welcome back, %(username)s!"
+msgid "Welcome back, {user.username}!"
+msgstr "ပြန်လည်ကြိုဆိုပါသည်၊ {user.username}!"
 
-#: .\userauths\views.py:181
-#, python-format
-msgid "Welcome back, %(username)s!"
-msgstr "ပြန်လည်ကြိုဆိုပါသည်၊ %(username)s!"
+#: .\userauths\views.py:111
+#, python-brace-format
+#| msgid "You have been logged out successfully. Goodbye, %(username)s!"
+msgid "Goodbye {username}! You have been logged out successfully."
+msgstr "နှုတ်ဆက်ပါတယ် {username}! သင် အကောင့်မှ အောင်မြင်စွာထွက်ပြီးပါပြီ။"
 
-#: .\userauths\views.py:191
-msgid "Invalid username/email or password."
-msgstr "မှားယွင်းသောအသုံးပြုသူအမည်/အီးမေးလ် သို့မဟုတ် စကားဝှက်"
+#: .\userauths\views.py:113
+#| msgid "You are already logged in."
+msgid "No user is currently logged in."
+msgstr "လက်ရှိ အကောင့်ဝင်ထားသူမရှိပါ။"
 
-#: .\userauths\views.py:204
-#, python-format
-msgid "You have been logged out successfully. Goodbye, %(username)s!"
-msgstr "အကောင့်မှ အောင်မြင်စွာထွက်ပြီးပါပြီ။ နှုတ်ဆက်ပါတယ်၊ %(username)s!"
-
-#: .\userauths\views.py:216
-#| msgid "Products Available in CyberOptix"
-msgid "Verify your email - CyberOptix"
-msgstr "သင့်အီးမေးလ်ကို အတည်ပြုပါ - CyberOptix"
-
-#: .\userauths\views.py:217
-#, python-format
+#: .\userauths\views.py:130
 msgid ""
-"\n"
-"    Hi %(username)s,\n"
-"    \n"
-"    Please click the link below to verify your email address:\n"
-"    %(link)s\n"
-"    \n"
-"    If you didn't create an account, please ignore this email.\n"
-"    \n"
-"    Best regards,\n"
-"    CyberOptix Team\n"
-"    "
+"Email verified successfully! Your account is now active. You can log in now."
 msgstr ""
-"\n"
-"မင်္ဂလာပါ %(username)s၊\n"
-"\n"
-"ကျေးဇူးပြု၍ သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုရန် အောက်ပါလင့်ခ်ကို နှိပ်ပါ:\n"
-"%(link)s\n"
-"\n"
-"သင်သည် အကောင့်ဖန်တီးခြင်းမရှိပါက ဤအီးမေးလ်ကို လျစ်လျူရှုပါ။\n"
-"\n"
-"ကျေးဇူးတင်လျက်၊\n"
-"CyberOptix အဖွဲ့\""
+"အီးမေးလ်အောင်မြင်စွာအတည်ပြုပြီး! သင့်အကောင့်ယခုအသက်ဝင်ပါပြီ။ "
+"ယခုအကောင့်ဝင်နိုင်ပါပြီ။"
 
-#: .\userauths\views.py:248
-msgid "Your email has been verified successfully!"
-msgstr "သင့်အီးမေးလ်လိပ်စာကို အောင်မြင်စွာ အတည်ပြုပြီးပါပြီ!"
+#: .\userauths\views.py:135
+msgid "Invalid or expired verification link. Please request a new one."
+msgstr ""
+"မမှန်ကန်သို့မဟုတ်သက်တမ်းကုန်သွားသောအတည်ပြုလင့်ခ်။ ကျေးဇူးပြု၍ "
+"အသစ်တစ်ခုတောင်းဆိုပါ။"
 
-#: .\userauths\views.py:254
+#: .\userauths\views.py:140
 msgid "Invalid verification link."
 msgstr "မမှန်ကန်သော အတည်ပြုရန် လင့်ခ်"
+
+#: .\userauths\views.py:152
+msgid "Verification email sent! Please check your Gmail inbox."
+msgstr ""
+"အတည်ပြုအီးမေးလ်ပို့ပြီးပါပြီ! ကျေးဇူးပြု၍ သင့် Gmail inbox ကိုစစ်ဆေးပါ။"
+
+#: .\userauths\views.py:177
+msgid "Google authentication was cancelled or failed."
+msgstr "Google ခွင့်ပြုချက်ပယ်ဖျက်ခဲ့သည် သို့မဟုတ် မအောင်မြင်ခဲ့ပါ။"
+
+#: .\userauths\views.py:181
+msgid "Invalid Google authentication response."
+msgstr "မမှန်ကန်သော Google ခွင့်ပြုချက်တုံ့ပြန်မှု။"
+
+#: .\userauths\views.py:193
+#, python-brace-format
+msgid "Welcome, {user.username}! Logged in with Google."
+msgstr "ကြိုဆိုပါသည်၊ {user.username}! Google ဖြင့်အကောင့်ဝင်ပြီးပါပြီ။"
+
+#: .\userauths\views.py:212
+#| msgid "Enable two-factor authentication when available"
+msgid "Two-factor authentication enabled successfully!"
+msgstr "2FA အတည်ပြုခြင်း အောင်မြင်စွာဖွင့်လိုက်ပါပြီ!"
+
+#: .\userauths\views.py:215 .\userauths\views.py:272
+#| msgid "Invalid verification link."
+msgid "Invalid verification code. Please try again."
+msgstr "မမှန်ကန်သော အတည်ပြုကုဒ်။ ကျေးဇူးပြု၍ ထပ်ကြိုးစားပါ။"
+
+#: .\userauths\views.py:286
+#| msgid "Enable two-factor authentication when available"
+msgid "Two-factor authentication has been disabled."
+msgstr "2FA အတည်ပြုခြင်း ပိတ်ထားပါပြီ။"
+
+#: .\userauths\views.py:334
+msgid ""
+"This account is currently locked until "
+"{user.account_locked_until.strftime('%Y-%m-%d %H:%M')}. "
+msgstr ""
+"ဤအကောင့်ကို {user.account_locked_until.strftime('%Y-%m-%d %H:%M')} "
+"အထိသော့ခတ်ထားပါသည်။"
+
+#: .\userauths\views.py:342
+#, python-brace-format
+msgid "Password reset instructions have been sent to {email}. "
+msgstr ""
+" စကားဝှက်ပြန်လည်သတ်မှတ်ရန်ညွှန်ကြားချက်များကို {email} သို့ပို့ပြီးပါပြီ။"
+
+#: .\userauths\views.py:347
+msgid "Failed to send password reset email. Please try again."
+msgstr ""
+"စကားဝှက်ပြန်လည်သတ်မှတ်ရန်အီးမေးလ်ပို့ရန်မအောင်မြင်ပါ။ ကျေးဇူးပြု၍ "
+"ထပ်ကြိုးစားပါ။"
+
+#: .\userauths\views.py:352
+#, python-brace-format
+msgid ""
+"If an account with {email} exists, password reset instructions have been "
+"sent. "
+msgstr ""
+"{email} ဖြင့်အကောင့်ရှိပါက၊ "
+"စကားဝှက်ပြန်လည်သတ်မှတ်ရန်ညွှန်ကြားချက်များပို့ပြီးပါပြီ။"
+
+#: .\userauths\views.py:379
+#| msgid "This password reset link is invalid or has expired."
+msgid ""
+"This password reset link is invalid or has expired. Password reset links are"
+" valid for 24 hours."
+msgstr ""
+"ဤစကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်သည် မမှန်ကန်ပါ သို့မဟုတ် "
+"သက်တမ်းကုန်သွားပါပြီ။ စကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်များ၏ သက်တမ်းသည် ၂၄ "
+"နာရီဖြစ်သည်။"
+
+#: .\userauths\views.py:409
+#| msgid "Your password has been successfully reset."
+msgid ""
+"Your password has been successfully reset! You can now log in with your new "
+"password."
+msgstr ""
+"သင့်စကားဝှက်ကို အောင်မြင်စွာ ပြန်လည်သတ်မှတ်ပြီးပါပြီ! သင့်စကားဝှက်အသစ်ဖြင့် "
+"ယခုအကောင့်ဝင်နိုင်ပါပြီ။"
+
+#: .\userauths\views.py:429
+#| msgid "Invalid Reset Link"
+msgid "Invalid password reset link."
+msgstr "မမှန်ကန်သော စကားဝှက်ပြန်လည်သတ်မှတ်ရန် လင့်ခ်။"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
 msgid "Messages"
@@ -2025,14 +5299,14 @@ msgstr "နံပါတ်ထည့်ပါ။"
 msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
 msgstr[0] "စုစုပေါင်းဂဏန်း %(max)s လုံးထက်မပိုစေရန် သေချာပါစေ။"
-msgstr[1] ""
+msgstr[1] "စုစုပေါင်းဂဏန်း %(max)s လုံးထက်မပိုစေရန် သေချာပါစေ။"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:542
 #, python-format
 msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
 msgstr[0] "ဒဿမနေရာ %(max)s နေရာထက်မပိုစေရန် သေချာပါစေ။"
-msgstr[1] ""
+msgstr[1] " ဒဿမနေရာ %(max)s နေရာထက်မပိုစေရန် သေချာပါစေ။"
 
 #: .\venv\Lib\site-packages\django\core\validators.py:547
 #, python-format
@@ -2055,11 +5329,6 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\core\validators.py:680
 msgid "Null characters are not allowed."
 msgstr "null စာလုံးများကို ခွင့်မပြုပါ။"
-
-#: .\venv\Lib\site-packages\django\db\models\base.py:1572
-#: .\venv\Lib\site-packages\django\forms\models.py:908
-msgid "and"
-msgstr "နှင့်"
 
 #: .\venv\Lib\site-packages\django\db\models\base.py:1574
 #, python-format
@@ -2193,10 +5462,6 @@ msgid ""
 msgstr ""
 "“%(value)s” တန်ဖိုး၏ ပုံစံမှားနေပါသည်။ ၎င်းသည် [DD] [[HH:]MM:]ss[.uuuuuu] "
 "ပုံစံဖြင့် ဖြစ်ရပါမည်။"
-
-#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1863
-msgid "Duration"
-msgstr "ကြာချိန်"
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1915
 msgid "Email address"
@@ -2484,15 +5749,6 @@ msgid_plural "Please submit at least %(num)d forms."
 msgstr[0] "အနည်းဆုံး %(num)d ဖောင်ကို တင်ပါ။"
 msgstr[1] ""
 
-#: .\venv\Lib\site-packages\django\forms\formsets.py:484
-#: .\venv\Lib\site-packages\django\forms\formsets.py:491
-msgid "Order"
-msgstr "အမှာစာ"
-
-#: .\venv\Lib\site-packages\django\forms\formsets.py:499
-msgid "Delete"
-msgstr "ဖျက်ရန်"
-
 #: .\venv\Lib\site-packages\django\forms\models.py:901
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
@@ -2654,34 +5910,6 @@ msgstr "စနေ"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:13
 msgid "Sunday"
-msgstr "တနင်္ဂနွေ"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:16
-msgid "Mon"
-msgstr "တနင်္လာ"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:17
-msgid "Tue"
-msgstr "အင်္ဂါ"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:18
-msgid "Wed"
-msgstr "ဗုဒ္ဓဟူး"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:19
-msgid "Thu"
-msgstr "ကြာသပတေး"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:20
-msgid "Fri"
-msgstr "သောကြာ"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:21
-msgid "Sat"
-msgstr "စနေ"
-
-#: .\venv\Lib\site-packages\django\utils\dates.py:22
-msgid "Sun"
 msgstr "တနင်္ဂနွေ"
 
 #: .\venv\Lib\site-packages\django\utils\dates.py:25
@@ -2909,10 +6137,6 @@ msgstr "ဤသည်မှာ မှန်ကန်သော IPv6 လိပ်�
 msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
 msgstr "%(truncated_text)s…"
-
-#: .\venv\Lib\site-packages\django\utils\text.py:286
-msgid "or"
-msgstr "သို့မဟုတ်"
 
 #. Translators: This string is used as a separator between list elements
 #: .\venv\Lib\site-packages\django\utils\text.py:305
@@ -3157,12 +6381,111 @@ msgstr "Django လူထု"
 msgid "Connect, get help, or contribute"
 msgstr "ချိတ်ဆက်ပါ၊ အကူအညီရယူပါ၊ သို့မဟုတ် ပါဝင်ပါ"
 
+#~ msgid "Could not start checkout."
+#~ msgstr "ငွေရှင်းလုပ်ငန်းစတင်နိုင်ခြင်းမရှိပါ"
+
+#~ msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+#~ msgstr ""
+#~ "လိုအပ်ပါသည်။ အက္ခရာ၊ ဂဏန်းနှင့် @ / . / + / - / _ တို့ကိုသာ အသုံးပြုပြီး "
+#~ "စာလုံးရေ ၁၅၀ လုံးထက် မကျော်ရပါ။"
+
+#~ msgid "Email"
+#~ msgstr "အီးမေးလ်:"
+
+#~ msgid "Enter the same password as before, for verification."
+#~ msgstr "စစ်မှန်ကြောင်း အတည်ပြုရန် ယခင်စကားဝှက်အတူတူ ထည့်ပါ။"
+
+#~ msgid "You must accept the terms and conditions to register."
+#~ msgstr "မှတ်ပုံတင်ရန် စည်းမျဉ်းစည်းကမ်းများကို လက်ခံရမည်"
+
+#~ msgid "Username is required."
+#~ msgstr "အသုံးပြုသူအမည် လိုအပ်ပါသည်"
+
+#~ msgid "username"
+#~ msgstr "အသုံးပြုသူအမည်"
+
+#~ msgid "bio"
+#~ msgstr "ကိုယ်ရေးအကျဉ်း"
+
+#~ msgid "shop administrator"
+#~ msgstr "ဆိုင်စီမံခန့်ခွဲသူ"
+
+#~ msgid "email verified"
+#~ msgstr "အီးမေးလ် အတည်ပြုပြီး"
+
+#~ msgid "preferred language"
+#~ msgstr "နှစ်သက်ရာဘာသာစကား"
+
+#~ msgid "failed login attempts"
+#~ msgstr "မအောင်မြင်သောအကောင့်ဝင်ရန်ကြိုးစားမှုများ"
+
+#~ msgid "last failed login"
+#~ msgstr "နောက်ဆုံးမအောင်မြင်သောအကောင့်ဝင်မှု"
+
+#~ msgid "phone number"
+#~ msgstr "ဖုန်းနံပါတ်"
+
+#~ msgid "date of birth"
+#~ msgstr "မွေးသက္ကရာဇ်"
+
+#~ msgid "user"
+#~ msgstr "အသုံးပြုသူ"
+
+#~ msgid "users"
+#~ msgstr "အသုံးပြုသူမျာ"
+
+#~ msgid ""
+#~ "Account created but we couldn't send verification email. Please contact "
+#~ "support."
+#~ msgstr ""
+#~ "အကောင့်ဖန်တီးပြီးသော်လည်း အတည်ပြုအီးမေးလ်ပို့၍မရပါ။ ကျေးဇူးပြု၍ "
+#~ "အကူအညီတောင်းပါ"
+
+#~ msgid "Sign Up"
+#~ msgstr "အကောင့်ဖွင့်ရန်"
+
+#~ msgid ""
+#~ "Your account has been locked due to multiple failed login attempts. Please "
+#~ "contact support."
+#~ msgstr ""
+#~ "များပြားလှသော မအောင်မြင်သည့် အကောင့်ဝင်ကြိုးစားမှုများကြောင့် သင့်အကောင့်ကို"
+#~ " သော့ခတ်ထားပါသည်။ ကျေးဇူးပြု၍ အကူအညီတောင်းပါ"
+
+#~ msgid "Please verify your email address to access all features."
+#~ msgstr "အရည်အသွေးအားလုံးကို အသုံးပြုနိုင်ရန် သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုပ"
+
+#~ msgid "Invalid username/email or password."
+#~ msgstr "မှားယွင်းသောအသုံးပြုသူအမည်/အီးမေးလ် သို့မဟုတ် စကားဝှက်"
+
+#~ msgid "Verify your email - CyberOptix"
+#~ msgstr "သင့်အီးမေးလ်ကို အတည်ပြုပါ - CyberOptix"
+
+#~ msgid ""
+#~ "\n"
+#~ "    Hi %(username)s,\n"
+#~ "    \n"
+#~ "    Please click the link below to verify your email address:\n"
+#~ "    %(link)s\n"
+#~ "    \n"
+#~ "    If you didn't create an account, please ignore this email.\n"
+#~ "    \n"
+#~ "    Best regards,\n"
+#~ "    CyberOptix Team\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "မင်္ဂလာပါ %(username)s၊\n"
+#~ "\n"
+#~ "ကျေးဇူးပြု၍ သင့်အီးမေးလ်လိပ်စာကို အတည်ပြုရန် အောက်ပါလင့်ခ်ကို နှိပ်ပါ:\n"
+#~ "%(link)s\n"
+#~ "\n"
+#~ "သင်သည် အကောင့်ဖန်တီးခြင်းမရှိပါက ဤအီးမေးလ်ကို လျစ်လျူရှုပါ။\n"
+#~ "\n"
+#~ "ကျေးဇူးတင်လျက်၊\n"
+#~ "CyberOptix အဖွဲ့\""
+
 #~ msgid "Exclusive member discounts"
 #~ msgstr "အထူးအဖွဲ့ဝင်လျှော့စျေးများ"
-
-#, fuzzy
-#~ msgid "Track your orders easily"
-#~ msgstr "သင့်အမှာစာလိုင်း ခြေရာခံရန်"
 
 #, fuzzy
 #~ msgid "Save items to wishlist"
@@ -3185,9 +6508,6 @@ msgstr "ချိတ်ဆက်ပါ၊ အကူအညီရယူပါ၊ �
 
 #~ msgid "- %(pct)s %%"
 #~ msgstr "- %(pct)s %%"
-
-#~ msgid "items"
-#~ msgstr "ပစ္စည်းများ"
 
 #~ msgid "80 %"
 #~ msgstr "၈၀ %"

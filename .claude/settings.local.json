@@ -4,7 +4,11 @@
       "Bash(python manage.py:*)",
       "Bash(del 0029_emailtemplate_socialmediaaccount_suppliercontact_and_more.py)",
       "Bash(rm:*)",
-      "Bash(dir)"
+      "Bash(dir)",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

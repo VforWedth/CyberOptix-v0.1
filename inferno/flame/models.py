@@ -692,7 +692,11 @@ class CartOrder(models.Model):
         ('cod', 'Cash on Delivery'),
     ]
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS, default='paypal')
-    
+
+    # Payment Intent IDs for tracking
+    stripe_payment_intent = models.CharField(max_length=255, blank=True, null=True)
+    paypal_payment_intent = models.CharField(max_length=255, blank=True, null=True)
+
     class Meta:
         verbose_name_plural = "Cart Orders"
         ordering = ['-order_date']
@@ -1379,4 +1383,70 @@ class SocialMediaPost(models.Model):
     def __str__(self):
         content_preview = self.content[:50] + "..." if len(self.content) > 50 else self.content
         return f"{self.account.get_platform_display()} - {content_preview}"
+
+
+class CheckoutSession(models.Model):
+    """Temporary storage for checkout data during payment processing"""
+    session_id = ShortUUIDField(unique=True, length=20, max_length=40, alphabet="abcdefgh12345")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    shop = models.ForeignKey('Shop', on_delete=models.CASCADE)
+
+    # Address data
+    state = models.ForeignKey(MyanmarState, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.ForeignKey(MyanmarCity, on_delete=models.CASCADE, null=True, blank=True)
+    township = models.ForeignKey(MyanmarTownship, on_delete=models.CASCADE, null=True, blank=True)
+    street_address = models.TextField(blank=True)
+    landmark = models.CharField(max_length=255, blank=True)
+    shipping_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    # Cart data
+    cart_data = JSONField(default=dict)
+    order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    # Payment method
+    payment_method = models.CharField(max_length=20, choices=[
+        ('paypal', 'PayPal'),
+        ('stripe', 'Stripe'),
+        ('kbzpay', 'KBZPay'),
+        ('cod', 'Cash on Delivery'),
+    ])
+
+    # Session metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Checkout Session"
+        verbose_name_plural = "Checkout Sessions"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Checkout {self.session_id} - {self.user.username} - {self.shop.title}"
+
+    def save(self, *args, **kwargs):
+        if not self.expires_at:
+            # Set expiration to 30 minutes from creation
+            self.expires_at = timezone.now() + timezone.timedelta(minutes=30)
+        super().save(*args, **kwargs)
+
+    @property
+    def is_expired(self):
+        return timezone.now() > self.expires_at
+
+    def get_delivery_address(self):
+        """Build formatted delivery address string"""
+        if not self.state or not self.city:
+            return ""
+
+        parts = []
+        if self.street_address:
+            parts.append(self.street_address)
+        if self.township:
+            parts.append(self.township.name)
+        parts.extend([self.city.name, self.state.name])
+        if self.landmark:
+            parts.append(f"Near {self.landmark}")
+
+        return ", ".join(parts)
  

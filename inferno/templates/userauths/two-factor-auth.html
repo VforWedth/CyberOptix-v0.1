@@ -11,7 +11,7 @@
         <div class="col-1">
             <div class="image-layer">
                 <div class="featured-words">
-                    <h2>🔐 {% trans "Two-Factor" %} <br><span>{% trans "Authentication" %}</span></h2>
+                    <h2>{% trans "Two-Factor" %} <br><span>{% trans "Authentication" %}</span></h2>
                     <p>{% trans "Enter the verification code from your authenticator app to complete login." %}</p>
                 </div>
             </div>
@@ -58,12 +58,12 @@
                     
                     <div class="2fa-help">
                         <div class="help-section">
-                            <h4>📱 {% trans "Authenticator App" %}</h4>
+                            <h4>{% trans "Authenticator App" %}</h4>
                             <p>{% trans "Open your authenticator app and enter the 6-digit code." %}</p>
                         </div>
                         
                         <div class="help-section">
-                            <h4>🔑 {% trans "Backup Code" %}</h4>
+                            <h4>{% trans "Backup Code" %}</h4>
                             <p>{% trans "Or enter one of your 8-character backup codes." %}</p>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                     <h4>{% trans "Recovery Options" %}</h4>
                     <ul>
                         <li><a href="#" onclick="showBackupCodes()">{% trans "Use backup code" %}</a></li>
-                        <li><a href="{% url 'userauths:account-recovery' %}">{% trans "Account recovery" %}</a></li>
+                        <li><a href="#">{% trans "Account recovery" %}</a></li>
                         <li><a href="mailto:support@cyberoptix.com">{% trans "Contact support" %}</a></li>
                     </ul>
                 </div>

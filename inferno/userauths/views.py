@@ -8,7 +8,8 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
-from userauths.forms import UserRegisterForm, LoginForm, EmailVerificationForm, TwoFactorForm, TwoFactorSetupForm
+from django.utils import timezone
+from userauths.forms import UserRegisterForm, LoginForm, EmailVerificationForm, TwoFactorForm, TwoFactorSetupForm, PasswordResetRequestForm, PasswordResetConfirmForm
 from userauths.models import User
 from .services import AuthenticationService, EmailService, GoogleOAuthService, TwoFactorService
 import json
@@ -301,10 +302,10 @@ def api_check_email_view(request):
     try:
         data = json.loads(request.body)
         email = data.get('email', '').lower().strip()
-        
+
         is_valid = EmailService.is_valid_gmail(email)
         exists = User.objects.filter(email=email).exists()
-        
+
         return JsonResponse({
             'valid': is_valid,
             'exists': exists,
@@ -312,3 +313,125 @@ def api_check_email_view(request):
         })
     except:
         return JsonResponse({'valid': False, 'exists': False, 'message': 'Invalid request'})
+
+# Password Reset Views
+def password_reset_request_view(request):
+    """Handle password reset request"""
+    if request.user.is_authenticated:
+        messages.info(request, _("You are already logged in."))
+        return redirect("flame:home")
+
+    if request.method == "POST":
+        form = PasswordResetRequestForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            try:
+                user = User.objects.get(email=email)
+
+                # Check if account is locked
+                if user.is_account_locked():
+                    messages.error(request, _(
+                        f"This account is currently locked until {user.account_locked_until.strftime('%Y-%m-%d %H:%M')}. "
+                        f"Please try again later."
+                    ))
+                    return render(request, "userauths/password_reset.html", {'form': form})
+
+                # Send password reset email
+                if EmailService.send_password_reset_email(user, request):
+                    messages.success(request, _(
+                        f"Password reset instructions have been sent to {email}. "
+                        f"Please check your Gmail inbox and follow the instructions."
+                    ))
+                    return redirect('userauths:password-reset-done')
+                else:
+                    messages.error(request, _("Failed to send password reset email. Please try again."))
+
+            except User.DoesNotExist:
+                # Don't reveal if email exists or not for security
+                messages.success(request, _(
+                    f"If an account with {email} exists, password reset instructions have been sent. "
+                    f"Please check your Gmail inbox."
+                ))
+                return redirect('userauths:password-reset-done')
+        else:
+            # Display form errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
+    else:
+        form = PasswordResetRequestForm()
+
+    return render(request, "userauths/password_reset.html", {'form': form})
+
+def password_reset_done_view(request):
+    """Show password reset email sent confirmation"""
+    return render(request, "userauths/password_reset_done.html")
+
+def password_reset_confirm_view(request, token):
+    """Handle password reset confirmation with new password"""
+    try:
+        # Find user by token
+        user = User.objects.get(email_verification_token=token)
+
+        # Check if token is valid and not expired
+        if not user.email_verification_token or user.is_email_verification_expired():
+            messages.error(request, _(
+                "This password reset link is invalid or has expired. "
+                "Password reset links are valid for 24 hours."
+            ))
+            return render(request, "userauths/password_reset_comirm.html", {
+                'validlink': False,
+                'form': None
+            })
+
+        validlink = True
+
+        if request.method == "POST":
+            form = PasswordResetConfirmForm(request.POST)
+            if form.is_valid():
+                new_password = form.cleaned_data.get('new_password1')
+
+                # Update user password
+                user.set_password(new_password)
+                user.email_verification_token = None  # Clear the token
+                user.email_verification_sent_at = None
+                user.last_password_change = timezone.now()
+                user.failed_login_attempts = 0  # Reset failed attempts
+                user.account_locked_until = None  # Unlock account if locked
+                user.save()
+
+                # Log the password reset
+                AuthenticationService.log_login(
+                    user, request, 'password_reset', True, 'Password reset successful'
+                )
+
+                messages.success(request, _(
+                    "Your password has been successfully reset! You can now log in with your new password."
+                ))
+                return redirect('userauths:password-reset-complete')
+            else:
+                # Display form errors
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, error)
+        else:
+            form = PasswordResetConfirmForm()
+
+        context = {
+            'form': form,
+            'validlink': validlink,
+            'user': user
+        }
+
+        return render(request, "userauths/password_reset_comirm.html", context)
+
+    except User.DoesNotExist:
+        messages.error(request, _("Invalid password reset link."))
+        return render(request, "userauths/password_reset_comirm.html", {
+            'validlink': False,
+            'form': None
+        })
+
+def password_reset_complete_view(request):
+    """Show password reset success confirmation"""
+    return render(request, "userauths/password_reset_complete.html")

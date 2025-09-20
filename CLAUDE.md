@@ -1,1 +1,0 @@
-- Restore full admin functionality

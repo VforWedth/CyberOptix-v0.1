@@ -8,8 +8,8 @@
 {% block content %}
 
 <!-- Add required libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" onerror="document.write('<script src='{% static "assets/libs/jspdf/jspdf.umd.min.js" %}'></script>')"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" onerror="document.write('<script src='{% static "assets/libs/html2canvas/html2canvas.min.js" %}'></script>')"></script>
 
 <style>
     /* Invoice Styling */
@@ -255,9 +255,9 @@
             <hr style="margin: 10px 0;">
             <h4>{% trans "Delivery Address" %}</h4>
             <p>{{ delivery_address }}</p>
-            {% if delivery_phone %}
-                <p><strong>{% trans "Phone:" %}</strong> {{ delivery_phone }}</p>
-            {% endif %}
+            
+                {% comment %} <p><strong>{% trans "Phone:" %}</strong> {{ delivery_phone }}</p> {% endcomment %}
+            
             {% endif %}
             <p><strong>{% trans "Payment Method:" %}</strong> {{ payment_method }}</p>
         </div>

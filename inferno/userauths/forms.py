@@ -197,9 +197,85 @@ class TwoFactorForm(forms.Form):
             "autofocus": True
         })
     )
-    
+
     def clean_token(self):
         token = self.cleaned_data.get('token', '').strip()
         if not token.isdigit() or len(token) != 6:
             raise ValidationError(_("Please enter a valid 6-digit code."))
         return token
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            "placeholder": _("Your Email Address"),
+            'class': 'input-field',
+            "autofocus": True
+        }),
+        help_text=_("Enter the email address associated with your account")
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '').lower().strip()
+
+        # Check if email is Gmail
+        if not email.endswith('@gmail.com'):
+            raise ValidationError(_(
+                "Only Gmail addresses are supported. "
+                "Please use a valid @gmail.com email address."
+            ))
+
+        # Check if user exists
+        try:
+            user = User.objects.get(email=email)
+            return email
+        except User.DoesNotExist:
+            raise ValidationError(_("No account found with this email address."))
+
+class PasswordResetConfirmForm(forms.Form):
+    new_password1 = forms.CharField(
+        label=_("New Password"),
+        widget=forms.PasswordInput(attrs={
+            "placeholder": _("New Password"),
+            'class': 'input-field',
+            "autocomplete": "new-password"
+        }),
+        help_text=_("Password must be at least 8 characters long with letters and numbers")
+    )
+    new_password2 = forms.CharField(
+        label=_("Confirm New Password"),
+        widget=forms.PasswordInput(attrs={
+            "placeholder": _("Confirm New Password"),
+            'class': 'input-field',
+            "autocomplete": "new-password"
+        })
+    )
+
+    def clean_new_password1(self):
+        password = self.cleaned_data.get('new_password1')
+
+        # Enhanced password validation
+        if len(password) < 8:
+            raise ValidationError(_("Password must be at least 8 characters long."))
+
+        if password.isdigit():
+            raise ValidationError(_("Password cannot be entirely numeric."))
+
+        if password.lower() in ['password', '12345678', 'qwerty123']:
+            raise ValidationError(_("Password is too common."))
+
+        # Check for at least one letter and one number
+        if not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password):
+            raise ValidationError(_("Password must contain both letters and numbers."))
+
+        return password
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('new_password1')
+        password2 = cleaned_data.get('new_password2')
+
+        if password1 and password2:
+            if password1 != password2:
+                raise ValidationError(_("The two password fields must match."))
+
+        return cleaned_data

@@ -135,10 +135,10 @@ class EmailService:
         """Send email verification link to user"""
         token = user.generate_email_verification_token()
         
-        # Build verification URL
-        verification_url = request.build_absolute_uri(
-            f'/auth/verify-email/{token}/'
-        )
+        # Build verification URL using Django's URL reverse
+        from django.urls import reverse
+        verification_path = reverse('userauths:verify-email', kwargs={'token': token})
+        verification_url = request.build_absolute_uri(verification_path)
         
         # Email context
         context = {
@@ -183,10 +183,10 @@ class EmailService:
             'user': user,
             'site_name': 'LaptopMart Myanmar'
         }
-        
+
         html_message = render_to_string('userauths/emails/welcome_email.html', context)
         plain_message = strip_tags(html_message)
-        
+
         try:
             send_mail(
                 subject=f'Welcome to {context["site_name"]}!',
@@ -199,6 +199,55 @@ class EmailService:
             return True
         except Exception as e:
             logger.error(f"Failed to send welcome email to {user.email}: {str(e)}")
+            return False
+
+    @staticmethod
+    def send_password_reset_email(user, request):
+        """Send password reset link to user"""
+        # Generate reset token using existing method
+        token = user.generate_email_verification_token()  # Reuse existing method
+
+        # Build password reset URL using Django's URL reverse
+        from django.urls import reverse
+        reset_path = reverse('userauths:password-reset-confirm', kwargs={'token': token})
+        reset_url = request.build_absolute_uri(reset_path)
+
+        # Email context
+        context = {
+            'user': user,
+            'reset_url': reset_url,
+            'site_name': 'LaptopMart Myanmar',
+            'expiry_hours': 24,
+            'support_email': 'support@laptopmart-myanmar.com'
+        }
+
+        # Render email templates
+        html_message = render_to_string('userauths/emails/password_reset_email.html', context)
+        plain_message = strip_tags(html_message)
+
+        try:
+            send_mail(
+                subject=f'Reset your {context["site_name"]} password',
+                message=plain_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                html_message=html_message,
+                fail_silently=False,
+            )
+
+            # Log password reset request
+            EmailVerificationLog.objects.create(
+                user=user,
+                email=user.email,
+                token=token,
+                ip_address=AuthenticationService.get_client_ip(request),
+                user_agent=request.META.get('HTTP_USER_AGENT', '')
+            )
+
+            logger.info(f"Password reset email sent to {user.email}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to send password reset email to {user.email}: {str(e)}")
             return False
 
 class GoogleOAuthService:

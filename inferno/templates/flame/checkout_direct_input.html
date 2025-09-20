@@ -1,0 +1,831 @@
+<!-- templates/flame/checkout_direct_input.html -->
+{% extends 'partials/base.html' %}
+{% load math_filters %}
+{% load myanmar_filter %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/checkout.css' %}">
+
+<body style="background-color:rgb(21, 40, 56);">
+    <div class="container">
+        <!-- Connection Status Indicator -->
+        <div id="connection-status-bar" class="alert alert-info" style="display: none;">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-wifi-slash me-3"></i>
+                <div>
+                    <strong>{% trans "Offline Mode" %}</strong><br>
+                    <small>{% trans "Enter your delivery address directly. Order will be saved and submitted when online." %}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Information Section -->
+        {% if shop %}
+        <h2>{% trans "Checking out from" %} {{ shop.title }}</h2>
+        <div class="shop-info">
+            <p>
+                {% trans "Order ID:" %}
+                {% if is_myanmar %}
+                    #{{ order.id|to_myanmar_numerals }}
+                {% else %}
+                    #{{ order.id }}
+                {% endif %}
+            </p>
+
+            {% if is_myanmar %}
+            <div class="exchange-rate-info">
+                <p class="text-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Current Exchange Rate:" %}
+                    ၁ USD = {{ exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <h2>{% trans "Checkout" %}</h2>
+        {% endif %}
+
+        <div class="checkout-content">
+            <!-- Billing Details -->
+            <div class="billing-details">
+                <h3>{% trans "Customer Details" %}</h3>
+
+                <form id="direct-input-form">
+                    <div class="form-group">
+                        <label for="customer-name">{% trans "Full Name" %} *</label>
+                        <input type="text"
+                               id="customer-name"
+                               name="customer_name"
+                               value="{{ request.user.get_full_name|default:request.user.username }}"
+                               placeholder="{% trans 'Enter your full name' %}"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-mobile">{% trans "Mobile Number" %} *</label>
+                        <input type="tel"
+                               id="customer-mobile"
+                               name="customer_mobile"
+                               value="{% if active_address %}{{ active_address.mobile }}{% endif %}"
+                               placeholder="{% trans 'Enter your mobile number' %}"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-email">{% trans "Email Address" %}</label>
+                        <input type="email"
+                               id="customer-email"
+                               name="customer_email"
+                               value="{{ request.user.email }}"
+                               placeholder="{% trans 'Enter your email address (optional)' %}">
+                    </div>
+
+                    <!-- Direct Delivery Address Input -->
+                    <div class="delivery-address-section">
+                        <h4>
+                            <i class="fas fa-map-marker-alt"></i>
+                            {% trans "Delivery Address" %}
+                        </h4>
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-info-circle"></i>
+                            {% trans "Enter your complete delivery address. No internet connection required." %}
+                        </p>
+
+                        <!-- State/Region -->
+                        <div class="form-group">
+                            <label for="delivery-state">{% trans "State/Region" %} *</label>
+                            <input type="text"
+                                   id="delivery-state"
+                                   name="delivery_state"
+                                   placeholder="{% trans 'e.g., Yangon, Mandalay, Shan State' %}"
+                                   list="common-states"
+                                   required>
+                            <datalist id="common-states">
+                                <option value="Yangon">
+                                <option value="Mandalay">
+                                <option value="Naypyidaw">
+                                <option value="Shan State">
+                                <option value="Kachin State">
+                                <option value="Kayah State">
+                                <option value="Kayin State">
+                                <option value="Chin State">
+                                <option value="Mon State">
+                                <option value="Rakhine State">
+                                <option value="Ayeyarwady">
+                                <option value="Bago">
+                                <option value="Magway">
+                                <option value="Sagaing">
+                                <option value="Tanintharyi">
+                            </datalist>
+                            <small class="form-text text-muted">
+                                {% trans "Type to see suggestions or enter manually" %}
+                            </small>
+                        </div>
+
+                        <!-- City/Town -->
+                        <div class="form-group">
+                            <label for="delivery-city">{% trans "City/Town" %} *</label>
+                            <input type="text"
+                                   id="delivery-city"
+                                   name="delivery_city"
+                                   placeholder="{% trans 'e.g., Downtown, Thanlyin, Insein' %}"
+                                   list="common-cities"
+                                   required>
+                            <datalist id="common-cities">
+                                <!-- Will be populated dynamically based on state -->
+                            </datalist>
+                            <small class="form-text text-muted">
+                                {% trans "Enter the main city or town name" %}
+                            </small>
+                        </div>
+
+                        <!-- Township/District -->
+                        <div class="form-group">
+                            <label for="delivery-township">{% trans "Township/District" %}</label>
+                            <input type="text"
+                                   id="delivery-township"
+                                   name="delivery_township"
+                                   placeholder="{% trans 'e.g., Dagon, Kamayut, Thingangyun (optional)' %}"
+                                   list="common-townships">
+                            <small class="form-text text-muted">
+                                {% trans "Optional: Specific township or district" %}
+                            </small>
+                        </div>
+
+                        <!-- Street Address -->
+                        <div class="form-group">
+                            <label for="delivery-street">{% trans "Street Address" %}</label>
+                            <textarea id="delivery-street"
+                                     name="delivery_street"
+                                     rows="3"
+                                     placeholder="{% trans 'Building number, street name, neighborhood details' %}"></textarea>
+                            <small class="form-text text-muted">
+                                {% trans "Include building number, street name, and any specific directions" %}
+                            </small>
+                        </div>
+
+                        <!-- Landmark -->
+                        <div class="form-group">
+                            <label for="delivery-landmark">{% trans "Nearby Landmark" %}</label>
+                            <input type="text"
+                                   id="delivery-landmark"
+                                   name="delivery_landmark"
+                                   placeholder="{% trans 'e.g., Near City Mall, Behind Police Station' %}">
+                            <small class="form-text text-muted">
+                                {% trans "Help delivery person find your location easily" %}
+                            </small>
+                        </div>
+
+                        <!-- Delivery Instructions -->
+                        <div class="form-group">
+                            <label for="delivery-instructions">{% trans "Delivery Instructions" %}</label>
+                            <textarea id="delivery-instructions"
+                                     name="delivery_instructions"
+                                     rows="2"
+                                     placeholder="{% trans 'Special delivery instructions, best time to deliver, etc.' %}"></textarea>
+                            <small class="form-text text-muted">
+                                {% trans "Any special instructions for the delivery person" %}
+                            </small>
+                        </div>
+
+                        <!-- Address Validation Button -->
+                        <div class="address-validation">
+                            <button type="button" id="validate-address-btn" class="btn btn-outline-primary">
+                                <i class="fas fa-check-circle"></i>
+                                {% trans "Validate Address" %}
+                            </button>
+                            <div id="address-validation-result" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Save Address Option -->
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="save-address" name="save_address" class="form-check-input" checked>
+                            <label for="save-address" class="form-check-label">
+                                {% trans "Save this address for future orders" %}
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>{% trans "Your Order" %}</h3>
+
+                <!-- Order Items -->
+                <div class="cart-items" id="direct-input-cart-items">
+                    <!-- Items will be loaded via JavaScript -->
+                </div>
+
+                <!-- Order Total -->
+                <div class="order-total-section">
+                    <hr>
+                    <p class="subtotal-row">
+                        <strong>{% trans "Subtotal:" %}</strong>
+                        <span id="direct-input-subtotal">{{ cart_total_display }}</span>
+                    </p>
+
+                    <p class="shipping-row">
+                        <strong>{% trans "Shipping:" %}</strong>
+                        <span id="direct-input-shipping-fee">
+                            {% trans "Will be calculated based on your address" %}
+                        </span>
+                    </p>
+
+                    <hr>
+
+                    <p class="total-row">
+                        <strong>{% trans "Total:" %}</strong>
+                        <strong class="order-total" id="direct-input-order-total">
+                            {{ cart_total_display }}
+                            <small class="d-block text-muted">
+                                {% trans "(+ shipping fee)" %}
+                            </small>
+                        </strong>
+                    </p>
+                </div>
+
+                <!-- Payment Method Selection -->
+                <div class="payment-method-selection">
+                    <h3>{% trans "Payment Method" %}</h3>
+
+                    <!-- Cash on Delivery -->
+                    <div class="payment-option" id="cod-option">
+                        <input type="radio" id="cod-payment" name="payment_type" value="cod" checked>
+                        <label for="cod-payment" class="payment-option-label">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <strong>{% trans "Cash on Delivery" %}</strong>
+                            <small>{% trans "Pay when you receive your order" %}</small>
+                        </label>
+                    </div>
+
+                    <!-- Online Payment (if available) -->
+                    <div class="payment-option online-only" id="online-payment-option">
+                        <input type="radio" id="online-payment" name="payment_type" value="online">
+                        <label for="online-payment" class="payment-option-label">
+                            <i class="fas fa-credit-card"></i>
+                            <strong>{% trans "Online Payment" %}</strong>
+                            <small>{% trans "PayPal, Stripe, KBZPay" %}</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="checkout-actions">
+                    <button type="button"
+                            class="btn btn-success btn-lg"
+                            id="submit-direct-order"
+                            style="width: 100%; margin-top: 15px;">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        {% trans "Place Order" %}
+                    </button>
+
+                    <button class="back-to-cart mt-3">
+                        <a href="{% url 'flame:product-list' %}"
+                           style="text-decoration: none;color: inherit;">
+                            {% trans "Continue Shopping" %}
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'assets/js/function.js' %}"></script>
+
+    <script>
+        // Direct Input Address Manager
+        class DirectInputAddressManager {
+            constructor() {
+                this.isOnline = navigator.onLine;
+                this.exchangeRate = {{ exchange_rate|default:3000 }};
+                this.isMyanmar = {{ is_myanmar|yesno:"true,false" }};
+                this.shopId = '{{ sid }}';
+                this.orderId = '{{ order.id|default:"" }}';
+                this.addressData = {};
+                this.init();
+            }
+
+            init() {
+                this.loadCartItems();
+                this.bindEvents();
+                this.setupAddressAutocomplete();
+                this.loadSavedAddresses();
+                this.monitorConnectionStatus();
+            }
+
+            bindEvents() {
+                // Form validation on input
+                const requiredFields = ['customer-name', 'customer-mobile', 'delivery-state', 'delivery-city'];
+                requiredFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.addEventListener('blur', () => this.validateField(fieldId));
+                        field.addEventListener('input', () => this.clearFieldError(fieldId));
+                    }
+                });
+
+                // Address validation
+                document.getElementById('validate-address-btn')?.addEventListener('click', () => {
+                    this.validateAddress();
+                });
+
+                // Address autocomplete
+                document.getElementById('delivery-state')?.addEventListener('input', (e) => {
+                    this.updateCityOptions(e.target.value);
+                });
+
+                // Submit order
+                document.getElementById('submit-direct-order')?.addEventListener('click', () => {
+                    this.submitOrder();
+                });
+
+                // Save address checkbox
+                document.getElementById('save-address')?.addEventListener('change', (e) => {
+                    this.handleSaveAddressToggle(e.target.checked);
+                });
+            }
+
+            setupAddressAutocomplete() {
+                // Myanmar states and cities mapping for suggestions
+                this.addressMap = {
+                    'Yangon': ['Downtown', 'Thanlyin', 'Insein', 'Dagon', 'Kamayut', 'Thingangyun', 'Mayangone'],
+                    'Mandalay': ['City Center', 'Chanayethazan', 'Mahaaungmye', 'Chanmyathazi', 'Pyigyidagun'],
+                    'Naypyidaw': ['Zabuthiri', 'Tatkon', 'Dekkhinathiri', 'Pyinmana'],
+                    'Shan State': ['Taunggyi', 'Lashio', 'Kengtung', 'Hsipaw', 'Kalaw'],
+                    'Mon State': ['Mawlamyine', 'Thaton', 'Kyaikmaraw', 'Ye', 'Mudon']
+                };
+            }
+
+            updateCityOptions(stateName) {
+                const cityDatalist = document.getElementById('common-cities');
+                if (!cityDatalist) return;
+
+                // Clear existing options
+                cityDatalist.innerHTML = '';
+
+                // Add cities for the selected state
+                const cities = this.addressMap[stateName] || [];
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    cityDatalist.appendChild(option);
+                });
+            }
+
+            validateField(fieldId) {
+                const field = document.getElementById(fieldId);
+                if (!field) return true;
+
+                this.clearFieldError(fieldId);
+
+                const value = field.value.trim();
+                let isValid = true;
+                let errorMessage = '';
+
+                switch(fieldId) {
+                    case 'customer-name':
+                        if (!value || value.length < 2) {
+                            isValid = false;
+                            errorMessage = '{% trans "Please enter a valid name (at least 2 characters)" %}';
+                        }
+                        break;
+                    case 'customer-mobile':
+                        if (!value || value.length < 8) {
+                            isValid = false;
+                            errorMessage = '{% trans "Please enter a valid mobile number" %}';
+                        }
+                        break;
+                    case 'delivery-state':
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = '{% trans "State/Region is required" %}';
+                        }
+                        break;
+                    case 'delivery-city':
+                        if (!value) {
+                            isValid = false;
+                            errorMessage = '{% trans "City/Town is required" %}';
+                        }
+                        break;
+                }
+
+                if (!isValid) {
+                    this.showFieldError(field, errorMessage);
+                }
+
+                return isValid;
+            }
+
+            showFieldError(field, message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error text-danger mt-1';
+                errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                field.parentNode.appendChild(errorDiv);
+                field.classList.add('is-invalid');
+            }
+
+            clearFieldError(fieldId) {
+                const field = document.getElementById(fieldId);
+                if (!field) return;
+
+                field.classList.remove('is-invalid');
+                const errorDiv = field.parentNode.querySelector('.field-error');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            }
+
+            validateAddress() {
+                const btn = document.getElementById('validate-address-btn');
+                const resultDiv = document.getElementById('address-validation-result');
+
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Validating..." %}';
+
+                // Collect address data
+                const addressData = {
+                    state: document.getElementById('delivery-state').value.trim(),
+                    city: document.getElementById('delivery-city').value.trim(),
+                    township: document.getElementById('delivery-township').value.trim(),
+                    street: document.getElementById('delivery-street').value.trim(),
+                    landmark: document.getElementById('delivery-landmark').value.trim()
+                };
+
+                // Simulate validation (in real implementation, could be more sophisticated)
+                setTimeout(() => {
+                    let isValid = true;
+                    let issues = [];
+
+                    if (!addressData.state) {
+                        issues.push('{% trans "State/Region is required" %}');
+                        isValid = false;
+                    }
+
+                    if (!addressData.city) {
+                        issues.push('{% trans "City/Town is required" %}');
+                        isValid = false;
+                    }
+
+                    // Show result
+                    resultDiv.style.display = 'block';
+                    if (isValid) {
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-success mt-2">
+                                <i class="fas fa-check-circle"></i>
+                                {% trans "Address validation successful!" %}
+                            </div>
+                        `;
+                        this.calculateShippingFee(addressData);
+                    } else {
+                        resultDiv.innerHTML = `
+                            <div class="alert alert-warning mt-2">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                {% trans "Please fix the following issues:" %}
+                                <ul class="mb-0 mt-1">
+                                    ${issues.map(issue => `<li>${issue}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                    }
+
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> {% trans "Validate Address" %}';
+                }, 1000);
+            }
+
+            calculateShippingFee(addressData) {
+                // Simple shipping calculation based on state
+                let shippingFee = 5; // Default fee
+
+                const state = addressData.state.toLowerCase();
+                if (state.includes('yangon') || state.includes('mandalay')) {
+                    shippingFee = 3; // Major cities
+                } else if (state.includes('naypyidaw')) {
+                    shippingFee = 4; // Capital
+                } else if (state.includes('shan') || state.includes('kachin') || state.includes('chin')) {
+                    shippingFee = 8; // Remote areas
+                }
+
+                // Update display
+                const shippingElement = document.getElementById('direct-input-shipping-fee');
+                if (shippingElement) {
+                    if (this.isMyanmar) {
+                        const shippingMmk = shippingFee * this.exchangeRate;
+                        shippingElement.innerHTML = `$${shippingFee.toFixed(2)} <small>(${shippingMmk.toFixed(0)} ကျပ်)</small>`;
+                    } else {
+                        shippingElement.textContent = `$${shippingFee.toFixed(2)}`;
+                    }
+                }
+
+                this.updateOrderTotal(shippingFee);
+            }
+
+            updateOrderTotal(shippingFee = 0) {
+                // Get subtotal (implement cart calculation)
+                const subtotal = this.calculateSubtotal();
+                const total = subtotal + shippingFee;
+
+                const totalElement = document.getElementById('direct-input-order-total');
+                if (totalElement) {
+                    if (this.isMyanmar) {
+                        const totalMmk = total * this.exchangeRate;
+                        totalElement.innerHTML = `$${total.toFixed(2)} <small class="d-block">(${totalMmk.toFixed(0)} ကျပ်)</small>`;
+                    } else {
+                        totalElement.textContent = `$${total.toFixed(2)}`;
+                    }
+                }
+            }
+
+            calculateSubtotal() {
+                // Placeholder - implement actual cart calculation
+                return parseFloat('{{ cart_total|default:0 }}') || 0;
+            }
+
+            loadCartItems() {
+                // Load cart items (implement based on your cart system)
+                const container = document.getElementById('direct-input-cart-items');
+                if (container) {
+                    container.innerHTML = '<p class="text-center text-muted">Loading cart items...</p>';
+                    // Implement cart loading logic
+                }
+            }
+
+            loadSavedAddresses() {
+                // Load previously saved addresses from localStorage
+                const savedAddresses = JSON.parse(localStorage.getItem('saved_addresses') || '[]');
+                if (savedAddresses.length > 0) {
+                    // Could implement address selection dropdown
+                    console.log('Found saved addresses:', savedAddresses);
+                }
+            }
+
+            handleSaveAddressToggle(shouldSave) {
+                // Handle save address preference
+                console.log('Save address:', shouldSave);
+            }
+
+            collectOrderData() {
+                return {
+                    customer: {
+                        name: document.getElementById('customer-name').value.trim(),
+                        mobile: document.getElementById('customer-mobile').value.trim(),
+                        email: document.getElementById('customer-email').value.trim()
+                    },
+                    delivery_address: {
+                        state: document.getElementById('delivery-state').value.trim(),
+                        city: document.getElementById('delivery-city').value.trim(),
+                        township: document.getElementById('delivery-township').value.trim(),
+                        street: document.getElementById('delivery-street').value.trim(),
+                        landmark: document.getElementById('delivery-landmark').value.trim(),
+                        instructions: document.getElementById('delivery-instructions').value.trim()
+                    },
+                    payment_method: document.querySelector('input[name="payment_type"]:checked').value,
+                    save_address: document.getElementById('save-address').checked,
+                    order_id: this.orderId || `direct-${Date.now()}`,
+                    shop_id: this.shopId,
+                    timestamp: new Date().toISOString(),
+                    created_offline: !this.isOnline
+                };
+            }
+
+            async submitOrder() {
+                // Validate all required fields
+                const requiredFields = ['customer-name', 'customer-mobile', 'delivery-state', 'delivery-city'];
+                let isValid = true;
+
+                requiredFields.forEach(fieldId => {
+                    if (!this.validateField(fieldId)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    this.showNotification('{% trans "Please fill in all required fields correctly" %}', 'error');
+                    return;
+                }
+
+                try {
+                    const orderData = this.collectOrderData();
+
+                    // Save address if requested
+                    if (orderData.save_address) {
+                        this.saveAddressForFuture(orderData.delivery_address);
+                    }
+
+                    if (this.isOnline && orderData.payment_method !== 'cod') {
+                        // Process online payment
+                        await this.processOnlinePayment(orderData);
+                    } else {
+                        // Process COD or save for later
+                        await this.processCODOrder(orderData);
+                    }
+
+                } catch (error) {
+                    console.error('Error submitting order:', error);
+                    this.showNotification('{% trans "Failed to submit order. Please try again." %}', 'error');
+                }
+            }
+
+            async processCODOrder(orderData) {
+                // Save order locally or submit directly
+                if (window.offlineManager) {
+                    await window.offlineManager.saveOfflineOrder(orderData);
+                }
+
+                this.showSuccessMessage();
+            }
+
+            saveAddressForFuture(addressData) {
+                const savedAddresses = JSON.parse(localStorage.getItem('saved_addresses') || '[]');
+                savedAddresses.unshift(addressData);
+
+                // Keep only last 5 addresses
+                if (savedAddresses.length > 5) {
+                    savedAddresses.splice(5);
+                }
+
+                localStorage.setItem('saved_addresses', JSON.stringify(savedAddresses));
+            }
+
+            showSuccessMessage() {
+                const container = document.querySelector('.checkout-content');
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4em;"></i>
+                        </div>
+                        <h3 class="text-success mb-3">{% trans "Order Submitted Successfully!" %}</h3>
+                        <div class="alert alert-success">
+                            <h5>{% trans "Your order has been placed" %}</h5>
+                            <p class="mb-0">
+                                {% trans "You will receive a confirmation notification shortly. Payment will be collected upon delivery." %}
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{% url 'flame:product-list' %}" class="btn btn-primary me-3">
+                                {% trans "Continue Shopping" %}
+                            </a>
+                            <a href="{% url 'flame:home' %}" class="btn btn-secondary">
+                                {% trans "Go to Home" %}
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            monitorConnectionStatus() {
+                const statusBar = document.getElementById('connection-status-bar');
+                const onlinePaymentOption = document.querySelector('.online-only');
+
+                const updateConnectionStatus = () => {
+                    this.isOnline = navigator.onLine;
+
+                    if (this.isOnline) {
+                        statusBar.style.display = 'none';
+                        if (onlinePaymentOption) onlinePaymentOption.style.display = 'block';
+                    } else {
+                        statusBar.style.display = 'block';
+                        if (onlinePaymentOption) onlinePaymentOption.style.display = 'none';
+                        // Force COD selection
+                        document.getElementById('cod-payment').checked = true;
+                    }
+                };
+
+                window.addEventListener('online', updateConnectionStatus);
+                window.addEventListener('offline', updateConnectionStatus);
+                updateConnectionStatus(); // Initial check
+            }
+
+            showNotification(message, type = 'info') {
+                if (window.showDynamicAlert) {
+                    window.showDynamicAlert(type, message);
+                } else {
+                    alert(message);
+                }
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new DirectInputAddressManager();
+        });
+    </script>
+
+    <style>
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .form-group input.is-invalid {
+        border-color: #dc3545;
+    }
+
+    .form-text {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .delivery-address-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1.5rem 0;
+        border: 1px solid #e9ecef;
+    }
+
+    .delivery-address-section h4 {
+        color: #495057;
+        margin-bottom: 1rem;
+    }
+
+    .address-validation {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .payment-option {
+        border: 2px solid #e1e5e9;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-option:hover {
+        border-color: #007bff;
+        background: #f8f9fa;
+    }
+
+    .payment-option input:checked + .payment-option-label {
+        color: #007bff;
+    }
+
+    .checkout-actions {
+        margin-top: 2rem;
+    }
+
+    .field-error {
+        animation: shake 0.3s ease-in-out;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    /* Myanmar language support */
+    html[lang="my"] .form-group label,
+    html[lang="my"] .form-text,
+    html[lang="my"] .field-error {
+        font-family: 'Padauk', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+        .delivery-address-section {
+            padding: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.5rem;
+        }
+    }
+    </style>
+</body>
+
+<br><br><br>
+<hr>
+
+{% endblock content %}

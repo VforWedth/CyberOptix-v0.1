@@ -53,16 +53,11 @@ urlpatterns = [
     # path("delete-from-cart/",views.delete_item_from_cart, name="delete-from-cart"),
     # path("update-cart/",views.update_cart, name="update-cart"),
     
-    # API URLs
-    path("api/format-price/", views.format_price_api, name="format-price-api"),
-    path("api/states/", views.get_states_api, name="states-api"),
-    path("api/cities-by-state/", views.get_cities_by_state_api, name="cities-by-state-api"),
-    path("api/townships-by-city/", views.get_townships_by_city_api, name="townships-by-city-api"),
-    path("api/calculate-shipping/", views.calculate_shipping_fee_api, name="calculate-shipping-api"),
-    path("api/store-checkout-address/", views.store_checkout_address_api, name="store-checkout-address-api"),
+    # API URLs (moved to main urls.py to avoid i18n prefix issues)
     
-    # Check out 
+    # Check out
     path('checkout/shop/<str:sid>/', views.shop_checkout_view, name='shop-checkout'),
+    path('checkout/direct/<str:sid>/', views.shop_checkout_direct_view, name='shop-checkout-direct'),
     # path("checkout/home/", views.home_checkout_view, name="home-checkout"),
     
     # Cash on Delivery Payment
@@ -70,7 +65,7 @@ urlpatterns = [
     
     # Paypal
     path("paypal/", include('paypal.standard.ipn.urls')),
-    
+
     # Payment Success Url
     path('payment-completed/<str:sid>/', views.shop_payment_completed_view, name='payment-completed'),
     # path('payment-completed/',views.payment_completed_view,name='payment-completed'),
@@ -110,8 +105,7 @@ urlpatterns = [
     path('api/stripe-session-status/', views.stripe_session_status, name='stripe-session-status'),
 
     
-    path('start/<int:sid>/', views.start_kbzpay, name='start_kbzpay'),
-    path('kbzpay/callback/', views.kbzpay_callback, name='kbzpay_callback'),
+    # KBZPay Payment Integration (moved to main urls.py outside i18n)
     
     
     #FAQs
@@ -172,5 +166,15 @@ urlpatterns = [
     # Email Management
     path("email/preferences/", views.email_preferences_view, name="email-preferences"),
     path("unsubscribe/<int:user_id>/", views.email_unsubscribe_view, name="email-unsubscribe"),
-    
+
+    # ================================ OFFLINE FUNCTIONALITY ================================
+
+    # Offline page
+    # path("offline/", views.offline_view, name="offline"),
+
+    # API endpoints for offline functionality
+    path("api/ping/", views.api_ping, name="api-ping"),
+    path("api/force-offline/", views.force_offline_mode, name="force-offline"),
+    path("api/force-online/", views.force_online_mode, name="force-online"),
+
 ]

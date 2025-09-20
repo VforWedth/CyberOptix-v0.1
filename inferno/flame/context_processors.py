@@ -32,8 +32,10 @@ def default(request):
     }
     
     # Add wishlist count for authenticated users
-    if request.user.is_authenticated:
+    if hasattr(request, 'user') and request.user.is_authenticated:
         context['wishlist_count'] = Wishlist.objects.filter(user=request.user).count()
+    else:
+        context['wishlist_count'] = 0
 
     if 'cart_data' in request.session:
         cart_data = request.session.get('cart_data', {})

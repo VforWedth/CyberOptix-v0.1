@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.dateformat import format as date_format
 from django.utils import timezone
@@ -37,6 +38,16 @@ import stripe
 import barcode
 from barcode.writer import ImageWriter
 from django.core.files.base import ContentFile
+
+# Import KBZPay integration functions
+from .kbzpay_integration import (
+    initiate_kbzpay_payment,
+    kbzpay_callback as kbzpay_payment_callback,
+    check_payment_status
+)
+
+# Import PayPal dynamic payment function
+from .paypal_dynamic import create_paypal_payment_with_shipping
 
 def home(request):
      # Get current language
@@ -1088,17 +1099,53 @@ def get_townships_by_city_api(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+@login_required
 def store_checkout_address_api(request):
     """API endpoint to store checkout address data in session"""
     if request.method == 'POST':
         try:
             import json
             address_data = json.loads(request.body)
-            request.session['checkout_address_data'] = address_data
+
+            # Only require state and city (minimum for delivery)
+            if not address_data.get('state') or not address_data.get('city'):
+                return JsonResponse({
+                    'error': 'State and city are required'
+                }, status=400)
+
+            # Clean and store whatever data we have
+            cleaned_address_data = {
+                'state': str(address_data.get('state', '')),
+                'city': str(address_data.get('city', '')),
+                'township': str(address_data.get('township', '')),
+                'street_address': str(address_data.get('street_address', '')).strip(),
+                'landmark': str(address_data.get('landmark', '')).strip(),
+                'mobile': str(address_data.get('mobile', '')).strip(),
+                'shipping_fee': float(address_data.get('shipping_fee', 0)),
+                'timestamp': int(time.time())
+            }
+
+            request.session['checkout_address_data'] = cleaned_address_data
+
+            # Add shop-specific session backup
+            shop_id = address_data.get('shop_id')
+            if shop_id:
+                shop_session_key = f'checkout_address_shop_{shop_id}'
+                request.session[shop_session_key] = cleaned_address_data
+
+            # Set session expiry if not already set (30 minutes)
+            if not request.session.get_expiry_age():
+                request.session.set_expiry(1800)  # 30 minutes
+
             request.session.modified = True
+
             return JsonResponse({'success': True})
+
+        except (json.JSONDecodeError, ValueError) as e:
+            return JsonResponse({'error': 'Invalid data format'}, status=400)
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=400)
+            return JsonResponse({'error': 'Failed to store address data'}, status=400)
+
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def calculate_shipping_fee_api(request):
@@ -1487,11 +1534,126 @@ def update_shop_cart(request):
 # Checkout View (With Specific Shop)
 stripe.api_key = settings.STRIPE_SECRET_KEY
 @login_required
+def shop_checkout_direct_view(request, sid):
+    """Direct address input checkout view - no cache dependencies"""
+    from django.utils import translation
+    from flame.models import ExchangeRate, MyanmarState, MyanmarCity, MyanmarTownship
+    from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
+    from decimal import Decimal
+
+    shop_views = Shop.objects.all()
+    current_language = translation.get_language()
+
+    try:
+        exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
+    except:
+        exchange_rate = Decimal('3000')
+
+    try:
+        # Get shop
+        shop = Shop.objects.get(shop_id=sid)
+
+        # Get cart data for this specific shop
+        cart_data = request.session.get('cart_data', {}).get(sid, {})
+
+        if not cart_data:
+            messages.warning(request, "Your cart is empty")
+            return redirect('flame:shop-cart')
+
+        # Calculate cart total
+        cart_total = Decimal('0')
+        for item in cart_data.values():
+            try:
+                price = Decimal(str(item['price']))
+                qty = int(item['qty'])
+                cart_total += price * qty
+            except (ValueError, TypeError, KeyError):
+                continue
+
+        # Create or get order
+        order, created = CartOrder.objects.get_or_create(
+            user=request.user,
+            shop=shop,
+            price=cart_total,
+            order_type='shop',
+            payment_status='pending'
+        )
+
+        # Get user's active address if exists
+        try:
+            active_address = request.user.address_set.filter(status=True).first()
+        except:
+            active_address = None
+
+        context = {
+            'shop_views': shop_views,
+            'shop': shop,
+            'order': order,
+            'cart_total': cart_total,
+            'cart_total_display': format_usd_currency(cart_total),
+            'cart_data': cart_data,
+            'sid': sid,
+            'exchange_rate': exchange_rate,
+            'is_myanmar': current_language == 'my',
+            'active_address': active_address,
+        }
+
+        # Add currency display for Myanmar users
+        if current_language == 'my':
+            cart_total_mmk = cart_total * exchange_rate
+            context['cart_total_mmk'] = format_myanmar_currency(cart_total_mmk)
+
+        return render(request, 'flame/checkout_direct_input.html', context)
+
+    except Shop.DoesNotExist:
+        messages.error(request, "Shop not found")
+        return redirect('flame:home')
+    except Exception as e:
+        messages.error(request, f"An error occurred: {str(e)}")
+        return redirect('flame:home')
+
+def check_offline_redirect(request):
+    """Check if request should be redirected to offline version"""
+    # Simple offline detection - can be enhanced with more sophisticated logic
+    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+
+    # Check for offline indicators
+    offline_indicators = [
+        request.GET.get('offline') == 'true',
+        request.session.get('force_offline'),
+        'offline' in user_agent
+    ]
+
+    return any(offline_indicators)
+
+def get_offline_redirect_url(original_path, shop_id=None):
+    """Get appropriate offline URL for given path"""
+    offline_routes = {
+        '/checkout/shop/': '/checkout/direct/',
+        '/payment/': '/checkout/direct/',
+        '/products/': '/offline/',
+        '/shop/': '/offline/',
+        '/search/': '/offline/',
+    }
+
+    for pattern, offline_url in offline_routes.items():
+        if original_path.startswith(pattern.replace('/', '')):
+            if shop_id and offline_url.endswith('/'):
+                return f"{offline_url.rstrip('/')}/{shop_id}/"
+            return offline_url
+
+    return '/offline/'
+
 def shop_checkout_view(request, sid):
     from django.utils import translation
     from flame.models import ExchangeRate, MyanmarState, MyanmarCity, MyanmarTownship
     from flame.utils.myanmar_utils import format_myanmar_currency, format_usd_currency, convert_to_myanmar_numerals
     from decimal import Decimal
+
+    # Check for offline redirect
+    if check_offline_redirect(request):
+        offline_url = get_offline_redirect_url(request.path, sid)
+        return redirect(offline_url)
     
     shop_views = Shop.objects.all()
     current_language = translation.get_language()
@@ -1587,6 +1749,7 @@ def shop_checkout_view(request, sid):
             'notify_url': request.build_absolute_uri(reverse("flame:paypal-ipn")),
             'return_url': request.build_absolute_uri(reverse("flame:payment-completed", args=[sid])),
             'cancel_url': request.build_absolute_uri(reverse("flame:payment-failed")),
+            'custom': sid,  # Pass shop_id for signal handler
         }
         
         paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
@@ -1702,17 +1865,27 @@ def shop_checkout_view(request, sid):
     
 
 #checkout stripe implementation
-@csrf_exempt
+@login_required
 def create_checkout_session(request, sid):
     from django.utils import translation
     from flame.models import ExchangeRate
-    
+
     try:
         shop = Shop.objects.get(shop_id=sid)
         user = request.user
         current_language = translation.get_language()
         exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
-        
+
+        # Check if user has minimum address data in session
+        address_data = request.session.get('checkout_address_data', {})
+        if not address_data or not all([
+            address_data.get('state'),
+            address_data.get('city')
+        ]):
+            return JsonResponse({
+                'error': 'Please select your state and city before proceeding with payment'
+            }, status=400)
+
         # Get cart data from session
         cart_data = request.session.get('cart_data', {}).get(sid, {})
         if not cart_data:
@@ -1729,7 +1902,7 @@ def create_checkout_session(request, sid):
                 from flame.utils.myanmar_utils import convert_to_myanmar_numerals
                 mmk_formatted = convert_to_myanmar_numerals(f"{mmk_price:,.0f}")
                 item_name = f"{item['title']} ({mmk_formatted} ကျပ်)"
-            
+
             line_items.append({
                 'price_data': {
                     'currency': 'usd',  # Always charge in USD
@@ -1740,15 +1913,36 @@ def create_checkout_session(request, sid):
                 },
                 'quantity': item['qty'],
             })
+
+        # Add shipping fee as a line item
+        shipping_fee_usd = float(address_data.get('shipping_fee', 0))
+        if shipping_fee_usd > 0:
+            shipping_name = "Shipping & Delivery"
+            if current_language == 'my':
+                shipping_mmk = Decimal(str(shipping_fee_usd)) * exchange_rate
+                from flame.utils.myanmar_utils import convert_to_myanmar_numerals
+                shipping_formatted = convert_to_myanmar_numerals(f"{shipping_mmk:,.0f}")
+                shipping_name = f"ပစ္စည်းပို့ခ ({shipping_formatted} ကျပ်)"
+
+            line_items.append({
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': shipping_name,
+                    },
+                    'unit_amount': int(shipping_fee_usd * 100),  # Convert to cents
+                },
+                'quantity': 1,
+            })
         
         # Create Stripe checkout session
-        checkout_session = stripe.checkout.Session.create(   
+        checkout_session = stripe.checkout.Session.create(
             customer_email=user.email,
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
             success_url=request.build_absolute_uri(
-                reverse('flame:payment-completed', args=[sid])
+                reverse('flame:stripe-payment-completed', args=[sid])
             ) + "?session_id={CHECKOUT_SESSION_ID}",
             cancel_url=request.build_absolute_uri(reverse('flame:payment-failed')),
             metadata={
@@ -1860,30 +2054,83 @@ def stripe_payment_completed_view(request, sid):
                 shipping_fee = float(address_data.get('shipping_fee', 0))
                 total_with_shipping = order_total + shipping_fee
 
-                # Build delivery address if available
+                # Build delivery address and get phone - with fallback to user profile
                 delivery_address = ""
-                if address_data:
+                delivery_phone = ""
+
+                # Extract mobile from session address data first
+                if address_data and address_data.get('mobile'):
+                    delivery_phone = str(address_data.get('mobile', '')).strip()
+
+                if address_data and address_data.get('state') and address_data.get('city'):
                     try:
                         from flame.models import MyanmarState, MyanmarCity, MyanmarTownship
-                        state = MyanmarState.objects.get(id=address_data.get('state')) if address_data.get('state') else None
-                        city = MyanmarCity.objects.get(id=address_data.get('city')) if address_data.get('city') else None
-                        township = MyanmarTownship.objects.get(id=address_data.get('township')) if address_data.get('township') else None
+
+                        # Get address components safely
+                        state = None
+                        city = None
+                        township = None
+
+                        try:
+                            state = MyanmarState.objects.get(id=address_data.get('state'))
+                            city = MyanmarCity.objects.get(id=address_data.get('city'))
+                            if address_data.get('township'):
+                                township = MyanmarTownship.objects.get(id=address_data.get('township'))
+                        except (MyanmarState.DoesNotExist, MyanmarCity.DoesNotExist, MyanmarTownship.DoesNotExist):
+                            # If lookup fails, use IDs as strings for basic info
+                            pass
 
                         parts = []
                         if address_data.get('street_address'):
                             parts.append(address_data.get('street_address'))
                         if township:
                             parts.append(township.name)
+                        elif address_data.get('township'):
+                            parts.append(f"Township ID: {address_data.get('township')}")
                         if city:
                             parts.append(city.name)
+                        elif address_data.get('city'):
+                            parts.append(f"City ID: {address_data.get('city')}")
                         if state:
                             parts.append(state.name)
+                        elif address_data.get('state'):
+                            parts.append(f"State ID: {address_data.get('state')}")
                         if address_data.get('landmark'):
                             parts.append(f"Near {address_data.get('landmark')}")
 
-                        delivery_address = ", ".join(parts)
+                        delivery_address = ", ".join(parts) if parts else "Address information available"
+
+                    except Exception as e:
+                        delivery_address = "Address information available"
+
+                # Fallback: Get address from user's profile if session data failed
+                if not delivery_address:
+                    try:
+                        from flame.models import Address
+                        active_address = Address.objects.get(user=request.user, status=True)
+                        address_parts = []
+                        if active_address.street_address:
+                            address_parts.append(active_address.street_address)
+                        if active_address.township:
+                            address_parts.append(active_address.township.name)
+                        if active_address.city:
+                            address_parts.append(active_address.city.name)
+                        if active_address.state:
+                            address_parts.append(active_address.state.name)
+
+                        delivery_address = ", ".join(address_parts) if address_parts else "User's default address"
+                        delivery_phone = active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else ""
                     except:
-                        pass  # If address lookup fails, use empty string
+                        delivery_address = "To be confirmed"
+
+                # Get phone number if not already set
+                if not delivery_phone:
+                    try:
+                        from flame.models import Address
+                        active_address = Address.objects.get(user=request.user, status=True)
+                        delivery_phone = active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else ""
+                    except:
+                        delivery_phone = "To be confirmed"
 
                 order = CartOrder.objects.create(
                     user=request.user,
@@ -1895,6 +2142,7 @@ def stripe_payment_completed_view(request, sid):
                     payment_method='stripe',
                     paid_status=True,
                     delivery_address=delivery_address,
+                    delivery_phone=delivery_phone,
                     stripe_payment_intent=session.payment_intent
                 )
                 
@@ -1913,12 +2161,9 @@ def stripe_payment_completed_view(request, sid):
                 if 'cart_data' in request.session and sid in request.session['cart_data']:
                     del request.session['cart_data'][sid]
                     request.session.modified = True
-                
-                return render(request, 'flame/payment-completed.html', {
-                    'shop_views': shop_views,
-                    'order': order,
-                    'shop': shop
-                })
+
+                # Redirect to the main payment completed view for consistent display
+                return redirect('flame:payment-completed', sid=sid)
         
         # If payment not successful
         messages.error(request, "Payment verification failed")
@@ -2051,6 +2296,68 @@ def shop_payment_completed_view(request, sid):
             del request.session['cart_data'][sid]
             request.session.modified = True
 
+        # Get delivery address - fallback to session data if not in order
+        delivery_address = order.delivery_address
+        delivery_phone = order.delivery_phone
+
+        if not delivery_address:
+            # Try to get address from session (for recent payments)
+            address_data = request.session.get('checkout_address_data', {})
+            if address_data and address_data.get('state') and address_data.get('city'):
+                try:
+                    from flame.models import MyanmarState, MyanmarCity, MyanmarTownship
+
+                    parts = []
+                    if address_data.get('street_address'):
+                        parts.append(address_data.get('street_address'))
+
+                    # Add city and state info
+                    try:
+                        if address_data.get('township'):
+                            township = MyanmarTownship.objects.get(id=address_data.get('township'))
+                            parts.append(township.name)
+                    except:
+                        pass
+
+                    try:
+                        city = MyanmarCity.objects.get(id=address_data.get('city'))
+                        parts.append(city.name)
+                    except:
+                        parts.append(f"City ID: {address_data.get('city')}")
+
+                    try:
+                        state = MyanmarState.objects.get(id=address_data.get('state'))
+                        parts.append(state.name)
+                    except:
+                        parts.append(f"State ID: {address_data.get('state')}")
+
+                    if address_data.get('landmark'):
+                        parts.append(f"Near {address_data.get('landmark')}")
+
+                    delivery_address = ", ".join(parts) if parts else "Address selected during checkout"
+                except:
+                    delivery_address = "Address selected during checkout"
+
+            # Fallback to user profile address
+            if not delivery_address:
+                try:
+                    from flame.models import Address
+                    active_address = Address.objects.get(user=request.user, status=True)
+                    addr_parts = []
+                    if active_address.street_address:
+                        addr_parts.append(active_address.street_address)
+                    if active_address.township:
+                        addr_parts.append(active_address.township.name)
+                    if active_address.city:
+                        addr_parts.append(active_address.city.name)
+                    if active_address.state:
+                        addr_parts.append(active_address.state.name)
+
+                    delivery_address = ", ".join(addr_parts) if addr_parts else "User's default address"
+                    delivery_phone = active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else delivery_phone
+                except:
+                    delivery_address = "Delivery address to be confirmed"
+
         context = {
             'shop_views': shop_views,
             'order': order,
@@ -2061,8 +2368,8 @@ def shop_payment_completed_view(request, sid):
             'order_total_display': order_total_display,
             'order_total_usd': order_total_usd,
             'order_id_display': order_id_display,
-            'delivery_address': order.delivery_address,
-            'delivery_phone': order.delivery_phone,
+            'delivery_address': delivery_address,
+            'delivery_phone': delivery_phone,
             'payment_method': order.get_payment_method_display(),
             'current_language': current_language,
             'exchange_rate': float(exchange_rate),
@@ -2151,6 +2458,7 @@ def cod_payment_view(request, sid):
         township_id = request.POST.get('township')
         street_address = request.POST.get('street_address')
         landmark = request.POST.get('landmark', '')
+        mobile = request.POST.get('mobile', '')
         shipping_fee = float(request.POST.get('shipping_fee', 0))
 
         if not all([state_id, city_id, street_address]):
@@ -2199,7 +2507,8 @@ def cod_payment_view(request, sid):
                 delivery_parts.append(f"Near {landmark}")
 
             delivery_address = ", ".join(delivery_parts)
-            delivery_phone = active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else "Not provided"
+            # Prioritize mobile from form over stored address
+            delivery_phone = mobile.strip() if mobile and mobile.strip() else (active_address.mobile if hasattr(active_address, 'mobile') and active_address.mobile else "Not provided")
 
         except (MyanmarState.DoesNotExist, MyanmarCity.DoesNotExist, MyanmarTownship.DoesNotExist):
             messages.error(request, _("Invalid delivery location selected"))
@@ -2273,12 +2582,18 @@ def customer_profile(request):
         messages.success(request, "Address Added Successfully")
         return redirect('flame:profile')
 
+    # Get recent login history for security section
+    recent_logins = getattr(request.user, 'login_history', None)
+    if recent_logins:
+        recent_logins = recent_logins.all()[:5]
+    else:
+        recent_logins = []
+
     context ={
         "shop_views": shop_views,
-
         "orders": orders,
-        "address":address,
-
+        "address": address,
+        "recent_logins": recent_logins,
     }
     return render(request, 'flame/profile.html', context)
 
@@ -2759,25 +3074,9 @@ def start_kbzpay(request, sid):
     return redirect(f"{frontend}?{qs}")
 
 
-@csrf_exempt
-def kbzpay_callback(request):
-    """
-    Receives server‑to‑server notification from 2C2P after the user completes payment.
-    """
-    payload = json.loads(request.body)
-    # 1. Validate signature
-    incoming_sig = request.headers.get("signature")
-    expected_sig = sign_pgw_payload(settings.KBZPAY["SECRET_KEY"], payload)
-    if not hmac.compare_digest(incoming_sig, expected_sig):
-        return HttpResponseBadRequest("Invalid signature")
-    # 2. Check transaction status
-    status = payload.get("status")  # e.g. 'SUCCESS'
-    invoice = payload.get("invoiceNo")
-    # 3. Update your order in DB
-    order = CartOrder.objects.get(pk=invoice)
-    order.status = "paid" if status == "SUCCESS" else "failed"
-    order.save()
-    return JsonResponse({"result":"OK"})
+# Use the imported kbzpay_callback from kbzpay_integration
+kbzpay_callback = kbzpay_payment_callback
+
 def FAQs(request):
     return render(request, 'footerComponents/FAQs.html')
 
@@ -3408,3 +3707,49 @@ def bulk_restock_view(request):
     }
     
     return render(request, 'flame/inventory/bulk-restock.html', context)
+
+# ================================ OFFLINE FUNCTIONALITY VIEWS ================================
+
+def offline_view(request):
+    """
+    Offline page view for PWA
+    Shows what users can do while offline
+    """
+    return render(request, 'flame/offline.html')
+
+def api_ping(request):
+    """
+    Simple ping endpoint for connection checking
+    Returns 200 OK if server is reachable
+    """
+    from django.http import JsonResponse
+
+    if request.method == 'HEAD':
+        # For HEAD requests, just return empty response
+        return JsonResponse({}, status=200)
+
+    return JsonResponse({
+        'status': 'ok',
+        'timestamp': time.time(),
+        'server': 'online'
+    })
+
+def force_offline_mode(request):
+    """
+    Force offline mode for testing
+    """
+    request.session['force_offline'] = True
+    return JsonResponse({
+        'status': 'offline_mode_enabled',
+        'message': 'Offline mode has been enabled'
+    })
+
+def force_online_mode(request):
+    """
+    Force online mode (disable offline mode)
+    """
+    request.session['force_offline'] = False
+    return JsonResponse({
+        'status': 'online_mode_enabled',
+        'message': 'Online mode has been enabled'
+    })

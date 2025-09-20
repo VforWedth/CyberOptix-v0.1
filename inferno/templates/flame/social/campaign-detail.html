@@ -600,7 +600,7 @@
 }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="document.write('<script src='{% static "assets/libs/chartjs/chart.min.js" %}'></script>')"></script>
 <script>
 // Progress Circle Chart
 const progressCtx = document.getElementById('progressChart').getContext('2d');

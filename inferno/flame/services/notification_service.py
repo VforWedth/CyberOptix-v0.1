@@ -4,6 +4,7 @@ from django.utils.html import strip_tags
 from django.conf import settings
 from django.utils import timezone
 from flame.models import EmailTemplate, EmailLog, User
+from django.db import models
 import logging
 
 logger = logging.getLogger(__name__)

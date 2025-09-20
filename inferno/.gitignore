@@ -1,5 +1,8 @@
 .env
 .codegpt
+.venv
+.qodo
+.claude
 sqlite_data_backup.json
 userauth_backup.json
 wishlist_data.json

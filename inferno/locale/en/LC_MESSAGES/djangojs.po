@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 15:43+0630\n"
+"POT-Creation-Date: 2025-09-20 00:20+0630\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\static\assets\js\function.js:27
+#: .\static\assets\js\function.js:60
 msgid "<p>Thank you for your review!</p>"
 msgstr ""
 
-#: .\static\assets\js\function.js:161
+#: .\static\assets\js\function.js:194
 msgid "Added to cart"
+msgstr ""
+
+#: .\static\assets\js\function.js:224 .\static\assets\js\function.js:320
+msgid "%(count)s items"
+msgstr ""
+
+#: .\static\assets\js\function.js:225 .\static\assets\js\function.js:321
+msgid "%(count)s item"
+msgstr ""
+
+#: .\static\assets\js\function.js:256
+msgid "You have %(items)s item from %(shops)s shop"
+msgstr ""
+
+#: .\static\assets\js\function.js:260
+msgid "You have %(items)s items from %(shops)s shops"
 msgstr ""

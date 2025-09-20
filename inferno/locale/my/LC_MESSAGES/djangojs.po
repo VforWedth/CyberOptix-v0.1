@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 15:43+0630\n"
-"PO-Revision-Date: 2025-08-20 15:51+0630\n"
+"POT-Creation-Date: 2025-09-20 00:20+0630\n"
+"PO-Revision-Date: 2025-09-20 00:25+0630\n"
 "Last-Translator:   <lorendrain47@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,10 +19,26 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.10.2\n"
 
-#: .\static\assets\js\function.js:27
+#: .\static\assets\js\function.js:60
 msgid "<p>Thank you for your review!</p>"
 msgstr "<p>သင့်၏သုံးသပ်ချက်အတွက်ကျေးဇူးတင်ပါသည်<p>"
 
-#: .\static\assets\js\function.js:161
+#: .\static\assets\js\function.js:194
 msgid "Added to cart"
 msgstr "ခြင်းတောင်းထဲသို့ထည့်ပြီးပါပြီ"
+
+#: .\static\assets\js\function.js:224 .\static\assets\js\function.js:320
+msgid "%(count)s items"
+msgstr "%(count)s ခု"
+
+#: .\static\assets\js\function.js:225 .\static\assets\js\function.js:321
+msgid "%(count)s item"
+msgstr "%(count)s ခု"
+
+#: .\static\assets\js\function.js:256
+msgid "You have %(items)s item from %(shops)s shop"
+msgstr "သင့်မှာ %(shops)s ဆိုင်မှ %(items)s ခုရှိပါသည်"
+
+#: .\static\assets\js\function.js:260
+msgid "You have %(items)s items from %(shops)s shops"
+msgstr "သင့်မှာ %(shops)s ဆိုင်များမှ %(items)s ခုရှိပါသည်"
