@@ -69,6 +69,20 @@ def create_paypal_payment_with_shipping(request, sid):
         if not request.session.get_expiry_age():
             request.session.set_expiry(7200)  # 2 hours
 
+        # Encode address data for PayPal custom field (URL-safe)
+        import base64
+        paypal_data = {
+            'state': str(state_id),
+            'city': str(city_id),
+            'township': str(township_id) if township_id else '',
+            'street_address': street_address.strip(),
+            'landmark': landmark.strip(),
+            'mobile': mobile.strip(),
+            'shipping_fee': shipping_fee
+        }
+        address_json = json.dumps(paypal_data)
+        address_encoded = base64.b64encode(address_json.encode()).decode()
+
         # Calculate total with shipping
         total_with_shipping = order_total + shipping_fee
 
@@ -87,7 +101,7 @@ def create_paypal_payment_with_shipping(request, sid):
             'notify_url': request.build_absolute_uri(reverse("flame:paypal-ipn")),
             'return_url': request.build_absolute_uri(reverse("flame:payment-completed", args=[sid])),
             'cancel_url': request.build_absolute_uri(reverse("flame:payment-failed")),
-            'custom': f"{sid}|{order_id}",  # Pass shop_id and order_id for signal handler
+            'custom': f"{sid}|{order_id}|{address_encoded}",  # Pass shop_id, order_id, and address data for signal handler
         }
 
         # Validate PayPal configuration
@@ -112,7 +126,8 @@ def create_paypal_payment_with_shipping(request, sid):
             'shipping_fee': shipping_fee,
             'subtotal': order_total,
             'mobile': mobile,
-            'order_id': order_id
+            'order_id': order_id,
+            'address_data': address_data  # Include for debugging
         })
 
     except Shop.DoesNotExist:

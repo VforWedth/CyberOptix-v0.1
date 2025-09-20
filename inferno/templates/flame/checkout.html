@@ -60,11 +60,13 @@
                     <input type="text"
                            value="{{ request.user.username|title }}"
                            placeholder="{% trans 'Name' %} *"
+                           data-field="name"
                            required>
 
                     <input type="text"
                            value="{% if active_address %}{{ active_address.mobile }}{% endif %}"
                            placeholder="{% trans 'Mobile' %}"
+                           data-field="mobile"
                            required>
 
                     <!-- Shipping Address Section -->
@@ -74,7 +76,7 @@
                         <!-- State Dropdown -->
                         <div class="address-field">
                             <label for="state-select">{% trans "State/Region" %} *</label>
-                            <select id="state-select" name="state" required>
+                            <select id="state-select" name="state" data-field="state" required>
                                 <option value="">{% trans "Select State/Region" %}</option>
                                 {% for state in myanmar_states %}
                                 <option value="{{ state.id }}"
@@ -92,7 +94,7 @@
                         <!-- City Dropdown -->
                         <div class="address-field">
                             <label for="city-select">{% trans "City/Town" %} *</label>
-                            <select id="city-select" name="city" required disabled>
+                            <select id="city-select" name="city" data-field="city" required disabled>
                                 <option value="">{% trans "Select City/Town" %}</option>
                             </select>
                         </div>
@@ -100,7 +102,7 @@
                         <!-- Township Dropdown -->
                         <div class="address-field">
                             <label for="township-select">{% trans "Township" %}</label>
-                            <select id="township-select" name="township" disabled>
+                            <select id="township-select" name="township" data-field="township" disabled>
                                 <option value="">{% trans "Select Township" %}</option>
                             </select>
                         </div>
@@ -111,6 +113,7 @@
                             <input type="text"
                                    id="street-address"
                                    name="street_address"
+                                   data-field="street-address"
                                    value="{% if active_address %}{{ active_address.street_address }}{% endif %}"
                                    placeholder="{% trans 'Building No, Street Name' %}">
                         </div>
@@ -121,6 +124,7 @@
                             <input type="text"
                                    id="landmark"
                                    name="landmark"
+                                   data-field="landmark"
                                    value="{% if active_address %}{{ active_address.landmark }}{% endif %}"
                                    placeholder="{% trans 'Near landmark for easy delivery' %}">
                         </div>
@@ -227,7 +231,7 @@
                     <div class="payment-method-options">
                         <!-- Cash on Delivery (Default) -->
                         <div class="payment-option">
-                            <input type="radio" id="cod-payment" name="payment_type" value="cod" checked>
+                            <input type="radio" id="cod-payment" name="payment_type" value="cod" data-payment-type="cod" checked>
                             <label for="cod-payment" class="payment-option-label">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <strong>{% trans "Cash on Delivery" %}</strong>
@@ -237,7 +241,7 @@
 
                         <!-- Online Payments -->
                         <div class="payment-option">
-                            <input type="radio" id="online-payment" name="payment_type" value="online" class="online-only">
+                            <input type="radio" id="online-payment" name="payment_type" value="online" data-payment-type="online" class="online-only">
                             <label for="online-payment" class="payment-option-label">
                                 <i class="fas fa-credit-card"></i>
                                 <strong>{% trans "Online Payments" %}</strong>
@@ -613,18 +617,20 @@
                 const shippingElement = document.getElementById('shipping-fee');
 
                 if (!cityId) {
-                    shippingElement.textContent = '{% trans "Please select city" %}';
+                    shippingElement.textContent = this.isMyanmar ? 'မြို့တော်ကို ရွေးချယ်ပေးပါ' : 'Please select city';
                     this.updateTotal(0);
                     return;
                 }
 
-                shippingElement.textContent = '{% trans "Calculating..." %}';
+                shippingElement.textContent = this.isMyanmar ? 'တွက်ချက်နေသည်...' : 'Calculating...';
 
                 fetch(`/api/calculate-shipping/?shop_id=${this.shopId}&customer_city_id=${cityId}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.error) {
-                            shippingElement.textContent = '{% trans "Error calculating shipping" %}';
+                            shippingElement.textContent = this.isMyanmar ?
+                                'ပို့ဆောင်ခ တွက်ချက်ရာတွင် အမှားအယွင်း' :
+                                'Error calculating shipping';
                             this.updateTotal(0);
                             return;
                         }
@@ -645,9 +651,13 @@
                         }
 
                         // Update total with shipping
-                        const shippingFee = this.isMyanmar ? data.shipping_fee_mmk : data.shipping_fee_usd;
-                        this.currentShippingFee = shippingFee; // Store for form submission
-                        this.updateTotal(shippingFee);
+                        if (this.isMyanmar) {
+                            this.currentShippingFee = data.shipping_fee_mmk;
+                            this.updateTotal(data.shipping_fee_mmk); // Always pass MMK in Myanmar mode
+                        } else {
+                            this.currentShippingFee = data.shipping_fee_usd;
+                            this.updateTotal(data.shipping_fee_usd); // Always pass USD in English mode
+                        }
                         this.storeAddressData(); // Update stored address data
                     })
                     .catch(error => {
@@ -661,23 +671,25 @@
                                 shippingElement.innerHTML = `
                                     ${shipping.mmk.toLocaleString()} ကျပ် (${shipping.description})
                                     <br><small class="text-warning">
-                                        <i class="fas fa-wifi-slash"></i> {% trans "Estimated shipping (offline)" %}
+                                        <i class="fas fa-wifi-slash"></i> ခန့်မှန်းခြေ ပို့ဆောင်ခ (အော့ဖ်လိုင်း)
                                     </small>
                                 `;
                                 this.currentShippingFee = shipping.mmk;
+                                this.updateTotal(shipping.mmk); // Pass MMK value directly
                             } else {
                                 shippingElement.innerHTML = `
                                     $${shipping.usd} (${shipping.description})
                                     <br><small class="text-warning">
-                                        <i class="fas fa-wifi-slash"></i> {% trans "Estimated shipping (offline)" %}
+                                        <i class="fas fa-wifi-slash"></i> Estimated shipping (offline)
                                     </small>
                                 `;
                                 this.currentShippingFee = shipping.usd;
+                                this.updateTotal(shipping.usd); // Pass USD value directly
                             }
-
-                            this.updateTotal(this.currentShippingFee);
                         } else {
-                            shippingElement.textContent = '{% trans "Error calculating shipping" %}';
+                            shippingElement.textContent = this.isMyanmar ?
+                                'ပို့ဆောင်ခ တွက်ချက်ရာတွင် အမှားအယွင်း' :
+                                'Error calculating shipping';
                             this.updateTotal(0);
                         }
                     });
@@ -746,8 +758,12 @@
                         document.getElementById('cod-township').value = document.getElementById('township-select').value || '';
                         document.getElementById('cod-street-address').value = document.getElementById('street-address').value;
                         document.getElementById('cod-landmark').value = document.getElementById('landmark').value;
-                        document.getElementById('cod-shipping-fee').value = this.currentShippingFee;
-                        const mobileInput = document.querySelector('input[placeholder*="Mobile"]');
+                        // For COD, use the appropriate currency based on user's preference
+                        const codShippingFee = this.isMyanmar ?
+                            (this.addressData.shipping_fee_mmk || this.currentShippingFee) :
+                            (this.addressData.shipping_fee || this.currentShippingFee);
+                        document.getElementById('cod-shipping-fee').value = codShippingFee;
+                        const mobileInput = document.querySelector('[data-field="mobile"]');
                         if (mobileInput) {
                             document.getElementById('cod-mobile').value = mobileInput.value;
                         }
@@ -762,7 +778,7 @@
                         // Validate required fields
                         if (!document.getElementById('cod-state').value || !document.getElementById('cod-city').value) {
                             e.preventDefault();
-                            alert('{% trans "Please select your state and city before placing the order." %}');
+                            this.showValidationError('address_required');
                             return false;
                         }
                     });
@@ -773,6 +789,13 @@
             },
 
             storeAddressData: function() {
+                // Calculate shipping fee in USD for PayPal/Stripe (always USD)
+                let shippingFeeUSD = this.currentShippingFee;
+                if (this.isMyanmar) {
+                    // Convert MMK to USD for international payments
+                    shippingFeeUSD = this.currentShippingFee / this.exchangeRate;
+                }
+
                 // Collect current address data
                 this.addressData = {
                 state: document.getElementById('state-select').value,
@@ -780,8 +803,9 @@
                 township: document.getElementById('township-select').value || '',
                 street_address: document.getElementById('street-address').value,
                 landmark: document.getElementById('landmark').value,
-                mobile: document.querySelector('input[placeholder*="Mobile"]').value || '',
-                shipping_fee: this.currentShippingFee,
+                mobile: document.querySelector('[data-field="mobile"]').value || '',
+                shipping_fee: parseFloat(shippingFeeUSD.toFixed(2)), // Always store USD for international payments
+                shipping_fee_mmk: this.isMyanmar ? this.currentShippingFee : Math.round(this.currentShippingFee * this.exchangeRate), // Also store MMK for COD
                 shop_id: this.shopId
                 };
                 
@@ -906,60 +930,117 @@
                 }, 3000);
             },
 
-            // Calculate offline shipping based on city data
+            // Offline shipping calculation matching database rates
             calculateOfflineShipping: function(cityId) {
                 if (!this.offlineAddressData || !cityId) {
                     return {
-                        usd: 5,
-                        mmk: 5 * this.exchangeRate,
+                        usd: 1.00,
+                        mmk: 3000,
                         description: 'estimated'
                     };
                 }
 
                 // Find the city in offline data
                 let city = null;
-                let stateName = '';
-                for (const state of this.offlineAddressData.states) {
-                    city = state.cities.find(c => c.id == cityId);
+                let state = null;
+                for (const s of this.offlineAddressData.states) {
+                    city = s.cities.find(c => c.id == cityId);
                     if (city) {
-                        stateName = state.name;
+                        state = s;
                         break;
                     }
                 }
 
                 if (!city) {
                     return {
-                        usd: 5,
-                        mmk: 5 * this.exchangeRate,
+                        usd: 1.00,
+                        mmk: 3000,
                         description: 'estimated'
                     };
                 }
 
-                // Shipping calculation based on city type and location
-                let shippingUSD = 3; // Base shipping
+                // Use same logic as backend API to ensure consistency
+                let shippingMMK = 3000; // Default: 3,000 MMK
+                let shippingUSD = 1.00;  // Default: $1.00
                 let description = 'standard';
 
-                // Major cities get cheaper shipping
-                if (city.is_major_city) {
-                    shippingUSD = 2;
+                // Check if we can determine same city/state logic
+                // Note: In offline mode, we can't know shop location, so use conservative defaults
+
+                // Major cities get slightly better rates (same as backend "same city" logic)
+                const majorCities = ['Yangon', 'Mandalay', 'Naypyidaw', 'Nay Pyi Taw'];
+                if (majorCities.some(major => city.name.includes(major) || city.name_mm?.includes(major))) {
+                    shippingMMK = 1000;  // Same as backend "same city" rate
+                    shippingUSD = 0.30;
                     description = 'major city';
-                } else {
-                    // Different rates for different regions
-                    const remoteStates = ['Chin', 'Kachin', 'Shan', 'Kayah', 'Kayin'];
-                    if (remoteStates.includes(stateName)) {
-                        shippingUSD = 7;
-                        description = 'remote area';
-                    } else {
-                        shippingUSD = 4;
-                        description = 'standard';
-                    }
+                }
+                // Remote areas get higher rates (same as backend "different state" logic)
+                else if (['Chin', 'Kachin', 'Shan', 'Kayah', 'Kayin', 'Rakhine', 'Tanintharyi'].includes(state.name)) {
+                    shippingMMK = 5000;  // Same as backend "different state" rate
+                    shippingUSD = 1.50;
+                    description = 'remote area';
+                }
+                // All other areas use default rate (same as backend "same state" logic)
+                else {
+                    shippingMMK = 3000;  // Same as backend "same state" rate
+                    shippingUSD = 1.00;
+                    description = 'standard';
                 }
 
                 return {
                     usd: shippingUSD,
-                    mmk: shippingUSD * this.exchangeRate,
+                    mmk: shippingMMK,
                     description: description
                 };
+            },
+
+            // Language-agnostic alert system
+            showValidationError: function(errorType) {
+                const messages = {
+                    'address_required': {
+                        'en': 'Please select your state and city before placing the order.',
+                        'my': 'အမှာစာမတင်မီ ပြည်နယ်နှင့် မြို့တော်ကို ရွေးချယ်ပေးပါ။'
+                    },
+                    'street_required': {
+                        'en': 'Please enter your street address.',
+                        'my': 'လမ်းလိပ်စာကို ထည့်သွင်းပေးပါ။'
+                    }
+                };
+
+                const language = this.isMyanmar ? 'my' : 'en';
+                const message = messages[errorType][language];
+                alert(message);
+            },
+
+            showOfflineOrderSuccess: function() {
+                const successMessage = document.createElement('div');
+                successMessage.className = 'alert alert-success mt-3';
+
+                if (this.isMyanmar) {
+                    successMessage.innerHTML = `
+                        <h5><i class="fas fa-check-circle"></i> အမှာစာ အောင်မြင်စွာ တင်ပြီးပါပြီ!</h5>
+                        <p>သင့် Cash on Delivery အမှာစာကို သိမ်းဆည်းထားပြီး အွန်လိုင်းပြန်ရောက်သောအခါ အလိုအလျောက် တင်သွင်းပေးပါမည်။</p>
+                        <ul class="mb-0">
+                            <li>ချိတ်ဆက်မှု ပြန်လည်ရရှိသောအခါ အမှာစာကို လုပ်ဆောင်ပါမည်</li>
+                            <li>တင်သွင်းပြီးပါက အတည်ပြုချက် ရရှိပါမည်</li>
+                            <li>တောင်းဆိုထားသည့်အတိုင်း ပေးပို့သည့်အခါ ငွေပေးချေမည်</li>
+                        </ul>
+                    `;
+                } else {
+                    successMessage.innerHTML = `
+                        <h5><i class="fas fa-check-circle"></i> Order Placed Successfully!</h5>
+                        <p>Your Cash on Delivery order has been saved and will be submitted automatically when you're back online.</p>
+                        <ul class="mb-0">
+                            <li>Order will be processed when connection is restored</li>
+                            <li>You'll receive confirmation once submitted</li>
+                            <li>Payment on delivery as requested</li>
+                        </ul>
+                    `;
+                }
+
+                const codSection = document.getElementById('cod-payment-section');
+                codSection.appendChild(successMessage);
+                successMessage.scrollIntoView({ behavior: 'smooth' });
             },
 
             // Handle offline COD submission
@@ -970,12 +1051,12 @@
                 const streetAddress = document.getElementById('street-address').value;
 
                 if (!state || !city) {
-                    alert('{% trans "Please select your state and city before placing the order." %}');
+                    this.showValidationError('address_required');
                     return;
                 }
 
                 if (!streetAddress.trim()) {
-                    alert('{% trans "Please enter your street address." %}');
+                    this.showValidationError('street_required');
                     return;
                 }
 
@@ -994,8 +1075,8 @@
                     shipping_fee: this.currentShippingFee,
                     cart_data: JSON.parse(sessionStorage.getItem('cart_data') || '{}'),
                     timestamp: new Date().toISOString(),
-                    customer_name: document.querySelector('input[placeholder*="Name"]').value,
-                    customer_mobile: document.querySelector('input[placeholder*="Mobile"]').value
+                    customer_name: document.querySelector('[data-field="name"]').value,
+                    customer_mobile: document.querySelector('[data-field="mobile"]').value
                 };
 
                 // Save to offline manager
@@ -1005,35 +1086,21 @@
 
                 // Update button state
                 const submitBtn = document.getElementById('cod-submit-btn');
+                const buttonText = this.isMyanmar ?
+                    'အမှာစာ တန်းစီထားပြီး (အော့ဖ်လိုင်း)' :
+                    'Order Queued (Offline)';
                 submitBtn.innerHTML = `
                     <i class="fas fa-clock me-2"></i>
-                    {% trans "Order Queued (Offline)" %}
+                    ${buttonText}
                 `;
                 submitBtn.disabled = true;
                 submitBtn.classList.replace('btn-success', 'btn-warning');
 
                 // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'alert alert-success mt-3';
-                successMessage.innerHTML = `
-                    <h5><i class="fas fa-check-circle"></i> {% trans "Order Placed Successfully!" %}</h5>
-                    <p>{% trans "Your Cash on Delivery order has been saved and will be submitted automatically when you're back online." %}</p>
-                    <ul class="mb-0">
-                        <li>{% trans "Order will be processed when connection is restored" %}</li>
-                        <li>{% trans "You'll receive confirmation once submitted" %}</li>
-                        <li>{% trans "Payment on delivery as requested" %}</li>
-                    </ul>
-                `;
-
-                // Add success message
-                const codSection = document.getElementById('cod-payment-section');
-                codSection.appendChild(successMessage);
+                this.showOfflineOrderSuccess();
 
                 // Clear cart
                 sessionStorage.removeItem(`cart_data`);
-
-                // Scroll to success message
-                successMessage.scrollIntoView({ behavior: 'smooth' });
             }
         };
 
@@ -1090,26 +1157,30 @@
             // Initialize Address System
             addressSystem.init();
 
-            // Payment method switching functionality
-            const onlineRadio = document.getElementById('online-payment');
-            const codRadio = document.getElementById('cod-payment');
+            // Payment method switching functionality - Language agnostic
+            const onlineRadio = document.querySelector('input[data-payment-type="online"]');
+            const codRadio = document.querySelector('input[data-payment-type="cod"]');
             const onlineSection = document.getElementById('online-payment-section');
             const codSection = document.getElementById('cod-payment-section');
-            
+
             function switchPaymentMethod() {
-                if (onlineRadio.checked) {
+                if (onlineRadio && onlineRadio.checked) {
                     onlineSection.style.display = 'block';
                     codSection.style.display = 'none';
-                } else if (codRadio.checked) {
+                } else if (codRadio && codRadio.checked) {
                     onlineSection.style.display = 'none';
                     codSection.style.display = 'block';
                 }
             }
-            
-            // Add event listeners
-            onlineRadio.addEventListener('change', switchPaymentMethod);
-            codRadio.addEventListener('change', switchPaymentMethod);
-            
+
+            // Add event listeners with null checks
+            if (onlineRadio) {
+                onlineRadio.addEventListener('change', switchPaymentMethod);
+            }
+            if (codRadio) {
+                codRadio.addEventListener('change', switchPaymentMethod);
+            }
+
             // Initialize with default selection
             switchPaymentMethod();
             
