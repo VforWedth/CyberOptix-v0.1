@@ -1,0 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+	font-family: 'Poppins', sans-serif;
+}
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #95A1A1;
+    padding-top: 60px;
+}
+ /* Navbar Styles */
+ .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: #4A5C6A;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Logo styling */
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.navbar .logo i {
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+/* Navbar links */
+.navbar nav {
+    display: flex;
+    gap: 25px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.navbar nav a i {
+    margin-right: 8px;
+}
+
+/* Menu icon for mobile view */
+.navbar .menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    /* Hide the navbar links on smaller screens */
+    .navbar nav {
+        display: none;
+    }
+
+    /* Show the menu icon */
+    .navbar .menu-icon {
+        display: block;
+        color: white;
+    }
+}
+#cartButton {
+    background: none;
+    border: none;
+    color: #95A1A1;
+}
+#sidebar {
+	width: 220px;
+	padding-top: 60px;
+	position: fixed;
+    background: #6d8080;
+	height: 100%;
+	box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    top: 10px;
+    left: 0;
+    height: 100%;
+    
+}
+
+#sidebar .button-value {
+	display: block;
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0;
+	text-align: left;
+	background:  #6d8080;
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	color: black;
+}
+
+#sidebar a {
+    color: #293036;
+    text-decoration: none;
+    font-size: 16px;
+    display: block; /* Makes each link occupy its own line */
+    margin-bottom: 2px; /* Adjust space between links */
+    padding: 5px; /* Optional: Add padding inside each link for better spacing */
+    border: 2px solid transparent; /* Invisible border initially */
+    border-radius: 5px; /* Optional: rounded corners */
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transition for styles */
+    font-weight: bold; 
+}
+
+#sidebar a:hover {
+    text-decoration: none; /* Removes underline on hover */
+    color: rgb(62, 79, 76); /* Changes color on hover */
+    background-color: #afbcc5; /* Changes background color on hover */
+}
+
+#sidebar a:active {
+    background-color: #4A5C6A; /* Light blue background on click */
+    color: white; /* White text color when clicked */
+    border-color: #7a8f99; /* Border color on click */
+}
+        
+.selected-item {
+    color: white; /* Text color for the selected item */
+    background-color: #4A5C6A; /* Highlight background color */
+    border-radius: 4px; /* Optional: rounded corners for better design */
+    padding: 2px 5px; /* Optional: spacing for the highlight effect */
+}
+.product-container {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: #fff;
+    text-align: center;
+    color:red;
+}
+
+.product-container img {
+    width: 100%;
+    height: auto;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #333;
+    color:red;
+
+}
+
+.cartButton {
+    background-color: #6d8080;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.cartButton:hover {
+    color: #3b71dc;
+	background-color: white;
+	border: 2px solid
+}
+
+
+
+.total-price-container {
+    padding-top: 20px;
+}
+
+
+#navbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	place-items: center;
+	width: 100%;
+	padding: 12px;
+}
+#navbar-logo img {
+	width: 100px;
+	height: 50px;
+	margin-left: 10px;
+}
+#navbar #cartButton {
+	margin-right: 30px;
+}
+
+
+#buttons {
+	margin-top: 15px;
+	margin-left: 20px;
+}
+/* Rectangle frame around the content */
+.frame-container {
+    width: 35%; /* Adjust width as needed */
+    height: auto;
+    margin: 0px auto;
+    padding: 0;
+    border: 2px solid #b6c8c8; /* Border for the rectangle */
+    border-radius: 10px; /* Optional: rounded corners */
+    background-color:#b6c8c8;/* Background color */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for the frame */
+    gap: 10px; /* Adjust this value to increase/decrease space between items */
+}
+
+.count-container {
+    font-weight: bold;
+}
+
+.container {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-left: 16%;
+    gap: 1px; /* Adjust this value to increase/decrease space between items */
+}
+.product-items {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 80%;
+}
+.product-items a {
+	text-decoration: none;
+}
+.product-container {
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	margin: 10px;
+	width:200px;
+	height: 350px;
+	background :rgb(231,238,252);;
+	border: none;
+	transition: ease .5s;
+	margin-bottom: 15px;
+	margin-top: 2%;
+}
+.product-container:hover {
+	transform: scale(1.1);
+}
+.product-container .img-container{
+	height: 198px;
+}
+.product-container img {
+/*	width: 180px;
+	height: 200px;*/
+	max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.product-container span {
+	margin-bottom: 0px;
+	margin-top: 5px;
+	font-size: 16px;
+}
+.product-container p {
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+.product-price {
+	font-size: 23px;
+	font-weight: 600;
+}
+.cartButton {
+	background-color: #6d8080;
+	border-radius: 10px;
+	border: none;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: ease .5s;
+}
+.cartButton:hover {
+	transform: scale(1.1);
+}
+
+.carts-container {
+	padding: 5px 10px;
+	width: 400px;
+    margin-left: 0%;
+    
+}
+
+.display-toggle {
+	display: none;
+	width: 0px;
+}
+#cartButton {
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+.cart-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    border: 1px solid rgb(203, 203, 203);
+    padding: 0rem 1rem;
+    margin: 0.3rem 0;
+    background-color: white;
+}
+.cart-detail {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 60%;
+}
+.mid {
+    display: flex;
+    align-items: center;
+}
+.mid button {
+	border: none;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    margin: 0.6rem;
+    transition: 0.1s ease-in-out;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0;
+    background-color: white;
+    color: gray;
+}
+.mid p {
+    padding: 0.3rem 0.8rem;
+    background-color: rgb(203, 203, 203);
+    border-radius: 0.3rem;
+    margin: 0 0.5rem;
+    font-weight: 500;
+}
+
+/* TOTAL-ITEMS AND TOTAL-PRICE */
+.container-3{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.count-container,.total-price-container {
+	font-size: 20px;
+	font-weight: 500;
+}
+/* to toggle selected prduct display */
+.hide {
+  display: none;
+}
+/* Gradient transparent - color - transparent */
+
+hr {
+    color: gray;
+    margin: 0.5rem 0;
+}
+/* category section toggle active  */
+
+.button-value {
+  border: 2px solid  #6d8080;
+  padding: 1em 2.2em;
+  border-radius: 3em;
+  background-color: #6d8080;
+  color:  #6d8080;
+  cursor: pointer;
+}
+.active {
+  background-color: #6d8080;
+  color: #ffffff;
+}
+.buy-now {
+	margin-left: 140px;
+	background-color: #6d8080;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.buy-now:hover {
+	color: #3b71dc;
+	background-color: white;
+	border: 2px solid;
+}
+/*footer*/
+
+body {
+    display: flex;
+    flex-direction: column; /* Ensures vertical layout */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #95A1A1;
+    padding-top: 60px;
+    min-height: 100vh; /* Ensures body spans the viewport height */
+}
+
+main {
+    flex: 1; /* Takes up available space to push footer down */
+}
+
+
+/*footer next*/
+footer {
+    background-color: #CCD0Cf;
+    color: #4A5C6A;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+    margin-top: auto; /* Keeps footer at the bottom */
+    width: 80vw; /* Ensures the footer spans the full width */
+    height: auto; /* Dynamically adjusts height based on content */
+    box-sizing: border-box; /* Includes padding in width calculation */
+    margin: 0; /* Removes any extra space on the sides */
+    margin-left: 18%;
+}
+
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1100px; /* Restricts content width for a cleaner layout */
+    margin: 0 auto; /* Centers the footer content */
+
+}
+
+.footer-links h4, .footer-contact h4 {
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li, .footer-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer-contact p {
+    line-height: 1.5;
+}
+.footer-links a {
+    text-decoration: none; /* Removes underline */
+    color: #4A5C6A; /* Sets the link color */
+    transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icons a {
+    margin-right: 15px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+

@@ -1,0 +1,14 @@
+acer Swift Go 16-2024 New Laptop - 16" WUXGA IPS - Touchscreen 16-Core Intel Ultra 9 185H - 32GB LPDDR5 1TB SSD - Intel ARC Graphics Thunderbolt 4 - Backlit Keyboard - Fingerprint - Win11 Home
+
+Brand	acer
+Model Name	Swift Go 16
+Screen Size	16 Inches
+Color	Steel Gray
+Hard Disk Size	1 TB
+CPU Model	Intel Core i9
+Ram Memory Installed Size	32 GB
+Operating System	Windows 11 Home
+Special Feature	Fingerprint Reader, Backlit Keyboard, Anti Glare Coating, Memory Card Slot, Numeric Keypad
+Graphics Card Description	Integrated
+
+Price - $897.49

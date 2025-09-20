@@ -1,0 +1,14 @@
+Lenovo ThinkPad P14s Gen 4 AMD 14" Laptop (2023 Model) - AMD Ryzen 7 PRO 7840U 8-Core, AMD Radeon 780M, 64GB RAM, 1TB M.2 NVMe SSD, 14.0" 2.8K OLED 400-Nits, Windows 11 Pro, Workstation 
+
+Brand 	Lenovo
+Model Name 	ThinkPad P14s Gen 4 AMD
+Screen Size 	14 Inches
+Color 	Black
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 7
+Ram Memory Installed Size 	64 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Backlit Keyboard
+Graphics Card Description 	Integrated
+
+Price - $1,199.99

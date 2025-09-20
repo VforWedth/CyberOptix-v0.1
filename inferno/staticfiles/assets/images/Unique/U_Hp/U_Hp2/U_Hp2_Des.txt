@@ -1,0 +1,15 @@
+
+HP Elitebook 665 G11 16" FHD+ Business Laptop Computer, Hexa-Core AMD Ryzen 5 7535U (Beat i5-1335U), 32GB DDR5 RAM, 1TB PCIe SSD, WiFi 6E, Backlit KB, Fingerprint Reader, Windows 11 Pro, Vent-Hear
+
+Brand 	HP
+Model Name 	Elitebook
+Screen Size 	16 Inches
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 5
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Pro
+Special Feature 	HD Audio
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	AMD Radeon Graphics
+
+Price - $769.00

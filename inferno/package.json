@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@paypal/paypal-js": "^8.2.0",
+    "jspdf": "^3.0.1"
+  }
+}

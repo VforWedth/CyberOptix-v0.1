@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Notifications - Laptop Sale</title>
+  <style>
+    /* Reset and Base Styles */
+
+
+    .containera {
+      max-width: 1500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .filtersa {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .filtersa button {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid #4a5c6a;
+      border-radius: 8px;
+      color: #4a5c6a;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filtersa button.active,
+    .filtersa button:hover {
+      background-color: #4a5c6a;
+      color: #fff;
+    }
+
+    .notification-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-left: 5px solid #4a5c6a;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .notification-card.unread {
+      background-color: #e8eff5;
+      border-left-color: #3498db;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #2c3e50;
+    }
+
+    .notification-body {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .notification-footer {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mark-read {
+      background: none;
+      border: none;
+      color: #3498db;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #e74c3c;
+      color: #fff;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .filters {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+  <div class="containera">
+    <h2>🔔 Admin Notifications</h2>
+
+    <div class="filtersa">
+      <button class="active" onclick="filterNotifications('all')">All</button>
+      <button onclick="filterNotifications('order')">Orders</button>
+      <button onclick="filterNotifications('message')">Messages</button>
+      <button onclick="filterNotifications('system')">System</button>
+      <button onclick="filterNotifications('stock')">Stock</button>
+    </div>
+
+    <!-- Notification Cards -->
+    <div class="notification-card unread" data-type="order">
+      <div class="badge">New</div>
+      <div class="notification-title">🛒 New Order Received</div>
+      <div class="notification-body">Order #10432 placed by Alice Johnson. Awaiting confirmation.</div>
+      <div class="notification-footer">
+        <span>5 mins ago</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+
+    <div class="notification-card" data-type="system">
+      <div class="notification-title">⚙️ Server Maintenance</div>
+      <div class="notification-body">System maintenance scheduled for Aug 25, 2AM - 4AM UTC.</div>
+      <div class="notification-footer">
+        <span>1 day ago</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+
+    <div class="notification-card unread" data-type="stock">
+      <div class="badge">Low</div>
+      <div class="notification-title">📦 Low Stock Alert</div>
+      <div class="notification-body">HP Pavilion 15 (SKU: HPX15) has less than 5 items in stock.</div>
+      <div class="notification-footer">
+        <span>30 mins ago</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+
+    <div class="notification-card unread" data-type="message">
+      <div class="badge">New</div>
+      <div class="notification-title">📩 Customer Message</div>
+      <div class="notification-body">“Hi, when will my laptop ship?” — from Mark D.</div>
+      <div class="notification-footer">
+        <span>10 mins ago</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function markAsRead(button) {
+      const card = button.closest('.notification-card');
+      card.classList.remove('unread');
+      const badge = card.querySelector('.badge');
+      if (badge) badge.remove();
+      button.remove();
+    }
+
+    function filterNotifications(type) {
+      const allButtons = document.querySelectorAll('.filtersa button');
+      allButtons.forEach(btn => btn.classList.remove('active'));
+
+      const activeBtn = Array.from(allButtons).find(btn =>
+        btn.textContent.toLowerCase().includes(type)
+      );
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const allCards = document.querySelectorAll('.notification-card');
+
+      allCards.forEach(card => {
+        if (type === 'all') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = card.dataset.type === type ? 'block' : 'none';
+        }
+      });
+    }
+  </script>
+
+</html>

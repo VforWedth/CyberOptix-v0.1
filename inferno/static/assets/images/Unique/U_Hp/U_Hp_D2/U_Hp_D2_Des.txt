@@ -1,0 +1,14 @@
+HP 24" All-in-One Desktop, AMD Athlon Silver 3050U Processor, AMD Radeon Graphics, 8 GB RAM, 256 GB SSD, Windows 11 Home (24-dd0210, Snow white)  
+
+Brand 	HP
+Operating System 	Windows 11 Home
+CPU Model 	Athlon Silver 3050U
+CPU Speed 	2.3 GHz
+Cache Size 	4
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	AMD Radeon Graphics
+Memory Storage Capacity 	256 GB
+Memory Slots Available 	1
+Specific Uses For Product 	Personal, Gaming, Business
+
+Price - $519.00

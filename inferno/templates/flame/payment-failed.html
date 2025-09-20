@@ -1,0 +1,102 @@
+{% extends 'partials/base.html' %}
+{% load math_filters %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* Add error-specific styles */
+    .payment-error {
+        color: #dc3545;
+        border-left: 4px solid #dc3545;
+        padding-left: 20px;
+        margin: 25px 0;
+    }
+    
+    .error-icon {
+        font-size: 3rem;
+        color: #dc3545;
+        margin-bottom: 15px;
+    }
+    
+    .alert-button {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+    }
+    
+    .alert-button:hover {
+        background-color: #bb2d3b !important;
+        border-color: #b02a37 !important;
+    }
+    
+    .troubleshoot-list {
+        background-color: #fff5f5;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 25px 0;
+    }
+    
+    .troubleshoot-list li {
+        margin: 10px 0;
+        color: #842029;
+    }
+    .troubleshoot-list h3{
+        color: #842029;
+
+    }
+</style>
+
+<main>
+    <div class="text-center">
+        <div class="error-icon">⚠️</div>
+        <h1>PAYMENT FAILED</h1>
+        {% if order.order_type == 'shop' %}
+        <div class="payment-error">
+            <p>Transaction ID: {{ order.id }}</p>
+            <p>Attempted payment to: {{ order.shop.title }}</p>
+            <p>Shop PayPal: {{ order.shop.paypal_email }}</p>
+        </div>
+        {% else %}
+        <div class="payment-error">
+            <h2>General Order Payment Failed</h2>
+        </div>
+        {% endif %}
+    </div>
+
+
+
+    <div class="troubleshoot-list">
+        <h3>Need Help?</h3>
+        <ul>
+            <li>Check if your payment method has sufficient funds</li>
+            <li>Verify your card details are entered correctly</li>
+            <li>Ensure your card hasn't expired</li>
+            <li>Contact your bank for authorization issues</li>
+            <li>Try using a different payment method</li>
+        </ul>
+    </div>
+{% comment %} 
+    <div class="invoice-info">
+        <h3>Order Information</h3>
+        <p><strong>Attempted by:</strong> {{ request.user|title }}</p>
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Date:</strong> {{ order.order_date|date:"F j, Y H:i" }}</p>
+    </div> {% endcomment %}
+{% comment %} 
+    <div class="button-container" id="buttonContainer">
+        <a href="#" class="btn alert-button">Retry Payment</a>
+        <a href="#" class="btn">Contact Support</a>
+    </div> {% endcomment %}
+
+    <div class="hr"></div>
+
+    <div class="text-center">
+        <p style="color: #333;">
+            <strong>Need immediate assistance?</strong><br>
+            Call us at +1 (800) 123-4567 or email support@cyberoptix.com
+        </p>
+    </div>
+</main>
+
+<br><br><br>
+<hr>
+{% endblock content %}

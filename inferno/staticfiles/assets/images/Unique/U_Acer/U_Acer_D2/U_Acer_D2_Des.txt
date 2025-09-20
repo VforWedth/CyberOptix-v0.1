@@ -1,0 +1,25 @@
+
+acer Nitro 50 N50-656-UR12 Gaming Desktop | Intel Core i5-14400F 10-Core Processor | NVIDIA GeForce RTX 3050 | 16GB DDR5 5600MHz | 1TB PCIe Gen 4 SSD | Intel Wi-Fi 6E AX211 | Windows 11 Home
+
+Brand 	acer
+Operating System 	Windows 11 Home
+CPU Model 	Core i5
+CPU Speed 	1.8 GHz
+Graphics Card Description 	Dedicated
+Graphics Coprocessor 	Nvidia Ge Force Rtx 3050
+Memory Storage Capacity 	1 TB
+Memory Slots Available 	1 or 2
+Specific Uses For Product 	Multimedia, Everyday Use, Gaming
+Personal computer design type 	Computer Tower\
+
+ About this item
+
+    BUILT TO CONQUER: The fiery-accented, black metal Nitro 50 gaming PC is all the fuel you need for those high frame, lag-free game sessions. Go on and switch settings to ultra with an injection of the Intel Core i5-14400F Processor and NVIDIA GeForce RTX 3050 graphics.
+    Intel Core i5-14400F 10-Core Processor (Up to 4.7GHz) | 16GB DDR5 5600MHz Memory (expandable to 32GB) | 1TB M.2 2280 PCI-e Gen 4 SSD
+    NVIDIA GeForce RTX 3050 Graphics with 6GB of GDDR6 Video Memory (3 x Display Ports 1.4a & 1 x HDMI 2.1 Port)
+    DTS X: Ultra Audio | Intel Wireless Wi-Fi 6E AX211 (Gig+) 802.11ax supporting dual-stream 2.4GHz, 5GHz and 6GHz bands featuring 2x2 MU-MIMO technology | Realtek 8118AS Dragon Gigabit Ethernet
+    1 - USB 3.2 Gen2x2 20 Gbps, Type-C Port (Front) | 1 - USB 3.2 Gen2 10Gbps Type A Port (Front) | 2 - USB 3.2 Gen1 5Gbps Type A Ports (Rear) | 4 - USB 2.0 480Mbps Ports (Rear) | 2 - Audio Jacks (Front) | 3 - Audio Jacks (Rear) | 1 - RJ-45 Ethernet Port
+    USB Keyboard and Mouse Included | Windows 11 Home
+
+
+Price - $799.99

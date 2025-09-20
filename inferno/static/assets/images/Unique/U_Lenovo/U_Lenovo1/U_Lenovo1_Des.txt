@@ -1,0 +1,14 @@
+Lenovo ThinkPad P14s AMD G5, AMD Ryzen 7 PRO 8840HS (3.30GHz, 16MB), 14 1920 x 1080
+
+Brand 	Lenovo
+Model Name 	21ME001CUS
+Screen Size 	14 Inches
+Color 	Black
+Hard Disk Size 	512 GB
+CPU Model 	Ryzen 7
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Pro
+Graphics Card Description 	Integrated
+Hard Disk Description 	SSD
+
+Price - $1,214.60 

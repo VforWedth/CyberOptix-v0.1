@@ -1,0 +1,20 @@
+ASUS Vivobook 15 OLED Laptop, 15.6” FHD OLED Display, AMD Ryzen™ 5 7530U CPU, AMD Radeon™ GPU, 8GB RAM, 512GB SSD, Windows 11 Home, Indie Black, M1505YA-DS52
+
+Brand	ASUS
+Model Name	Vivobook 15
+Screen Size	15.6 Inches
+Color	Indie Black
+Hard Disk Size	512 GB
+CPU Model	Ryzen 5
+Ram Memory Installed Size	8 GB
+Operating System	Windows 11 Home
+Special Feature	High-resolution Display
+Graphics Card Description	Integrated
+Price	$725.99
+
+About this item
+15.6” FHD (1920 x 1080) OLED display with ultra-slim NanoEdge bezels
+600nits HDR peak brightness, 100% DCI-P3 color gamut, Gamut mapping, 1.07 billion colors
+Latest AMD Ryzen 5 7530U Mobile Processor (6-core/12-thread, 16MB cache, up to 4.3 GHz max boost) and AMD Radeon Graphics
+Fast storage and memory featuring 512GB M.2 NVMe PCIe 3.0 SSD and 8GB DDR4 on board RAM, Windows 11 Home
+Extensive connectivity with USB 3.2 Gen 1 Type-C support power delivery, USB 3.2 Gen 1 Type A, USB 2.0 Type A, 3.5mm Combo Audio Jack, HDMI 1.4, Wi-Fi 6E(802.11ax) (Dual band) 1*1 + Bluetooth 5 (*USB transfer speed may vary. Learn more at ASUS.com)

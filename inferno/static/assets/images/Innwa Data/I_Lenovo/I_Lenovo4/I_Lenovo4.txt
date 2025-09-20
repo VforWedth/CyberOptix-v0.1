@@ -1,0 +1,14 @@
+Lenovo Yoga 7 7i 2-in-1 Business Laptop (16" FHD+ Touchscreen, AMD Ryzen 7 7735U (Beat i7-1255U), 16GB RAM, 1TB SSD, IST Precision Pen), Backlit, Fingerprint, FHD IR Webcam, Win 11 Pro, Arctic Grey 
+
+Brand 	Lenovo
+Model Name 	Yoga 7i
+Screen Size 	16 Inches
+Color 	Arctic Grey
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 7
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Fingerprint Reader, Backlit Keyboard, Support Stylus, Numeric Keypad
+Graphics Card	Integrated
+
+Price - $869.99

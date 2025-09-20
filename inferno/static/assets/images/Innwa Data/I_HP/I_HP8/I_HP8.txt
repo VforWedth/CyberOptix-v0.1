@@ -1,0 +1,21 @@
+HP Elitebook 650 G10 15.6" FHD Business Laptop Computer, 13th Gen Intel 10-Core i7-1355U, 64GB DDR4 RAM, 2TB PCIe SSD, WiFi 6E, BT 5.3, Backlit KB, Fingerprint Reader, Windows 11 Pro, AZ-XUT Cable 
+
+Brand 	HP
+Model Name 	Elitebook
+Screen Size 	15.6 Inches
+Hard Disk Size 	2 TB
+CPU Model 	Core i7
+Ram Memory Installed Size 	64 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Fingerprint Reader
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel Iris Xe Graphics
+Price	$1,219
+
+ About this item
+
+    CPU: 13th Gen Intel Core i7-1355U, 10C (2P + 8E) / 12T, P-core 1.7 / 5.0GHz, E-core 1.2 / 3.7GHz, 12MB.
+    Display: 15.6" diagonal LED UWVA Anti-Glare FHD (1920x1080) Display; Graphics: Intel Iris Xᵉ Graphics.
+    RAM: 64GB DDR4 SDRAM Memory; Hard Drive: 2TB PCIe NVMe M.2 SSD.
+    Intel Wi-Fi 6E AX211 (2x2) and BluetoothX 5.3 wireless card, non-vPro; 1 Thunderbolt 4 with USB Type-C 40Gbps signaling rate; 1 USB Type-C 10Gbps signaling rate; 2 USB Type-A 5Gbps signaling rate (1 power); 1 AC power; 1 HDMI 2.1; 1 stereo headphone/microphone combo jack; 1 RJ-45.
+    Bundled with AZXUT Cable. Windows 11 Professional (64-bit). Spill-resistant backlit keyboard with numeric keypad, Clickpad with multi-touch gesture support; Fingerprint reader; Natural Silver.

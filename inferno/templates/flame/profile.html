@@ -1,0 +1,880 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/Profile.css' %}">
+<link rel="stylesheet" type="text/css" href="bootstrap-4.5.3-dist/css/bootstrap.min.css">
+
+<div class="dashboard-container">
+    <!-- Sidebar sidebarigation -->
+    <div class="sidebar"> 
+        <div class="sidebar flex-column mt-4 text-center">
+            <img src="{% static 'assets/images/P.png' %}" class="round">
+            <a class="sidebar-link active" href="{% url "flame:profile" %}" data-page="profile">Profile</a>
+            <a class="sidebar-link" href="#" data-page="orders">Orders</a>
+            <a class="sidebar-link" href="#" data-page="track-order">Track Order</a>
+            <a class="sidebar-link" href="#" data-page="address">My Address</a>
+           <!-- Updated Logout Link -->
+           <form id="logout-form" action="{% url 'userauths:sign-out' %}" method="POST" style="display: none;">
+            {% csrf_token %}
+        </form>
+        <a class="sidebar-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="content-section" style="background-color:rgb(21, 40, 56);">
+        <!-- Profile Section -->
+      <div class="user-dashboard">
+    <!-- Profile Section -->
+    <div class="page-section" id="profile">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-user-circle"></i> My Profile</h3>
+                <button class="btn btn-edit" onclick="toggleEdit()">
+                    <i class="fas fa-pencil-alt"></i> Edit Profile
+                </button>
+            </div>
+            
+            <div class="card-body">
+                <div class="profile-grid">
+                    <div class="profile-field">
+                        <label class="field-label">Full Name</label>
+                        <div class="field-value">
+                            <i class="fas fa-user field-icon"></i>
+                            <input type="text" class="form-control-plaintext" value="{{ request.user|title }}" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <label class="field-label">About Me</label>
+                        <div class="field-value">
+                            <i class="fas fa-info-circle field-icon"></i>
+                            <textarea class="form-control-plaintext" rows="2" readonly>Customer</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <label class="field-label">Phone Number</label>
+                        <div class="field-value">
+                            <i class="fas fa-phone field-icon"></i>
+                            <input type="text" class="form-control-plaintext" value="+1 (741) 213-3252" readonly>
+                            <div class="verification-badge not-verified">
+                                <i class="fas fa-times-circle"></i> Not Verified
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-field">
+                        <label class="field-label">Email Address</label>
+                        <div class="field-value">
+                            <i class="fas fa-envelope field-icon"></i>
+                            <input type="text" class="form-control-plaintext" value="{{ request.user.email }}" readonly>
+                            <div class="verification-badge verified">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Section -->
+    <div class="page-section" id="orders" style="display:none;">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-shopping-bag"></i> Order History</h3>
+            </div>
+            
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Payment</th>
+                                <th>Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for o in orders %}
+                            <tr>
+                                <td>#{{o.id}}</td>
+                                <td>{{o.order_date|date:"M d, Y"}}</td>
+                                <td>
+                                    <span class="status-badge {{o.product_status}}">
+                                        {{o.product_status|title}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status-badge {% if o.paid_status %}delivered{% else %}processing{% endif %}">
+                                        {% if o.paid_status %}Paid{% else %}Pending{% endif %}
+                                    </span>
+                                </td>
+                                <td>${{o.price}}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a class="btn-action view" href="{% url 'flame:order-detail' o.id %}">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <button class="btn-action track" onclick="showSection('track-order')">
+                                            <i class="fas fa-truck"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Section -->
+    <div class="page-section" id="order-details" style="display:none;">
+        <div class="dashboard-card">
+            <button class="btn-back" onclick="showSection('orders')">
+                <i class="fas fa-arrow-left"></i> Back to Orders
+            </button>
+            
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-file-invoice"></i> Order Details: <span id="order-id"></span></h3>
+            </div>
+            
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="order-details-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-items">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Track Order Section -->
+    <div class="page-section" id="track-order" style="display:none;">
+        <div class="dashboard-card">
+            <button class="btn-back" onclick="showSection('orders')">
+                <i class="fas fa-arrow-left"></i> Back to Orders
+            </button>
+            
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-map-marked-alt"></i> Track Your Order</h3>
+            </div>
+            
+            <div class="card-body">
+                <div class="tracking-container">
+                    <div class="tracking-progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    
+                    <div class="tracking-steps">
+                        <div class="track-step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <div class="step-details">
+                                <p class="step-title">Order Placed</p>
+                                <p class="step-date">Nov 1, 2022</p>
+                            </div>
+                        </div>
+                        <div class="track-step completed">
+                            <div class="step-icon"><i class="fas fa-check"></i></div>
+                            <div class="step-details">
+                                <p class="step-title">Processing</p>
+                                <p class="step-date">Nov 2, 2022</p>
+                            </div>
+                        </div>
+                        <div class="track-step active">
+                            <div class="step-icon"><i class="fas fa-shipping-fast"></i></div>
+                            <div class="step-details">
+                                <p class="step-title">Shipped</p>
+                                <p class="step-date">Estimated Nov 5, 2022</p>
+                            </div>
+                        </div>
+                        <div class="track-step">
+                            <div class="step-icon"><i class="far fa-circle"></i></div>
+                            <div class="step-details">
+                                <p class="step-title">Delivered</p>
+                                <p class="step-date">--</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Section -->
+    <div class="page-section" id="address" style="display:none;">
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-address-book"></i> Address Book</h3>
+            </div>
+            
+            <div class="card-body">
+                <form class="address-form" method="POST">
+                    {% csrf_token %}
+                    <h4 class="form-title">Add New Address</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="address" placeholder="Street address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" name="mobile" placeholder="Contact number" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-save" name="submit" value="Submit">
+                                <i class="fas fa-save"></i> Save Address
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="address-list">
+                    <h4 class="list-title">Saved Addresses</h4>
+                    {% for a in address %}
+                    <div class="address-card {% if a.status %}default{% endif %}">
+                        <div class="address-content">
+                            <h5>Address {{ forloop.counter }}</h5>
+                            <p><i class="fas fa-map-marker-alt"></i> {{a.address}}</p>
+                            <p><i class="fas fa-phone"></i> {{a.mobile}}</p>
+                        </div>
+                        <div class="address-actions">
+                            {% if a.status %}
+                                <span class="default-badge"><i class="fas fa-check-circle"></i> Default</span>
+                            {% else %}
+                                <button class="btn-make-default make-default-address" data-address-id="{{a.id}}">
+                                    <i class="fas fa-check-circle"></i> Make Default
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Base Styles */
+.user-dashboard {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Card Styles */
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-title {
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-title i {
+    font-size: 1.2em;
+    color: #4e73df;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Buttons */
+.btn-edit, .btn-back, .btn-save, .btn-make-default {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.btn-edit {
+    background: transparent;
+    color: #4e73df;
+    border: 1px solid #4e73df;
+}
+
+.btn-edit:hover {
+    background: #4e73df;
+    color: white;
+}
+
+.btn-back {
+    background: #f8f9fa;
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.btn-back:hover {
+    background: #e9ecef;
+}
+
+.btn-save {
+    background: #4e73df;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #3a5bbf;
+}
+
+.btn-make-default {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}
+
+.btn-make-default:hover {
+    background: #e9ecef;
+}
+
+/* Profile Section */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1000px, 1fr));
+    gap: 25px;
+}
+
+.profile-field {
+    margin-bottom: 20px;
+}
+
+.field-label {
+    display: block;
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.field-value {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-icon {
+    position: absolute;
+    left: 12px;
+    color: #6c757d;
+    font-size: 16px;
+}
+
+.form-control-plaintext {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f9f9f9;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-control-plaintext:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+}
+
+textarea.form-control-plaintext {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.verification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.verified {
+    background: #e6f7ee;
+    color: #28a745;
+}
+
+.not-verified {
+    background: #feeae9;
+    color: #dc3545;
+}
+
+/* Orders Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th {
+    text-align: left;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.order-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+.order-table tr:hover {
+    background: #f8f9fa;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.status-badge.processing {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.shipped {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.delivered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-action.view {
+    background: #4e73df;
+}
+
+.btn-action.view:hover {
+    background: #3a5bbf;
+}
+
+.btn-action.track {
+    background: #6c757d;
+}
+
+.btn-action.track:hover {
+    background: #5a6268;
+}
+
+/* Order Tracking */
+.tracking-container {
+    padding: 20px 0;
+}
+
+.tracking-progress {
+    height: 4px;
+    background: #e9ecef;
+    position: relative;
+    margin: 40px 0 60px;
+}
+
+.progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 66%;
+    background: #4e73df;
+    transition: all 0.4s ease;
+}
+
+.tracking-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.track-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 25%;
+}
+
+.step-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    z-index: 2;
+}
+
+.track-step.completed .step-icon {
+    background: #4e73df;
+    color: white;
+}
+
+.track-step.active .step-icon {
+    background: white;
+    color: #4e73df;
+    border: 2px solid #4e73df;
+}
+
+.track-step:not(.completed):not(.active) .step-icon {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.step-details {
+    text-align: center;
+}
+
+.step-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.step-date {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+/* Address Section */
+.address-form {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.form-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+}
+
+.form-actions {
+    grid-column: span 2;
+}
+
+.address-list {
+    margin-top: 20px;
+}
+
+.list-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #495057;
+}
+
+.address-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.address-card:hover {
+    border-color: #ced4da;
+}
+
+.address-card.default {
+    border: 1px solid #4e73df;
+    background: #f8faff;
+}
+
+.address-content {
+    flex: 1;
+}
+
+.address-content h5 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.address-content p {
+    margin: 5px 0;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.address-content i {
+    width: 16px;
+    color: #4e73df;
+}
+
+.address-actions {
+    margin-left: 20px;
+}
+
+.default-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    background: #e6f7ee;
+    color: #28a745;
+    font-size: 14px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .profile-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .address-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .address-actions {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .btn-make-default {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .tracking-steps {
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .track-step {
+        width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 576px) {
+    .track-step {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .step-details {
+        text-align: left;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+// Navigation Handling
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const page = this.dataset.page;
+        showSection(page);
+        
+        // Update active state in sidebar
+        document.querySelectorAll('.sidebar-link').forEach(item => {
+            item.classList.remove('active');
+        });
+        this.classList.add('active');
+    });
+});
+
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show selected section
+    document.getElementById(sectionId).style.display = 'block';
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Profile Edit Toggle
+function toggleEdit() {
+    const inputs = document.querySelectorAll('#profile input, #profile textarea');
+    const button = document.querySelector('#profile .btn-edit');
+    const isReadOnly = inputs[0].readOnly;
+    
+    inputs.forEach(input => {
+        input.readOnly = !isReadOnly;
+        input.classList.toggle('editable', !isReadOnly);
+        input.style.backgroundColor = isReadOnly ? '#f9f9f9' : '#fff';
+        input.style.boxShadow = isReadOnly ? 'none' : '0 0 0 3px rgba(78, 115, 223, 0.15)';
+    });
+
+    button.innerHTML = isReadOnly 
+        ? '<i class="fas fa-save"></i> Save Changes' 
+        : '<i class="fas fa-pencil-alt"></i> Edit Profile';
+    
+    if (!isReadOnly) {
+        // Focus on first field when editing
+        inputs[0].focus();
+    } else {
+        // Save logic would go here
+        alert('Profile updated successfully!');
+    }
+}
+
+// Make Default Address
+document.querySelectorAll('.make-default-address').forEach(button => {
+    button.addEventListener('click', function() {
+        const addressId = this.dataset.addressId;
+        
+        // AJAX call to set as default would go here
+        console.log('Setting address', addressId, 'as default');
+        
+        // UI update
+        document.querySelectorAll('.address-card').forEach(card => {
+            card.classList.remove('default');
+        });
+        
+        this.closest('.address-card').classList.add('default');
+        
+        // Toggle buttons
+        document.querySelectorAll('.default-badge').forEach(badge => {
+            badge.style.display = 'none';
+        });
+        document.querySelectorAll('.btn-make-default').forEach(btn => {
+            btn.style.display = 'block';
+        });
+        
+        this.style.display = 'none';
+        document.querySelector(`.check${addressId}`).style.display = 'inline-block';
+    });
+});
+</script>
+{% endblock content %}

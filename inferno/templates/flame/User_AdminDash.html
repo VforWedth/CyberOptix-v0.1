@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profiles - Admin Dashboard</title>
+  <style>
+ 
+    .containera {
+      max-width: 1500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #4a5c6a;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 14px 12px;
+      border-bottom: 1px solid #ccd0cf;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #f0f4f8;
+      color: #333;
+    }
+
+    tr:hover {
+      background-color: #f5f8fa;
+    }
+
+    .status-active {
+      color: green;
+      font-weight: 600;
+    }
+
+    .status-disabled {
+      color: red;
+      font-weight: 600;
+    }
+
+    .actions button {
+      margin-right: 8px;
+      padding: 6px 10px;
+      font-size: 13px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .view-btn {
+      background: #3498db;
+      color: #fff;
+    }
+
+    .edit-btn {
+      background: #f1c40f;
+      color: #000;
+    }
+
+    .disable-btn {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    @media(max-width: 768px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      th {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 20px;
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        border: none;
+      }
+
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        font-weight: bold;
+        color: #555;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="containera">
+    <h2>👥 User Profiles</h2>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" onkeyup="filterUsers()" placeholder="🔍 Search by name or email">
+    </div>
+
+    <table id="userTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="#">1</td>
+          <td data-label="Name">John Doe</td>
+          <td data-label="Email">john@example.com</td>
+          <td data-label="Role">Customer</td>
+          <td data-label="Status"><span class="status-active">Active</span></td>
+          <td data-label="Joined">2024-11-12</td>
+          <td data-label="Actions" class="actions">
+            <button class="view-btn">View</button>
+            <button class="edit-btn">Edit</button>
+            <button class="disable-btn" onclick="disableUser(this)">Disable</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-label="#">2</td>
+          <td data-label="Name">Alice Smith</td>
+          <td data-label="Email">alice@example.com</td>
+          <td data-label="Role">Admin</td>
+          <td data-label="Status"><span class="status-active">Active</span></td>
+          <td data-label="Joined">2023-08-20</td>
+          <td data-label="Actions" class="actions">
+            <button class="view-btn">View</button>
+            <button class="edit-btn">Edit</button>
+            <button class="disable-btn" onclick="disableUser(this)">Disable</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td data-label="#">3</td>
+          <td data-label="Name">Michael Ray</td>
+          <td data-label="Email">michael@example.com</td>
+          <td data-label="Role">Customer</td>
+          <td data-label="Status"><span class="status-disabled">Disabled</span></td>
+          <td data-label="Joined">2023-01-05</td>
+          <td data-label="Actions" class="actions">
+            <button class="view-btn">View</button>
+            <button class="edit-btn">Edit</button>
+            <button class="disable-btn" disabled>Disabled</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function filterUsers() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("#userTable tbody tr");
+
+      rows.forEach(row => {
+        const name = row.cells[1].innerText.toLowerCase();
+        const email = row.cells[2].innerText.toLowerCase();
+        row.style.display = (name.includes(input) || email.includes(input)) ? "" : "none";
+      });
+    }
+
+    function disableUser(button) {
+      const row = button.closest("tr");
+      const statusCell = row.querySelector("td:nth-child(5) span");
+
+      statusCell.innerText = "Disabled";
+      statusCell.className = "status-disabled";
+
+      button.innerText = "Disabled";
+      button.disabled = true;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,393 @@
+/* Navbar Styles */
+
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #95A1A1;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: white;
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;                  /* home’s extra padding baked in */
+  background-color: #4A5C6A;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* home’s shadow */
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5em;                    /* home bumped this from 24px */
+  font-weight: bold;
+}
+
+.navbar .logo i {
+  margin-right: 5px;
+  font-size: 1.2em;
+  color: white;                        /* ensure icon inherits white */
+}
+
+.navbar nav {
+  display: flex;
+  gap: 25px;                           /* home’s wider gap */
+}
+
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.navbar a:hover,
+.navbar .icon:hover {
+  opacity: 0.8;
+}
+
+.navbar .icon {
+  color: white;
+  fill: white;
+}
+
+.navbar .menu-icon {
+  display: none;                       /* stays hidden unless you toggle it on mobile */
+  font-size: 1.5em;
+  cursor: pointer;
+}
+/* 1) only show on hover, not on click */
+.dropdown:hover > .dropdown-menu {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 2) hide by default */
+.dropdown > .dropdown-menu {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 3) center it under the icon */
+.dropdown .dropdown-menu {
+  right: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background-color: #4A5C6A;
+}
+
+.dropdown-menu.show
+{
+  display: block;
+  background-color: #4A5C6A
+}
+
+        .shop-dropdown .shop-menu {
+            display: none;
+            position: absolute;
+            background-color: #4A5C6A;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            z-index: 1;
+            padding: 10px 0;
+        }
+
+        .shop-dropdown:hover .shop-menu {
+            display: block;
+        }
+
+        .shop-dropdown .shop-menu .shop-item {
+            display: block;
+            font-size: 1rem;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .shop-dropdown .shop-menu .shop-item:hover {
+            background-color: rgb(96, 202, 195);
+        }
+
+        /* Shopping Cart Styles */
+        .icon-cart {
+            position: relative;
+            cursor: pointer;
+        }
+  .icons-cart {
+            position: relative;
+            cursor: pointer;
+        }
+        .icon-cart span {
+            position: absolute;
+            width: 35px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: #fff;
+            top: 50%;
+            right: -25px;
+            top: -10px;
+        }
+ 
+        .cartTab {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            color: #4A5C6A;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: 0.5s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cartTab h1 {
+            padding: 20px;
+            margin: 0;
+            font-weight: 600;
+            color: #4A5C6A;
+            border-bottom: 1px solid #eee;
+        }
+
+        .listCart {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #4A5C6A;
+            transition: 0.4s ease-in-out;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #444;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 99;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Body Shift */
+        body {
+            transition: margin-left 0.3s ease;
+            margin-left: 0;
+        }
+
+        body.shift-right {
+            margin-left: 250px;
+        }
+
+
+        footer {
+            background-color: #CCD0Cf;
+            color: #4A5C6A;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+            margin-top: auto;
+            width: 100vw;
+            height: auto;
+            box-sizing: border-box;
+            margin: 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links h4, 
+        .footer-contact h4 {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li, 
+        .footer-contact p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .footer-contact p {
+            line-height: 1.5;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #4A5C6A;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #1abc9c;
+        }
+        
+        .social-icons {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 18px;
+            color: #4A5C6A;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #1abc9c;
+        }
+        
+        .footer-left .logo {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .footer-left p {
+            font-size: 0.9em;
+            color: #4A5C6A;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                padding: 30px 20px;
+                width: 100%;
+            }
+            
+            .footer-content {flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        
+            .footer-links, 
+            .footer-contact {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        
+            .social-icons {
+                justify-content: center;
+            }
+        }
+          /* Cart Buttons */
+        .btn {
+            display: flex;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .btn button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn .close {
+            background-color: #6c757d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .btn .close:hover {
+            background-color: #5a6268;
+        }
+
+        .btn .checkOut {
+            background-color: #4A5C6A;
+            color: white;
+        }
+
+        .btn .checkOut:hover {
+            background-color: #3a4a57;
+        }
+/* font-weight fix */
+
+.alert-danger,
+.alert-success,
+.alert-info,
+.alert-warning {
+  font-weight: normal;      /* force normal weight */
+  font-family: inherit;     /* Arial, sans-serif as per your body */
+  --bs-alert-margin-bottom: none;
+  
+
+}
+
+/* And if you really want to catch any <strong> inside alerts: */
+.alert strong {
+  font-weight: normal;
+}

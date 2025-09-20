@@ -1,0 +1,14 @@
+Lenovo ThinkBook 15 Business Laptop (15.6" FHD Anti-Glare, 16GB RAM, 512GB SSD, AMD Ryzen 7 5825U (> i7-1165G7)), FHD Webcam w/ Shutter, Military Grade, Fingerprint, Ethernet, Win 11 Pro, Grey, 2024
+
+Brand 	ist computers
+Model Name 	Lenovo ThinkBook 15 Gen 4
+Screen Size 	15.6 Inches
+Color 	Grey
+Hard Disk Size 	512 GB
+CPU Model 	Ryzen 7
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Spill resistant, Fingerprint Reader, HD Audio, 1-year warranty, Anti Glare Coating, Numeric Keypad
+Graphics Card Description 	Integrated
+
+Price - $615.76

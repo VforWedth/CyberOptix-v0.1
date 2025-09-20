@@ -1,0 +1,15 @@
+Apple iMac MF886LLA, 27 Inches, Intel Core i7-4790K X4 4GHz 32GB, 3TB, 128GB SSD (Renewed)
+
+Brand	Apple
+CPU Model	Core i7-4790K
+CPU Speed	4 GHz
+Graphics Card Description	Dedicated
+Graphics Coprocessor	AMD Radeon
+Memory Storage Capacity	128 GB
+Personal computer design type	All in One
+Screen Size	27 Inches
+Ram Memory Installed Size	32 GB
+Model Name	iMac
+Price	$649
+
+No about the system

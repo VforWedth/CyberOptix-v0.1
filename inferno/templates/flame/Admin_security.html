@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Settings - Admin Dashboard</title>
+  <style>
+   
+
+    .containera {
+      background: #fff;
+      padding: 35px;
+      border-radius: 15px;
+      max-width: 1500px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    .sectiona {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #34495e;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 70%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 4px solid #9ba8ab;
+      border-radius: 15px;
+      background: #f8f9fa;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+      background: #fff;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+    }
+
+    .session-info {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+       background: linear-gradient(to right, #9ba8ab, #4a5c6a);
+      color: #fff;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+    }
+
+    @media(max-width: 768px) {
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="containera">
+    <h2>🔐 Security Settings</h2>
+
+    <!-- Password Section -->
+    <div class="sectiona">
+      <div class="section-title">Change Password</div>
+      <label for="current-password">Current Password</label>
+      <input type="password" id="current-password" placeholder="Enter current password">
+
+      <label for="new-password">New Password</label>
+      <input type="password" id="new-password" placeholder="Enter new password">
+
+      <label for="confirm-password">Confirm New Password</label>
+      <input type="password" id="confirm-password" placeholder="Re-enter new password">
+    </div>
+
+    <!-- 2FA Section -->
+    <div class="section">
+      <div class="section-title">Two-Factor Authentication</div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="enable-2fa">
+        <label for="enable-2fa">Enable 2FA via Email or Authenticator App</label>
+      </div>
+    </div>
+
+    
+
+    <button class="btn" onclick="saveSecurity()">Save Changes</button>
+  </div>
+
+  <script>
+    function saveSecurity() {
+      alert("✅ Security settings saved successfully!");
+    }
+
+    function logoutAll() {
+      alert("🔒 Logged out of all devices except this one.");
+    }
+  </script>
+
+</body>
+</html>

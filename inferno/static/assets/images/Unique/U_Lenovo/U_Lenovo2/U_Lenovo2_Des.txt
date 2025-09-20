@@ -1,0 +1,14 @@
+Lenovo Yoga 7i 2-in-1 Laptop, Intel® Core™ Ultra 5 125U Processor 16 GB LPDDR5 1 TB SSD 14" WUXGA (1920 x 1200), IPS, Glare, Touch, 45% NTSC, 300 nits, 60Hz, Glass 83DJ0003US 
+
+Brand 	Lenovo
+Model Name 	83DJ0003US
+Screen Size 	14
+Hard Disk Size 	1 TB
+CPU Model 	Intel Core Ultra 5
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Graphics Card Description 	Integrated
+CPU Speed 	3.6 GHz
+Hard Disk Description 	SSD
+
+Price - $749.49 

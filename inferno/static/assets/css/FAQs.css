@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Body */
+body {
+  background-color: #ccd0cf;
+  color: rgb(53, 64, 72);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Wrapper for content */
+.wrapper {
+  max-width: 75%;
+  margin: 3rem auto;
+  padding: 1rem;
+}
+
+/* Header */
+.wrapper > p,
+.wrapper > h1 {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.wrapper > h1 {
+  font-size: 2.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgb(53, 64, 72);
+  text-transform: uppercase;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper > p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgb(53, 64, 72);
+  text-transform: uppercase;
+}
+
+/* Accordion Styles */
+.accordion {
+  background: linear-gradient(135deg, #95a1a1, #4a5c6a);
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 1.8rem 2.5rem;
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+/* Accordion icon */
+.accordion i {
+  font-size: 1.6rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover and active state for accordion */
+.accordion:hover,
+.accordion.active {
+  background: linear-gradient(135deg, #4a5c6a, #95a1a1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.accordion.active i {
+  transform: rotate(180deg);
+}
+
+/* Panel styles (hidden by default) */
+.pannel {
+  padding: 0 2rem 1rem;
+  background-color:rgb(225, 229, 228);
+  display: none;
+  color: #4a5c6a;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.pannel p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: rgb(53, 64, 72);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* FAQ Container */
+.faq {
+  margin: 10px 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Border for FAQ, removed when active */
+.faq.active {
+  border: none;
+}
+
+/* Button hover for FAQ */
+.faq button:hover {
+  cursor: pointer;
+}
+
+.faq:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .wrapper {
+    max-width: 90%;
+  }
+
+  .accordion {
+    font-size: 1rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .pannel p {
+    font-size: 1rem;
+  }
+
+  .accordion i {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    max-width: 95%;
+  }
+
+  .accordion {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .pannel p {
+    font-size: 0.9rem;
+  }
+
+  .accordion i {
+    font-size: 1.2rem;
+  }
+}

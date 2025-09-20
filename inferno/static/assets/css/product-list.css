@@ -1,0 +1,272 @@
+.main-container {
+    background: #f5f7fa;
+    padding: 30px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 1400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.filter-container {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: #4a5c6a;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: #3d4b57;
+}
+
+/* Hide by default */
+#filterDropdown {
+    display: none;
+  }
+  
+  /* When you add a “show” class, it becomes visible */
+  #filterDropdown.show {
+    display: block;
+  }
+
+.filter-dropdown {
+    background: white;
+    width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-dropdown.collapsed {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.filter-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    padding: 15px;
+    margin: 0;
+}
+
+.card-footer {
+    background: transparent;
+    border-top: none;
+    padding: 0 15px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #4a5c6a;
+}
+
+.btn-primary {
+    background: #4a5c6a;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #3d4b57;
+    transform: translateY(-2px);
+}
+
+.filter-section {
+    margin-bottom: 30px;
+}
+
+.filter-section h4 {
+    font-size: 17px;
+    color: #2d3748;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.filter-option {
+    color: #4a5c6a;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-option:hover {
+    color: #4a5c6a;
+    transform: translateX(5px);
+}
+
+.price-range-inputs input {
+    transition: all 0.3s ease;
+    border: 2px solid #eee;
+}
+
+.price-range-inputs input:focus {
+    border-color: #4a5c6a;
+    box-shadow: none;
+}
+a {
+    text-decoration: none;
+    color: #4a5c6a;
+}
+
+.price-range-item {
+    color: #4a5c6a;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+}
+
+.price-range-item:hover {
+    transform: translateX(5px);
+}
+.brand-logo{
+    width: 50px;
+    height: 50px;
+    margin: 0 70px;
+    display: block;
+}
+
+/* style for price range filter */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-right: 15px;
+    height: 9px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    background-image: linear-gradient(#4a5c6a, #768692);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: #3bb77e;
+    cursor: ew-resize;
+    box-shadow: 0 0 2px 0 #555;
+    transition: background .3s ease-in-out;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    }
+
+    .from-to {
+        display: flex; /* Align items horizontally */
+        justify-content: space-between; /* Space out the 'From' and 'To' sections */
+        align-items: center; /* Center items vertically */
+        margin-top: 15px; /* Add some space above */
+        padding: 10px; /* Add padding for better spacing */
+        background-color: #f9f9f9; /* Light background color */
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+    
+    
+    
+    .ftext {
+        font-size: 14px; /* Font size for readability */
+        font-weight: bold; /* Bold text for emphasis */
+        color: #4A5C6A; /* Consistent color with theme */
+    
+    }
+    .current-price-input {
+        /* General styling for the input */
+        width: 40%;
+        padding: 10px;
+        font-size: 16px;
+        border: 2px solid #D1D5DB;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+    }
+    
+    /* Remove the arrows in WebKit browsers (Chrome, Safari, etc.) */
+    .current-price-input::-webkit-outer-spin-button,
+    .current-price-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    /* Remove the arrows in Firefox */
+    .current-price-input[type=number] {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
+    
+    /* Focus styling */
+    .current-price-input:focus {
+        border-color: #4A5C6A;
+    }
+    
+    /* Placeholder styling */
+    .current-price-input::placeholder {
+        color: #999;
+        opacity: 1;
+    }

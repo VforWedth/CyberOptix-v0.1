@@ -1,0 +1,203 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'assets/css/FAQs.css'%}?v=2 ">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  <body>
+    <!--
+    <div class="navbar">
+      <div class="logo">
+          <i class="fas fa-laptop"></i> CyberOptix
+      </div>
+
+      <nav>
+          <a href="#"> Home</a>
+          <a href="#"> Shop</a>
+          <a href="#"> About</a>
+          <a href="#"> FAQs</a>
+          <a href="#"><i class="fas fa-shopping-bag"></i></a>
+          <a href="login.html" style="text-decoration: none; color: #CCD0CF;">
+              <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
+          </a>
+      </nav>-->
+
+    <div class="wrapper">
+      
+      <h1>Frequently Asked Questions</h1>
+
+      <div class="faq">
+        <button class="accordion">
+          What is Cyberoptix?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Cyberoptix is an online store that specializes in selling laptops, providing customers across Myanmar and internationally with a convenient shopping experience.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          What are the benefits of shopping at Cyberoptix?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Cyberoptix offers to browse and purchase laptops anytime without visiting a physical store.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          How can I place an order?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            You can place an order by browsing our website, adding your desired laptop or accessories to the cart, and proceeding to checkout. Follow the steps to complete payment and confirm your order.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          What payment methods do you accept?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            We accept payment method with PayPal.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Do you offer nationwide delivery?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, we provide delivery services across Myanmar. Delivery times may vary depending on your location.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Do you offer warranties on laptops?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, all our laptops come with a manufacturer’s warranty, typically ranging from 1 to 3 years.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Can I cancel my order after placing it?
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Orders can be canceled before confirmation. Once confirmed, cancellations are not allowed.
+          </p>
+        </div>
+      </div>
+    
+
+    <div class="faq">
+      <button class="accordion">
+        Do you offer discounts?
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      <div class="pannel">
+        <p>
+          Yes, we offer dicounts for some items that are displayed in section on the homepage.
+        </p>
+      </div>
+    </div>
+  </div>
+
+<!--
+    <div>
+      <footer>
+          <div class="footer-content">
+              <div class="footer-left">
+              <div class="logo">
+                  <i class="fas fa-laptop"></i>CyberOptix
+              </div><br>
+                  <p>All Rights Reserved 2024-2025</p>
+              </div>
+              <div class="footer-links">
+                  <h4>Information</h4>
+                  <ul>
+                      <li><a href="#about-us">About Us</a></li>
+                      <li><a href="#more-search">More Search</a></li>
+                      <li><a href="#events">Events</a></li>
+                  </ul>
+              </div>
+              <div class="footer-links">
+                  <h4>Helpful Links</h4>
+                  <ul>
+                      <li><a href="#services">Services</a></li>
+                      <li><a href="#privacy-policy">Privacy Policy</a></li>
+                      <li><a href="#terms-conditions">Terms & Condition</a></li>
+                  </ul>
+              </div>
+              <div class="footer-links">
+                  <h4>Our Services</h4>
+                  <ul>
+                      <li><a href="#shops">Shops</a></li>
+                      <li><a href="#return-exchange">Return & Exchange</a></li>
+                      <li><a href="#leasing">Leasing</a></li>
+                  </ul>
+              </div>
+              <div class="footer-contact">
+                  <h4>Contact Us</h4>
+                  <p>+959 00090999</p>
+                  <p>cyberoptix@gmail.com</p>
+                  <div class="social-icons">
+                      <a href="#" class="me-3"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                      <a href="#" class="me-3"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                      <a href="#" class="me-3"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                      <a href="#"><i class="bi bi-google" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                  </div>
+              </div>
+          </div>
+      </footer>
+  </div>-->
+
+    <script>
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          this.parentElement.classList.toggle("active");
+
+          var pannel = this.nextElementSibling;
+
+          if (pannel.style.display === "block") {
+            pannel.style.display = "none";
+          } else {
+            pannel.style.display = "block";
+          }
+        });
+      }
+      
+    </script>
+  </body>
+  {% endblock content %}

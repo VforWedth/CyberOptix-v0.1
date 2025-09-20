@@ -1,0 +1,301 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - CyberOptix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #CCD0Cf;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #4A5C6A;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+    }
+
+    header p {
+      font-size: 1.3em;
+      margin-top: 10px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .section-row:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-content {
+      flex: 1;
+      padding: 30px;
+    }
+
+    .text-content h2 {
+      color: #2A5C82;
+      margin-top: 0;
+    }
+
+    .text-content ul,
+    .text-content ol {
+      padding-left: 20px;
+    }
+
+    .image-content {
+      flex: 1;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-content img {
+      max-width: 90%;
+      max-height: 250px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .shop-highlight span {
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin: 4px 6px 4px 0;
+      display: inline-block;
+    }
+
+    .citicom { background-color: #2A5C82; color: white; }
+    .unique  { background-color: #F5B041; color: white; }
+    .ict     { background-color: #28B463; color: white; }
+    .innwa   { background-color: #6C3483; color: white; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #bbb;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e0e0e0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: #4A5C6A;
+      color: white;
+      font-size: 0.9em;
+    }
+
+    footer a {
+      color: #F5B041;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .section-row,
+      .section-row.reverse {
+        flex-direction: column;
+      }
+
+      .image-content {
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Welcome to CyberOptix</h1>
+  <p>Your marketplace for every laptop need</p>
+</header>
+
+<main>
+
+  <div class="section-row">
+    <div class="text-content">
+      <h2>1. Website Overview</h2>
+      <p>CyberOptix connects you to four specialized laptop shops:</p>
+      <div class="shop-highlight">
+        <span class="citicom">🔷 CITICOM</span>
+        <span class="unique">🟠 UNIQUE</span>
+        <span class="ict">🟢 ICT</span>
+        <span class="innwa">🟣 INNWA</span>
+      </div>
+      <ul>
+        <li><strong>CITICOM:</strong> Premium international brands</li>
+        <li><strong>UNIQUE:</strong> Budget-friendly laptops for students</li>
+        <li><strong>ICT:</strong> Business and enterprise solutions</li>
+        <li><strong>INNWA:</strong> Certified refurbished laptops</li>
+      </ul>
+    </div>
+    <div class="image-content">
+      <img src="CyberOptix/inferno/static/assets/images/Laptop_pic1.jpeg" alt="Overview">
+    </div>
+  </div>
+
+  <div class="section-row reverse">
+    <div class="text-content">
+      <h2>2. Creating an Account</h2>
+      <ol>
+        <li>Click <strong>“Sign Up”</strong> on the top right</li>
+        <li>Use email or social media to register</li>
+        <li>Verify your account via OTP sent to your phone</li>
+      </ol>
+    </div>
+    <div class="image-content">
+      <img src="CyberOptix/inferno/static/assets/images/Laptop_pic2.jpeg" alt="Sign Up">
+    </div>
+  </div>
+
+  <div class="section-row">
+    <div class="text-content">
+      <h2>3. How to Shop</h2>
+      <ol>
+        <li><strong>Choose Your Shop:</strong> Use the "Shops" menu.</li>
+        <li><strong>Browse Products:</strong> Filter by price, RAM, storage, or brand.</li>
+        <li><strong>Select a Product:</strong> Read features and shop benefits.</li>
+        <li><strong>Checkout:</strong> Add items and select delivery options.</li>
+      </ol>
+      <h3>Exclusive Shop Benefits:</h3>
+      <ul>
+        <li><strong>CITICOM:</strong> 2-year warranty + premium support</li>
+        <li><strong>UNIQUE:</strong> 15% student discount</li>
+        <li><strong>ICT:</strong> Bulk order pricing</li>
+        <li><strong>INNWA:</strong> 6-month refurbished guarantee</li>
+      </ul>
+    </div>
+    <div class="image-content">
+      <img src="CyberOptix/inferno/static/assets/images/Laptop_pic3.jpeg" alt="Shopping">
+    </div>
+  </div>
+
+  <div class="section-row reverse">
+    <div class="text-content">
+      <h2>4. Discount System</h2>
+      <ul>
+        <li><strong>CITICOM:</strong> Black Friday & seasonal sales</li>
+        <li><strong>UNIQUE:</strong> Student discounts year-round</li>
+        <li><strong>ICT:</strong> Corporate partnership offers</li>
+        <li><strong>INNWA:</strong> Weekly clearance sales</li>
+      </ul>
+      <h3>How to Claim:</h3>
+      <ul>
+        <li>Automatic at checkout</li>
+        <li>Manual:
+          <ul>
+            <li>Student ID upload</li>
+            <li>Bulk orders: Email <a href="mailto:ict@cyberoptix.mm">ict@cyberoptix.mm</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="image-content">
+      <img src="CyberOptix/inferno/static/assets/images/Laptop_pic4.jpeg" alt="Discount">
+    </div>
+  </div>
+
+  <div class="section-row">
+    <div class="text-content">
+      <h2>5. Shop Comparison</h2>
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>CITICOM</th>
+          <th>UNIQUE</th>
+          <th>ICT</th>
+          <th>INNWA</th>
+        </tr>
+        <tr>
+          <td>Price Range</td>
+          <td>$$$$</td>
+          <td>$$</td>
+          <td>$$$</td>
+          <td>$</td>
+        </tr>
+        <tr>
+          <td>Warranty</td>
+          <td>2 years</td>
+          <td>1 year</td>
+          <td>3 years</td>
+          <td>6 months</td>
+        </tr>
+        <tr>
+          <td>Exclusive Brands</td>
+          <td>Apple, Dell XPS</td>
+          <td>Lenovo, Acer</td>
+          <td>HP, ThinkPad</td>
+          <td>Dell, Asus</td>
+        </tr>
+        <tr>
+          <td>Best For</td>
+          <td>Professionals</td>
+          <td>Students</td>
+          <td>Enterprises</td>
+          <td>Budget Users</td>
+        </tr>
+      </table>
+    </div>
+    <div class="image-content">
+      <img src="CyberOptix/inferno/static/assets/images/Laptop_pic5.jpeg" alt="Comparison">
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 CyberOptix Marketplace | <a href="#">Start Shopping</a> | <a href="#">Download Discount Guide</a></p>
+</footer>
+
+</body>
+</html>
+{% endblock %}

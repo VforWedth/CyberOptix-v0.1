@@ -1,0 +1,14 @@
+HP Elitebook 660 G11 Business Laptop, 16" FHD+ Computer, 12-Core Intel Ultra 5 125U (Beat i7-1355U), 16GB DDR5 RAM, 512GB PCIe SSD, WiFi 6E, Backlit KB, Fingerprint Reader, Windows 11 Pro, Befectoy 
+
+Brand 	HP
+Model Name 	Elitebook
+Screen Size 	16 Inches
+Hard Disk Size 	512 GB
+CPU Model 	Intel Core Ultra 5
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Pro
+Special Feature 	HD Audio
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel Graphics
+
+Price - $759.00

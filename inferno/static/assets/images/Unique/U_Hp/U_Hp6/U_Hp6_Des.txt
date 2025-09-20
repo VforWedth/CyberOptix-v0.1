@@ -1,0 +1,14 @@
+HP Newest Pavilion 15.6" HD Touchscreen Anti-Glare Laptop, 16GB RAM, 1TB SSD Storage, Intel Core Processor up to 4.1GHz, Up to 11 Hours Long Battery Life, Type-C, HDMI, Windows 11 Home, Silver 
+
+Brand 	HP
+Model Name 	hp laptop
+Screen Size 	15.6 Inches
+Color 	Silver
+Hard Disk Size 	1 TB
+CPU Model 	Intel Core i3
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Anti-glare
+Graphics Card Description 	Integrated
+
+Price - $407.00

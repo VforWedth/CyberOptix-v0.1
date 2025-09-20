@@ -1,0 +1,20 @@
+ASUS ROG GA35 G35DX Desktop PC (AMD Ryzen 9 5900X, GeForce RTX 3090 24GB GDDR6X, 64GB DDR4, 2TB PCIe SSD + 6TB HDD, 240mm AIO, 850W PSU, WiFi 6, Bluetooth 5.2, Win 11 Pro) w/DKZ USB Port Expander
+
+Brand	ASUS
+Operating System	Windows 11 Pro
+CPU Model	AMD R Series
+CPU Speed	3.7 GHz
+Graphics Coprocessor	Nvidia Ge Force Rtx 3090
+Ram Memory Installed Size	64 GB
+CPU Manufacturer	AMD
+Total HDMI Ports	3
+RAM Memory Technology	DIMM
+RAM Memory Maximum Size	64 GB
+Price	$1199.99
+
+About this item
+【Upgraded】 Seal is opened for Hardware/Software upgrade only to enhance performance. ; WIFI 6 MT7921, Bluetooth 5.2, RJ-45, No, RGB KB USB Keyboard, USB Mouse
+【Powerful Performance with Ryzen 9 5900X 】 Zen 3 Gen Ryzen 9 5900X 3.70GHz Processor (upto 4.8 GHz, 64MB Cache, 12-Cores, 24-Threads, ); GeForce RTX 3090 24GB GDDR6X Dedicated Graphics
+【High Speed and Multitasking】 64GB DDR4 DIMM; 850W PSU, RGB Lighting 240mm AIO; Star Black Color
+【Enormous Storage】 2TB PCIe NVMe SSD + 6TB HDD; 3 HDMI, 4 Display Port, 3 USB 3.2 Type-C, 1 x Microphone Jack, 1 x Headphone Jack, Windows 11 Pro-64, 1 Year Manufacturer warranty from GreatPriceTech (Professionally upgraded by GreatPriceTech)
+Includes Authorized Dockztorm Portable USB Hub(Special Edition Portable Dockztorm Data Hub;Super Speedy Data Sync Rate up to 5Gbps)

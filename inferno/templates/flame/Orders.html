@@ -1,0 +1,220 @@
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<div class="page-title">
+  <div class="title">Orders</div>
+</div>
+
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Order ID</th>
+      <th>Shop</th>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Action</th>
+      <th>View Order</th>
+      <th>Edit</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in orders %}
+    <tr>
+      <td>{{ o.user }}</td>
+      <td>#{{ o.id }}</td>
+      <td>{{ o.shop }}</td>
+      <td>{{ o.order_date|date:"M d, Y" }}</td>
+      <td>${{ o.price }}</td>
+       <td>
+                                    <span class="status-badges {% if o.paid_status %}delivered{% else %}processing{% endif %}">
+                                        {% if o.paid_status %}Paid{% else %}Pending{% endif %}
+                                    </span>
+                                </td>
+ <style>
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+}
+.status-badges.delivered {
+  background-color: #4CAF50;
+}
+/* Default status color */
+.status-badge {
+  background-color: #4CAF50; /* Gray for unknown statuses */
+}
+.status-badges {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  text-transform: capitalize;
+}
+
+/* Default status color */
+.status-badges {
+  background-color: #cc1414ff; /* Gray for unknown statuses */
+}
+
+/* Processing status (orange) */
+.status-badge.processing {
+  background-color: #FFA500;
+}
+
+/* Shipped status (blue) */
+.status-badge.shipped {
+  background-color: #2196F3;
+}
+
+/* Delivered status (green) */
+.status-badge.delivered {
+  background-color: #4CAF50;
+}
+
+/* Cancelled status (red) */
+.status-badge.cancelled {
+  background-color: #dc3545;
+}
+
+/* Completed status (dark green) */
+.status-badge.completed {
+  background-color: #28a745;
+}
+
+/* Pending status (yellow) */
+.status-badge.pending {
+  background-color: #ffc107;
+  color: #000; /* Dark text for better contrast */
+}
+.edit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #9cc3f7ff;
+  color: black;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-icon:hover {
+  background-color: #076bbdff;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.edit-icon:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Optional pulse animation on hover */
+.edit-icon:hover i {
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+</style>
+ 
+<td>
+  <span class="status-badge {{o.product_status}}">
+    {{o.product_status|title}}
+  </span>
+</td>
+</td>
+   <td>
+    <button class="btn btn-outline btn-sm"  data-cartorder-id="{{ o.id }}"><i class="fas fa-eye"></i> View</button></td>
+ 
+ <td>
+  <button class="edit-icon" title="Edit Order" data-order-id="{{ o.id }}">
+    <i class="fas fa-pencil-alt"></i>
+  </button>
+</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add click event to all OK buttons
+  document.querySelectorAll('.confirm-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const orderId = this.getAttribute('data-order-id');
+      const selectElement = document.getElementById(`status-select-${orderId}`);
+      const newStatus = selectElement.value;
+      
+      updateOrderStatus(orderId, newStatus);
+    });
+  });
+});
+
+function updateOrderStatus(orderId, newStatus) {
+  fetch(`/update-order-status/${orderId}/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({
+      status: newStatus
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Update UI to reflect change
+      const statusElement = document.getElementById(`status-select-${orderId}`);
+      statusElement.value = newStatus;
+      
+      // Show success message
+      alert('Status updated successfully!');
+      
+      // Optional: Reload the page to see changes
+      // window.location.reload();
+    } else {
+      alert('Error updating status: ' + (data.error || 'Unknown error'));
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Failed to update status');
+  });
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+</script>
+<script>
+  
+</script>

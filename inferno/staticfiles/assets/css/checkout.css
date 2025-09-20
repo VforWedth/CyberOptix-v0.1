@@ -1,0 +1,207 @@
+.container {
+    width: 80%;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+p{
+    font-size: 18px;
+    color: #666;
+}
+h3,h2 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.coupon-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.coupon-box input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.coupon-box button {
+    padding: 12px 20px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.checkout-content {
+    display: flex;
+    gap: 40px;
+}
+.billing-details, .order-summary {
+    width: 50%;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.order-summary {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+}
+.cart-items .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.cart-items img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+.back-to-cart {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #27ae60;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Unified Cart Styling */
+.cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.cart-item-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.quantity-control {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-update, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+}
+
+.item-total {
+    font-weight: bold;
+    min-width: 100px;
+    text-align: right;
+}
+
+.cart-summary {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+.payment-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.coupon-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.coupon-input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.coupon-button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.coupon-button:hover {
+    background-color: #0056b3;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.payment-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+}
+
+.payment-btn:hover {
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stripe-btn {
+    background: #635bff;
+    color: white;
+    border: none;
+}
+
+.stripe-btn:hover {
+    background: #4a43d1;
+}
+
+.paypal-button-container {
+    text-align: center;
+}
+
+.paypal-button {
+    height: 45px !important;
+    padding: 10px !important;
+}
+
+.paypal-branding {
+    text-align: center;
+    margin-top: 20px;
+    opacity: 0.7;
+}

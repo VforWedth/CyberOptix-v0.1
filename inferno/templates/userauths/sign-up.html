@@ -1,0 +1,140 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/register.css' %}">
+<main>
+<div class="container">
+    <div class="form-container" style="position:absolute;top:13%">
+        <div class="col-1">
+            <div class="image-layer">
+                <div class="featured-words">
+                    <h2>Welcome to <span> CyberOptix</span> </h2>
+                    <p> Explore the latest laptops and exclusive deals tailored for you ! </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="btn-box">
+                <button id="login" class="btn btn-1">Login</button>
+                <button id="register" class="btn">Register</button>
+            </div>
+            {% csrf_token %}
+            <form class="register-form" method="POST" action="{% url 'userauths:sign-up' %}">
+                {% csrf_token %}
+                <h2 class="form-title">Sign Up</h2>
+                <!-- Error Messages -->
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="form-inputs">
+                    <div class="input-box">
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                <div class="text-danger">{{ form.username.errors }}</div>
+            {% endif %}
+                    </div>
+                    <div class="input-box">
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                <div class="text-danger">{{ form.email.errors }}</div>
+            {% endif %}
+                    </div>
+                    <div class="input-box">
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                <div class="text-danger">{{ form.password1.errors }}</div>
+            {% endif %}
+                    </div>
+                    <div class="input-box">
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                        <div class="text-danger">{{ form.password2.errors }}</div>
+                    {% endif %}
+                    </div>
+                </div>
+                <button type="submit" class="input-submit">Sign Up</button>
+            </form>
+        </div> 
+    </div>
+{% comment %}     
+    <footer style="position:absolute;top:85%;">
+        <div class="footer-content" >
+            <div class="footer-left">
+            <div class="logo">
+                <i class="fas fa-laptop"></i>CyberOptix
+            </div><br>
+                <p>All Rights Reserved 2024-2025</p>
+            </div>
+            <div class="footer-links">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#more-search">More Search</a></li>
+                    <li><a href="#events">Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Helpful Links</h4>
+                <ul>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#privacy-policy">Privacy Policy</a></li>
+                    <li><a href="#terms-conditions">Terms & Condition</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="#shops">Shops</a></li>
+                    <li><a href="#return-exchange">Return & Exchange</a></li>
+                    <li><a href="#leasing">Leasing</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>+959 00090999</p>
+                <p>cyberoptix@gmail.com</p>
+                <div class="social-icons">
+                    <a href="#" class="me-3"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#"><i class="bi bi-google" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer> {% endcomment %}
+</div> 
+    <!-- **** Footer Area End **** -->   
+    <br> 
+    
+    <script>
+        const loginForm = document.querySelector('.login-form');
+        const registerForm = document.querySelector('.register-form');
+        const loginBtn = document.querySelector('#login');
+        const registerBtn = document.querySelector('#register');
+        
+        loginBtn.addEventListener('click', () => {
+            // Swap the positions of the forms
+            window.location.href="{% url 'userauths:sign-in' %}"
+
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            // Swap the positions of the forms
+            window.location.href = "{% url 'userauths:sign-up' %}"
+
+        });
+
+
+
+        
+    </script>
+
+</main>
+{% endblock content %}
+        

@@ -1,0 +1,57 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .main-container {
+        background: #f5f7fa;
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px auto;
+        max-width: 1400px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        
+    .card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }s
+    }
+</style>
+<br>
+<h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">{{category.title}}</h1>
+<br>
+<div class="main-container">
+    <div class="products-grid">
+        {% for p in products %} 
+        <div class="card">
+            <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
+            <h5 class="card-title">{{ p.title }}</h5>
+            <div class="card-footer">
+                <span class="price">${{ p.price }}</span>
+                <a href="{% url 'flame:shop-product-detail' p.shop.shop_id p.p_id %}" class="btn btn-primary" style="text-decoration: none;">
+                    View Product
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>     
+</div>           
+<br><br><br>
+<hr></hr>
+              
+                            
+{% endblock content %}

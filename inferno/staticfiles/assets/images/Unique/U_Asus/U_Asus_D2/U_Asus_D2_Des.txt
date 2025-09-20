@@ -1,0 +1,21 @@
+ASUS ROG Strix 3070 Gaming Desktop, AMD Octa-Core Ryzen 7 5800X, GeForce RTX 3070 8GB, 32GB RAM, 1TB SSD, USB-C, Wi-Fi, HDMI/DP/DVI/VGA, RJ-45, RGB, Win 11 Pro
+
+Brand	ASUS
+Operating System	Windows 11 Pro
+CPU Model	Ryzen 7
+CPU Speed	3.8 GHz
+Graphics Card Description	Dedicated
+Graphics Coprocessor	Nvidia Ge Force Rtx 3070
+Memory Slots Available	4
+Specific Uses For Product	Gaming
+Personal computer design type	Computer Tower
+Ram Memory Installed Size	8 GB
+
+About this item
+【ROG Strix GA15】Give yourself a competitive edge with the arena-ready ROG Strix GA15. Designed inside and out for superior gameplay with top notch cooling. Thoughtful details like a headphone hook keep your battlestation neat and portable, while Aura Sync accents let every player show off their individual style.
+【High Performance CPU】Reach new heights for desktop computing with AMD Ryzen 7 5800X (8C/16T,3.8/4.7Ghz)processors. Their next-level design delivers 8 cores of powerful processing for gaming, streaming, creativity, VR and more.
+【Ultimate Graphics Card】Get the ultimate performance in gaming and creating with GeForce RTX 3070 graphics, powered by next-gen Ampere architecture for the most realistic ray-traced graphics and cutting-edge AI features. It quickly renders high-quality images for videos and games, and features ultra-resolution VR Gaming to support your 4K content and display with 8GB dedicated video memory.
+【Cutting Edge Cooling】Comprehensive cooling enables the high-level processor performance required for serious gaming and work. The multi-zone chassis keeps the CPU, graphics card, and power supply in separate chambers to minimize thermal interference and lower ambient temperatures.
+【Multiple Ports Available】Extend your PC to other external devices easily. Front: 1x USB Type-A; 1x USB Type-C; 1x headphone jack; 1x microphone jack; Rear: 6x USB Type-A; 3x Audio ports; 1x RJ-45; 2x HDMI; 3x DisplayPort; 1x DVI; 1x VGA
+
+Price - $1,399.00

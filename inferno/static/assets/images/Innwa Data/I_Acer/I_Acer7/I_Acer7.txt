@@ -1,0 +1,14 @@
+Acer Predator Helios Neo 14 Gaming Laptop | 14.5" WQXGA+ IPS 165Hz Display | AI-Powered | Intel Core Ultra 9 Processor 185H | NVIDIA GeForce RTX 4070 | 16GB LPDDR5X | 1TB Gen 4 SSD | PHN14-51-90NF
+
+Brand	acer
+Model Name	Predator Helios Neo 14 PHN14-51-90NF
+Screen Size	14.5 Inches
+Color	Black
+CPU Model	Core i9
+Ram Memory Installed Size	16 GB
+Operating System	Windows 11 Home
+Special Feature	Backlit Keyboard
+Graphics Card Description	Dedicated
+Graphics Coprocessor	NVIDIA GeForce RTX 4070
+
+Price - $1,494.49

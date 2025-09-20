@@ -1,0 +1,14 @@
+HP 15.6" Portable Laptop (Include 1 Year Microsoft 365), HD Display, Intel Quad-Core N200 Processor, 16GB RAM, 128GB Storage, Wi-Fi 5, Webcam, HDMI, Numeric Keypad, Windows 11 Home, Red 
+
+Brand 	HP
+Model Name 	TPN-Q284_632**AV
+Screen Size 	15.6 Inches
+Color 	Red
+Hard Disk Size 	128 GB
+CPU Model 	Pentium
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Numeric Keypad
+Graphics Card Description 	Integrated
+
+Price - $269.99

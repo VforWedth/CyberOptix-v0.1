@@ -1,0 +1,20 @@
+ASUS Zen AiO 24, 23.8” FHD Touchscreen Display, AMD Ryzen 7 5825U Processor, 16GB DDR4 RAM, 512GB SSD, Windows 11 Home, Kensington Lock, Wireless Keyboard and Mouse Included, White, M5401WYA-DH704T
+
+Brand	ASUS
+Operating System	Windows 11 Home
+CPU Model	Ryzen 7
+CPU Speed	4.5 GHz
+Cache Size	16
+Graphics Card Description	Integrated
+Memory Storage Capacity	512 GB
+Memory Slots Available	2
+Specific Uses For Product	Everyday Use, Education, Business
+Personal computer design type	All in One
+Price	$1277.81
+
+About this item
+23.8 inch Full HD IPS-level anti-glare display is the perfect solution to tackle everyday tasks
+Powered by an AMD Ryzen 7 5825U Mobile Processor (8-core/16-thread, 16 MB cache, up to 4.5 GHz max boost)
+Windows 11 Home
+All the storage you need for our files with 16GB DDR4 RAM and 512GB PCIe SSD
+Flexible all-in-one weighing in at only 15.43 lb

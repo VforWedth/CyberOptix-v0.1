@@ -1,0 +1,179 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services | CyberOptix</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #ecf0f1;
+      --accent-color: #3498db;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      .container {
+        margin: 15px;
+        padding: 15px;
+      }
+
+      .section h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1><i class="fas fa-box-open"></i> Our Services</h1>
+    <p>Delivering Reliable Tech Solutions with Student-Focused Support</p>
+  </header>
+
+  <div class="container">
+    <div class="section">
+      <h2><i class="fas fa-laptop"></i> 1. Laptop Sales (Brand-New & Verified Used)</h2>
+      <ul>
+        <li>Brand-new laptops from trusted global brands.</li>
+        <li>Certified used laptops with budget-friendly pricing.</li>
+        <li>Transparent details: specs, photos, and performance reviews.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-truck"></i> 2. Fast & Reliable Delivery</h2>
+      <ul>
+        <li>Nationwide delivery across Myanmar.</li>
+        <li>Urban areas: 3–7 business days.</li>
+        <li>Rural areas: 7–14 business days.</li>
+        <li>Real-time order tracking via email notifications.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-undo-alt"></i> 3. Easy Returns & Replacements</h2>
+      <ul>
+        <li>7-day return window for unused products in original packaging.</li>
+        <li>Quick support for replacements on damaged or incorrect items.</li>
+        <li>Return shipping costs borne by the buyer.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-headset"></i> 4. Student Support & Laptop Consultation</h2>
+      <ul>
+        <li>Free consultation via email or live chat.</li>
+        <li>Personalized suggestions for:
+          <ul>
+            <li>Programming & development</li>
+            <li>Design & content creation</li>
+            <li>General academic tasks</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-tools"></i> 5. Repair & Upgrade Assistance (Coming Soon)</h2>
+      <ul>
+        <li>Upgrade services (RAM, SSD, battery replacement).</li>
+        <li>Software fixes (OS reinstallation, driver issues).</li>
+        <li>Campus support pop-ups (MIIT-exclusive).</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-phone-alt"></i> 6. Customer Support</h2>
+      <p>
+        Our friendly support team is ready to help!<br>
+        📧 <a href="mailto:support@cyberoptix.mm">support@cyberoptix.mm</a><br>
+        ⏱ Response Time: 24–48 hours on business days
+      </p>
+    </div>
+
+    <p><strong>💡 Note:</strong> CyberOptix is a student-run platform built under MIIT coursework. Some services may vary based on academic terms.</p>
+  </div>
+
+  <footer>
+    &copy; 2025 CyberOptix | Developed with ❤️ by MIIT Students
+  </footer>
+
+</body>
+</html>
+{% endblock %}

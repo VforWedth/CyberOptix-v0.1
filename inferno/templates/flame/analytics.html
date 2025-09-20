@@ -1,0 +1,631 @@
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Include Chart.js -->
+<script src="{% static 'assets/js/chart.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Fallback if Chart.js fails to load
+    if (typeof Chart === 'undefined') {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"><\/script>');
+    }
+  </script>
+<style>
+  /* Bootstrap-like base styles */
+  :root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --border-radius: 0.5rem;
+    --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  /* Layout styles */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  .col-md-3, .col-md-4, .col-md-8 {
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  @media (min-width: 768px) {
+    .col-md-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+    .col-md-4 {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+    .col-md-8 {
+      flex: 0 0 66.666667%;
+      max-width: 66.666667%;
+    }
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .g-3 {
+    margin-right: -12px;
+    margin-left: -12px;
+  }
+  
+  .g-3 > [class*="col-"] {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+  
+  /* Card styles */
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: var(--border-radius);
+  }
+  
+  .card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+  }
+  
+  .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }
+  
+  /* Form controls */
+  .form-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    appearance: none;
+  }
+  
+  .form-select-sm {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+  }
+  
+  /* Dashboard specific styles */
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-header h2 {
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .date-picker {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .kpi-card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    border: none;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .kpi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.15);
+  }
+  
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
+  .kpi-card .card-body {
+    position: relative;
+    padding: 1.5rem;
+  }
+  
+  .kpi-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    opacity: 0.2;
+  }
+  
+  .kpi-card h6 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+  
+  .kpi-card h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .kpi-card small {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .chart-card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: none;
+    transition: var(--transition);
+  }
+  
+  .chart-card:hover {
+    box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.15);
+  }
+  
+  .chart-card .card-header {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chart-card .card-body {
+    padding: 1.25rem;
+    position: relative;
+  }
+  
+  .chart-container {
+    height: 300px;
+    width: 100%;
+  }
+  
+  .table-card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: none;
+  }
+  
+  .table-card .card-header {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-weight: 600;
+    padding: 1.25rem;
+  }
+  
+  .table-card .card-body {
+    padding: 0;
+  }
+  
+  .table-responsive {
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+  }
+  
+  .table th {
+    background-color: var(--light-color);
+    padding: 1rem;
+    border-top: none;
+    text-align: left;
+    vertical-align: bottom;
+  }
+  
+  .table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+  }
+  
+  .table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .table tr:hover td {
+    background-color: rgba(67, 97, 238, 0.03);
+  }
+  
+  .status-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .badge-completed {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
+  }
+  
+  .badge-processing {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #d39e00;
+  }
+  
+  .badge-pending {
+    background-color: rgba(23, 162, 184, 0.1);
+    color: var(--info-color);
+  }
+  
+  .badge-cancelled {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: 600;
+  }
+  
+  .btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, 
+                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .btn-dashboard {
+    border-radius: 50px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+  }
+  
+  .btn-dashboard-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-dashboard-primary:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .btn-dashboard-outline {
+    background-color: transparent;
+    border: 1px solid #dee2e6;
+    color: #495057;
+  }
+  
+  .btn-dashboard-outline:hover {
+    background-color: #f8f9fa;
+    color: #212529;
+  }
+  
+  .custom-select {
+    border-radius: 50px;
+    padding: 0.375rem 1.75rem 0.375rem 1rem;
+  }
+  
+  .progress-thin {
+    height: 6px;
+    border-radius: 3px;
+  }
+  
+  /* Utility classes */
+  .text-white {
+    color: #fff !important;
+  }
+  
+  .bg-primary {
+    background-color: var(--primary-color) !important;
+  }
+  
+  .bg-success {
+    background-color: var(--success-color) !important;
+  }
+  
+  .bg-warning {
+    background-color: var(--warning-color) !important;
+  }
+  
+  .bg-dark {
+    background-color: var(--dark-color) !important;
+  }
+  
+  .me-2 {
+    margin-right: 0.5rem !important;
+  }
+  
+  .ms-2 {
+    margin-left: 0.5rem !important;
+  }
+  
+  .text-primary {
+    color: var(--primary-color) !important;
+  }
+  
+  .flex {
+    display: flex !important;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between !important;
+  }
+  
+  .align-items-center {
+    align-items: center !important;
+  }
+</style>
+
+<!-- Header -->
+<div class="dashboard-header">
+  <h2><i class="fas fa-chart-line text-primary me-2"></i>Admin Analytics Dashboard</h2>
+  <div class="date-picker">
+    <button class="btn btn-dashboard btn-dashboard-outline">
+      <i class="fas fa-calendar-alt me-2"></i>
+      Last 30 days
+      <i class="fas fa-chevron-down ms-2"></i>
+    </button>
+    <button class="btn btn-dashboard btn-dashboard-primary">
+      <i class="fas fa-download me-2"></i>
+      Export
+    </button>
+  </div>
+</div>
+
+<!-- Top KPIs -->
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="kpi-card text-white bg-primary">
+      <div class="card-body">
+        <i class="fas fa-dollar-sign kpi-icon"></i>
+        <h6>Total Sales</h6>
+        <h3>${{ total_sales | floatformat:2 }}</h3>
+        <small><i class="fas fa-arrow-up"></i> 12% vs last month</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="kpi-card text-white bg-success">
+      <div class="card-body">
+        <i class="fas fa-shopping-cart kpi-icon"></i>
+        <h6>Total Orders</h6>
+        <h3>{{ total_orders }}</h3>
+        <small><i class="fas fa-arrow-up"></i> 8% vs last month</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="kpi-card text-white bg-warning">
+      <div class="card-body">
+        <i class="fas fa-box-open kpi-icon"></i>
+        <h6>Total Products</h6>
+        <h3>520</h3>
+        <small><i class="fas fa-plus"></i> 3 new this week</small>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="kpi-card text-white bg-dark">
+      <div class="card-body">
+        <i class="fas fa-users kpi-icon"></i>
+        <h6>Total Customers</h6>
+        <h3>4,120</h3>
+        <small><i class="fas fa-plus"></i> 150 new this month</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-3 mb-4">
+  <div class="col-md-8">
+    <div class="chart-card card">
+      <div class="card-header">
+        <span>Sales Performance</span>
+        <div>
+          <select class="form-select form-select-sm custom-select">
+            <option>Last 7 days</option>
+            <option selected>Last 30 days</option>
+            <option>Last 90 days</option>
+            <option>This year</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="chart-card card">
+      <div class="card-header">
+        <span>Order Trends</span>
+      </div>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="ordersChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Sales Performance Chart
+  new Chart(document.getElementById('salesChart'), {
+    type: 'line',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets: [{ 
+        label: 'Sales ($)',
+        data: [12000,15000,14000,18000,22000,20000,25000,28000,26000,30000,32000,35000],
+        borderColor: 'rgba(67, 97, 238, 1)',
+        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+        fill: true,
+        tension: 0.3,
+        borderWidth: 2,
+        pointBackgroundColor: 'white',
+        pointBorderColor: 'rgba(67, 97, 238, 1)',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFont: {
+            size: 14,
+            weight: 'bold'
+          },
+          bodyFont: {
+            size: 12
+          },
+          padding: 12,
+          cornerRadius: 6,
+          displayColors: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
+          },
+          ticks: {
+            callback: function(value) {
+              return '$' + value.toLocaleString();
+            }
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+
+  // Orders Trend Chart
+  new Chart(document.getElementById('ordersChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets: [{
+        label: 'Orders',
+        data: [820,950,870,1120,1280,1100,1350,1420,1300,1500,1600,1750],
+        backgroundColor: 'rgba(255, 193, 7, 0.7)',
+        borderColor: 'rgba(255, 193, 7, 1)',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+</script>

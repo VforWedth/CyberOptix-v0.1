@@ -1,0 +1,14 @@
+HP Victus 15 Gaming Laptop, 15.6" FHD 144Hz Display, AMD Ryzen 5 7535HS, 16GB DDR5 RAM, 512GB PCIe M.2 SSD, NVIDIA GeForce RTX 2050, HDMI, Webcam, Backlit Keyboard, Wi-Fi 6, Windows 11 Home, Silver 
+
+Brand 	HP
+Model Name 	TPN-Q279_598U1AV
+Screen Size 	15.6 Inches
+Color 	Silver
+Hard Disk Size 	512 GB
+CPU Model 	Ryzen 5
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Backlit Keyboard
+Graphics Card Description 	Dedicated
+
+Price - $579 

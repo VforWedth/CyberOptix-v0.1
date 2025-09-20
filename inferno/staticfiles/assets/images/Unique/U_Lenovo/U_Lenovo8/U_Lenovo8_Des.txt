@@ -1,0 +1,14 @@
+Lenovo V-Series V15 Business Laptop, 15.6" FHD Display, AMD Ryzen 7 7730U, 40GB RAM, 1TB SSD, Numeric Keypad, HDMI, RJ45, Webcam, Wi-Fi, Windows 11 Pro, Black 
+
+Brand 	Lenovo
+Model Name 	Lenovo V15 G4 ABP
+Screen Size 	15.6 Inches
+Color 	Black
+Hard Disk Size 	1 TB
+CPU Model 	AMD Ryzen 7
+Ram Memory Installed Size 	40 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Numeric Keypad
+Graphics Card Description 	Integrated
+
+Price - $698.79

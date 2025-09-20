@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Settings - Laptop Store</title>
+  <style>
+    /* Reset and fonts */
+ 
+   
+    .settings-container {
+      width: 100%;
+      max-width: 1500px;
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings-container h2 {
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #2c3e50;
+    }
+
+    .settings-section {
+      margin-bottom: 35px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: #34495e;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 8px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="file"],
+    select {
+      width: 50%;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border: 4px solid #4a5c6a;
+      border-radius: 15px;
+      background: #f8f9fa;
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #3498db;
+      outline: none;
+      background: #fff;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    /* Toggle Switch */
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      border-radius: 24px;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    .switch input:checked + .slider {
+      background-color: #3498db;
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    button {
+      background: linear-gradient(to right, #ccd0cf, #4a5c6a);
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0, 123, 255, 0.5);
+    }
+
+    @media(max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+  <div class="settings-container">
+    <h2>Admin Settings</h2>
+
+    <!-- Profile Settings -->
+    <div class="settings-section">
+      <div class="section-title">Profile Settings</div>
+      <div class="form-row">
+        <div>
+          <label for="admin-name">Admin Name</label>
+          <input type="text" id="admin-name" placeholder="John Doe">
+        </div>
+        <div>
+          <label for="admin-email">Email Address</label>
+          <input type="email" id="admin-email" placeholder="admin@example.com">
+        </div>
+      </div>
+      <label for="profile-photo">Profile Photo</label>
+      <input type="file" id="profile-photo">
+    </div>
+
+    <!-- Notification Settings -->
+    <div class="settings-section">
+      <div class="section-title">Notifications</div>
+      <div class="toggle-group">
+        <label for="email-notifications">Email Notifications</label>
+        <label class="switch">
+          <input type="checkbox" id="email-notifications" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="toggle-group">
+        <label for="push-notifications">Push Notifications</label>
+        <label class="switch">
+          <input type="checkbox" id="push-notifications">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Security -->
+    <div class="settings-section">
+      <div class="section-title">Security</div>
+      <label for="current-password">Current Password</label>
+      <input type="password" id="current-password" placeholder="••••••••">
+      <label for="new-password">New Password</label>
+      <input type="password" id="new-password" placeholder="••••••••">
+      <label for="confirm-password">Confirm New Password</label>
+      <input type="password" id="confirm-password" placeholder="••••••••">
+    </div>
+
+    <button onclick="saveSettings()">💾 Save Changes</button>
+  </div>
+
+  <script>
+    function saveSettings() {
+      alert("✅ Settings saved successfully!");
+    }
+  </script>
+</html>

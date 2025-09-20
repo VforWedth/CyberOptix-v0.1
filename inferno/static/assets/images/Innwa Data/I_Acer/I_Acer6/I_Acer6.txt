@@ -1,0 +1,14 @@
+acer Swift Go 14 Intel Evo Thin & Light Laptop | 14" 1920 x 1200 Touch Display | Unlock AI Experiences | Intel Core Ultra 7 Processor 155H | Intel ARC | 16GB LPDDR5X | 512GB SSD | SFG14-72T-718K 
+
+Brand 	acer
+Model Name 	Swift Go 14
+Screen Size 	14 Inches
+Color 	Silver
+Hard Disk Size 	512 GB
+CPU Model 	Intel Core i7
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Fingerprint Reader, Backlit Keyboard, Memory Card Slot
+Graphics Card Description 	Integrated
+
+Price - $728.11

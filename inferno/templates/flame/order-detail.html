@@ -1,0 +1,179 @@
+{% load static %}
+
+<div class="order-detail">
+    <div class="order-detail__container">
+        <a href="" class="order-detail__back-btn btn btn--secondary">← Back to Orders</a>
+        <h3 class="order-detail__title">Order Details: INVOICE_NO-{{ order_items.0.order.id }}</h3>
+        
+        <div class="order-detail__table-container">
+            <table class="order-detail__table">
+                <thead class="order-detail__table-header">
+                    <tr class="order-detail__table-row">
+                        <th class="order-detail__table-heading">Product</th>
+                        <th class="order-detail__table-heading">Image</th>
+                        <th class="order-detail__table-heading">Price</th>
+                        <th class="order-detail__table-heading">Quantity</th>
+                        <th class="order-detail__table-heading">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="order-detail__table-body">
+                    {% for item in order_items %}
+                    <tr class="order-detail__table-row">
+                        <td class="order-detail__table-cell">{{ item.item }}</td>
+                        <td class="order-detail__table-cell">
+                            <img src="{{ item.image }}" class="order-detail__product-img" alt="{{ item.title }}">
+                        </td>
+                        <td class="order-detail__table-cell">${{ item.price }}</td>
+                        <td class="order-detail__table-cell">{{ item.qty }}</td>
+                        <td class="order-detail__table-cell">${{ item.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Main Container */
+.order-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Card Container */
+.order-detail__container {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(103, 114, 229, 0.1);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-detail__container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, #4a3aff 0%, #6a56ff 50%, #8a74ff 100%);
+}
+
+/* Title */
+.order-detail__title {
+    font-size: 1.8rem;
+    color: #2a2a72;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.order-detail__title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4a3aff 0%, #6a56ff 100%);
+    border-radius: 2px;
+}
+
+/* Back Button */
+.order-detail__back-btn {
+    margin-bottom: 1.5rem;
+}
+
+/* Table Styles */
+.order-detail__table-container {
+    overflow-x: auto;
+}
+
+.order-detail__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.order-detail__table-header {
+    background-color: #f9faff;
+}
+
+.order-detail__table-row {
+    border-bottom: 1px solid #e0e4ff;
+}
+
+.order-detail__table-row:last-child {
+    border-bottom: none;
+}
+
+.order-detail__table-heading {
+    padding: 1rem;
+    text-align: left;
+    color: #4a4a7d;
+    font-weight: 600;
+}
+
+.order-detail__table-cell {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Product Image */
+.order-detail__product-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e0e4ff;
+}
+
+/* Button Modifiers */
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+}
+
+.btn--secondary {
+    background: white;
+    color: #4a4a7d;
+    border: 2px solid #e0e4ff;
+}
+
+.btn--secondary:hover {
+    background: #f5f7ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .order-detail {
+        padding: 1rem;
+    }
+    
+    .order-detail__container {
+        padding: 1.5rem;
+    }
+    
+    .order-detail__title {
+        font-size: 1.5rem;
+    }
+    
+    .order-detail__table-heading,
+    .order-detail__table-cell {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+</style>

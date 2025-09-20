@@ -1,0 +1,57 @@
+Lenovo ThinkCentre Neo 50a All-in-One Business Desktop, 27” FHD 100Hz Display, Intel Core i7-13620H, 64GB DDR5 RAM, 2TB SSD, Webcam, HDMI, Type-C, Wi-Fi 6, Wired Keyboard & Mouse, Windows 11 Pro 
+
+Brand 	Lenovo
+Operating System 	Windows 11 Pro
+CPU Model 	Core i7
+CPU Speed 	4.9 GHz
+Graphics Card Description 	Integrated
+Graphics Coprocessor 	Intel UHD Graphics
+Memory Slots Available 	2
+Specific Uses For Product 	Business
+Screen Size 	27 Inches
+Ram Memory Installed Size 	64 GB
+
+ About this item
+
+    [Ultimate Multitasking] Intel Core i7-13620H featuring 10 cores, 16 threads, a 24MB L3 cache, a base frequency of 3.6 GHz that turbo boosts to 4.9 GHz, and integrated Intel UHD Graphics for versatile computing power.
+    [Massive Memory, Lightning Fast] Enjoy seamless multitasking with 64GB of high-bandwidth DDR5 RAM for effortless application and browser tab management, paired with a lightning-fast 2TB PCIe NVMe M.2 Solid State Drive for rapid boot-up and swift data transfers.
+    [Secure and Productive] Windows 11 Pro - Organize open apps with pre-configured layouts to optimize productivity, Navigate with more intuitive experience to get things done, Collaborate with teams with more features
+    [Enhanced Connectivity and Versatility] Rear Connection: 2 x USB 2.0 Type-A, 1 x USB 3.2 Gen 2 Type-A, 1 x RJ-45, 1 x HDMI-out 2.1, 1 x HDMI-in 1.4, 1 x Power DC-in, Side Connection: 1 x USB 3.2 Gen 2 Type-C, 1 x Headphone / Microphone combo jack. 5MP Front Camera with privacy shutter, Wired Keyboard & Mouse, Wi-Fi 6, Bluetooth 5.2, Support dual Monitors
+    [Stunning Visuals, Expansive Views] 27" FHD (1920 x 1080), IPS, Anti-Glare, 99%sRGB, 300 nits, 100Hz, 14ms response Time, low blue light, , borderless design, flicker free
+
+
+ Product information
+Technical Details
+
+Summary
+Standing screen display size 	‎27 Inches
+Max Screen Resolution 	‎1920 x 1080 Pixels
+Processor 	‎4.9 GHz core_i7
+RAM 	‎64 GB
+Memory Speed 	‎4800 MHz
+Hard Drive 	‎2 TB SSD
+Graphics Coprocessor 	‎Intel UHD Graphics
+Chipset Brand 	‎Intel
+Card Description 	‎Integrated
+Wireless Type 	‎802.11ax
+Number of USB 2.0 Ports 	‎2
+Number of USB 3.0 Ports 	‎2
+
+
+Other Technical Details
+Brand 	‎Lenovo
+Series 	‎12SA
+Item model number 	‎12SA
+Hardware Platform 	‎PC
+Operating System 	‎Windows 11 Pro
+Item Weight 	‎15.65 pounds
+Product Dimensions 	‎24.08 x 7.56 x 18.56 inches
+Item Dimensions LxWxH 	‎24.08 x 7.56 x 18.56 inches
+Color 	‎Black
+Processor Brand 	‎Intel
+Number of Processors 	‎10
+Computer Memory Type 	‎DDR5 SDRAM
+Hard Drive Interface 	‎PCIE x 4
+Power Source 	‎AC 
+
+Price - $1,089.00

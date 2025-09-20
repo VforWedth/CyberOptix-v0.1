@@ -1,0 +1,14 @@
+HP 17 inch Laptop for Business and Students, 17.3" FHD Display, AMD Ryzen 5 5500U(Beat i7-11370H), 16GB RAM, 1TB SSD, Fingerprint Reader, WiFi, HDMI, USB-C, Webcam, Win11, BWE Accessories
+
+Brand 	HP
+Model Name 	HP 17.3
+Screen Size 	17.3 Inches
+Color 	Natural Silver
+Hard Disk Size 	1 TB
+CPU Model 	Ryzen 5
+Ram Memory Installed Size 	16 GB
+Operating System 	Windows 11 Home
+Special Feature 	Fingerprint Reader
+Graphics Card Description 	Integrated
+
+Price - $528.00

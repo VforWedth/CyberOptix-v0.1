@@ -1,0 +1,21 @@
+Apple Mac Mini Desktop Computer, M2 Pro Chip with 12-Core CPU and 19-Core GPU, 32GB Memory, 1TB SSD, Early 2023
+
+Brand	Apple
+Operating System	Mac OS
+CPU Model	Apple M2 Pro
+CPU Speed	1.1
+Graphics Card Description	Dedicated
+Ram Memory Installed Size	32 GB
+Model Name	Mac Mini
+Color	Silver
+Special Feature	Microphone
+CPU Manufacturer	Apple
+Price	$1899
+
+About this item
+
+Apple M2 Pro chip with 12-Core CPU & 19-Core GPU
+32GB Unified Memory
+1TB SSD Storage
+16-core Neural Engine
+Four Thunderbolt 4 ports

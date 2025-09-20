@@ -1,0 +1,21 @@
+Dell Inspiron 15 5502, 15.6 inch FHD Thin & Light Laptop - Intel Core i5-1135G7, 8GB 3200MHz DDR4 RAM, 512GB SSD, Iris Xe Graphics, Windows 10 Home - Silver 
+
+Brand 	Dell
+Model Name 	Inspiron 15 5502
+Screen Size 	15.6 Inches
+Color 	Silver
+Hard Disk Size 	512 GB
+CPU Model 	Core i5
+Ram Memory Installed Size 	8 GB
+Operating System 	Windows 10 Home
+Special Feature 	Anti-glare
+Graphics Card Description 	Integrated
+
+About this item
+
+    Thin & light 15.6-inch FHD (1920 x 1080) Anti-glare LED Backlight Narrow Border WVA Display
+    11th Generation Intel Core i5-1135G7 Processor (8MB Cache, up to 4.2 GHz)
+    8GB 3200MHz DDR4, 512 GB M.2 PCIe NVMe SSD
+    Intel Iris Xe Graphics with shared graphics memory
+    Intel Wi-Fi 6 2x2 (Gig) Bluetooth 5.1
+Price - $640.00
