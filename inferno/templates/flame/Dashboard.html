@@ -1,0 +1,1403 @@
+{% load static %}
+    {% block content %}
+
+        
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+
+  </head>
+  <style>
+           footer {
+            background-color: #CCD0Cf;
+            color: #4A5C6A;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+            margin-top: auto;
+            width: 100vw;
+            height: auto;
+            box-sizing: border-box;
+            margin: 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links h4, 
+        .footer-contact h4 {
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li, 
+        .footer-contact p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .footer-contact p {
+            line-height: 1.5;
+        }
+        
+        .footer-links a {
+            text-decoration: none;
+            color: #4A5C6A;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #1abc9c;
+        }
+        
+        .social-icons {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            margin-right: 15px;
+            font-size: 18px;
+            color: #4A5C6A;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #1abc9c;
+        }
+        
+        .footer-left .logo {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .footer-left p {
+            font-size: 0.9em;
+            color: #4A5C6A;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                padding: 30px 20px;
+                width: 100%;
+            }
+            
+            .footer-content {flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        
+            .footer-links, 
+            .footer-contact {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        
+            .social-icons {
+                justify-content: center;
+            }
+        }
+        /* CyberOptix Header Styles */
+.cyber-header {
+  background-color: #4A5C6A;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.cyber-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cyber-logo i {
+  font-size: 1.2em;
+}
+
+.cyber-nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.cyber-nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.cyber-nav-link:hover {
+  opacity: 0.8;
+}
+
+/* Shop Dropdown */
+.cyber-shop-dropdown {
+  position: relative;
+}
+
+.cyber-shop-trigger {
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cyber-shop-menu {
+  display: none;
+  position: absolute;
+  background-color: #4A5C6A;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  z-index: 1;
+  padding: 10px 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cyber-shop-dropdown:hover .cyber-shop-menu {
+  display: block;
+}
+
+.cyber-shop-item {
+  display: block;
+  padding: 8px 16px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.cyber-shop-item:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Header Actions */
+.cyber-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cyber-notification {
+  position: relative;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.cyber-notification:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.cyber-notification i {
+  font-size: 1.2rem;
+}
+
+.cyber-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background-color: #f72585;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* User Profile */
+.cyber-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.cyber-user-profile:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.cyber-profile-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #3a4a57;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.cyber-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cyber-user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cyber-user-role {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.cyber-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+  :root {
+      --primary-dark: #4A5C6A;
+      --primary-light: #95A1A1;
+      --dark-bg: #2D363D;
+      --darker-bg: #1E252B;
+      --card-bg: #3A4754;
+      --text-light: #F0F3F5;
+      --text-muted: #B8C2C2;
+      --accent-color: #FF6B6B;
+    }
+    
+    .sidebar{
+            background: linear-gradient(to right, var(--primary-dark), var(--card-bg), var(--dark-bg));
+
+    }
+  </style>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="logo">
+          <h1>Admin<span>Panel</span></h1>
+        </div>
+        <div class="nav-menu">
+          <div class="menu-heading">Main</div>
+          <div class="nav-item active">
+            <i class="fas fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Users</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-box"></i>
+            <span>Products</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
+          </div>
+
+          <div class="menu-heading">Reports</div>
+          <div class="nav-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Analytics</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-coins"></i>
+            <span>Sales</span>
+          </div>
+
+          <div class="menu-heading">Admin</div>
+          <div class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+          </div>
+          <div class="nav-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Security</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header -->
+   <!-- Header -->
+<div class="cyber-header" style="background-color:#4A5C6A; color:white;">
+  <div class="cyber-logo">
+    <i class="fas fa-laptop"></i> CyberOptix
+  </div>
+      <div class="cyber-nav-group">
+  <nav class="cyber-nav">
+    <a href="{% url 'flame:home' %}" class="cyber-nav-link">Home</a>
+    
+    <div class="cyber-shop-dropdown">
+      <a class="cyber-shop-trigger">Shop</a>
+      <div class="cyber-shop-menu">
+        {% for s in shop_views %}  
+          <a href="{% url 'flame:shop-detail' s.shop_id %}" class="cyber-shop-item">
+            {{s.title}} Shop
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <a href="{% url 'flame:About' %}" class="cyber-nav-link">About</a>
+    <a href="{% url 'flame:FAQs' %}" class="cyber-nav-link">FAQs</a>
+  </nav>
+  
+  <div class="cyber-header-actions">
+    <div class="cyber-notification">
+      <i class="fas fa-bell"></i>
+      {% if pending_orders_count > 0 %}
+        <div class="cyber-badge">{{ pending_orders_count }}</div>
+      {% endif %}
+    </div>
+
+    <div class="cyber-notification">
+      <i class="fas fa-envelope"></i>
+      {% if new_messages_count > 0 %}
+        <div class="cyber-badge">{{ new_messages_count }}</div>
+      {% endif %}
+    </div>
+
+    <div class="cyber-user-profile">
+      <div class="cyber-profile-img">{{ user_initials|default:"U" }}</div>
+      <div class="cyber-user-info">
+        <div class="cyber-user-name">{{ current_user.get_full_name|default:current_user.username }}</div>
+        <div class="cyber-user-role">{{ user_role|default:"User" }}</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="page-title">
+          <div class="title">Dashboard</div>
+          <div class="action-buttons">
+            <button class="btn btn-outline">
+              <i class="fas fa-download"></i>
+              Export
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i>
+              Add New
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_users|default:"0" }}</div>
+                <div class="card-label">Total Users</div>
+              </div>
+              <div class="card-icon purple">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{{ total_users|default:"0" }} registered users</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">${{ total_sales|floatformat:2|default:"0.00" }}</div>
+                <div class="card-label">Total Revenue</div>
+              </div>
+              <div class="card-icon blue">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>From {{ paid_orders|default:"0" }} paid orders</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_orders|default:"0" }}</div>
+                <div class="card-label">Total Orders</div>
+              </div>
+              <div class="card-icon green">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+            </div>
+            <div class="card-change {% if recent_orders_count > 0 %}positive{% else %}neutral{% endif %}">
+              <i class="fas fa-clock"></i>
+              <span>{{ recent_orders_count|default:"0" }} in last 7 days</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ conversion_rate|default:"0" }}%</div>
+                <div class="card-label">Conversion Rate</div>
+              </div>
+              <div class="card-icon orange">
+                <i class="fas fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="card-change {% if conversion_rate > 50 %}positive{% else %}neutral{% endif %}">
+              <i class="fas fa-percentage"></i>
+              <span>Orders per user ratio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-shopping-bag"></i> Recent Orders</h3>
+            <button class="btn btn-outline btn-sm">
+              <i class="fas fa-eye"></i> View All
+            </button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in recent_orders_list %}
+              <tr>
+                <td>#{{ order.oid }}</td>
+                <td>{{ order.user.get_full_name|default:order.user.username }}</td>
+                <td>{{ order.order_date|date:"d M Y" }}</td>
+                <td>${{ order.price|floatformat:2 }}</td>
+                <td>
+                  {% if order.product_status == 'delivered' %}
+                    <span class="status active">
+                      <i class="fas fa-check-circle"></i> Delivered
+                    </span>
+                  {% elif order.product_status == 'pending' %}
+                    <span class="status pending">
+                      <i class="fas fa-clock"></i> Pending
+                    </span>
+                  {% elif order.product_status == 'cancelled' %}
+                    <span class="status cancelled">
+                      <i class="fas fa-times-circle"></i> Cancelled
+                    </span>
+                  {% elif order.product_status == 'shipped' %}
+                    <span class="status active">
+                      <i class="fas fa-truck"></i> Shipped
+                    </span>
+                  {% else %}
+                    <span class="status pending">
+                      <i class="fas fa-hourglass-half"></i> {{ order.product_status|title }}
+                    </span>
+                  {% endif %}
+                </td>
+                <td>
+                  <button class="btn btn-outline btn-sm" data-cartorder-id="{{ order.id }}">
+                    <i class="fas fa-eye"></i> View
+                  </button>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                  <i class="fas fa-shopping-cart" style="font-size: 48px; margin-bottom: 10px;"></i>
+                  <p>No recent orders found</p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="logo">
+                    <i class="fas fa-laptop"></i>CyberOptix
+                </div><br>
+                <p>All Rights Reserved 2024-2025</p>
+            </div>
+            <div class="footer-links">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="{% url 'flame:AboutUs' %}">About Us</a></li>
+                  
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Helpful Links</h4>
+                <ul>
+                    <li><a href="{% url 'flame:Services' %}">Services</a></li>
+                    <li><a href="{% url 'flame:PrivacyPolicy' %}">Privacy Policy</a></li>
+                    <li><a href="{% url 'flame:Terms' %}">Terms & Condition</a></li>
+                </ul>
+            </div>
+           
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <p>+959 00090999</p>
+                <p>cyberoptix@gmail.com</p>
+                <div class="social-icons">
+                    <a href="#" class="me-3"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#"><i class="bi bi-google" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navItems = document.querySelectorAll(".nav-item");
+  const mainContent = document.querySelector(".main-content");
+
+  navItems.forEach((item) => {
+    item.addEventListener("click", function () {
+      navItems.forEach((el) => el.classList.remove("active"));
+      this.classList.add("active");
+
+      const sectionName = this.querySelector("span")?.innerText.trim();
+      console.log("Clicked section:", sectionName);
+
+      if (!sectionName) {
+        console.warn("No section name found for nav item.");
+        return;
+      }
+
+      if (sectionName === "Products") {
+        fetch("/adminproducts/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+      else if (sectionName === "Settings") {
+        fetch("/admin-setting/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+          else if (sectionName === "Notifications") {
+        fetch("/admin-noti/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+       else if (sectionName === "Security") {
+        fetch("/admin-security/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+         else if (sectionName === "Users") {
+        fetch("/admin-dash/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+        else    if (sectionName === "Dashboard") {
+        fetch("/admin-dashboard/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load products");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after products load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-order-id');
+                loadEditProduct(productId);
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading products: ${err.message}`);
+          });
+      }
+    else if (sectionName === "Sales") {
+  fetch("/admin-sales/")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load sales");
+      return res.text();
+    })
+    .then(html => {
+      mainContent.innerHTML = html;
+
+      // Initialize Sales by Category Doughnut Chart
+    const categoryCtx = document.getElementById("salesByCategory");
+if (categoryCtx) {
+    const hasData = {{ has_category_data|yesno:"true,false" }};
+    
+    if (hasData) {
+        try {
+            const categoryLabels = JSON.parse('{{ category_labels|escapejs }}');
+            const categoryValues = JSON.parse('{{ category_values|escapejs }}');
+            const categoryColors = JSON.parse('{{ category_colors|escapejs }}');
+            
+            new Chart(categoryCtx, {
+                type: "doughnut",
+                data: {
+                    labels: categoryLabels,
+                    datasets: [{
+                        data: categoryValues,
+                        backgroundColor: categoryColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "70%",
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || "";
+                                    let value = context.raw || 0;
+                                    let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    let percentage = Math.round((value / total) * 100);
+                                    return `${label}: $${value.toLocaleString()} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        } catch (error) {
+            showNoDataMessage(categoryCtx);
+        }
+    } else {
+        showNoDataMessage(categoryCtx);
+    }
+}
+
+function showNoDataMessage(ctxElement) {
+    // Create a "no data" message element
+    const noDataDiv = document.createElement('div');
+    noDataDiv.className = 'no-data-message';
+    noDataDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <i class="fas fa-chart-pie" style="font-size: 48px; color: #ccc;"></i>
+            <p style="margin-top: 10px; color: #666;">No sales data available by category</p>
+        </div>
+    `;
+    
+    // Replace the canvas with our message
+    ctxElement.parentNode.replaceChild(noDataDiv, ctxElement);
+    
+    // Optional: You could also create an empty chart if preferred
+    // new Chart(ctxElement, {
+    //     type: "doughnut",
+    //     data: {
+    //         labels: ["No data"],
+    //         datasets: [{
+    //             data: [1],
+    //             backgroundColor: ["#eee"]
+    //         }]
+    //     }
+    // });
+}
+      // Add event listeners for edit buttons after products load
+      document.querySelectorAll(".edit-icon").forEach(button => {
+        button.addEventListener("click", function () {
+          const productId = this.getAttribute("data-order-id");
+          loadEditProduct(productId);
+        });
+      });
+    })
+    .catch(err => {
+      showError(`Error loading sales: ${err.message}`);
+    });
+}
+
+       else if (sectionName === "Analytics") {
+  fetch("/admin-analytic/")
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to load analytics");
+      return res.text();
+    })
+    .then(html => {
+      mainContent.innerHTML = html;
+
+      // Initialize charts AFTER content is inserted
+    const salesCtx = document.getElementById("salesChart");
+const ordersCtx = document.getElementById("ordersChart");
+
+if (salesCtx) {
+  new Chart(salesCtx, {
+    type: "line",
+    data: {
+      labels: JSON.parse('{{ sales_labels|escapejs }}'),
+      datasets: [{
+        label: 'Sales ($)',
+        data: JSON.parse('{{ sales_values|escapejs }}'),
+        borderColor: 'rgba(67, 97, 238, 1)',
+        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+        fill: true,
+        tension: 0.3,
+        borderWidth: 2,
+        pointBackgroundColor: 'white',
+        pointBorderColor: 'rgba(67, 97, 238, 1)',
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          titleFont: { size: 14, weight: 'bold' },
+          bodyFont: { size: 12 },
+          padding: 12,
+          cornerRadius: 6,
+          displayColors: false,
+          callbacks: {
+            label: function(context) {
+              return '$' + context.raw.toLocaleString();
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0, 0, 0, 0.05)' },
+          ticks: {
+            callback: function(value) {
+              return '$' + value.toLocaleString();
+            }
+          }
+        },
+        x: {
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+if (ordersCtx) {
+  new Chart(ordersCtx, {
+    type: "bar",
+    data: {
+      labels: JSON.parse('{{ sales_labels|escapejs }}'),  // Same months as sales
+      datasets: [{
+        label: 'Orders',
+        data: JSON.parse('{{ orders_values|escapejs }}'),
+        backgroundColor: 'rgba(255, 193, 7, 0.7)',
+        borderColor: 'rgba(255, 193, 7, 1)',
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { 
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return context.raw + ' orders';
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0, 0, 0, 0.05)' },
+          ticks: {
+            precision: 0  // Show whole numbers only
+          }
+        },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+}
+      // Keep your product edit button listeners if needed
+      document.querySelectorAll(".edit-icon").forEach(button => {
+        button.addEventListener("click", function() {
+          const productId = this.getAttribute("data-order-id");
+          loadEditProduct(productId);
+        });
+      });
+    })
+    .catch(err => {
+      showError(`Error loading analytics: ${err.message}`);
+    });
+}
+
+      else if (sectionName === "Orders") {
+        fetch("/orders/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load orders");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+            
+            // Add event listeners for edit buttons after orders load
+            document.querySelectorAll('.edit-icon').forEach(button => {
+              button.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-order-id');
+                loadEditOrder(orderId);
+              });
+            });
+              // Add event listeners for edit buttons after orders load
+            document.querySelectorAll('.btn-sm').forEach(button => {
+              button.addEventListener('click', function() {
+                const orderId = this.getAttribute('data-cartorder-id');
+                loadCartOrder(orderId);
+              });
+            });
+          })
+            document.querySelectorAll('.order-detail__back-btn btn').forEach(button => {
+              button.addEventListener('click', function() {
+                 fetch("/orders/")
+          .then(res => {
+            if (!res.ok) throw new Error("Failed to load orders");
+            return res.text();
+          })
+          .then(html => {
+            mainContent.innerHTML = html;
+              });
+            });
+          })
+          .catch(err => {
+            showError(`Error loading orders: ${err.message}`);
+          });
+      }
+      else {
+        mainContent.innerHTML =`
+          <div class="page-title">
+            <div class="title">${sectionName}</div>
+          </div>
+          <p>${sectionName} content goes here.</p>
+        `;
+      }
+    });
+  });
+
+
+  function loadEditProduct(productId) {
+    fetch(`/products/${productId}/edit/`)
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load product edit form");
+        return res.text();
+      })
+      .then(html => {
+        mainContent.innerHTML = html;
+        
+        const form = mainContent.querySelector('#product-edit-form');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            handleProductFormSubmit(e, productId);
+          });
+        }
+      })
+      .catch(err => {
+        showError('Error loading product edit form: ' + err.message);
+      });
+  }
+ function loadEditOrder(orderId) {
+    fetch(`/orders/${orderId}/edit/`)
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load order edit form");
+        return res.text();
+      })
+      .then(html => {
+        mainContent.innerHTML = html;
+        
+        const form = mainContent.querySelector('#order-edit-form');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            handleOrderFormSubmit(e, orderId);
+          });
+        }
+      })
+      .catch(err => {
+        showError('Error loading order edit form: ' + err.message);
+      });
+  }
+ function loadCartOrder(orderId) {
+    fetch(`/profile/order/${orderId}/`)  // Changed endpoint to view rather than edit
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load order details");
+        return res.text();
+      })
+      .then(html => {
+        mainContent.innerHTML = html;
+        // No need for form submission handling since this is just a view
+      })
+      .catch(err => {
+        showError('Error loading order details: ' + err.message);
+      });
+}
+  function loadEditOrder(orderId) {
+    fetch(`/orders/${orderId}/edit/`)
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load order edit form");
+        return res.text();
+      })
+      .then(html => {
+        mainContent.innerHTML = html;
+        
+        const form = mainContent.querySelector('#order-edit-form');
+        if (form) {
+          form.addEventListener('submit', function(e) {
+            handleOrderFormSubmit(e, orderId);
+          });
+        }
+      })
+      .catch(err => {
+        showError('Error loading order edit form: ' + err.message);
+      });
+  }
+
+  function handleProductFormSubmit(e, productId) {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    
+    // Collect form data
+    const formData = new FormData(form);
+    
+    fetch(`/products/${productId}/edit/`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': getCookie('csrftoken')
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => { throw err; });
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        showSuccess(data.message || 'Product updated successfully!');
+        // Reload products after 2 seconds
+        setTimeout(() => {
+          document.querySelector('.nav-item[data-section="products"]').click();
+        }, 2000);
+      } else {
+        showFormErrors(data.errors || {});
+      }
+    })
+    .catch(error => {
+      showError(error.message || 'Failed to save product changes');
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+    });
+  }
+
+  function handleOrderFormSubmit(e, orderId) {
+    e.preventDefault();
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+    
+    // Collect form data
+    const formData = new FormData(form);
+    
+    fetch(`/orders/${orderId}/edit/`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRFToken': getCookie('csrftoken')
+      }
+    })
+  .then(response => {
+  if (!response.ok) {
+    return response.text().then(text => {
+      throw new Error(text || "Request failed");
+    });
+  }
+  return response.json();
+})
+
+    .then(data => {
+      if (data.success) {
+        showSuccess(data.message || 'Order updated successfully!');
+        // Reload orders after 2 seconds
+        setTimeout(() => {
+          document.querySelector('.nav-item[data-section="orders"]').click();
+        }, 2000);
+      } else {
+        showFormErrors(data.errors || {});
+      }
+    })
+    .catch(error => {
+      showError(error.message || 'Failed to save order changes');
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+    });
+  }
+
+  function showFormErrors(errors) {
+    // Clear previous errors
+    document.querySelectorAll('.is-invalid').forEach(el => {
+      el.classList.remove('is-invalid');
+    });
+    document.querySelectorAll('.invalid-feedback').forEach(el => {
+      el.remove();
+    });
+
+    // Add new errors
+    for (const field in errors) {
+      const input = document.querySelector(`[name="${field}"]`);
+      if (input) {
+        input.classList.add('is-invalid');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'invalid-feedback';
+        errorDiv.textContent = Array.isArray(errors[field]) ? 
+          errors[field].join(' ') : 
+          errors[field];
+        input.parentNode.appendChild(errorDiv);
+      }
+    }
+  }
+
+  function showSuccess(message) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-success';
+    alert.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+    mainContent.prepend(alert);
+  }
+
+  function showError(message) {
+    const alert = document.createElement('div');
+    alert.className = 'alert alert-danger';
+    alert.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+    mainContent.prepend(alert);
+  }
+
+  // Helper function to get CSRF token
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const mainContent = document.querySelector(".main-content");
+
+  // Event delegation: listen for clicks inside mainContent
+  mainContent.addEventListener("click", function (e) {
+// Change this line in your event listener
+const target = e.target.closest(".btn-success, .product-form__submit-button");
+
+// And this line in your AJAX response handling
+const form = mainContent.querySelector("#product-form"); // was #product-add-form
+    if (!target) return;
+
+    // Load Add Product form via AJAX
+    fetch("/products/add/")
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load add product form");
+        return res.text();
+      })
+      .then(html => {
+        mainContent.innerHTML = html;
+
+        const form = mainContent.querySelector("#product-add-form");
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            handleAddProductSubmit(form);
+          });
+        }
+      })
+      .catch(err => {
+        showError("Error loading add product form: " + err.message);
+      });
+  });
+
+function handleAddProductSubmit(form) {
+  console.log("Form submission started"); // Debug line
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+  const formData = new FormData(form);
+  console.log("FormData:", formData); // Debug line
+
+  fetch("/products/add/", {
+    method: "POST",
+    body: formData,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRFToken": getCookie("csrftoken")
+    }
+  })
+    .then(res => {
+      console.log("Response status:", res.status); // Debug line
+      return res.json();
+    })
+    .then(data => {
+      console.log("Response data:", data); // Debug line
+      if (data.success) {
+        showSuccess(data.message || "Product added successfully!");
+        form.reset();
+      } else {
+        showFormErrors(data.errors || {});
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err); // Debug line
+      showError(err.message || "Failed to add product");
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Product';
+    });
+}
+  function showFormErrors(errors) {
+    mainContent.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+    mainContent.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+
+    for (const field in errors) {
+      const input = mainContent.querySelector(`[name="${field}"]`);
+      if (input) {
+        input.classList.add("is-invalid");
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "invalid-feedback";
+        errorDiv.textContent = Array.isArray(errors[field]) ? errors[field].join(" ") : errors[field];
+        input.parentNode.appendChild(errorDiv);
+      }
+    }
+  }
+
+  function showSuccess(message) {
+    const alert = document.createElement("div");
+    alert.className = "alert alert-success";
+    alert.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+    mainContent.prepend(alert);
+  }
+
+  function showError(message) {
+    const alert = document.createElement("div");
+    alert.className = "alert alert-danger";
+    alert.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+        <i class="fas fa-times"></i>
+      </button>
+    `;
+    mainContent.prepend(alert);
+  }
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      document.cookie.split(";").forEach(cookie => {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        }
+      });
+    }
+    return cookieValue;
+  }
+});
+
+</script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}
+  </body>
+</html>

@@ -1,3 +1,4 @@
+
 console.log("Working Fine huhh?");
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -321,4 +322,5 @@ $(document).on('input', '.quantity input', function() {
     if (val < min) {
         $(this).val(min);
     }
+
 });

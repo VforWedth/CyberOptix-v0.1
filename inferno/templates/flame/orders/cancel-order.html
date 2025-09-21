@@ -1,0 +1,187 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-times-circle"></i>
+                        {% trans "Cancel Order" %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Order Summary -->
+                    <div class="alert alert-warning">
+                        <h5>
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {% trans "Are you sure you want to cancel this order?" %}
+                        </h5>
+                        <p class="mb-0">
+                            {% trans "This action cannot be undone. Once cancelled, you'll need to place a new order." %}
+                        </p>
+                    </div>
+
+                    <!-- Order Details -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>{% trans "Order Details" %}</h6>
+                            <p><strong>{% trans "Order Number" %}:</strong> {{ order.order_number }}</p>
+                            <p><strong>{% trans "Order Date" %}:</strong> {{ order.order_date|date:"F d, Y" }}</p>
+                            <p><strong>{% trans "Status" %}:</strong> 
+                                <span class="badge bg-primary">{{ order.get_product_status_display }}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>{% trans "Order Total" %}</h6>
+                            <p class="fs-4 text-primary mb-0">
+                                <strong>${{ order.total_amount|floatformat:2 }}</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Order Items -->
+                    <h6>{% trans "Items in this order" %}</h6>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Item" %}</th>
+                                    <th>{% trans "Quantity" %}</th>
+                                    <th>{% trans "Price" %}</th>
+                                    <th>{% trans "Total" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.cartorderitem_set.all %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ item.image }}" alt="{{ item.item }}" 
+                                                     class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                                                {{ item.item }}
+                                            </div>
+                                        </td>
+                                        <td>{{ item.qty }}</td>
+                                        <td>${{ item.price|floatformat:2 }}</td>
+                                        <td>${{ item.total|floatformat:2 }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Cancellation Form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">
+                                <strong>{% trans "Reason for cancellation" %}</strong>
+                            </label>
+                            <select name="reason" id="reason" class="form-select" required>
+                                <option value="">{% trans "Please select a reason" %}</option>
+                                <option value="changed_mind">{% trans "Changed my mind" %}</option>
+                                <option value="found_better_price">{% trans "Found better price elsewhere" %}</option>
+                                <option value="delivery_too_slow">{% trans "Delivery taking too long" %}</option>
+                                <option value="payment_issues">{% trans "Payment issues" %}</option>
+                                <option value="ordered_by_mistake">{% trans "Ordered by mistake" %}</option>
+                                <option value="product_unavailable">{% trans "Product no longer needed" %}</option>
+                                <option value="other">{% trans "Other reason" %}</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="additional_comments" class="form-label">
+                                {% trans "Additional comments" %} <small class="text-muted">({% trans "optional" %})</small>
+                            </label>
+                            <textarea name="additional_comments" id="additional_comments" 
+                                      class="form-control" rows="3" 
+                                      placeholder="{% trans 'Please provide any additional details...' %}"></textarea>
+                        </div>
+
+                        <!-- Refund Information -->
+                        {% if order.paid_status %}
+                            <div class="alert alert-info">
+                                <h6>
+                                    <i class="fas fa-info-circle"></i>
+                                    {% trans "Refund Information" %}
+                                </h6>
+                                <p class="mb-0">
+                                    {% trans "Since this order has been paid, you will receive a full refund within 5-7 business days after cancellation is processed." %}
+                                </p>
+                            </div>
+                        {% endif %}
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'flame:order-detail' order.order_number %}" 
+                               class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> {% trans "Back to Order" %}
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-times"></i> {% trans "Cancel Order" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Cancellation Policy -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shield-alt"></i>
+                        {% trans "Cancellation Policy" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <ul class="mb-0">
+                        <li>{% trans "Orders can be cancelled before they are shipped." %}</li>
+                        <li>{% trans "Refunds for paid orders will be processed within 5-7 business days." %}</li>
+                        <li>{% trans "Items that have already been shipped cannot be cancelled, but can be returned." %}</li>
+                        <li>{% trans "Digital products cannot be cancelled once download links are sent." %}</li>
+                        <li>{% trans "Custom or personalized items may have different cancellation policies." %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('reason').addEventListener('change', function() {
+    const otherOption = this.value === 'other';
+    const commentsField = document.getElementById('additional_comments');
+    
+    if (otherOption) {
+        commentsField.required = true;
+        commentsField.placeholder = '{% trans "Please explain your reason for cancellation..." %}';
+    } else {
+        commentsField.required = false;
+        commentsField.placeholder = '{% trans "Please provide any additional details..." %}';
+    }
+});
+</script>
+
+<style>
+.alert-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.alert-info {
+    border-left: 4px solid #0dcaf0;
+}
+
+.card-header.bg-danger {
+    border-bottom: none;
+}
+
+.table img {
+    object-fit: cover;
+    border: 1px solid #dee2e6;
+}
+</style>
+{% endblock %}

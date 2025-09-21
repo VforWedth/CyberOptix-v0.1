@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Security Settings - Admin Dashboard</title>
+  <style>
+   
+
+    .containera {
+      background: #fff;
+      padding: 35px;
+      border-radius: 15px;
+      max-width: 1500px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+
+    .sectiona {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #34495e;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 70%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 4px solid #9ba8ab;
+      border-radius: 15px;
+      background: #f8f9fa;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+      background: #fff;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+    }
+
+    .session-info {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .btn {
+       background: linear-gradient(to right, #9ba8ab, #4a5c6a);
+      color: #fff;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+    }
+
+    @media(max-width: 768px) {
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="containera">
+    <h2>🔐 Security Settings</h2>
+
+    <!-- Security Overview -->
+    <div class="sectiona" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+      <div class="section-title">Security Overview</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+        <div>
+          <strong>Two-Factor Authentication:</strong>
+          <span style="color: {% if current_user.two_factor_enabled %}green{% else %}orange{% endif %};">
+            {% if current_user.two_factor_enabled %}✓ Enabled{% else %}⚠ Disabled{% endif %}
+          </span>
+        </div>
+        <div>
+          <strong>Email Verified:</strong>
+          <span style="color: {% if current_user.is_email_verified %}green{% else %}red{% endif %};">
+            {% if current_user.is_email_verified %}✓ Verified{% else %}✗ Not Verified{% endif %}
+          </span>
+        </div>
+        <div>
+          <strong>Last Password Change:</strong>
+          {{ current_user.last_password_change|date:"M d, Y"|default:"Never" }}
+        </div>
+        <div>
+          <strong>Account Locked:</strong>
+          <span style="color: {% if current_user.account_locked_until %}red{% else %}green{% endif %};">
+            {% if current_user.account_locked_until %}🔒 Locked until {{ current_user.account_locked_until|date:"M d, Y H:i" }}{% else %}✓ Not Locked{% endif %}
+          </span>
+        </div>
+        <div>
+          <strong>Failed Login Attempts:</strong>
+          <span style="color: {% if current_user.failed_login_attempts > 3 %}red{% elif current_user.failed_login_attempts > 0 %}orange{% else %}green{% endif %};">
+            {{ current_user.failed_login_attempts|default:"0" }}
+          </span>
+        </div>
+        <div>
+          <strong>Last Login:</strong>
+          {{ current_user.last_login|date:"M d, Y H:i"|default:"Never" }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Section -->
+    <div class="sectiona">
+      <div class="section-title">Change Password</div>
+      <label for="current-password">Current Password</label>
+      <input type="password" id="current-password" placeholder="Enter current password">
+
+      <label for="new-password">New Password</label>
+      <input type="password" id="new-password" placeholder="Enter new password">
+
+      <label for="confirm-password">Confirm New Password</label>
+      <input type="password" id="confirm-password" placeholder="Re-enter new password">
+    </div>
+
+    <!-- 2FA Section -->
+    <div class="sectiona">
+      <div class="section-title">Two-Factor Authentication</div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="enable-2fa" {% if current_user.two_factor_enabled %}checked{% endif %}>
+        <label for="enable-2fa">Enable 2FA via Email or Authenticator App</label>
+      </div>
+      {% if current_user.two_factor_enabled %}
+      <div style="background: #d4edda; padding: 10px; border-radius: 5px; color: #155724; margin-top: 10px;">
+        ✓ Two-factor authentication is currently enabled for your account.
+      </div>
+      {% else %}
+      <div style="background: #fff3cd; padding: 10px; border-radius: 5px; color: #856404; margin-top: 10px;">
+        ⚠ Two-factor authentication is disabled. Enable it for better security.
+      </div>
+      {% endif %}
+    </div>
+
+    
+
+    <button class="btn" onclick="saveSecurity()">Save Changes</button>
+  </div>
+
+  <script>
+    function saveSecurity() {
+      alert("✅ Security settings saved successfully!");
+    }
+
+    function logoutAll() {
+      alert("🔒 Logged out of all devices except this one.");
+    }
+  </script>
+
+</body>
+</html>

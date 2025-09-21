@@ -1,0 +1,32 @@
+# Enhanced Authentication Requirements for LaptopMart Myanmar
+# Add these packages to your existing requirements.txt
+
+# JWT Authentication
+PyJWT==2.8.0
+
+# Google OAuth2
+requests==2.31.0
+google-auth==2.29.0
+google-auth-oauthlib==1.2.0
+google-auth-httplib2==0.2.0
+
+# Two-Factor Authentication
+pyotp==2.9.0
+qrcode[pil]==7.4.2
+
+# Enhanced Security
+cryptography==41.0.8
+
+# Email validation and verification
+email-validator==2.1.1
+
+# Image processing for QR codes
+Pillow==10.2.0
+
+# Additional utilities
+python-decouple==3.8  # For environment variables
+django-ratelimit==4.1.0  # Rate limiting for API endpoints
+
+# Optional: For production email sending
+# django-ses==3.5.2  # Amazon SES
+# sendgrid==6.11.0   # SendGrid

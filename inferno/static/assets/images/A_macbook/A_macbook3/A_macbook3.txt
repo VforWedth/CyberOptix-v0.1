@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 Apple MagSafe Charger
 
+=======
+Apple MagSafe Charger
+
+>>>>>>> entibery/main
 Price	$27.76

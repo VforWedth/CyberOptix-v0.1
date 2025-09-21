@@ -1,0 +1,5920 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-19 17:53+0630\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\api\v1\serializers\auth.py:75
+msgid "Password and password confirmation do not match."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:85
+msgid "A user with this email already exists."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:95
+msgid "A user with this username already exists."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:147
+msgid "New password and confirmation do not match."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:157
+msgid "Old password is incorrect."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:173
+msgid "No user found with this email address."
+msgstr ""
+
+#: .\api\v1\serializers\auth.py:192
+msgid "Password and confirmation do not match."
+msgstr ""
+
+#: .\api\v1\views\address.py:74
+msgid "Address created successfully"
+msgstr ""
+
+#: .\api\v1\views\address.py:90
+msgid "Address updated successfully"
+msgstr ""
+
+#: .\api\v1\views\address.py:111
+msgid "Address deleted successfully"
+msgstr ""
+
+#: .\api\v1\views\address.py:129
+msgid "Address set as default successfully"
+msgstr ""
+
+#: .\api\v1\views\address.py:143
+msgid "No default address found"
+msgstr ""
+
+#: .\api\v1\views\auth.py:46
+msgid "User registered successfully"
+msgstr ""
+
+#: .\api\v1\views\auth.py:90
+msgid "Password changed successfully"
+msgstr ""
+
+#: .\api\v1\views\auth.py:115
+#: .\templates\userauths\password_reset_email_html.html:8
+msgid "Password Reset - CyberOptix"
+msgstr ""
+
+#: .\api\v1\views\auth.py:123
+msgid "Password reset email sent"
+msgstr ""
+
+#: .\api\v1\views\auth.py:148
+msgid "Invalid or expired token"
+msgstr ""
+
+#: .\api\v1\views\auth.py:156
+msgid "Password reset successfully"
+msgstr ""
+
+#: .\api\v1\views\auth.py:161
+msgid "Invalid user"
+msgstr ""
+
+#: .\api\v1\views\auth.py:186
+msgid "Logged out successfully"
+msgstr ""
+
+#: .\api\v1\views\cart.py:131 .\api\v1\views\cart.py:218
+msgid "Insufficient stock. Only {} items available"
+msgstr ""
+
+#: .\api\v1\views\cart.py:169
+msgid "Item added to cart successfully"
+msgstr ""
+
+#: .\api\v1\views\cart.py:175 .\api\v1\views\cart.py:249
+#: .\api\v1\views\cart.py:299 .\api\v1\views\wishlist.py:67
+#: .\api\v1\views\wishlist.py:131 .\api\v1\views\wishlist.py:164
+msgid "Product not found"
+msgstr ""
+
+#: .\api\v1\views\cart.py:197 .\api\v1\views\cart.py:264
+msgid "Item not found in cart"
+msgstr ""
+
+#: .\api\v1\views\cart.py:213
+msgid "Item removed from cart"
+msgstr ""
+
+#: .\api\v1\views\cart.py:225
+msgid "Cart item updated successfully"
+msgstr ""
+
+#: .\api\v1\views\cart.py:293
+msgid "Item removed from cart successfully"
+msgstr ""
+
+#: .\api\v1\views\cart.py:313
+msgid "Cart cleared successfully"
+msgstr ""
+
+#: .\api\v1\views\order.py:100
+msgid "Cart is empty"
+msgstr ""
+
+#: .\api\v1\views\order.py:108
+msgid "Address not found"
+msgstr ""
+
+#: .\api\v1\views\order.py:123
+msgid "Insufficient stock for {}. Only {} available"
+msgstr ""
+
+#: .\api\v1\views\order.py:152
+msgid "Product with ID {} not found"
+msgstr ""
+
+#: .\api\v1\views\order.py:213
+msgid "Order(s) created successfully"
+msgstr ""
+
+#: .\api\v1\views\order.py:275
+msgid "Order status updated successfully"
+msgstr ""
+
+#: .\api\v1\views\order.py:288
+msgid "Order cannot be cancelled at this stage"
+msgstr ""
+
+#: .\api\v1\views\order.py:315
+msgid "Order cancelled successfully"
+msgstr ""
+
+#: .\api\v1\views\product.py:153 .\api\v1\views\product.py:189
+#: .\api\v1\views\product.py:240
+msgid "Authentication required"
+msgstr ""
+
+#: .\api\v1\views\product.py:173
+msgid "Product added to wishlist"
+msgstr ""
+
+#: .\api\v1\views\product.py:178 .\api\v1\views\wishlist.py:126
+msgid "Product already in wishlist"
+msgstr ""
+
+#: .\api\v1\views\product.py:210
+msgid "Product removed from wishlist"
+msgstr ""
+
+#: .\api\v1\views\product.py:215 .\api\v1\views\wishlist.py:168
+msgid "Product not in wishlist"
+msgstr ""
+
+#: .\api\v1\views\product.py:249 .\flame\views.py:367
+msgid "You cannot review this product"
+msgstr ""
+
+#: .\api\v1\views\product.py:269
+msgid "Review added successfully"
+msgstr ""
+
+#: .\api\v1\views\shop.py:77
+msgid "Shop created successfully"
+msgstr ""
+
+#: .\api\v1\views\shop.py:89
+msgid "You can only update your own shops"
+msgstr ""
+
+#: .\api\v1\views\shop.py:114
+msgid "Shop updated successfully"
+msgstr ""
+
+#: .\api\v1\views\shop.py:125
+msgid "You can only delete your own shops"
+msgstr ""
+
+#: .\api\v1\views\shop.py:131
+msgid ""
+"Cannot delete shop with active products. Please remove or deactivate "
+"products first."
+msgstr ""
+
+#: .\api\v1\views\shop.py:137
+msgid "Shop deleted successfully"
+msgstr ""
+
+#: .\api\v1\views\wishlist.py:61 .\api\v1\views\wishlist.py:122
+msgid "Product added to wishlist successfully"
+msgstr ""
+
+#: .\api\v1\views\wishlist.py:86 .\api\v1\views\wishlist.py:159
+msgid "Product removed from wishlist successfully"
+msgstr ""
+
+#: .\api\v1\views\wishlist.py:194
+msgid "Wishlist cleared successfully"
+msgstr ""
+
+#: .\flame\custom_translation_view.py:42
+msgid "Translations updated successfully"
+msgstr ""
+
+#: .\flame\forms.py:7
+msgid "Write your review here..."
+msgstr ""
+
+#: .\flame\forms.py:25
+msgid "Summary of your review"
+msgstr ""
+
+#: .\flame\forms.py:34
+msgid "Share your experience with this product..."
+msgstr ""
+
+#: .\flame\forms.py:46
+msgid "Quality Rating"
+msgstr ""
+
+#: .\flame\forms.py:52
+msgid "Value for Money"
+msgstr ""
+
+#: .\flame\forms.py:58
+msgid "Delivery Experience"
+msgstr ""
+
+#: .\flame\forms.py:71
+msgid "Please provide a detailed review for low ratings."
+msgstr ""
+
+#: .\flame\forms.py:81
+msgid "Please explain why you're reporting this review..."
+msgstr ""
+
+#: .\flame\forms.py:99
+msgid "HTML content of the email template..."
+msgstr ""
+
+#: .\flame\forms.py:107
+msgid "Plain text version (optional)..."
+msgstr ""
+
+#: .\flame\forms.py:128
+msgid "Write your social media post content..."
+msgstr ""
+
+#: .\flame\forms.py:138
+msgid "Leave blank to post immediately"
+msgstr ""
+
+#: .\flame\forms.py:155
+msgid "Upload CSV file with columns: product_id, quantity, cost_per_unit"
+msgstr ""
+
+#: .\flame\forms.py:161
+msgid "Please upload a CSV file."
+msgstr ""
+
+#: .\flame\forms.py:167 .\templates\flame\inventory\dashboard.html:334
+msgid "Add Stock"
+msgstr ""
+
+#: .\flame\forms.py:168
+msgid "Remove Stock"
+msgstr ""
+
+#: .\flame\forms.py:169
+msgid "Set Stock Level"
+msgstr ""
+
+#: .\flame\forms.py:170
+msgid "Mark as Damaged"
+msgstr ""
+
+#: .\flame\forms.py:188
+msgid "Cost per unit (for restocking)"
+msgstr ""
+
+#: .\flame\forms.py:195
+msgid "Reason for adjustment..."
+msgstr ""
+
+#: .\flame\forms.py:205
+msgid "Search products..."
+msgstr ""
+
+#: .\flame\forms.py:238
+msgid "Relevance"
+msgstr ""
+
+#: .\flame\forms.py:239
+msgid "Newest First"
+msgstr ""
+
+#: .\flame\forms.py:240
+msgid "Price: Low to High"
+msgstr ""
+
+#: .\flame\forms.py:241
+msgid "Price: High to Low"
+msgstr ""
+
+#: .\flame\forms.py:242
+msgid "Highest Rated"
+msgstr ""
+
+#: .\flame\forms.py:243
+msgid "Most Reviewed"
+msgstr ""
+
+#: .\flame\forms.py:254 .\templates\Shop\shop.html:391
+msgid "All Categories"
+msgstr ""
+
+#: .\flame\forms.py:258 .\templates\Shop\shop.html:376
+msgid "All Brands"
+msgstr ""
+
+#: .\flame\forms.py:270 .\templates\flame\checkout.html:67
+#: .\templates\flame\shop_profile.html:108
+msgid "Select State/Region"
+msgstr ""
+
+#: .\flame\forms.py:280 .\templates\flame\shop_profile.html:126
+#: .\templates\flame\shop_profile.html:338
+msgid "Select City"
+msgstr ""
+
+#: .\flame\forms.py:290 .\templates\flame\checkout.html:93
+#: .\templates\flame\checkout.html:477 .\templates\flame\checkout.html:489
+#: .\templates\flame\checkout.html:522
+msgid "Select Township"
+msgstr ""
+
+#: .\flame\forms.py:298
+msgid "Building number, street name, landmark..."
+msgstr ""
+
+#: .\flame\forms.py:301
+msgid "Detailed address information"
+msgstr ""
+
+#: .\flame\forms.py:335
+msgid "Select Destination City"
+msgstr ""
+
+#: .\flame\forms.py:343
+msgid "Rate in MMK"
+msgstr ""
+
+#: .\flame\forms.py:347
+msgid "Shipping rate in Myanmar Kyat"
+msgstr ""
+
+#: .\flame\forms.py:355
+msgid "Rate in USD"
+msgstr ""
+
+#: .\flame\forms.py:359
+msgid "Shipping rate in US Dollars"
+msgstr ""
+
+#: .\flame\forms.py:365
+msgid "Estimated delivery days"
+msgstr ""
+
+#: .\flame\forms.py:369
+msgid "Estimated delivery time in days"
+msgstr ""
+
+#: .\flame\forms.py:378
+msgid "Enable this shipping option"
+msgstr ""
+
+#: .\flame\forms.py:391
+msgid "MMK rate must be greater than zero"
+msgstr ""
+
+#: .\flame\forms.py:394
+msgid "USD rate must be greater than zero"
+msgstr ""
+
+#: .\flame\views.py:100
+msgid "Welcome to CyberOptix"
+msgstr ""
+
+#: .\flame\views.py:118
+msgid "ဒက်စ်တော့"
+msgstr ""
+
+#: .\flame\views.py:119
+msgid "လက်ပ်တော့"
+msgstr ""
+
+#: .\flame\views.py:120
+msgid "အသုံး အဆောင်ပစ္စည်းများ"
+msgstr ""
+
+#: .\flame\views.py:411
+msgid "Review submitted successfully"
+msgstr ""
+
+#: .\flame\views.py:489
+msgid "You have already reported this review"
+msgstr ""
+
+#: .\flame\views.py:499
+msgid "Review reported successfully. We will review it shortly."
+msgstr ""
+
+#: .\flame\views.py:1254
+msgid "Your Cart is Empty"
+msgstr ""
+
+#: .\flame\views.py:1545 .\flame\views.py:2313
+msgid "Your cart for this shop is empty"
+msgstr ""
+
+#: .\flame\views.py:1633
+msgid "Please add a shipping address"
+msgstr ""
+
+#: .\flame\views.py:1659 .\flame\views.py:2425
+msgid "Shop not found"
+msgstr ""
+
+#: .\flame\views.py:1663
+msgid "An error occurred during checkout"
+msgstr ""
+
+#: .\flame\views.py:2112
+msgid "Order not found"
+msgstr ""
+
+#: .\flame\views.py:2150 .\flame\views.py:2156 .\templates\flame\cart.html:230
+msgid "Free"
+msgstr ""
+
+#: .\flame\views.py:2249
+msgid "Invalid shop"
+msgstr ""
+
+#: .\flame\views.py:2253
+msgid "An error occurred"
+msgstr ""
+
+#: .\flame\views.py:2331
+msgid "Please fill in your complete delivery address"
+msgstr ""
+
+#: .\flame\views.py:2379
+msgid "Invalid delivery location selected"
+msgstr ""
+
+#: .\flame\views.py:2419
+msgid ""
+"Cash on Delivery order placed successfully! You will pay when your order is "
+"delivered."
+msgstr ""
+
+#: .\flame\views.py:2428
+msgid "An error occurred while processing your order. Please try again."
+msgstr ""
+
+#: .\flame\views.py:2513
+msgid "Shop not found or you don't have permission to access it"
+msgstr ""
+
+#: .\flame\views.py:2532 .\flame\views.py:2535
+msgid "Shop location updated successfully"
+msgstr ""
+
+#: .\flame\views.py:2596 .\flame\views.py:2641
+msgid "Shipping rate {} successfully"
+msgstr ""
+
+#: .\flame\views.py:2596
+msgid "created"
+msgstr ""
+
+#: .\flame\views.py:2596
+msgid "updated"
+msgstr ""
+
+#: .\flame\views.py:2625
+msgid "Shipping rate deleted successfully"
+msgstr ""
+
+#: .\flame\views.py:2641
+msgid "activated"
+msgstr ""
+
+#: .\flame\views.py:2641
+msgid "deactivated"
+msgstr ""
+
+#: .\flame\views.py:3201
+msgid "This order cannot be cancelled"
+msgstr ""
+
+#: .\flame\views.py:3219
+msgid "Your order has been cancelled successfully"
+msgstr ""
+
+#: .\flame\views.py:3234
+msgid "This order cannot be returned"
+msgstr ""
+
+#: .\flame\views.py:3248
+msgid "Return request submitted successfully"
+msgstr ""
+
+#: .\flame\views.py:3442
+msgid "Email preferences updated successfully"
+msgstr ""
+
+#: .\flame\views.py:3463
+msgid "You have been unsubscribed from email notifications"
+msgstr ""
+
+#: .\flame\views.py:3466
+msgid "Invalid unsubscribe link"
+msgstr ""
+
+#: .\inferno\settings.py:224
+msgid "English"
+msgstr ""
+
+#: .\inferno\settings.py:225
+msgid "Burmese"
+msgstr ""
+
+#: .\templates\Shop\shop.html:357
+msgid "Filters"
+msgstr ""
+
+#: .\templates\Shop\shop.html:364
+msgid "Search title, price or RAM..."
+msgstr ""
+
+#: .\templates\Shop\shop.html:365 .\templates\flame\product-list.html:758
+#: .\templates\flame\search.html:733
+msgid "Search products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:127
+#: .\templates\partials\base_offline.html:188
+msgid "Brand"
+msgstr ""
+
+#: .\templates\Shop\shop.html:387
+msgid "Category"
+msgstr ""
+
+#: .\templates\Shop\shop.html:392 .\templates\flame\category.html:50
+#: .\templates\partials\base.html:140
+#: .\templates\partials\base_offline.html:201
+msgid "Laptop"
+msgstr ""
+
+#: .\templates\Shop\shop.html:393 .\templates\flame\category.html:69
+#: .\templates\partials\base.html:141
+#: .\templates\partials\base_offline.html:202
+msgid "Desktop"
+msgstr ""
+
+#: .\templates\Shop\shop.html:394 .\templates\flame\category.html:87
+#: .\templates\partials\base.html:142
+#: .\templates\partials\base_offline.html:203
+msgid "Accessories"
+msgstr ""
+
+#: .\templates\Shop\shop.html:397
+msgid "Find Products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:398
+msgid "Reset To All Products"
+msgstr ""
+
+#: .\templates\Shop\shop.html:405
+#, python-format
+msgid ""
+"\n"
+"                    %(shopname)s Shop\n"
+"                "
+msgstr ""
+
+#: .\templates\Shop\shop.html:428
+msgid "Add to wishlist"
+msgstr ""
+
+#: .\templates\Shop\shop.html:462
+#, python-format
+msgid "%(ram)s RAM"
+msgstr ""
+
+#: .\templates\Shop\shop.html:468 .\templates\flame\async\product-list.html:8
+#: .\templates\flame\brand-product-list.html:47
+#: .\templates\flame\category-product-list.html:47
+#: .\templates\flame\home.html:672 .\templates\flame\home.html:715
+#: .\templates\flame\home.html:765 .\templates\flame\search.html:970
+#: .\templates\flame\shop-product-list.html:47
+#: .\templates\flame\wishlist.html:150
+msgid "View Product"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:13
+msgid "Analytics Dashboard"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:20
+msgid "Date Range"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:23
+#: .\templates\flame\social\analytics.html:24
+msgid "Last 7 days"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:24
+#: .\templates\flame\social\analytics.html:25
+msgid "Last 30 days"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:25
+#: .\templates\flame\social\analytics.html:26
+msgid "Last 90 days"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:38
+msgid "Total Revenue"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:58
+#: .\templates\flame\orders\order-list.html:13
+msgid "Total Orders"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:78
+msgid "Average Order Value"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:98
+#: .\templates\flame\analytics\dashboard.html:271
+msgid "New Customers"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:119
+msgid "Sales Trend"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:127
+msgid "Options"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:129
+msgid "Export Chart"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:147
+msgid "Order Status Distribution"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:173
+msgid "Top Performing Products"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:182
+#: .\templates\flame\cart.html:186
+#: .\templates\flame\inventory\dashboard.html:136
+#: .\templates\flame\order-detail.html:86 .\templates\flame\profile.html:161
+#: .\templates\flame\shop-cart.html:45
+msgid "Product"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:183
+#: .\templates\flame\analytics\dashboard.html:269
+#: .\templates\flame\analytics\dashboard.html:393
+msgid "Revenue"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:184
+msgid "Growth"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:205
+msgid "No product data available"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:217
+#: .\templates\flame\inventory\dashboard.html:205
+msgid "Recent Activity"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:231
+msgid "orders placed"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:244
+#: .\templates\flame\inventory\dashboard.html:238
+msgid "No recent activity"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:259
+msgid "Daily Sales Report"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:267
+#: .\templates\flame\profile.html:99
+#: .\templates\flame\social\analytics.html:223
+msgid "Date"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:268
+#: .\templates\flame\order-detail.html:69 .\templates\flame\profile.html:14
+#: .\templates\flame\shop_profile.html:18
+msgid "Orders"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:270
+msgid "Items Sold"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:272
+msgid "Avg Order Value"
+msgstr ""
+
+#: .\templates\flame\analytics\dashboard.html:290
+msgid "No sales data available"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:229
+#: .\templates\flame\checkout.html:188
+#: .\templates\flame\checkout_offline.html:157
+msgid "Shipping:"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:233
+#: .\templates\flame\checkout.html:195
+#: .\templates\flame\checkout_offline.html:166
+msgid "Total:"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:241
+#: .\templates\flame\checkout_offline.html:505
+#: .\templates\flame\payment-completed.html:429
+#: .\templates\flame\shop-cart.html:119
+msgid "Continue Shopping"
+msgstr ""
+
+#: .\templates\flame\async\cart-list.html:212 .\templates\flame\cart.html:245
+msgid "Proceed to Checkout"
+msgstr ""
+
+#: .\templates\flame\async\shop-cart-list.html:13
+msgid "Sold by"
+msgstr ""
+
+#: .\templates\flame\async\shop-cart-list.html:53
+#: .\templates\flame\shop-cart.html:93
+msgid "Shop Total:"
+msgstr ""
+
+#: .\templates\flame\async\shop-cart-list.html:63
+#: .\templates\flame\checkout.html:40
+#: .\templates\flame\checkout_offline.html:51
+msgid "Checkout"
+msgstr ""
+
+#: .\templates\flame\cart.html:168
+#, python-format
+msgid ""
+"\n"
+"                There is %(item_count)s product\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(item_count)s products\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\cart.html:175
+#, python-format
+msgid ""
+"\n"
+"                from %(shop_count)s shop\n"
+"            "
+msgid_plural ""
+"\n"
+"                from %(shop_count)s shops\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\cart.html:182 .\templates\flame\shop-cart.html:28
+msgid "You don't have any items in your cart"
+msgstr ""
+
+#: .\templates\flame\cart.html:187 .\templates\flame\shop-cart.html:46
+msgid "Unit Price"
+msgstr ""
+
+#: .\templates\flame\cart.html:188 .\templates\flame\order-detail.html:89
+#: .\templates\flame\orders\cancel-order.html:53
+#: .\templates\flame\orders\order-detail.html:65
+#: .\templates\flame\orders\return-order.html:67
+#: .\templates\flame\product-detail.html:73
+#: .\templates\flame\shop-cart.html:47
+#: .\templates\flame\shop-product-detail.html:94
+msgid "Quantity"
+msgstr ""
+
+#: .\templates\flame\cart.html:189
+#: .\templates\flame\orders\order-detail.html:120
+#: .\templates\flame\orders\return-order.html:70
+#: .\templates\flame\payment-completed.html:334
+#: .\templates\flame\shop-cart.html:48
+msgid "Subtotal"
+msgstr ""
+
+#: .\templates\flame\cart.html:190
+#: .\templates\flame\email\preferences.html:255
+#: .\templates\flame\inventory\dashboard.html:140
+#: .\templates\flame\orders\track-order.html:218
+#: .\templates\flame\profile.html:103 .\templates\flame\shop-cart.html:49
+#: .\templates\flame\shop_profile.html:249
+#: .\templates\flame\social\campaign-detail.html:32
+#: .\templates\flame\social\post-calendar.html:105
+msgid "Actions"
+msgstr ""
+
+#: .\templates\flame\category.html:16
+msgid "Latest Trendings"
+msgstr ""
+
+#: .\templates\flame\category.html:17
+msgid "Best Collections"
+msgstr ""
+
+#: .\templates\flame\category.html:19
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tIntroducing the latest trending categories: sleek design, and "
+"best quality.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: .\templates\flame\category.html:25 .\templates\flame\home.html:600
+#: .\templates\flame\product-list.html:733 .\templates\flame\search.html:708
+#: .\templates\flame\shop-list.html:7
+msgid "Shops"
+msgstr ""
+
+#: .\templates\flame\category.html:39
+msgid "Categories"
+msgstr ""
+
+#: .\templates\flame\category.html:54
+#, python-format
+msgid ""
+"\n"
+"        %(count)s item\n"
+"    "
+msgid_plural ""
+"\n"
+"        %(count)s items\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\category.html:72 .\templates\flame\category.html:90
+#, python-format
+msgid ""
+"\n"
+"                %(count)s item\n"
+"            "
+msgid_plural ""
+"\n"
+"                %(count)s items\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\checkout.html:15
+#: .\templates\flame\checkout_offline.html:26
+msgid "Checking out from"
+msgstr ""
+
+#: .\templates\flame\checkout.html:18
+#: .\templates\flame\checkout_offline.html:29
+msgid "PayPal Account:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:21
+#: .\templates\flame\checkout_offline.html:32
+msgid "Order ID:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:33
+#: .\templates\flame\checkout_offline.html:44
+msgid "Current Exchange Rate:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:46
+#: .\templates\flame\checkout_offline.html:57
+msgid "Billing Details"
+msgstr ""
+
+#: .\templates\flame\checkout.html:51
+#: .\templates\flame\checkout_offline.html:63
+msgid "Name"
+msgstr ""
+
+#: .\templates\flame\checkout.html:56
+#: .\templates\flame\checkout_offline.html:69
+msgid "Mobile"
+msgstr ""
+
+#: .\templates\flame\checkout.html:61
+#: .\templates\flame\checkout_offline.html:74
+msgid "Shipping Address"
+msgstr ""
+
+#: .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout_offline.html:78
+#: .\templates\flame\shop_profile.html:106
+msgid "State/Region"
+msgstr ""
+
+#: .\templates\flame\checkout.html:83
+#: .\templates\flame\checkout_offline.html:93
+msgid "City/Town"
+msgstr ""
+
+#: .\templates\flame\checkout.html:85 .\templates\flame\checkout.html:433
+#: .\templates\flame\checkout.html:445
+msgid "Select City/Town"
+msgstr ""
+
+#: .\templates\flame\checkout.html:91
+#: .\templates\flame\checkout_offline.html:108
+#: .\templates\flame\shop_profile.html:144
+msgid "Township"
+msgstr ""
+
+#: .\templates\flame\checkout.html:99
+#: .\templates\flame\checkout_offline.html:118
+#: .\templates\flame\shop_profile.html:162
+msgid "Street Address"
+msgstr ""
+
+#: .\templates\flame\checkout.html:104
+#: .\templates\flame\checkout_offline.html:123
+msgid "Building No, Street Name"
+msgstr ""
+
+#: .\templates\flame\checkout.html:109
+#: .\templates\flame\checkout_offline.html:128
+msgid "Near Landmark"
+msgstr ""
+
+#: .\templates\flame\checkout.html:114
+#: .\templates\flame\checkout_offline.html:133
+msgid "Near landmark for easy delivery"
+msgstr ""
+
+#: .\templates\flame\checkout.html:122
+#: .\templates\flame\checkout_offline.html:141
+msgid "Your Order"
+msgstr ""
+
+#: .\templates\flame\checkout.html:133 .\templates\flame\checkout.html:152
+#: .\templates\flame\checkout_offline.html:311
+msgid "Qty:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:180
+#: .\templates\flame\checkout_offline.html:152
+msgid "Subtotal:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:189
+msgid "Please select address"
+msgstr ""
+
+#: .\templates\flame\checkout.html:208
+#: .\templates\flame\checkout_offline.html:179
+msgid "Note: Payment will be processed in USD"
+msgstr ""
+
+#: .\templates\flame\checkout.html:214
+msgid "Choose Payment Method"
+msgstr ""
+
+#: .\templates\flame\checkout.html:222
+msgid "Online Payments"
+msgstr ""
+
+#: .\templates\flame\checkout.html:223
+msgid "PayPal, Stripe, KBZPay"
+msgstr ""
+
+#: .\templates\flame\checkout.html:232 .\templates\flame\checkout.html:327
+#: .\templates\flame\checkout_offline.html:196
+#: .\templates\flame\checkout_offline.html:206
+msgid "Cash on Delivery"
+msgstr ""
+
+#: .\templates\flame\checkout.html:233
+#: .\templates\flame\checkout_offline.html:197
+msgid "Pay when you receive your order"
+msgstr ""
+
+#: .\templates\flame\checkout.html:248
+msgid "Pay with PayPal"
+msgstr ""
+
+#: .\templates\flame\checkout.html:265 .\templates\flame\checkout.html:746
+#: .\templates\flame\checkout.html:784
+msgid "Pay with Stripe"
+msgstr ""
+
+#: .\templates\flame\checkout.html:273
+msgid "or pay locally with"
+msgstr ""
+
+#: .\templates\flame\checkout.html:281
+msgid "Educational Demo Mode"
+msgstr ""
+
+#: .\templates\flame\checkout.html:282
+msgid ""
+"KBZPay integration running in demonstration mode for educational purposes"
+msgstr ""
+
+#: .\templates\flame\checkout.html:297
+msgid "Pay with KBZPay"
+msgstr ""
+
+#: .\templates\flame\checkout.html:308
+msgid "Secure payment via 2C2P gateway"
+msgstr ""
+
+#: .\templates\flame\checkout.html:311 .\templates\flame\checkout.html:314
+msgid "Educational Testing:"
+msgstr ""
+
+#: .\templates\flame\checkout.html:315
+msgid "Actual charge will be 100-1000 MMK for testing purposes"
+msgstr ""
+
+#: .\templates\flame\checkout.html:328
+#: .\templates\flame\checkout_offline.html:207
+msgid "You will pay for your order when it's delivered to your address."
+msgstr ""
+
+#: .\templates\flame\checkout.html:330
+#: .\templates\flame\checkout_offline.html:209
+msgid "No online payment required"
+msgstr ""
+
+#: .\templates\flame\checkout.html:331
+#: .\templates\flame\checkout_offline.html:210
+msgid "Pay with cash to the delivery person"
+msgstr ""
+
+#: .\templates\flame\checkout.html:332
+msgid "Order will be processed immediately"
+msgstr ""
+
+#: .\templates\flame\checkout.html:354
+msgid "Confirm Cash on Delivery Order"
+msgstr ""
+
+#: .\templates\flame\checkout.html:366
+#: .\templates\flame\checkout_offline.html:232
+msgid "Go back to Explore More"
+msgstr ""
+
+#: .\templates\flame\checkout.html:439
+msgid "Loading cities..."
+msgstr ""
+
+#: .\templates\flame\checkout.html:469
+msgid "Error loading cities"
+msgstr ""
+
+#: .\templates\flame\checkout.html:483
+msgid "Loading townships..."
+msgstr ""
+
+#: .\templates\flame\checkout.html:516
+msgid "Error loading townships"
+msgstr ""
+
+#: .\templates\flame\checkout.html:531
+msgid "Please select city"
+msgstr ""
+
+#: .\templates\flame\checkout.html:536
+msgid "Calculating..."
+msgstr ""
+
+#: .\templates\flame\checkout.html:542 .\templates\flame\checkout.html:570
+msgid "Error calculating shipping"
+msgstr ""
+
+#: .\templates\flame\checkout.html:557
+msgid "Same city delivery"
+msgstr ""
+
+#: .\templates\flame\checkout.html:559
+msgid "Same state delivery"
+msgstr ""
+
+#: .\templates\flame\checkout.html:729
+msgid "Generating QR..."
+msgstr ""
+
+#: .\templates\flame\checkout.html:744
+msgid "Could not start checkout. Please check your address information."
+msgstr ""
+
+#: .\templates\flame\checkout.html:761
+msgid "Scan QR to Pay or Click Here"
+msgstr ""
+
+#: .\templates\flame\checkout.html:782
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: .\templates\flame\checkout.html:803
+msgid "Creating PayPal Payment..."
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:18
+msgid "Offline Mode Active"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:19
+msgid ""
+"You can place Cash on Delivery orders. Your order will be submitted when "
+"you're back online."
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:83
+msgid "Enter your state/region"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:87
+msgid "Please enter your state/region manually (offline mode)"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:98
+msgid "Enter your city/town"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:102
+msgid "Please enter your city/town manually (offline mode)"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:113
+msgid "Enter your township (optional)"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:159
+msgid "Standard shipping (will be calculated when online)"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:170
+msgid "(+ shipping fee will be calculated when online)"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:185
+msgid "Payment Method"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:189
+msgid "Only Cash on Delivery is available in offline mode"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:211
+msgid "Order will be saved and submitted when you're back online"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:212
+msgid "You'll receive a confirmation notification when the order is submitted"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:221
+msgid "Save Order for Offline Submission"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:389
+msgid "This field is required"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:493
+msgid "Order Saved Successfully!"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:495
+msgid "Your offline order has been saved"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:497
+msgid "Order will be automatically submitted when you're back online"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:498
+msgid "You'll receive a confirmation notification when submitted"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:499
+msgid "Shipping fee will be calculated and added when online"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:500
+msgid "Payment will be collected upon delivery"
+msgstr ""
+
+#: .\templates\flame\checkout_offline.html:508
+msgid "Go to Home"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:13
+msgid "Email Preferences"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:16
+msgid "Manage your email notification settings"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:27
+msgid "Order Notifications"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:29
+msgid "Receive updates about your orders"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:37
+msgid "Order Confirmation"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:38
+msgid "When your order is confirmed"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:47
+msgid "Shipping Updates"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:48
+msgid "When your order ships"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:57
+msgid "Delivery Confirmation"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:58
+msgid "When your order is delivered"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:67
+msgid "Order Changes"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:68
+msgid "Cancellations and returns"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:81
+msgid "Marketing & Promotions"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:83
+msgid "Receive special offers and product recommendations"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:91
+msgid "Special Offers"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:92
+msgid "Sales, discounts, and deals"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:101
+msgid "New Products"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:102
+msgid "Latest arrivals and releases"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:111
+#: .\templates\flame\recommendations\user-recommendations.html:12
+msgid "Personalized Recommendations"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:112
+msgid "Products you might like"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:121
+msgid "Newsletter"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:122
+msgid "Weekly tech news and tips"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:135
+msgid "Account & Service"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:137
+msgid "Important account and service updates"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:145
+msgid "Review Requests"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:146
+msgid "Rate and review your purchases"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:155
+msgid "Security Alerts"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:156
+msgid "Account security notifications"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:165
+msgid "Policy Updates"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:166
+msgid "Changes to terms and privacy"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:175
+msgid "Surveys & Feedback"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:176
+msgid "Help improve our service"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:189
+msgid "Email Frequency"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:191
+msgid "How often would you like to receive promotional emails?"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:199
+msgid "Daily"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:208
+msgid "Weekly"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:217
+msgid "Monthly"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:227
+msgid "Save Preferences"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:230
+msgid "Unsubscribe from all emails"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:242
+msgid "Recent Emails"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:251
+msgid "Subject"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:252
+msgid "Type"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:253
+#: .\templates\flame\inventory\dashboard.html:139
+#: .\templates\flame\orders\cancel-order.html:34
+#: .\templates\flame\orders\return-order.html:35
+#: .\templates\flame\profile.html:100
+#: .\templates\flame\social\campaign-detail.html:78
+#: .\templates\flame\social\post-calendar.html:104
+#: .\templates\flame\social\post-calendar.html:604
+msgid "Status"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:254
+msgid "Sent"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:273
+#: .\templates\flame\orders\track-order.html:77
+msgid "Delivered"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:277
+#: .\templates\flame\profile.html:398
+msgid "Failed"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:281
+#: .\templates\flame\profile.html:121
+msgid "Pending"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:287
+msgid "Opened"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:316
+msgid "No emails sent yet"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:317
+msgid "Your email history will appear here once we start sending you emails."
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:333
+msgid "Email Preview"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:342
+#: .\templates\flame\orders\return-order.html:252
+#: .\templates\flame\social\post-calendar.html:261
+msgid "Close"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:390
+msgid "Are you sure you want to resend this email?"
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:413
+msgid ""
+"Are you sure you want to unsubscribe from all emails? You will only receive "
+"critical account notifications."
+msgstr ""
+
+#: .\templates\flame\email\preferences.html:431
+msgid "Saving..."
+msgstr ""
+
+#: .\templates\flame\home.html:561
+msgid "Your browser does not support the video tag."
+msgstr ""
+
+#: .\templates\flame\home.html:569
+msgid "Discounted items"
+msgstr ""
+
+#: .\templates\flame\home.html:574
+msgid "New Items"
+msgstr ""
+
+#: .\templates\flame\home.html:576
+msgid "Search by Brand"
+msgstr ""
+
+#: .\templates\flame\home.html:583
+msgid "Best laptops for a refined lifestyle."
+msgstr ""
+
+#: .\templates\flame\home.html:584
+#: .\templates\flame\orders\order-list.html:171
+#: .\templates\userauths\registration-complete.html:51
+msgid "Start Shopping"
+msgstr ""
+
+#: .\templates\flame\home.html:601
+msgid ""
+"Discover the perfect laptops and everyday essentials at unbeatable prices, "
+"tailored to meet all your needs with quality and convenience."
+msgstr ""
+
+#: .\templates\flame\home.html:611 .\templates\flame\shop-list.html:25
+#: .\templates\flame\shop_profile.html:19
+msgid "View Shop"
+msgstr ""
+
+#: .\templates\flame\home.html:626
+msgid "Most Popular Items"
+msgstr ""
+
+#: .\templates\flame\home.html:686
+msgid "New Items "
+msgstr ""
+
+#: .\templates\flame\home.html:727
+msgid "Discount Items "
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:13
+msgid "Inventory Management"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:15
+msgid "Monitor and manage your product inventory"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:19
+msgid "Bulk Restock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:27
+msgid "Export Inventory"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:30
+msgid "Generate Report"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:44
+msgid "Low Stock Items"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:64
+#: .\templates\flame\inventory\dashboard.html:166
+#: .\templates\flame\inventory\dashboard.html:383
+#: .\templates\flame\recommendations\user-recommendations.html:137
+#: .\templates\flame\wishlist.html:135
+msgid "Out of Stock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:84
+msgid "Total Products"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:104
+msgid "Total Stock Value"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:126
+msgid "Low Stock Alert"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:128
+msgid "items"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:137
+msgid "Current Stock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:138
+msgid "Min Level"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:168
+#: .\templates\flame\inventory\dashboard.html:383
+msgid "Low Stock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:175
+msgid "Restock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:191
+msgid "All products are well stocked!"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:192
+msgid "No low stock alerts at this time."
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:225
+msgid "ago"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:253
+msgid "Stock Status Distribution"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:268
+msgid "Category Stock Levels"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:290
+msgid "Restock Product"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:301
+msgid "Quantity to Add"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:309
+msgid "Cost per Unit"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:317
+msgid "Leave blank if cost hasn't changed"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:323
+msgid "Notes"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:326
+msgid "Optional notes about this restock..."
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:331
+#: .\templates\flame\orders\order-list.html:105
+#: .\templates\flame\social\campaign-detail.html:390
+#: .\templates\flame\social\campaign-detail.html:465
+#: .\templates\flame\social\dashboard.html:351
+#: .\templates\flame\social\dashboard.html:407
+#: .\templates\flame\social\post-calendar.html:236
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:383
+#: .\templates\flame\recommendations\user-recommendations.html:133
+#: .\templates\flame\wishlist.html:133
+msgid "In Stock"
+msgstr ""
+
+#: .\templates\flame\inventory\dashboard.html:411
+msgid "Stock Level"
+msgstr ""
+
+#: .\templates\flame\offline.html:12
+msgid "You're Offline"
+msgstr ""
+
+#: .\templates\flame\offline.html:15
+msgid "It looks like you don't have an internet connection right now."
+msgstr ""
+
+#: .\templates\flame\offline.html:20
+msgid "What you can still do:"
+msgstr ""
+
+#: .\templates\flame\offline.html:24
+msgid "Browse cached products"
+msgstr ""
+
+#: .\templates\flame\offline.html:28
+msgid "Manage your cart"
+msgstr ""
+
+#: .\templates\flame\offline.html:32
+msgid "Update your wishlist"
+msgstr ""
+
+#: .\templates\flame\offline.html:36
+msgid "View your profile"
+msgstr ""
+
+#: .\templates\flame\offline.html:40
+msgid "Check order history"
+msgstr ""
+
+#: .\templates\flame\offline.html:48
+msgid "Features requiring internet:"
+msgstr ""
+
+#: .\templates\flame\offline.html:52
+msgid "Payment processing (except Cash on Delivery)"
+msgstr ""
+
+#: .\templates\flame\offline.html:56
+msgid "Email notifications"
+msgstr ""
+
+#: .\templates\flame\offline.html:60
+msgid "Real-time inventory updates"
+msgstr ""
+
+#: .\templates\flame\offline.html:64
+msgid "New user registration"
+msgstr ""
+
+#: .\templates\flame\offline.html:74
+#: .\templates\partials\base_offline.html:107
+#: .\templates\userauths\password_reset_done.html:32
+msgid "Try Again"
+msgstr ""
+
+#: .\templates\flame\offline.html:80
+msgid "Browse Offline"
+msgstr ""
+
+#: .\templates\flame\offline.html:87
+msgid ""
+"Your offline actions will be automatically synced when you're back online."
+msgstr ""
+
+#: .\templates\flame\offline.html:93
+msgid "Cached Products"
+msgstr ""
+
+#: .\templates\flame\offline.html:125
+#: .\templates\flame\shop-product-detail.html:112
+msgid "Add to Cart"
+msgstr ""
+
+#: .\templates\flame\offline.html:135
+msgid "No cached products available."
+msgstr ""
+
+#: .\templates\flame\offline.html:140
+msgid "Error loading cached products."
+msgstr ""
+
+#: .\templates\flame\offline.html:157
+msgid "Added to offline cart!"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:67
+msgid "Profile picture"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
+#: .\templates\partials\base.html:102
+#: .\templates\partials\base_offline.html:163
+msgid "Profile"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:70 .\templates\flame\profile.html:23
+#: .\templates\flame\shop_profile.html:26
+msgid "Logout"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:77
+#: .\templates\flame\orders\track-order.html:240
+#: .\templates\flame\profile.html:149 .\templates\flame\profile.html:181
+msgid "Back to Orders"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:79
+#, python-format
+msgid ""
+"\n"
+"                Order Details: INVOICE_NO-%(invoice)s\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:162
+#: .\templates\flame\social\campaign-detail.html:422
+#: .\templates\flame\social\dashboard.html:312
+#: .\templates\flame\social\post-calendar.html:191
+#: .\templates\flame\social\post-calendar.html:591
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:88
+#: .\templates\flame\orders\cancel-order.html:54
+#: .\templates\flame\payment-completed.html:270
+#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:163
+#: .\templates\flame\search.html:761
+msgid "Price"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:90
+#: .\templates\flame\orders\cancel-order.html:55
+#: .\templates\flame\orders\order-detail.html:143
+#: .\templates\flame\profile.html:102 .\templates\flame\profile.html:165
+msgid "Total"
+msgstr ""
+
+#: .\templates\flame\order-detail.html:102
+#, python-format
+msgid "Product image: %(title)s"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:13
+#: .\templates\flame\orders\cancel-order.html:125
+#: .\templates\flame\orders\order-detail.html:34
+#: .\templates\flame\orders\track-order.html:229
+msgid "Cancel Order"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:21
+msgid "Are you sure you want to cancel this order?"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:24
+msgid ""
+"This action cannot be undone. Once cancelled, you'll need to place a new "
+"order."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:31
+#: .\templates\flame\orders\return-order.html:31
+msgid "Order Details"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:32
+#: .\templates\flame\orders\return-order.html:32
+msgid "Order Number"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:33
+#: .\templates\flame\orders\return-order.html:33
+msgid "Order Date"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:39
+#: .\templates\flame\orders\return-order.html:40
+msgid "Order Total"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:47
+msgid "Items in this order"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:52
+#: .\templates\flame\payment-completed.html:269
+msgid "Item"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:82
+msgid "Reason for cancellation"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:85
+#: .\templates\flame\orders\return-order.html:86
+msgid "Please select a reason"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:86
+#: .\templates\flame\orders\return-order.html:92
+msgid "Changed my mind"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:87
+msgid "Found better price elsewhere"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:88
+msgid "Delivery taking too long"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:89
+msgid "Payment issues"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:90
+msgid "Ordered by mistake"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:91
+msgid "Product no longer needed"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:92
+#: .\templates\flame\orders\return-order.html:94
+msgid "Other reason"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:98
+msgid "Additional comments"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:98
+msgid "optional"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:102
+#: .\templates\flame\orders\cancel-order.html:164
+msgid "Please provide any additional details..."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:110
+msgid "Refund Information"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:113
+msgid ""
+"Since this order has been paid, you will receive a full refund within 5-7 "
+"business days after cancellation is processed."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:122
+#: .\templates\flame\orders\return-order.html:151
+msgid "Back to Order"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:137
+msgid "Cancellation Policy"
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:142
+msgid "Orders can be cancelled before they are shipped."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:143
+msgid "Refunds for paid orders will be processed within 5-7 business days."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:144
+msgid ""
+"Items that have already been shipped cannot be cancelled, but can be "
+"returned."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:145
+msgid "Digital products cannot be cancelled once download links are sent."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:146
+msgid "Custom or personalized items may have different cancellation policies."
+msgstr ""
+
+#: .\templates\flame\orders\cancel-order.html:161
+msgid "Please explain your reason for cancellation..."
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:14
+#: .\templates\flame\orders\order-list.html:52
+#: .\templates\flame\orders\track-order.html:15
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:17
+#: .\templates\flame\orders\order-list.html:55
+msgid "Placed on"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:28
+#: .\templates\flame\orders\order-list.html:99
+#: .\templates\flame\profile.html:15
+msgid "Track Order"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:40
+#: .\templates\flame\orders\return-order.html:13
+#: .\templates\flame\orders\track-order.html:235
+msgid "Return Order"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:52
+msgid "Order Items"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:83
+#: .\templates\flame\orders\track-order.html:101
+msgid "Order Timeline"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:116
+msgid "Order Summary"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:125
+#: .\templates\flame\payment-completed.html:340
+msgid "Shipping"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:131
+#: .\templates\flame\payment-completed.html:346
+msgid "Tax"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:137
+msgid "Discount"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:153
+msgid "Delivery Information"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:157
+#: .\templates\flame\orders\track-order.html:200
+#: .\templates\flame\payment-completed.html:256
+#: .\templates\flame\product-detail.html:117
+#: .\templates\flame\shop-product-detail.html:140
+msgid "Delivery Address"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:167
+#: .\templates\flame\orders\track-order.html:191
+msgid "Estimated Delivery"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:173
+#: .\templates\flame\orders\track-order.html:18
+msgid "Tracking Number"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:184
+msgid "Order Progress"
+msgstr ""
+
+#: .\templates\flame\orders\order-detail.html:195
+#: .\templates\flame\orders\order-list.html:122
+#: .\templates\flame\orders\track-order.html:174
+#: .\templates\flame\orders\track-order.html:358
+#: .\templates\flame\social\campaign-detail.html:107
+msgid "Complete"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:10
+msgid "My Orders"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:23
+msgid "Filter by Status"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:25
+msgid "All Orders"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:35
+#: .\templates\flame\social\dashboard.html:153
+msgid "Filter"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:78
+#: .\templates\flame\payment-completed.html:271
+#: .\templates\flame\profile.html:164
+msgid "Qty"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:85
+#: .\venv\Lib\site-packages\django\db\models\base.py:1572
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:85
+msgid "more items"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:94
+msgid "View Details"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:138
+msgid "Previous"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:158
+msgid "Next"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:168
+msgid "No Orders Yet"
+msgstr ""
+
+#: .\templates\flame\orders\order-list.html:169
+msgid ""
+"You haven't placed any orders yet. Start shopping to see your orders here."
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:21
+msgid "Return Request"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:24
+msgid ""
+"Please provide details about your return request. Our team will review and "
+"contact you within 24 hours."
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:34
+msgid "Delivery Date"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:52
+msgid "Items to return"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:83
+msgid "Reason for return"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:87
+msgid "Item is defective/damaged"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:88
+msgid "Wrong item received"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:89
+msgid "Item not as described"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:90
+msgid "Quality issues"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:91
+msgid "Size/fit issues"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:93
+msgid "Item arrived too late"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:101
+msgid "Detailed description"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:105
+#: .\templates\flame\orders\return-order.html:309
+msgid ""
+"Please provide a detailed description of the issue or reason for return..."
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:107
+msgid ""
+"Please be as specific as possible. Include details about damage, defects, or "
+"any other issues."
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:114
+msgid "Preferred return method"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:117
+msgid "Schedule pickup from my address"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:118
+msgid "Drop off at store/service center"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:119
+msgid "Mail return (prepaid label)"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:126
+msgid "Preferred refund method"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:129
+msgid "Refund to original payment method"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:130
+msgid "Store credit"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:131
+msgid "Exchange for another item"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:140
+#: .\templates\userauths\sign-up.html:160
+msgid "I agree to the"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:142
+msgid "return policy and terms"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:154
+msgid "Submit Return Request"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:166
+msgid "Return Process"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:176
+msgid "Submit Request"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:177
+msgid "Fill out the return form"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:185
+msgid "Review"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:186
+msgid "We review your request"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:194
+msgid "Return Item"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:195
+msgid "Send item back to us"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:203
+msgid "Refund"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:204
+msgid "Receive your refund"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:221
+msgid "Return Policy"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:226
+msgid "Return Eligibility"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:228
+msgid "Items must be returned within 30 days of delivery"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:229
+msgid "Items must be in original condition and packaging"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:230
+msgid "All accessories and documentation must be included"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:231
+msgid "Items must not show signs of wear or damage caused by use"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:234
+msgid "Non-Returnable Items"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:236
+msgid "Software and digital products"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:237
+msgid "Customized or personalized items"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:238
+msgid "Items damaged by misuse"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:239
+msgid "Items without original packaging"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:242
+msgid "Refund Processing"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:244
+msgid ""
+"Refunds are processed within 5-7 business days after we receive the item"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:245
+msgid "Refunds are issued to the original payment method"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:246
+msgid "Return shipping costs may be deducted from refund amount"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:247
+msgid "Restocking fees may apply for certain items"
+msgstr ""
+
+#: .\templates\flame\orders\return-order.html:307
+msgid "Please explain your reason for return in detail..."
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:13
+#: .\templates\flame\profile.html:185
+msgid "Track Your Order"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:33
+msgid "Order Placed"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:44
+msgid "Payment Confirmed"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:55
+msgid "Processing"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:66
+msgid "Shipped"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:135
+msgid "Latest"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:143
+msgid "No tracking information available yet."
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:158
+msgid "Current Status"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:185
+msgid "Delivery Info"
+msgstr ""
+
+#: .\templates\flame\orders\track-order.html:224
+msgid "View Order Details"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:211
+msgid "INVOICE"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:214
+#, python-format
+msgid "Payment to %(shop)s"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:216
+msgid "General Order Payment"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:222
+msgid "Exchange Rate:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:232
+msgid "Date:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:240
+msgid "Transaction ID:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:244
+msgid "Merchant PayPal:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:248
+msgid "Billed To"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:250
+msgid "Customer:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:253
+msgid "Email:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:259
+msgid "Phone:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:262
+msgid "Payment Method:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:272
+msgid "Amount"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:356
+msgid "Grand Total"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:371
+msgid "Cash on Delivery Order"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:379
+#: .\templates\flame\payment-completed.html:400
+msgid "Payment Status:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:380
+msgid "Pay on Delivery"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:384
+msgid "Cash on Delivery Instructions:"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:386
+msgid "Keep the exact amount ready when the delivery person arrives"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:387
+msgid "You can also pay with mobile money or cash"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:388
+msgid "Check your items before making the payment"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:392
+msgid "Total Amount Due"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:401
+msgid "Completed"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:406
+msgid "Payment processed in USD"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:414
+#, python-format
+msgid ""
+"\n"
+"                Thank you for your business, %(user)s!\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:418
+msgid ""
+"If you have any questions about this invoice, please contact our support "
+"team."
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:423
+msgid "Print Invoice"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:426
+msgid "Download PDF"
+msgstr ""
+
+#: .\templates\flame\payment-completed.html:492
+msgid "Error generating PDF. Please try again."
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:52
+msgid "PAYMENT FAILED"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:55
+#, python-format
+msgid "Transaction ID: %(id)s"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:56
+#, python-format
+msgid "Attempted payment to: %(shop)s"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:57
+#, python-format
+msgid "Shop PayPal: %(paypal)s"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:61
+msgid "General Order Payment Failed"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:69
+msgid "Need Help?"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:71
+msgid "Check if your payment method has sufficient funds"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:72
+msgid "Verify your card details are entered correctly"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:73
+msgid "Ensure your card hasn't expired"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:74
+msgid "Contact your bank for authorization issues"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:75
+msgid "Try using a different payment method"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:97
+msgid "Need immediate assistance?"
+msgstr ""
+
+#: .\templates\flame\payment-failed.html:98
+#, python-format
+msgid ""
+"\n"
+"                Call us at %(phone)s or email %(email)s\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-detail.html:30
+#: .\templates\flame\shop-product-detail.html:31
+msgid "Related Products"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:52
+#, python-format
+msgid "- {{ p.get_percentage|floatformat:0 }} %%"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:55
+msgid "$"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:59
+#: .\templates\flame\shop-product-detail.html:77
+#: .\templates\flame\shop_profile.html:53
+#: .\templates\flame\social\campaign-detail.html:360
+#: .\templates\flame\social\dashboard.html:381
+msgid "Description"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:60
+#: .\templates\flame\shop-product-detail.html:78
+msgid "Additional Info"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:61
+#: .\templates\flame\shop-product-detail.html:79
+#: .\templates\partials\base.html:59 .\templates\partials\base.html:70
+#: .\templates\partials\base_offline.html:120
+#: .\templates\partials\base_offline.html:131
+msgid "Shop"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:62
+#: .\templates\flame\shop-product-detail.html:83
+#, python-format
+msgid "Reviews (%(count)s)"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:95
+#: .\templates\flame\shop-product-detail.html:118
+msgid "Product Specifications"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:109
+#: .\templates\flame\shop-product-detail.html:132
+msgid "Seller Information"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:130
+#: .\templates\flame\shop-product-detail.html:153
+msgid "Shop Address:"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:131
+#: .\templates\flame\shop-product-detail.html:154
+msgid "Contact Seller:"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:133
+#: .\templates\flame\shop-product-detail.html:157
+#, python-format
+msgid ""
+"\n"
+"              In Stock: %(stock_count)s item\n"
+"            "
+msgid_plural ""
+"\n"
+"              In Stock: %(stock_count)s items\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\product-detail.html:145
+#: .\templates\flame\shop-product-detail.html:169
+msgid "Customer Reviews"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:147
+#: .\templates\flame\shop-product-detail.html:171
+msgid "out of 5.0"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:163
+#: .\templates\flame\shop-product-detail.html:187
+msgid "5 Star"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:165
+#: .\templates\flame\shop-product-detail.html:189
+#, python-format
+msgid "80%%"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:168
+#: .\templates\flame\shop-product-detail.html:192
+msgid "4 Star"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:170
+#: .\templates\flame\shop-product-detail.html:194
+#, python-format
+msgid "15%%"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:173
+#: .\templates\flame\shop-product-detail.html:197
+msgid "3 Star"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:175
+#: .\templates\flame\shop-product-detail.html:199
+#, python-format
+msgid "5%%"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:195
+#: .\templates\flame\shop-product-detail.html:219
+msgid "No reviews yet. Be the first to review!"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:203
+#: .\templates\flame\shop-product-detail.html:227
+msgid "Add a Review"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:213
+#: .\templates\flame\shop-product-detail.html:237
+msgid "Submit Review"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:217
+#: .\templates\flame\shop-product-detail.html:241
+#: .\templates\userauths\sign-in.html:24 .\templates\userauths\sign-in.html:30
+#: .\templates\userauths\sign-in.html:79 .\templates\userauths\sign-up.html:37
+#: .\templates\userauths\sign-up.html:173
+msgid "Login"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:217
+#: .\templates\flame\shop-product-detail.html:241
+msgid "to write a review."
+msgstr ""
+
+#: .\templates\flame\product-detail.html:234
+#: .\templates\partials\base.html:269
+#: .\templates\partials\base_offline.html:315
+msgid "All Rights Reserved 2024-2025"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:237
+#: .\templates\partials\base.html:272
+#: .\templates\partials\base_offline.html:318
+msgid "Information"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:239
+#: .\templates\partials\base.html:274
+#: .\templates\partials\base_offline.html:320
+msgid "About Us"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:244
+#: .\templates\partials\base.html:279
+#: .\templates\partials\base_offline.html:325
+msgid "Helpful Links"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:246
+#: .\templates\partials\base.html:281
+#: .\templates\partials\base_offline.html:327
+msgid "Services"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:247
+#: .\templates\partials\base.html:282
+#: .\templates\partials\base_offline.html:328
+msgid "Privacy Policy"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:248
+#: .\templates\partials\base.html:283
+#: .\templates\partials\base_offline.html:329
+msgid "Terms & Condition"
+msgstr ""
+
+#: .\templates\flame\product-detail.html:253
+#: .\templates\partials\base.html:288
+#: .\templates\partials\base_offline.html:334
+msgid "Contact Us"
+msgstr ""
+
+#: .\templates\flame\product-list.html:700
+#, python-format
+msgid ""
+"\n"
+"                %(brand)s <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:707
+#, python-format
+msgid ""
+"\n"
+"                %(filter)s Items <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:714
+#, python-format
+msgid ""
+"\n"
+"                %(category)s <i class=\"fas fa-laptop me-2\"></i>\n"
+"            "
+msgstr ""
+
+#: .\templates\flame\product-list.html:720
+msgid "Products Available in CyberOptix"
+msgstr ""
+
+#: .\templates\flame\product-list.html:724 .\templates\flame\search.html:700
+msgid "Premium laptops for professionals"
+msgstr ""
+
+#: .\templates\flame\product-list.html:735 .\templates\flame\search.html:710
+msgid "All Shops"
+msgstr ""
+
+#: .\templates\flame\product-list.html:736 .\templates\flame\search.html:711
+msgid "Unique"
+msgstr ""
+
+#: .\templates\flame\product-list.html:737 .\templates\flame\search.html:712
+msgid "ICT"
+msgstr ""
+
+#: .\templates\flame\product-list.html:738 .\templates\flame\search.html:713
+msgid "Citicom"
+msgstr ""
+
+#: .\templates\flame\product-list.html:739 .\templates\flame\search.html:714
+msgid "Innwa"
+msgstr ""
+
+#: .\templates\flame\product-list.html:755 .\templates\flame\search.html:730
+msgid "Try 'MacBook Pro' or '32GB RAM'..."
+msgstr ""
+
+#: .\templates\flame\product-list.html:766 .\templates\flame\search.html:741
+msgid "Clear search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:774 .\templates\flame\search.html:749
+msgid "Submit search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:776 .\templates\flame\search.html:751
+msgid "Search"
+msgstr ""
+
+#: .\templates\flame\product-list.html:792
+#, python-format
+msgid "%(min_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:795
+#, python-format
+msgid "%(max_price)s"
+msgstr ""
+
+#: .\templates\flame\product-list.html:807 .\templates\flame\search.html:794
+msgid "Custom price"
+msgstr ""
+
+#: .\templates\flame\product-list.html:815 .\templates\flame\search.html:803
+msgid "Apply"
+msgstr ""
+
+#: .\templates\flame\profile.html:16
+msgid "My Address"
+msgstr ""
+
+#: .\templates\flame\profile.html:17
+msgid "Security"
+msgstr ""
+
+#: .\templates\flame\profile.html:36
+msgid "My Profile"
+msgstr ""
+
+#: .\templates\flame\profile.html:38
+msgid "Edit Profile"
+msgstr ""
+
+#: .\templates\flame\profile.html:45
+msgid "Full Name"
+msgstr ""
+
+#: .\templates\flame\profile.html:53
+msgid "About Me"
+msgstr ""
+
+#: .\templates\flame\profile.html:56
+msgid "Customer"
+msgstr ""
+
+#: .\templates\flame\profile.html:61 .\templates\flame\profile.html:246
+msgid "Phone Number"
+msgstr ""
+
+#: .\templates\flame\profile.html:66
+msgid "Not Verified"
+msgstr ""
+
+#: .\templates\flame\profile.html:72 .\templates\userauths\sign-in.html:50
+#: .\templates\userauths\sign-up.html:104 .\userauths\forms.py:130
+msgid "Email Address"
+msgstr ""
+
+#: .\templates\flame\profile.html:77
+msgid "Verified"
+msgstr ""
+
+#: .\templates\flame\profile.html:90
+msgid "Order History"
+msgstr ""
+
+#: .\templates\flame\profile.html:98
+msgid "Order ID"
+msgstr ""
+
+#: .\templates\flame\profile.html:101
+msgid "Payment"
+msgstr ""
+
+#: .\templates\flame\profile.html:119
+msgid "Paid"
+msgstr ""
+
+#: .\templates\flame\profile.html:153
+msgid "Order Details:"
+msgstr ""
+
+#: .\templates\flame\profile.html:233
+msgid "Address Book"
+msgstr ""
+
+#: .\templates\flame\profile.html:239
+msgid "Add New Address"
+msgstr ""
+
+#: .\templates\flame\profile.html:242
+msgid "Address"
+msgstr ""
+
+#: .\templates\flame\profile.html:251
+msgid "Save Address"
+msgstr ""
+
+#: .\templates\flame\profile.html:258
+msgid "Saved Addresses"
+msgstr ""
+
+#: .\templates\flame\profile.html:262
+#, python-format
+msgid "Address %(forloop.counter)s"
+msgstr ""
+
+#: .\templates\flame\profile.html:268
+msgid "Default"
+msgstr ""
+
+#: .\templates\flame\profile.html:271
+msgid "Make Default"
+msgstr ""
+
+#: .\templates\flame\profile.html:286
+msgid "Security Settings"
+msgstr ""
+
+#: .\templates\flame\profile.html:294
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\flame\profile.html:296
+msgid ""
+"Add an extra layer of security to your account by requiring a verification "
+"code from your mobile device."
+msgstr ""
+
+#: .\templates\flame\profile.html:302
+msgid "Enabled"
+msgstr ""
+
+#: .\templates\flame\profile.html:306
+msgid "Disabled"
+msgstr ""
+
+#: .\templates\flame\profile.html:315
+msgid "Two-factor authentication is currently enabled for your account."
+msgstr ""
+
+#: .\templates\flame\profile.html:316
+msgid ""
+"Use your authenticator app to generate verification codes when logging in."
+msgstr ""
+
+#: .\templates\flame\profile.html:318
+msgid ""
+"Are you sure you want to disable two-factor authentication? This will make "
+"your account less secure."
+msgstr ""
+
+#: .\templates\flame\profile.html:321
+msgid "Disable 2FA"
+msgstr ""
+
+#: .\templates\flame\profile.html:326
+msgid "Your account is not protected by two-factor authentication."
+msgstr ""
+
+#: .\templates\flame\profile.html:327
+msgid "Enable 2FA to add an extra layer of security to your account."
+msgstr ""
+
+#: .\templates\flame\profile.html:330
+#: .\templates\userauths\two-factor-setup.html:104
+msgid "Enable 2FA"
+msgstr ""
+
+#: .\templates\flame\profile.html:340 .\templates\userauths\sign-in.html:61
+#: .\templates\userauths\sign-up.html:128 .\userauths\forms.py:25
+#: .\userauths\forms.py:27 .\userauths\forms.py:137
+msgid "Password"
+msgstr ""
+
+#: .\templates\flame\profile.html:342
+msgid "Keep your password strong and unique to protect your account."
+msgstr ""
+
+#: .\templates\flame\profile.html:348
+msgid "Last changed:"
+msgstr ""
+
+#: .\templates\flame\profile.html:356
+msgid "Use a strong, unique password to keep your account secure."
+msgstr ""
+
+#: .\templates\flame\profile.html:359
+msgid "Change Password"
+msgstr ""
+
+#: .\templates\flame\profile.html:369
+msgid "Recent Login Activity"
+msgstr ""
+
+#: .\templates\flame\profile.html:371
+msgid "Review your recent login activity to ensure your account security."
+msgstr ""
+
+#: .\templates\flame\profile.html:382
+msgid "Google Sign-in"
+msgstr ""
+
+#: .\templates\flame\profile.html:384
+msgid "Two-Factor Login"
+msgstr ""
+
+#: .\templates\flame\profile.html:386
+msgid "Email Login"
+msgstr ""
+
+#: .\templates\flame\profile.html:396
+msgid "Success"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:15
+msgid ""
+"Discover products tailored just for you based on your interests and shopping "
+"history"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:30
+msgid "Products that are currently popular among all customers"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:32
+msgid "Products loved by customers with similar taste"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:34
+msgid "Products similar to ones you've viewed or bought"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:36
+msgid "Hot products trending right now"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:38
+msgid "Specially curated for you"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:74
+msgid "Featured"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:79
+msgid "OFF"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:111
+msgid "reviews"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:151
+msgid "View More"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:168
+msgid "No Recommendations Yet"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:170
+msgid ""
+"Start browsing and shopping to get personalized recommendations based on "
+"your interests!"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:175
+#: .\templates\userauths\registration-complete.html:65
+msgid "Browse Products"
+msgstr ""
+
+#: .\templates\flame\recommendations\user-recommendations.html:179
+msgid "Shop by Category"
+msgstr ""
+
+#: .\templates\flame\search.html:699
+msgid "Search For"
+msgstr ""
+
+#: .\templates\flame\shop-cart.html:21
+#, python-format
+msgid ""
+"\n"
+"    You have %(totalcartitems)s item from %(shopcount)s shop\n"
+msgid_plural ""
+"\n"
+"    You have %(totalcartitems)s items from %(shopcount)s shops\n"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\shop-cart.html:36
+#, python-format
+msgid ""
+"\n"
+"                        %(itemcount)s item\n"
+"                    "
+msgid_plural ""
+"\n"
+"                        %(itemcount)s items\n"
+"                    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\shop-cart.html:60
+#, python-format
+msgid "Sold by %(seller)s"
+msgstr ""
+
+#: .\templates\flame\shop-cart.html:99
+#, python-format
+msgid "Checkout %(shopname)s "
+msgstr ""
+
+#: .\templates\flame\shop-cart.html:111
+msgid "Grand Total:"
+msgstr ""
+
+#: .\templates\flame\shop-cart.html:117
+msgid "items in cart"
+msgstr ""
+
+#: .\templates\flame\shop-list.html:9
+#, python-format
+msgid ""
+"\n"
+"    We have %(shop_count)s shop now.\n"
+"    "
+msgid_plural ""
+"\n"
+"    We have %(shop_count)s shops now.\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\shop-product-detail.html:15
+#, python-format
+msgid "Main image of %(title)s"
+msgstr ""
+
+#: .\templates\flame\shop-product-detail.html:20
+#, python-format
+msgid "Thumbnail of %(title)s"
+msgstr ""
+
+#: .\templates\flame\shop-product-detail.html:22
+msgid "Product Image"
+msgstr ""
+
+#: .\templates\flame\shop-product-detail.html:113
+msgid "Countinue Browsing"
+msgstr ""
+
+#: .\templates\flame\shop-product-detail.html:135
+#, python-format
+msgid "Image for %(shop)s"
+msgstr ""
+
+#: .\templates\flame\shop-product-detail.html:208
+msgid "User"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:15
+#: .\templates\flame\shop_profile.html:39
+msgid "Shop Information"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:16
+msgid "Shop Location"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:17
+msgid "Shipping Rates"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:45
+msgid "Shop Name"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:61
+msgid "Contact"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:69
+msgid "PayPal Email"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:77
+msgid "Current Address"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:92
+msgid "Shop Location Management"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:95
+msgid ""
+"Setting your shop location helps calculate accurate shipping fees for "
+"customers."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:124
+msgid "City"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:146
+#: .\templates\flame\shop_profile.html:340
+#: .\templates\flame\shop_profile.html:370
+msgid "Select Township (Optional)"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:165
+msgid "Building No, Street Name, etc."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:172
+msgid "Update Shop Location"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:184
+msgid "Shipping Rate Management"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:188
+#: .\templates\flame\shop_profile.html:282
+msgid "Please set your shop location first to manage shipping rates."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:190
+msgid "Configure shipping rates from your shop to different cities."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:199
+msgid "Add New Shipping Rate"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:206
+msgid "To City"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:208
+#: .\templates\flame\shop_profile.html:436
+msgid "Select destination city"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:216
+#: .\templates\flame\shop_profile.html:247
+msgid "Rate (MMK)"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:223
+#: .\templates\flame\shop_profile.html:248
+msgid "Rate (USD)"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:232
+msgid "Add"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:240
+msgid "Current Shipping Rates"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:245
+msgid "From"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:246
+msgid "To"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:267
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:273
+#: .\templates\flame\shop_profile.html:509
+msgid "No shipping rates configured yet."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:284
+msgid "Set Shop Location"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:296
+msgid "Shop Orders"
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:302
+msgid "Order management feature coming soon..."
+msgstr ""
+
+#: .\templates\flame\shop_profile.html:488
+msgid "Are you sure you want to delete this shipping rate?"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:13
+msgid "Social Media Analytics"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:15
+msgid "Track your social media performance and engagement"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:27
+msgid "Last year"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:31
+#: .\templates\flame\social\campaign-detail.html:39
+msgid "Export Report"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:44
+msgid "Total Followers"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:52
+msgid "this period"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:70
+msgid "Total Engagement"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:78
+msgid "rate"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:96
+#: .\templates\flame\social\dashboard.html:266
+msgid "Total Reach"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:104
+msgid "avg per post"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:122
+#: .\templates\flame\social\dashboard.html:35
+msgid "Total Posts"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:130
+msgid "this week"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:149
+msgid "Engagement Over Time"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:153
+#: .\templates\flame\social\analytics.html:224
+#: .\templates\flame\social\analytics.html:505
+#: .\templates\flame\social\analytics.html:613
+#: .\templates\flame\social\campaign-detail.html:151
+#: .\templates\flame\social\campaign-detail.html:650
+#: .\templates\flame\social\dashboard.html:274
+msgid "Engagement"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:156
+#: .\templates\flame\social\analytics.html:225
+#: .\templates\flame\social\analytics.html:622
+#: .\templates\flame\social\campaign-detail.html:165
+msgid "Reach"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:159
+#: .\templates\flame\social\analytics.html:631
+#: .\templates\flame\social\campaign-detail.html:639
+#: .\templates\flame\social\dashboard.html:270
+msgid "Impressions"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:176
+msgid "Platform Performance"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:195
+#: .\templates\flame\social\campaign-detail.html:91
+msgid "Posts"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:196
+msgid "Followers"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:213
+#: .\templates\flame\social\campaign-detail.html:315
+msgid "Top Performing Posts"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:221
+msgid "Post"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:222
+msgid "Platform"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:270
+msgid "No posts data available"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:287
+msgid "Engagement Types"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:293
+#: .\templates\flame\social\campaign-detail.html:231
+msgid "Likes"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:304
+#: .\templates\flame\social\campaign-detail.html:239
+msgid "Comments"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:315
+#: .\templates\flame\social\campaign-detail.html:235
+msgid "Shares"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:326
+#: .\templates\flame\social\campaign-detail.html:243
+#: .\templates\flame\social\dashboard.html:278
+msgid "Clicks"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:341
+msgid "Best Posting Times"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:359
+msgid "Not enough data available"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:369
+msgid "Growth Trends"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:375
+msgid "Follower Growth"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:384
+msgid "Engagement Growth"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:393
+msgid "Reach Growth"
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:648
+msgid "Exporting..."
+msgstr ""
+
+#: .\templates\flame\social\analytics.html:674
+msgid "Failed to export report. Please try again."
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:15
+msgid "Social Media"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:28
+#: .\templates\flame\social\campaign-detail.html:346
+msgid "Edit Campaign"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:36
+msgid "Duplicate Campaign"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:43
+msgid "Archive Campaign"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:60
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1863
+msgid "Duration"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:69
+#: .\templates\flame\social\campaign-detail.html:379
+#: .\templates\flame\social\dashboard.html:397
+msgid "Budget"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:92
+msgid "total"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:123
+msgid "Total Impressions"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:137
+msgid "Total Clicks"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:181
+msgid "Campaign Posts"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:184
+#: .\templates\flame\social\campaign-detail.html:468
+msgid "Add Post"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:212
+#: .\templates\flame\social\post-calendar.html:61
+msgid "Draft"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:255
+msgid "No posts in this campaign yet"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:257
+msgid "Add Your First Post"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:271
+msgid "Performance Over Time"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:285
+msgid "Platform Breakdown"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:303
+msgid "posts"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:304
+msgid "interactions"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:325
+msgid "engagement"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:330
+msgid "No published posts yet"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:354
+#: .\templates\flame\social\dashboard.html:376
+msgid "Campaign Name"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:367
+#: .\templates\flame\social\dashboard.html:387
+msgid "Start Date"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:372
+#: .\templates\flame\social\dashboard.html:391
+msgid "End Date"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:393
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:406
+msgid "Add Post to Campaign"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:416
+#: .\templates\flame\social\dashboard.html:303
+#: .\templates\flame\social\post-calendar.html:101
+#: .\templates\flame\social\post-calendar.html:185
+#: .\templates\flame\social\post-calendar.html:586
+msgid "Content"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:418
+#: .\templates\flame\social\dashboard.html:305
+#: .\templates\flame\social\post-calendar.html:187
+msgid "What would you like to share?"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:427
+#: .\templates\flame\social\post-calendar.html:197
+msgid "Hashtags"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:434
+#: .\templates\flame\social\post-calendar.html:205
+msgid "Schedule Date"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:438
+#: .\templates\flame\social\post-calendar.html:209
+msgid "Schedule Time"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:444
+#: .\templates\flame\social\dashboard.html:317
+#: .\templates\flame\social\post-calendar.html:102
+#: .\templates\flame\social\post-calendar.html:215
+#: .\templates\flame\social\post-calendar.html:596
+msgid "Platforms"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:736
+msgid "Are you sure you want to duplicate this campaign?"
+msgstr ""
+
+#: .\templates\flame\social\campaign-detail.html:763
+msgid ""
+"Are you sure you want to archive this campaign? It will be moved to archived "
+"campaigns."
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:13
+msgid "Social Media Management"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:15
+msgid "Manage your social media presence and campaigns"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:19
+msgid "New Post"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:22
+msgid "New Campaign"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:55
+msgid "Engagement Rate"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:75
+msgid "Active Campaigns"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:95
+msgid "Followers Growth"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:116
+msgid "Platform Status"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:128
+msgid "Connected"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:128
+msgid "Disconnected"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:131
+msgid "followers"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:148
+msgid "Recent Posts"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:156
+msgid "All Posts"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:157
+#: .\templates\flame\social\post-calendar.html:55
+msgid "Published"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:158
+#: .\templates\flame\social\post-calendar.html:58
+msgid "Scheduled"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:159
+msgid "Drafts"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:216
+msgid "No posts yet"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:218
+msgid "Create Your First Post"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:232
+#: .\templates\flame\social\post-calendar.html:94
+msgid "Upcoming Posts"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:251
+msgid "No scheduled posts"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:261
+msgid "This Week's Performance"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:295
+msgid "Create New Post"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:307
+msgid "characters"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:312
+#: .\templates\flame\social\dashboard.html:397
+msgid "(optional)"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:338
+msgid "Schedule for later"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:344
+msgid "Schedule Date & Time"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:355
+#: .\templates\flame\social\dashboard.html:512
+msgid "Post Now"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:368
+#: .\templates\flame\social\dashboard.html:410
+msgid "Create Campaign"
+msgstr ""
+
+#: .\templates\flame\social\dashboard.html:509
+#: .\templates\flame\social\post-calendar.html:239
+msgid "Schedule Post"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:13
+msgid "Content Calendar"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:15
+msgid "Plan and schedule your social media content"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:19
+msgid "Quick Post"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:23
+msgid "View"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:27
+msgid "Month View"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:30
+msgid "Week View"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:33
+msgid "List View"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:74
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:75
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:76
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:77
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:78
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:79
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:80
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:103
+#: .\templates\flame\social\post-calendar.html:600
+msgid "Scheduled Date"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:158
+msgid "No scheduled posts found"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:177
+msgid "Schedule New Post"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:193
+msgid "Recommended size: 1200x630px"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:200
+msgid "Separate hashtags with spaces"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:252
+msgid "Post Details"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:264
+msgid "Edit Post"
+msgstr ""
+
+#: .\templates\flame\social\post-calendar.html:623
+msgid "Are you sure you want to delete this post?"
+msgstr ""
+
+#: .\templates\flame\wishlist.html:112
+msgid "Your Wishlist"
+msgstr ""
+
+#: .\templates\flame\wishlist.html:114
+#, python-format
+msgid ""
+"\n"
+"                There are <span id=\"itemCount\">%(count)s</span> product in "
+"this list\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are <span id=\"itemCount\">%(count)s</span> products "
+"in this list\n"
+"            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\templates\flame\wishlist.html:147
+msgid "Add to cart"
+msgstr ""
+
+#: .\templates\partials\base.html:10 .\templates\partials\base_offline.html:10
+msgid "CyberOptix - Premium Laptops Myanmar"
+msgstr ""
+
+#: .\templates\partials\base.html:54
+#: .\templates\partials\base_offline.html:115
+msgid "CyberOptix"
+msgstr ""
+
+#: .\templates\partials\base.html:57
+#: .\templates\partials\base_offline.html:118
+msgid "Home"
+msgstr ""
+
+#: .\templates\partials\base.html:75
+#: .\templates\partials\base_offline.html:136
+msgid "About"
+msgstr ""
+
+#: .\templates\partials\base.html:76
+#: .\templates\partials\base_offline.html:137
+msgid "FAQs"
+msgstr ""
+
+#: .\templates\partials\base.html:105
+#: .\templates\partials\base_offline.html:166
+msgid "Sign Out"
+msgstr ""
+
+#: .\templates\partials\base.html:109
+#: .\templates\partials\base_offline.html:170
+msgid "Sign In"
+msgstr ""
+
+#: .\templates\partials\base.html:112
+#: .\templates\partials\base_offline.html:173
+#: .\templates\userauths\sign-in.html:105
+msgid "Sign up"
+msgstr ""
+
+#: .\templates\partials\base.html:132
+#: .\templates\partials\base_offline.html:193
+msgid "All"
+msgstr ""
+
+#: .\templates\partials\base_offline.html:105
+msgid "You're offline. Some features may be limited."
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:16
+msgid "Password Recovery"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:17
+msgid "Don't worry! It happens. We'll help you reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:22 .\userauths\forms.py:153
+msgid "Enter your email address"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:26
+msgid "Check your email inbox"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:30
+msgid "Click the reset link"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:34
+msgid "Set your new password"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:44
+#: .\templates\userauths\password_reset_comirm.html:73
+msgid "Reset Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:57
+msgid ""
+"Enter the email address associated with your account and we'll send you a "
+"link to reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:66 .\userauths\forms.py:210
+msgid "Your Email Address"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:73
+msgid "Send Reset Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:78
+msgid "Remember your password?"
+msgstr ""
+
+#: .\templates\userauths\password_reset.html:79
+#: .\templates\userauths\password_reset_done.html:29
+#: .\templates\userauths\two-factor-auth.html:80
+msgid "Back to Login"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:16
+msgid "Create New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:17
+msgid "Almost there! Enter your new password below."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:20
+msgid "Password Requirements:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:22
+msgid "At least 8 characters"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:23
+msgid "Include letters and numbers"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:24
+msgid "Use a mix of upper and lowercase"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:25
+msgid "Consider adding special characters"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:36
+msgid "Set New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:55
+#: .\userauths\forms.py:236 .\userauths\forms.py:238
+msgid "New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:66
+#: .\userauths\forms.py:245 .\userauths\forms.py:247
+msgid "Confirm New Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:80
+msgid "Invalid Reset Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:81
+msgid "This password reset link is invalid or has expired."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:82
+msgid "Password reset links are valid for 24 hours."
+msgstr ""
+
+#: .\templates\userauths\password_reset_comirm.html:85
+msgid "Request New Link"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:14
+msgid "Password Reset Successful!"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:15
+msgid "Your password has been successfully reset."
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:16
+msgid "You can now login with your new password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:20
+msgid "Login Now"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:24
+msgid "Security Tips:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:26
+#: .\templates\userauths\password_reset_email_html.html:115
+msgid "Never share your password with anyone"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:27
+msgid "Use unique passwords for different accounts"
+msgstr ""
+
+#: .\templates\userauths\password_reset_complete.html:28
+msgid "Enable two-factor authentication when available"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:14
+msgid "Email Sent Successfully!"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:15
+msgid "We've sent you an email with instructions to reset your password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:16
+msgid "Please check your inbox and follow the link to create a new password."
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:19
+#: .\templates\userauths\registration-complete.html:70
+msgid "Didn't receive the email?"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:21
+msgid "Check your spam or junk folder"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:22
+msgid "Make sure you entered the correct email"
+msgstr ""
+
+#: .\templates\userauths\password_reset_done.html:23
+msgid "Wait a few minutes and check again"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:82
+msgid "Password Reset Request"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:86
+msgid "Hello"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:88
+msgid ""
+"We received a request to reset your password for your CyberOptix account."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:90
+msgid "Click the button below to create a new password:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:94
+msgid "Reset My Password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:99
+msgid "Or copy and paste this link into your browser:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:106
+msgid "Important:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:107
+msgid "This link will expire in 24 hours for security reasons."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:110
+msgid ""
+"If you didn't request this password reset, please ignore this email. Your "
+"password will remain unchanged."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:112
+msgid "For security reasons, we recommend that you:"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:114
+msgid "Use a strong, unique password"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:116
+msgid "Enable two-factor authentication if available"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:121
+msgid "Best regards,"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:122
+msgid "The CyberOptix Team"
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:125
+msgid "This is an automated message, please do not reply to this email."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:126
+msgid "If you need assistance, please contact our support team."
+msgstr ""
+
+#: .\templates\userauths\password_reset_email_html.html:130
+msgid "All rights reserved."
+msgstr ""
+
+#: .\templates\userauths\password_reset_subject.txt:3
+msgid "Password Reset Request - CyberOptix"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:14
+#: .\templates\userauths\sign-in.html:15
+msgid "Welcome to"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:15
+msgid ""
+"Your account has been created successfully! Please check your email to get "
+"started."
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:26
+msgid "Registration Successful!"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:29
+msgid "What happens next?"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:35
+msgid "Check Your Email"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:36
+msgid ""
+"We've sent a verification email to your inbox. Click the verification link "
+"to activate your account."
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:43
+msgid "Verify Your Account"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:44
+msgid ""
+"Email verification is required to access all features and make purchases "
+"securely."
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:52
+msgid ""
+"Browse thousands of laptops, add to wishlist, and enjoy exclusive deals!"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:61
+msgid "Go to Login"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:74
+msgid "Resend verification email"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:78
+#: .\templates\userauths\two-factor-auth.html:90
+msgid "Contact support"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:83
+msgid "Email not in inbox?"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:85
+msgid "Check your spam/junk folder"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:86
+msgid "Make sure you entered the correct email address"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:87
+msgid "Wait a few minutes - emails can take time to arrive"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:93
+msgid "Security Notice"
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:94
+msgid ""
+"For your protection, we require email verification before you can make "
+"purchases. This helps keep your account secure."
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:333
+msgid "Sending..."
+msgstr ""
+
+#: .\templates\userauths\registration-complete.html:338
+msgid "Verification email has been resent! Please check your inbox."
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:16
+msgid "Explore the latest laptops and exclusive deals tailored for you!"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:25 .\templates\userauths\sign-up.html:38
+msgid "Register"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:70 .\userauths\forms.py:144
+msgid "Remember me"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:73
+msgid "Forgot Password?"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:84
+msgid "OR"
+msgstr ""
+
+#: .\templates\userauths\sign-in.html:104
+msgid "Don't have an account?"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:15
+msgid "Join"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:16
+msgid "Create your Gmail account and start shopping for amazing laptops!"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:20
+msgid "Gmail Verification Required"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:24
+msgid "Google OAuth Supported"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:28
+msgid "Secure Authentication"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:54
+msgid "Sign up with Google"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:57
+#: .\venv\Lib\site-packages\django\utils\text.py:286
+msgid "or"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:63
+#: .\templates\userauths\sign-up.html:167
+msgid "Create Account"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:89 .\userauths\forms.py:12
+msgid "Username"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:118 .\userauths\forms.py:42
+msgid "Phone Number (Optional)"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:146 .\userauths\forms.py:35
+msgid "Confirm Password"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:161
+msgid "Terms and Conditions"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:172
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:214
+msgid "Very Weak"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:214
+msgid "Weak"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:214
+msgid "Fair"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:214
+msgid "Good"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:214
+msgid "Strong"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:273
+msgid "Only Gmail addresses are accepted"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:282
+msgid "Invalid Gmail format"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:289
+msgid "Checking..."
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:303
+msgid "Valid Gmail address"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:307
+msgid "Email already registered"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:318
+msgid "Unable to verify email"
+msgstr ""
+
+#: .\templates\userauths\sign-up.html:351
+msgid "Terms and Conditions will be displayed here"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:14
+msgid "Two-Factor"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:14
+msgid "Authentication"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:15
+msgid ""
+"Enter the verification code from your authenticator app to complete login."
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:23
+msgid "Verify Your Identity"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:41
+msgid "Logging in as"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:51
+#: .\templates\userauths\two-factor-setup.html:91 .\userauths\forms.py:174
+msgid "Enter 6-digit code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:61
+msgid "Authenticator App"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:62
+msgid "Open your authenticator app and enter the 6-digit code."
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:66
+msgid "Backup Code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:67
+msgid "Or enter one of your 8-character backup codes."
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:73
+msgid "Verify & Login"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:79
+msgid "Can't access your code?"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:86
+msgid "Recovery Options"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:88
+msgid "Use backup code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:89
+msgid "Account recovery"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:246
+msgid "Enter 8-character backup code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:267
+msgid "Session expires in"
+msgstr ""
+
+#: .\templates\userauths\two-factor-auth.html:271
+msgid "Session expired. Redirecting to login..."
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:14
+msgid "Enable Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:15
+msgid "Secure your account with an extra layer of protection."
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:34
+msgid "Install Authenticator App"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:35
+msgid "Download and install an authenticator app on your mobile device:"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:39
+msgid "Google Authenticator"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:43
+msgid "Microsoft Authenticator"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:47
+msgid "Authy"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:56
+msgid "Scan QR Code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:57
+msgid "Open your authenticator app and scan this QR code:"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:65
+msgid "Can't scan?"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:66
+msgid "Manually enter this secret key:"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:81
+msgid "Enter Verification Code"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:82
+msgid "Enter the 6-digit code from your authenticator app:"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:110
+msgid "Back to Profile"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:118
+msgid "Important Security Notice"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:121
+msgid "Keep your authenticator app secure and backed up"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:122
+msgid "Save backup codes in a secure location"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:123
+msgid "Don't share your secret key with anyone"
+msgstr ""
+
+#: .\templates\userauths\two-factor-setup.html:124
+msgid "Contact support if you lose access to your device"
+msgstr ""
+
+#: .\userauths\forms.py:15
+msgid "Choose a unique username (3-30 characters)"
+msgstr ""
+
+#: .\userauths\forms.py:19
+msgid "Gmail Address"
+msgstr ""
+
+#: .\userauths\forms.py:22
+msgid "Please use a valid Gmail address for verification"
+msgstr ""
+
+#: .\userauths\forms.py:30 .\userauths\forms.py:242
+msgid "Password must be at least 8 characters long with letters and numbers"
+msgstr ""
+
+#: .\userauths\forms.py:33
+msgid "Password confirmation"
+msgstr ""
+
+#: .\userauths\forms.py:49
+msgid "I accept the Terms of Service and Privacy Policy"
+msgstr ""
+
+#: .\userauths\forms.py:62
+msgid ""
+"Only Gmail addresses are supported for registration. Please use a valid "
+"@gmail.com email address."
+msgstr ""
+
+#: .\userauths\forms.py:69
+msgid "Please enter a valid Gmail address."
+msgstr ""
+
+#: .\userauths\forms.py:73
+msgid "An account with this email already exists."
+msgstr ""
+
+#: .\userauths\forms.py:82
+msgid "Username must be at least 3 characters long."
+msgstr ""
+
+#: .\userauths\forms.py:85
+msgid "Username must not exceed 30 characters."
+msgstr ""
+
+#: .\userauths\forms.py:90
+msgid ""
+"Username can only contain letters, numbers, dots, hyphens, and underscores."
+msgstr ""
+
+#: .\userauths\forms.py:95
+msgid "This username is already taken."
+msgstr ""
+
+#: .\userauths\forms.py:105
+msgid "Please enter a valid phone number."
+msgstr ""
+
+#: .\userauths\forms.py:113 .\userauths\forms.py:258
+msgid "Password must be at least 8 characters long."
+msgstr ""
+
+#: .\userauths\forms.py:116 .\userauths\forms.py:261
+msgid "Password cannot be entirely numeric."
+msgstr ""
+
+#: .\userauths\forms.py:119 .\userauths\forms.py:264
+msgid "Password is too common."
+msgstr ""
+
+#: .\userauths\forms.py:123 .\userauths\forms.py:268
+msgid "Password must contain both letters and numbers."
+msgstr ""
+
+#: .\userauths\forms.py:156
+msgid "We'll send you a verification link"
+msgstr ""
+
+#: .\userauths\forms.py:164
+msgid "This email is already verified."
+msgstr ""
+
+#: .\userauths\forms.py:167 .\userauths\forms.py:232
+msgid "No account found with this email address."
+msgstr ""
+
+#: .\userauths\forms.py:179
+msgid "Enter the 6-digit code from your authenticator app"
+msgstr ""
+
+#: .\userauths\forms.py:185 .\userauths\forms.py:204
+msgid "Please enter a valid 6-digit code."
+msgstr ""
+
+#: .\userauths\forms.py:214
+msgid "Enter the email address associated with your account"
+msgstr ""
+
+#: .\userauths\forms.py:223
+msgid ""
+"Only Gmail addresses are supported. Please use a valid @gmail.com email "
+"address."
+msgstr ""
+
+#: .\userauths\forms.py:279
+msgid "The two password fields must match."
+msgstr ""
+
+#: .\userauths\views.py:22 .\userauths\views.py:56 .\userauths\views.py:321
+msgid "You are already logged in."
+msgstr ""
+
+#: .\userauths\views.py:37
+#, python-brace-format
+msgid "Welcome {user.username}! Please check your Gmail inbox "
+msgstr ""
+
+#: .\userauths\views.py:42 .\userauths\views.py:155
+msgid "Failed to send verification email. Please try again."
+msgstr ""
+
+#: .\userauths\views.py:72
+msgid ""
+"Please verify your email address before logging in. Check your Gmail inbox "
+"for the verification link."
+msgstr ""
+
+#: .\userauths\views.py:92 .\userauths\views.py:269
+#, python-brace-format
+msgid "Welcome back, {user.username}!"
+msgstr ""
+
+#: .\userauths\views.py:111
+#, python-brace-format
+msgid "Goodbye {username}! You have been logged out successfully."
+msgstr ""
+
+#: .\userauths\views.py:113
+msgid "No user is currently logged in."
+msgstr ""
+
+#: .\userauths\views.py:130
+msgid ""
+"Email verified successfully! Your account is now active. You can log in now."
+msgstr ""
+
+#: .\userauths\views.py:135
+msgid "Invalid or expired verification link. Please request a new one."
+msgstr ""
+
+#: .\userauths\views.py:140
+msgid "Invalid verification link."
+msgstr ""
+
+#: .\userauths\views.py:152
+msgid "Verification email sent! Please check your Gmail inbox."
+msgstr ""
+
+#: .\userauths\views.py:177
+msgid "Google authentication was cancelled or failed."
+msgstr ""
+
+#: .\userauths\views.py:181
+msgid "Invalid Google authentication response."
+msgstr ""
+
+#: .\userauths\views.py:193
+#, python-brace-format
+msgid "Welcome, {user.username}! Logged in with Google."
+msgstr ""
+
+#: .\userauths\views.py:212
+msgid "Two-factor authentication enabled successfully!"
+msgstr ""
+
+#: .\userauths\views.py:215 .\userauths\views.py:272
+msgid "Invalid verification code. Please try again."
+msgstr ""
+
+#: .\userauths\views.py:286
+msgid "Two-factor authentication has been disabled."
+msgstr ""
+
+#: .\userauths\views.py:334
+msgid ""
+"This account is currently locked until {user.account_locked_until."
+"strftime('%Y-%m-%d %H:%M')}. "
+msgstr ""
+
+#: .\userauths\views.py:342
+#, python-brace-format
+msgid "Password reset instructions have been sent to {email}. "
+msgstr ""
+
+#: .\userauths\views.py:347
+msgid "Failed to send password reset email. Please try again."
+msgstr ""
+
+#: .\userauths\views.py:352
+#, python-brace-format
+msgid ""
+"If an account with {email} exists, password reset instructions have been "
+"sent. "
+msgstr ""
+
+#: .\userauths\views.py:379
+msgid ""
+"This password reset link is invalid or has expired. Password reset links are "
+"valid for 24 hours."
+msgstr ""
+
+#: .\userauths\views.py:409
+msgid ""
+"Your password has been successfully reset! You can now log in with your new "
+"password."
+msgstr ""
+
+#: .\userauths\views.py:429
+msgid "Invalid password reset link."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:155
+#: .\venv\Lib\site-packages\django\forms\fields.py:768
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:216
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:227
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:310
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:330
+#: .\venv\Lib\site-packages\django\core\validators.py:339
+#: .\venv\Lib\site-packages\django\core\validators.py:353
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2215
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:341
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:30
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:355
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:396
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:402
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:437
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:446
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:455
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:462
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:494
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:512
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:535
+#: .\venv\Lib\site-packages\django\forms\fields.py:359
+#: .\venv\Lib\site-packages\django\forms\fields.py:398
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:537
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:542
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:547
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:618
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:680
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1574
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1156
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1157
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1159
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1209
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1211
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1320
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1421
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1425
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1560
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1429
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1556
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1564
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1569
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1696
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1698
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1859
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1915
+msgid "Email address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1940
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2018
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2020
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2060
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2062
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2158
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2175
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2183
+msgid "IPv4 address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2214
+msgid "IP address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2305
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2306
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2308
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2359
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2374
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2389
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2405
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2441
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2521
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2525
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2529
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2637
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2661
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2726
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2728
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:932
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:934
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1228
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1285
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1287
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:308
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:479
+#: .\venv\Lib\site-packages\django\forms\fields.py:1260
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:502
+#: .\venv\Lib\site-packages\django\forms\fields.py:1261
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:529
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:563
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:564
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:633
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:634
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:635
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:637
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:710
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:882
+#: .\venv\Lib\site-packages\django\forms\fields.py:968
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:970
+#: .\venv\Lib\site-packages\django\forms\fields.py:1089
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1090
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1329
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1359
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:94
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:230
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:227
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:461
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:462
+msgid "Currently"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:463
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:800
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:801
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:802
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:8
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:75
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:305
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
+"\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:349
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:380
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:652
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:692
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:169
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
+"\">DEBUG=True</a> is in your settings file and you have not configured any "
+"URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""

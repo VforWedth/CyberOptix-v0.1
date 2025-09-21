@@ -1,0 +1,23 @@
+# Systemd service file for LaptopMart Myanmar
+# Copy this file to /etc/systemd/system/laptopmart.service
+
+[Unit]
+Description=LaptopMart Myanmar Gunicorn Application Server
+After=network.target
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+RuntimeDirectory=laptopmart
+WorkingDirectory=/path/to/your/project  # Update this path
+Environment=DJANGO_SETTINGS_MODULE=inferno.settings
+Environment=PATH=/path/to/your/venv/bin  # Update this path
+ExecStart=/path/to/your/venv/bin/gunicorn --config deploy/gunicorn.conf.py inferno.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

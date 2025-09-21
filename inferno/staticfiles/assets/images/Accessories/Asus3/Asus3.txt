@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 ASUS Gaming Headphones
 
+=======
+ASUS Gaming Headphones
+
+>>>>>>> entibery/main
 Price - $126.26

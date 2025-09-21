@@ -1,9 +1,43 @@
-console.log("Working Fine huhh?");
 
+console.log("Working Fine huhh?");
+const gettext = window.gettext || function(string) { return string; };
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ];
 
+
+function convertToMyanmarNumerals(text) {
+    const numeralMap = {
+        '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄',
+        '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
+    };
+    
+    let result = text.toString();
+    for (const [eng, myan] of Object.entries(numeralMap)) {
+        result = result.replace(new RegExp(eng, 'g'), myan);
+    }
+    return result;
+}
+
+// Format price based on language
+function formatPrice(amount, language, exchangeRate) {
+    if (language === 'my') {
+        const mmkAmount = Math.round(amount * exchangeRate);
+        const formatted = mmkAmount.toLocaleString('en-US');
+        return convertToMyanmarNumerals(formatted) + ' ကျပ်';
+    } else {
+        return '$' + amount.toFixed(2);
+    }
+}
+
+// Get current config
+function getCartConfig() {
+    return window.cartConfig || {
+        language: document.documentElement.lang || 'en',
+        exchangeRate: 3500,
+        isMyanmar: false
+    };
+}
 
 $(document).ready(function () {
     
@@ -24,7 +58,8 @@ $("#review-form").submit(function (e) {
 
             if (res.bool == true) {
                 $("#review-form").trigger("reset");
-                $('#review-form').html('<p>Thank you for your review!</p>');
+                const reviewSuccessText = gettext('<p>Thank you for your review!</p>');
+                $('#review-form').html(reviewSuccessText);
 
                 let avatarUrl = res.context.avatar_url ? res.context.avatar_url : "/static/assets/images/avatar-01.jpg";
 
@@ -157,111 +192,244 @@ $("#review-form").submit(function (e) {
                     console.log("Adding Product to Cart...");
                 },
                 success: function (response) {
-    
-                    this_val.html("Added to cart").prop('disabled', true)
+                    const addedText = gettext('Added to cart');
+                    this_val.html(addedText).prop('disabled', true);
                     console.log("Added Product to Cart!");
                     $(".cart-items-count").text(response.totalcartitems)
                 }
             })
         });
-// Delete Item Handler (Fixed)
-$(document).on("click", ".delete-product", function() {
-    const product_id = $(this).data('product');
-    const shop_id = $(this).data('shop-id');
-    const $shopSection = $(this).closest('.shop-cart-group');
-    
-    $.ajax({
-        url: '/delete-from-shop-cart',
-        data: { 'id': product_id, 'sid': shop_id },
-        dataType: 'json',
-        beforeSend: function() {
-            $shopSection.find('.btn-delete').prop('disabled', true);
-        },
-        success: function(response) {
-            if (response.status === 'success') {
-                // Update shop section
-                if (response.data.shop_html !== null) {
-                    // Update the cart content for this shop
-                    $(`#cart-content-${shop_id}`).html(response.data.shop_html);
+// Updated Delete Item Handler with Currency Support
+    $(document).on("click", ".delete-product", function() {
+        const product_id = $(this).data('product');
+        const shop_id = $(this).data('shop-id');
+        const $shopSection = $(this).closest('.shop-cart-group');
+        const config = getCartConfig();
+        
+        $.ajax({
+            url: '/delete-from-shop-cart',
+            data: { 'id': product_id, 'sid': shop_id },
+            dataType: 'json',
+            beforeSend: function() {
+                $shopSection.find('.btn-delete').prop('disabled', true);
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Update shop section
+                    if (response.data.shop_html !== null) {
+                        // Update the cart content for this shop
+                        $(`#cart-content-${shop_id}`).html(response.data.shop_html);
+                        
+                        // Update shop counts with proper translation
+                        const itemText = response.data.shop_quantity !== 1 ? 
+                            gettext('%(count)s items').replace('%(count)s', response.data.shop_quantity) : 
+                            gettext('%(count)s item').replace('%(count)s', response.data.shop_quantity);
+                        $(`#shop-count-${shop_id}`).text(itemText);
+                        
+                        // Format and update shop total
+                        const shopTotalFormatted = formatPrice(
+                            response.data.shop_total, 
+                            config.language, 
+                            config.exchangeRate
+                        );
+                        $(`#shop-total-${shop_id}`).text(shopTotalFormatted);
+                    } else {
+                        // Remove entire shop section if no items left
+                        $shopSection.remove();
+                    }
                     
-                    // Update shop counts
-                    $(`#shop-count-${shop_id}`).text(
-                        response.data.shop_quantity + ' item' + (response.data.shop_quantity !== 1 ? 's' : '')
+                    // Update global totals with proper formatting
+                    const grandTotalFormatted = formatPrice(
+                        response.data.grand_total, 
+                        config.language, 
+                        config.exchangeRate
                     );
-                    $(`#shop-total-${shop_id}`).text('$'+response.data.shop_total.toFixed(2));
-                } else {
-                    // Remove entire shop section if no items left
-                    $shopSection.remove();
-                }
-                
-                // Update global totals
-                $('.grand-total').text('$'+response.data.grand_total.toFixed(2));
-                $('.total-cart-items').text(response.data.total_quantity);
-                
-                // Update header text
-                const shopCount = response.data.shop_html !== null ? 
-                    $('.shop-cart-group').length : 
-                    $('.shop-cart-group').length - 1;
+                    $('.grand-total').text(grandTotalFormatted);
+                    $('.total-cart-items').text(response.data.total_quantity);
                     
-                $('.cart_items_count').text(
-                    'You have ' + response.data.total_quantity + ' item' + 
-                    (response.data.total_quantity !== 1 ? 's' : '') + 
-                    ' from ' + shopCount + ' shop' + 
-                    (shopCount !== 1 ? 's' : '')
-                );
-                
-                // Remove grand total section if cart is empty
-                if (response.data.total_quantity === 0) {
-                    $('.global-cart-summary').remove();
+                    // Update header text with proper translation
+                    const shopCount = response.data.shop_html !== null ? 
+                        $('.shop-cart-group').length : 
+                        $('.shop-cart-group').length - 1;
+                    
+                    let headerText;
+                    if (response.data.total_quantity === 1) {
+                        headerText = gettext('You have %(items)s item from %(shops)s shop')
+                            .replace('%(items)s', response.data.total_quantity)
+                            .replace('%(shops)s', shopCount);
+                    } else {
+                        headerText = gettext('You have %(items)s items from %(shops)s shops')
+                            .replace('%(items)s', response.data.total_quantity)
+                            .replace('%(shops)s', shopCount);
+                    }
+                    $('.cart_items_count').text(headerText);
+                    
+                    // Remove grand total section if cart is empty
+                    if (response.data.total_quantity === 0) {
+                        $('.global-cart-summary').remove();
+                    }
                 }
+            },
+            complete: function() {
+                $shopSection.find('.btn-delete').prop('disabled', false);
             }
-        },
-        complete: function() {
-            $shopSection.find('.btn-delete').prop('disabled', false);
-        }
+        });
     });
-});
 
-        // Update Quantity
-$(document).on("change", ".cart-qty", function() {
-    const product_id = $(this).data('item-id');
-    const shop_id = $(this).data('shop-id');
-    const new_qty = $(this).val();
-    const $row = $(this).closest('.cart-item');
-
-    $.ajax({
-        url: '/update-shop-cart',
-        data: { 'id': product_id, 'sid': shop_id, 'qty': new_qty },
-        dataType: 'json',
-        beforeSend: function() {
-            $row.find('input, button').prop('disabled', true);
-        },
-        success: function(response) {
-            if (response.status === 'success') {
-                // Update prices
-                $row.find('.cart-total-amount').text('$'+response.data.item_total.toFixed(2));
-                $(`#shop-total-${response.data.shop_id}`).text('$'+response.data.shop_total.toFixed(2));
-                $('.grand-total').text('$'+response.data.grand_total.toFixed(2));
-                
-                // Update quantity counts
-                $(`#shop-count-${response.data.shop_id}`).text(response.data.shop_quantity + ' item' + (response.data.shop_quantity !== 1 ? 's' : ''));
-                $('.total-cart-items').text(response.data.total_quantity);
-                
-                // Update header
-                let shopCount = $('.shop-cart-group').length;
-                $('.cart_items_count').text(
-                    'You have ' + response.data.total_quantity + ' item' + 
-                    (response.data.total_quantity !== 1 ? 's' : '') + 
-                    ' from ' + shopCount + ' shop' + 
-                    (shopCount !== 1 ? 's' : '')
-                );
+    // Updated Quantity Handler with Currency Support
+    $(document).on("change", ".cart-qty", function() {
+        const product_id = $(this).data('item-id');
+        const shop_id = $(this).data('shop-id');
+        const new_qty = $(this).val();
+        const price = parseFloat($(this).data('price'));
+        const $row = $(this).closest('.cart-item');
+        const config = getCartConfig();
+        
+        $.ajax({
+            url: '/update-shop-cart',
+            data: { 'id': product_id, 'sid': shop_id, 'qty': new_qty },
+            dataType: 'json',
+            beforeSend: function() {
+                $row.find('input, button').prop('disabled', true);
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Format prices based on language
+                    const itemTotalFormatted = formatPrice(
+                        response.data.item_total,
+                        config.language,
+                        config.exchangeRate
+                    );
+                    const shopTotalFormatted = formatPrice(
+                        response.data.shop_total,
+                        config.language,
+                        config.exchangeRate
+                    );
+                    const grandTotalFormatted = formatPrice(
+                        response.data.grand_total,
+                        config.language,
+                        config.exchangeRate
+                    );
+                    
+                    // Update displays
+                    $row.find('.cart-total-amount').text(itemTotalFormatted);
+                    $(`#shop-total-${response.data.shop_id}`).text(shopTotalFormatted);
+                    $('.grand-total').text(grandTotalFormatted);
+                    
+                    // Update counts with proper translation
+                    const itemText = response.data.shop_quantity !== 1 ? 
+                        gettext('%(count)s items').replace('%(count)s', response.data.shop_quantity) : 
+                        gettext('%(count)s item').replace('%(count)s', response.data.shop_quantity);
+                    $(`#shop-count-${response.data.shop_id}`).text(itemText);
+                    $('.total-cart-items').text(response.data.total_quantity);
+                }
+            },
+            complete: function() {
+                $row.find('input, button').prop('disabled', false);
             }
-        },
-        complete: function() {
-            $row.find('input, button').prop('disabled', false);
-        }
+        });
     });
-});
+
+// // Delete Item Handler (Fixed)
+// $(document).on("click", ".delete-product", function() {
+//     const product_id = $(this).data('product');
+//     const shop_id = $(this).data('shop-id');
+//     const $shopSection = $(this).closest('.shop-cart-group');
+    
+//     $.ajax({
+//         url: '/delete-from-shop-cart',
+//         data: { 'id': product_id, 'sid': shop_id },
+//         dataType: 'json',
+//         beforeSend: function() {
+//             $shopSection.find('.btn-delete').prop('disabled', true);
+//         },
+//         success: function(response) {
+//             if (response.status === 'success') {
+//                 // Update shop section
+//                 if (response.data.shop_html !== null) {
+//                     // Update the cart content for this shop
+//                     $(`#cart-content-${shop_id}`).html(response.data.shop_html);
+                    
+//                     // Update shop counts
+//                     $(`#shop-count-${shop_id}`).text(
+//                         response.data.shop_quantity + ' item' + (response.data.shop_quantity !== 1 ? 's' : '')
+//                     );
+//                     $(`#shop-total-${shop_id}`).text('$'+response.data.shop_total.toFixed(2));
+//                 } else {
+//                     // Remove entire shop section if no items left
+//                     $shopSection.remove();
+//                 }
+                
+//                 // Update global totals
+//                 $('.grand-total').text('$'+response.data.grand_total.toFixed(2));
+//                 $('.total-cart-items').text(response.data.total_quantity);
+                
+//                 // Update header text
+//                 const shopCount = response.data.shop_html !== null ? 
+//                     $('.shop-cart-group').length : 
+//                     $('.shop-cart-group').length - 1;
+                    
+//                 $('.cart_items_count').text(
+//                     'You have ' + response.data.total_quantity + ' item' + 
+//                     (response.data.total_quantity !== 1 ? 's' : '') + 
+//                     ' from ' + shopCount + ' shop' + 
+//                     (shopCount !== 1 ? 's' : '')
+//                 );
+                
+//                 // Remove grand total section if cart is empty
+//                 if (response.data.total_quantity === 0) {
+//                     $('.global-cart-summary').remove();
+//                 }
+//             }
+//         },
+//         complete: function() {
+//             $shopSection.find('.btn-delete').prop('disabled', false);
+//         }
+//     });
+// });
+
+//         // Update Quantity
+// $(document).on("change", ".cart-qty", function() {
+//         const product_id = $(this).data('item-id');
+//         const shop_id = $(this).data('shop-id');
+//         const new_qty = $(this).val();
+//         const $row = $(this).closest('.cart-item');
+        
+//         $.ajax({
+//             url: '/update-shop-cart',
+//             data: { 'id': product_id, 'sid': shop_id, 'qty': new_qty },
+//             dataType: 'json',
+//             beforeSend: function() {
+//                 $row.find('input, button').prop('disabled', true);
+//             },
+//             success: function(response) {
+//                 if (response.status === 'success') {
+//                     const lang = document.documentElement.lang || 'en';
+                    
+//                     // Update displays based on language
+//                     if (lang === 'my') {
+//                         $row.find('.cart-total-amount').text(response.data.item_total_display);
+//                         $(`#shop-total-${response.data.shop_id}`).text(response.data.shop_total_display);
+//                         $('.grand-total').text(response.data.grand_total_display);
+//                     } else {
+//                         $row.find('.cart-total-amount').text('$'+response.data.item_total.toFixed(2));
+//                         $(`#shop-total-${response.data.shop_id}`).text('$'+response.data.shop_total.toFixed(2));
+//                         $('.grand-total').text('$'+response.data.grand_total.toFixed(2));
+//                     }
+                    
+//                     // Update counts
+//                     $(`#shop-count-${response.data.shop_id}`).text(
+//                         response.data.shop_quantity + ' item' + 
+//                         (response.data.shop_quantity !== 1 ? 's' : '')
+//                     );
+//                     $('.total-cart-items').text(response.data.total_quantity);
+//                 }
+//             },
+//             complete: function() {
+//                 $row.find('input, button').prop('disabled', false);
+//             }
+//         });
+// });
         //Making Default Address
         $(document).on("click", ".make-default-address", function(){
             let id = $(this).attr("data-address-id")
@@ -347,6 +515,52 @@ $(document).on("change", ".cart-qty", function() {
             })
         })
 
+});
+
+// Update all prices when page loads or language changes
+function updateAllPrices() {
+    const config = getCartConfig();
+    
+    // Update all price displays
+    $('.price-column[data-price-usd]').each(function() {
+        const priceUSD = parseFloat($(this).data('price-usd'));
+        if (!isNaN(priceUSD)) {
+            const formatted = formatPrice(priceUSD, config.language, config.exchangeRate);
+            $(this).text(formatted);
+        }
+    });
+    
+    // Update all item totals
+    $('.cart-total-amount[data-item-total-usd]').each(function() {
+        const totalUSD = parseFloat($(this).data('item-total-usd'));
+        if (!isNaN(totalUSD)) {
+            const formatted = formatPrice(totalUSD, config.language, config.exchangeRate);
+            $(this).text(formatted);
+        }
+    });
+    
+    // Update shop totals
+    $('[data-total-usd]').each(function() {
+        const totalUSD = parseFloat($(this).data('total-usd'));
+        if (!isNaN(totalUSD)) {
+            const formatted = formatPrice(totalUSD, config.language, config.exchangeRate);
+            $(this).text(formatted);
+        }
+    });
+    
+    // Update grand total
+    $('.grand-total[data-grand-total-usd]').each(function() {
+        const grandTotalUSD = parseFloat($(this).data('grand-total-usd'));
+        if (!isNaN(grandTotalUSD)) {
+            const formatted = formatPrice(grandTotalUSD, config.language, config.exchangeRate);
+            $(this).text(formatted);
+        }
+    });
+}
+
+// Call on page load
+$(document).ready(function() {
+    updateAllPrices();
 });
     
         // $(document).on("click",".delete-product",function(){
@@ -496,5 +710,155 @@ $(document).on("change", ".cart-qty", function() {
 //     });
 // }
 
+
+
+
+    
+        // $(document).on("click",".delete-product",function(){
+        //     let product_id = $(this).attr("data-product")
+        //     let shop_id = $(this).data("shop-id")
+        //     let this_val = $(this)
+    
+        //     console.log("Product ID: ",product_id);
+        //     console.log("Shop ID", shop_id)
+    
+        //     $.ajax({
+        //         url:"/delete-from-shop-cart",
+        //         data:{
+        //             "id": product_id,
+        //             "sid": shop_id,
+        //         },
+        //         dataType: "json",
+        //         beforeSend: function(){
+        //             this_val.hide()
+    
+        //         },
+        //         success: function(response){
+        //             this_val.show()
+        //             $(".cart-items-count").text(response.totalcartitems)
+        //             $("#cart-list").html(response.data)
+        //             $(".cart-total-amount").text(response.cart_total_amount.toFixed(2));
+
+        //             // Update specific shop's cart section
+        //             // $(`#shop-${shop_id}-cart`).html(response.data);
+        //         }
+        //     })
+        // })
+    
+        
+        // $(document).on("click",".update-product",function(){
+        //     let product_id = $(this).attr("data-product")
+        //     let product_qty = $(".product-qty-"+product_id).val() 
+        //     let this_val = $(this)
+    
+        //     console.log("Product ID: ",product_id);
+        //     console.log("Product Qty: ",product_qty);
+    
+        //     $.ajax({
+        //         url:"/update-cart",
+        //         data:{
+        //             "id": product_id,
+        //             "qty": product_qty,
+        //         },
+        //         dataType: "json",
+        //         beforeSend: function(){
+        //             this_val.hide()
+    
+        //         },
+        //         success: function(response){
+        //             this_val.show()
+        //             $(".cart-total-amount").text(response.cart_total_amount.toFixed(2));
+    
+        //             $(".cart-items-count").text(response.totalcartitems)
+        //             $("#cart-list").html(response.data)
+        //         }
+        //     })
+        // })
+        // //From this to 
+        // // Input field quantity update
+        // $(document).on("change", ".cart-qty", function() {
+        //     let product_id = $(this).data("item-id");
+        //     let product_qty = $(this).val();
+        //     // Trigger update AJAX
+        //     $(`.update-product[data-product="${product_id}"]`).click();
+        // });
+        //     // Update quantity on input change
+        // $(document).on("change", ".cart-qty", function() {
+        //     const product_id = $(this).data("item-id");
+        //     const product_qty = $(this).val();
+            
+        //     $.ajax({
+        //         url: "/update-cart",
+        //         data: {
+        //             "id": product_id,
+        //             "qty": product_qty
+        //         },
+        //         success: function(response) {
+        //             $("#cart-list").html(response.data);
+        //             $(".cart-items-count").text(response.totalcartitems);
+        //         }
+        //     });
+        // });
+
+        //this have to be add to update the pages without refreshing the page
+
+// // Dynamic Filter Handling
+// document.querySelectorAll('.filter-option').forEach(option => {
+//     option.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         const filterType = this.getAttribute('data-filter-type');
+//         const filterValue = this.getAttribute('data-filter-value');
+        
+//         // Update URL with new filter parameters
+//         const url = new URL(window.location.href);
+//         url.searchParams.set(filterType, filterValue);
+//         window.history.pushState({}, '', url);
+        
+//         // Refresh products
+//         fetchFilteredProducts();
+//     });
+// });
+
+// async function fetchFilteredProducts() {
+//     const response = await fetch(window.location.href, {
+//         headers: {'X-Requested-With': 'XMLHttpRequest'}
+//     });
+//     const data = await response.text();
+    
+//     // Update product grid
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(data, 'text/html');
+//     document.querySelector('.product-grid').innerHTML = 
+//         doc.querySelector('.product-grid').innerHTML;
+        
+//     // Reattach event listeners
+//     attachCartHandlers();
+// }
+
+// // Cart Handling with Shop Context
+// function attachCartHandlers() {
+//     document.querySelectorAll('.cartButton').forEach(button => {
+//         button.addEventListener('click', async function() {
+//             const productId = this.dataset.productId;
+//             const shopSlug = "{{ current_shop.slug }}";
+            
+//             try {
+//                 const response = await fetch(`/add-to-cart/${shopSlug}/${productId}/`, {
+//                     method: 'POST',
+//                     headers: {
+//                         'X-CSRFToken': getCookie('csrftoken'),
+//                         'Content-Type': 'application/json'
+//                     }
+//                 });
+                
+//                 if (response.ok) {
+//                     updateCartUI();
+//                 }
+//             } catch (error) {
+//                 console.error('Error adding to cart:', error);
+//             }
+//         });
+//     });
+// }
 
 

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 Apple AirPods Max Wireless Over-Ear Headphones
 
+=======
+Apple AirPods Max Wireless Over-Ear Headphones
+
+>>>>>>> entibery/main
 Price	$367.42

@@ -1,3 +1,142 @@
+
+<!-- templates/flame/shop-cart.html -->
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load math_filters %}
+{% load myanmar_filter %}
+
+<style>
+    main{
+        background-color:rgb(21, 40, 56);
+    }
+</style>
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/shop-cart.css' %}">
+<main style="background-color:rgb(21, 40, 56);">
+<div class="cart-page">
+  <div class="cart-container">
+      {% if totalcartitems > 0 %}
+      <h3 style="color: #333;" class="cart_items_count">
+         {% blocktrans count totalcartitems=totalcartitems|add:0 with shopcount=shop_carts|length %}
+    You have {{ totalcartitems }} item from {{ shopcount }} shop
+{% plural %}
+    You have {{ totalcartitems }} items from {{ shopcount }} shops
+{% endblocktrans %}
+      </h3>
+      {% else %}
+      <h3 style="color: #333;">{% trans "You don't have any items in your cart" %}</h3>
+      {% endif %}
+      
+      {% for shop_cart in shop_carts %}
+      <div class="shop-cart-group" id="shop-{{ shop_cart.shop.shop_id }}">
+          <div class="shop-header">
+              <h2>{{ shop_cart.shop.title }}</h2>
+              <span class="shop-item-count" id="shop-count-{{ shop_cart.shop.shop_id }}">
+                    {% blocktrans count itemcount=shop_cart.shop_quantity %}
+                        {{ itemcount }} item
+                    {% plural %}
+                        {{ itemcount }} items
+                    {% endblocktrans %}
+              </span>
+          </div>
+          
+          <div class="cart-header">
+              <div class="product-info">{% trans "Product" %}</div>
+              <div class="price-column">{% trans "Unit Price" %}</div>
+              <div class="quantity-control">{% trans "Quantity" %}</div>
+              <div class="price-column">{% trans "Subtotal" %}</div>
+              <div class="actions-column">{% trans "Actions" %}</div>
+          </div>
+          
+          <div id="cart-content-{{ shop_cart.shop.shop_id }}">
+            <div class="cart-items">
+              {% for product_id, item in shop_cart.products.items %}
+              <div class="cart-item">
+                  <div class="product-info">
+                      <img src="{{ item.image }}" class="cart-item-img">
+                      <div>
+                          <h3>{{ item.title }}</h3>
+                          <small>{% blocktrans with seller=shop_cart.shop.title %}Sold by {{ seller }}{% endblocktrans %}</small>
+                      </div>
+                  </div>
+                  
+                  <div class="price-column" data-price-usd="{{ item.price }}">
+                      {{ item.price_display }}
+                  </div>
+                  
+                  <div class="quantity-control">
+                      <input type="number" value="{{ item.qty }}" min="1" 
+                             class="cart-qty product-qty-{{ product_id }}" 
+                             data-item-id="{{ product_id }}"
+                             data-shop-id="{{ shop_cart.shop.shop_id }}"
+                             data-price="{{ item.price }}">
+                  </div>
+                  
+                  <div class="price-column cart-total-amount" data-item-total-usd="{{ item.price|multiply:item.qty }}">
+                      {{ item.total_display }}
+                  </div>
+                  
+                  <div class="actions-column">
+                      <button class="btn-delete delete-product" 
+                              data-product="{{ product_id }}"
+                              data-shop-id="{{ shop_cart.shop.shop_id }}">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+            
+            <div class="shop-cart-summary">
+                <div class="shop-total">
+                    <span>{% trans "Shop Total:" %}</span>
+                    <span class="price-column cart-total-amount" id="shop-total-{{ shop_cart.shop.shop_id}}" data-total-usd="{{ shop_cart.total }}">
+                        {{ shop_cart.total_display }}
+                    </span>
+                    <a href="{% url 'flame:shop-checkout' shop_cart.shop.shop_id %}" 
+                   class="shop-checkout-btn">
+                      {% blocktrans with shopname=shop_cart.shop.title %}Checkout {{ shopname }} {% endblocktrans %} →
+                    </a>
+                </div>
+            </div>
+          </div>
+      </div>
+      <br> 
+      {% endfor %}
+      
+      {% if totalcartitems > 0 %}
+      <div class="global-cart-summary">
+          <div class="summary-row">
+              <strong>{% trans "Grand Total:" %}</strong>
+              <strong class="grand-total" data-grand-total-usd="{{ cart_total_amount }}">
+                  {{ cart_total_display }}
+              </strong>
+          </div>
+          <div class="cart-actions">
+            <span class="total-cart-items">{{ totalcartitems }}</span>  {% trans "items in cart" %}
+              <a href="{% url 'flame:product-list' %}" class="continue-btn">
+                  ←  {% trans "Continue Shopping" %}
+              </a>
+          </div>
+      </div>
+      {% endif %}
+  </div>
+</div>
+<br><br><br>
+
+</main>
+
+<!-- Add exchange rate and language data for JavaScript -->
+<script>
+    window.cartConfig = {
+        language: '{{ current_language }}',
+        exchangeRate: {{ exchange_rate }},
+        isMyanmar: {{ is_myanmar|lower }}
+    };
+</script>
+{% comment %} =======
 {% extends 'partials/base.html' %}
 {% load static %}
 {% load math_filters %}
@@ -110,4 +249,5 @@
 <br><br><br>
 
 </main>
+>>>>>>> entibery/main {% endcomment %}
 {% endblock content %}

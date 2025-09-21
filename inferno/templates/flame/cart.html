@@ -1,5 +1,7 @@
+
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load math_filters %}
 
 {% block content %}
@@ -162,19 +164,30 @@
         {% if cart_items_count %}
         {% comment %} <h1 style="color: #333;" class="cart_items_count">There are{{cart_items_count|pluralize:is}} {{ cart_items_count }} product{{ cart_items_count|pluralize}} in your cart</h1> {% endcomment %}
         <h3 style="color: #333;" class="cart_items_count">
-            There {% if cart_items_count == 1 %}is{% else %}are{% endif %} 
-            {{ cart_items_count }} product{{ cart_items_count|pluralize }} in your cart
+            {# Items pluralization #}
+            {% blocktrans count item_count=totalcartitems %}
+                There is {{ item_count }} product
+            {% plural %}
+                There are {{ item_count }} products
+            {% endblocktrans %}
+        
+            {# Shops pluralization #}
+            {% blocktrans count shop_count=shop_carts|length %}
+                from {{ shop_count }} shop
+            {% plural %}
+                from {{ shop_count }} shops
+            {% endblocktrans %}
         </h3>
         {% else %}
-        <h3 style="color: #333;">You don't have any items in your cart</h3>
+        <h3 style="color: #333;">{% trans "You don't have any items in your cart" %}</h3>
         {% endif %}
         <!-- Cart Header -->
         <div class="cart-header">
-            <div class="product-info">Product</div>
-            <div class="price-column">Unit Price</div>
-            <div class="quantity-control">Quantity</div>
-            <div class="price-column">Subtotal</div>
-            <div class="actions-column">Actions</div>
+            <div class="product-info">{% trans "Product" %}</div>
+            <div class="price-column">{% trans "Unit Price" %}</div>
+            <div class="quantity-control">{% trans "Quantity" %}</div>
+            <div class="price-column">{% trans "Subtotal" %}</div>
+            <div class="actions-column">{% trans "Actions" %}</div>
         </div>
     <div id="cart-list">
         <!-- Cart Items -->
@@ -213,11 +226,11 @@
         <div class="cart-summary">
             
             <div class="summary-row">
-                <span>Shipping:</span>
-                <span>Free</span>
+                <span>{% trans "Shipping:" %}</span>
+                <span>{% trans "Free" %}</span>
             </div>
             <div class="summary-row">
-                <strong>Total:</strong>
+                <strong>{% trans "Total:" %}</strong>
                 <strong>${{ cart_total_amount|floatformat:2 }}</strong>
             </div>
             
@@ -225,13 +238,14 @@
         </div>
         <div class="cart-actions">
             <a href="{% url 'flame:product-list' %}" class="continue-btn">
-                ← Continue Shopping
+                ← {% trans "Continue Shopping" %}
             </a>
             {% if totalcartitems %}
             <a href="{% url 'flame:home-checkout' %}" class="checkout-btn">
-                Proceed to Checkout →
+                {% trans "Proceed to Checkout" %} →
             </a>
             {% endif %}
         </div>
     </div>    
+
 {% endblock %}

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 Apple AirPods 4 Wireless Earbuds, Bluetooth Headphones
 
+=======
+Apple AirPods 4 Wireless Earbuds, Bluetooth Headphones
+
+>>>>>>> entibery/main
 Price	$ 119

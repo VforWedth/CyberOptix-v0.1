@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Brand 	Apple
 Model Name 	MacBook Pro
 Screen Size 	16.2 Inches
@@ -8,4 +9,16 @@ Ram Memory Installed Size 	32 GB
 Operating System 	Mac OS
 Special Feature 	Anti Glare Coating
 Graphics Card Description 	Integrated
+=======
+Brand 	Apple
+Model Name 	MacBook Pro
+Screen Size 	16.2 Inches
+Color 	Silver
+Hard Disk Size 	1 TB
+CPU Model 	Unknown
+Ram Memory Installed Size 	32 GB
+Operating System 	Mac OS
+Special Feature 	Anti Glare Coating
+Graphics Card Description 	Integrated
+>>>>>>> entibery/main
 Price		7,500,000 MMK

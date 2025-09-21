@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Lenovo ThinkVision S24i-30 23.8" 16:9 Full HD 100Hz IPS WLED Monitor, Raven Black 
 
 Brand 	Lenovo
@@ -9,3 +10,16 @@ Screen Surface Description 	Glossy
 Price - $106.65
 
 
+=======
+Lenovo ThinkVision S24i-30 23.8" 16:9 Full HD 100Hz IPS WLED Monitor, Raven Black 
+
+Brand 	Lenovo
+Screen Size 	23.8 Inches
+Resolution 	FHD 1080p
+Aspect Ratio 	16:9
+Screen Surface Description 	Glossy
+
+Price - $106.65
+
+
+>>>>>>> entibery/main

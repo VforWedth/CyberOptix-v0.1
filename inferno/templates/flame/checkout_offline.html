@@ -1,0 +1,580 @@
+<!-- templates/flame/checkout_offline.html -->
+{% extends 'partials/base_offline.html' %}
+{% load math_filters %}
+{% load myanmar_filter %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/checkout.css' %}">
+
+<body style="background-color:rgb(21, 40, 56);">
+    <div class="container">
+        <!-- Offline Mode Notice -->
+        <div class="alert alert-info offline-mode-notice">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-wifi-slash me-3" style="font-size: 1.5em;"></i>
+                <div>
+                    <strong>{% trans "Offline Mode Active" %}</strong><br>
+                    <small>{% trans "You can place Cash on Delivery orders. Your order will be submitted when you're back online." %}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Information Section -->
+        {% if shop %}
+        <h2>{% trans "Checking out from" %} {{ shop.title }}</h2>
+        <div class="shop-info">
+            {% if shop.paypal_email %}
+            <p>{% trans "PayPal Account:" %} {{ shop.paypal_email }}</p>
+            {% endif %}
+            <p>
+                {% trans "Order ID:" %}
+                {% if is_myanmar %}
+                    #{{ order.id|to_myanmar_numerals }}
+                {% else %}
+                    #{{ order.id }}
+                {% endif %}
+            </p>
+
+            {% if is_myanmar %}
+            <div class="exchange-rate-info">
+                <p class="text-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Current Exchange Rate:" %}
+                    ၁ USD = {{ exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <h2>{% trans "Checkout" %}</h2>
+        {% endif %}
+
+        <div class="checkout-content">
+            <!-- Billing Details -->
+            <div class="billing-details">
+                <h3>{% trans "Billing Details" %}</h3>
+
+                <form id="offline-billing-form">
+                    <input type="text"
+                           id="customer-name"
+                           value="{{ request.user.username|title }}"
+                           placeholder="{% trans 'Name' %} *"
+                           required>
+
+                    <input type="text"
+                           id="customer-mobile"
+                           value="{% if active_address %}{{ active_address.mobile }}{% endif %}"
+                           placeholder="{% trans 'Mobile' %}"
+                           required>
+
+                    <!-- Shipping Address Section -->
+                    <div class="shipping-address-section">
+                        <h4>{% trans "Shipping Address" %}</h4>
+
+                        <!-- State Input (Manual Entry for Offline) -->
+                        <div class="address-field">
+                            <label for="offline-state">{% trans "State/Region" %} *</label>
+                            <input type="text"
+                                   id="offline-state"
+                                   name="state"
+                                   value="{% if active_address %}{{ active_address.state.name }}{% endif %}"
+                                   placeholder="{% trans 'Enter your state/region' %}"
+                                   required>
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i>
+                                {% trans "Please enter your state/region manually (offline mode)" %}
+                            </small>
+                        </div>
+
+                        <!-- City Input (Manual Entry for Offline) -->
+                        <div class="address-field">
+                            <label for="offline-city">{% trans "City/Town" %} *</label>
+                            <input type="text"
+                                   id="offline-city"
+                                   name="city"
+                                   value="{% if active_address %}{{ active_address.city.name }}{% endif %}"
+                                   placeholder="{% trans 'Enter your city/town' %}"
+                                   required>
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i>
+                                {% trans "Please enter your city/town manually (offline mode)" %}
+                            </small>
+                        </div>
+
+                        <!-- Township Input -->
+                        <div class="address-field">
+                            <label for="offline-township">{% trans "Township" %}</label>
+                            <input type="text"
+                                   id="offline-township"
+                                   name="township"
+                                   value="{% if active_address %}{{ active_address.township.name }}{% endif %}"
+                                   placeholder="{% trans 'Enter your township (optional)' %}">
+                        </div>
+
+                        <!-- Street Address -->
+                        <div class="address-field">
+                            <label for="offline-street-address">{% trans "Street Address" %}</label>
+                            <input type="text"
+                                   id="offline-street-address"
+                                   name="street_address"
+                                   value="{% if active_address %}{{ active_address.street_address }}{% endif %}"
+                                   placeholder="{% trans 'Building No, Street Name' %}">
+                        </div>
+
+                        <!-- Landmark -->
+                        <div class="address-field">
+                            <label for="offline-landmark">{% trans "Near Landmark" %}</label>
+                            <input type="text"
+                                   id="offline-landmark"
+                                   name="landmark"
+                                   value="{% if active_address %}{{ active_address.landmark }}{% endif %}"
+                                   placeholder="{% trans 'Near landmark for easy delivery' %}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>{% trans "Your Order" %}</h3>
+
+                <!-- Order Items from cached cart -->
+                <div class="cart-items" id="offline-cart-items">
+                    <!-- Items will be loaded via JavaScript from offline storage -->
+                </div>
+
+                <!-- Order Total -->
+                <div class="order-total-section">
+                    <hr>
+                    <p class="subtotal-row">
+                        <strong>{% trans "Subtotal:" %}</strong>
+                        <span id="offline-subtotal">{{ cart_total_display }}</span>
+                    </p>
+
+                    <p class="shipping-row">
+                        <strong>{% trans "Shipping:" %}</strong>
+                        <span id="offline-shipping-fee">
+                            {% trans "Standard shipping (will be calculated when online)" %}
+                        </span>
+                    </p>
+
+                    <hr>
+
+                    <p class="total-row">
+                        <strong>{% trans "Total:" %}</strong>
+                        <strong class="order-total" id="offline-order-total">
+                            {{ cart_total_display }}
+                            <small class="d-block text-muted">
+                                {% trans "(+ shipping fee will be calculated when online)" %}
+                            </small>
+                        </strong>
+                    </p>
+                </div>
+
+                {% if is_myanmar %}
+                <div class="payment-notice alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Note: Payment will be processed in USD" %}
+                </div>
+                {% endif %}
+
+                <!-- Cash on Delivery Only (Offline Mode) -->
+                <div class="payment-method-selection">
+                    <h3>{% trans "Payment Method" %}</h3>
+
+                    <div class="alert alert-warning">
+                        <i class="fas fa-info-circle"></i>
+                        {% trans "Only Cash on Delivery is available in offline mode" %}
+                    </div>
+
+                    <div class="payment-option active">
+                        <input type="radio" id="offline-cod-payment" name="payment_type" value="cod" checked disabled>
+                        <label for="offline-cod-payment" class="payment-option-label selected">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <strong>{% trans "Cash on Delivery" %}</strong>
+                            <small>{% trans "Pay when you receive your order" %}</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Cash on Delivery Section -->
+                <div id="offline-cod-section" class="payment-section">
+                    <div class="cod-info">
+                        <div class="alert alert-success">
+                            <h5><i class="fas fa-hand-holding-usd"></i> {% trans "Cash on Delivery" %}</h5>
+                            <p>{% trans "You will pay for your order when it's delivered to your address." %}</p>
+                            <ul class="mb-0">
+                                <li>{% trans "No online payment required" %}</li>
+                                <li>{% trans "Pay with cash to the delivery person" %}</li>
+                                <li>{% trans "Order will be saved and submitted when you're back online" %}</li>
+                                <li>{% trans "You'll receive a confirmation notification when the order is submitted" %}</li>
+                            </ul>
+                        </div>
+
+                        <button type="button"
+                                class="btn btn-success btn-lg"
+                                id="offline-cod-submit"
+                                style="width: 100%; margin-top: 15px;">
+                            <i class="fas fa-save me-2"></i>
+                            {% trans "Save Order for Offline Submission" %}
+                        </button>
+                    </div>
+                </div>
+
+                    <br>
+
+                    <!-- Back Button -->
+                    <button class="back-to-cart">
+                        <a href="{% url 'flame:product-list' %}"
+                           style="text-decoration: none;color: inherit;">
+                            {% trans "Go back to Explore More" %}
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'assets/js/function.js' %}"></script>
+
+    <script>
+        // Offline Checkout Manager
+        class OfflineCheckoutManager {
+            constructor() {
+                this.exchangeRate = {{ exchange_rate }};
+                this.isMyanmar = {{ is_myanmar|yesno:"true,false" }};
+                this.shopId = '{{ sid }}';
+                this.orderId = '{{ order.id|default:"" }}';
+                this.init();
+            }
+
+            init() {
+                this.loadOfflineCartItems();
+                this.bindEvents();
+                this.updateAddressFromStorage();
+            }
+
+            bindEvents() {
+                // COD Submit Button
+                document.getElementById('offline-cod-submit').addEventListener('click', () => {
+                    this.submitOfflineOrder();
+                });
+
+                // Address validation
+                const requiredFields = ['offline-state', 'offline-city', 'customer-name', 'customer-mobile'];
+                requiredFields.forEach(fieldId => {
+                    document.getElementById(fieldId).addEventListener('blur', () => {
+                        this.validateRequiredField(fieldId);
+                    });
+                });
+            }
+
+            async loadOfflineCartItems() {
+                try {
+                    if (window.offlineManager) {
+                        const cartItems = await window.offlineManager.getOfflineCart();
+                        const products = await window.offlineManager.getCachedProducts();
+
+                        this.displayCartItems(cartItems, products);
+                        this.calculateOfflineTotal(cartItems, products);
+                    }
+                } catch (error) {
+                    console.error('Error loading offline cart:', error);
+                    document.getElementById('offline-cart-items').innerHTML =
+                        '<p class="text-center text-muted">Unable to load cart items</p>';
+                }
+            }
+
+            displayCartItems(cartItems, products) {
+                const container = document.getElementById('offline-cart-items');
+
+                if (cartItems.length === 0) {
+                    container.innerHTML = '<p class="text-center text-muted">No items in cart</p>';
+                    return;
+                }
+
+                const itemsHtml = cartItems.map(cartItem => {
+                    const product = products.find(p => p.id == cartItem.product_id);
+                    if (!product) return '';
+
+                    const price = parseFloat(product.price);
+                    const total = price * cartItem.quantity;
+
+                    return `
+                        <div class="item checkout-item">
+                            <img src="${product.image}" alt="${product.title}" style="width: 60px; height: 60px; object-fit: cover;">
+                            <div class="item-info">
+                                <p class="item-title">${product.title}</p>
+                                <p class="item-qty">
+                                    {% trans "Qty:" %} ${cartItem.quantity} × $${price.toFixed(2)}
+                                    ${this.isMyanmar ?
+                                        `<small>(${(price * this.exchangeRate).toFixed(0)} ကျပ်)</small>` :
+                                        ''
+                                    }
+                                </p>
+                            </div>
+                            <p class="item-total">
+                                <strong>
+                                    $${total.toFixed(2)}
+                                    ${this.isMyanmar ?
+                                        `<br><small>${(total * this.exchangeRate).toFixed(0)} ကျပ်</small>` :
+                                        ''
+                                    }
+                                </strong>
+                            </p>
+                        </div>
+                    `;
+                }).join('');
+
+                container.innerHTML = itemsHtml;
+            }
+
+            calculateOfflineTotal(cartItems, products) {
+                let subtotal = 0;
+
+                cartItems.forEach(cartItem => {
+                    const product = products.find(p => p.id == cartItem.product_id);
+                    if (product) {
+                        subtotal += parseFloat(product.price) * cartItem.quantity;
+                    }
+                });
+
+                // Update display
+                const subtotalElement = document.getElementById('offline-subtotal');
+                const totalElement = document.getElementById('offline-order-total');
+
+                if (this.isMyanmar) {
+                    const subtotalMmk = subtotal * this.exchangeRate;
+                    subtotalElement.innerHTML = `$${subtotal.toFixed(2)} <small>(${subtotalMmk.toFixed(0)} ကျပ်)</small>`;
+                    totalElement.innerHTML = `$${subtotal.toFixed(2)} <small class="d-block">(${subtotalMmk.toFixed(0)} ကျပ် + shipping)</small>`;
+                } else {
+                    subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+                    totalElement.innerHTML = `$${subtotal.toFixed(2)} <small class="d-block text-muted">(+ shipping fee)</small>`;
+                }
+            }
+
+            updateAddressFromStorage() {
+                // Try to get stored address data from previous session
+                const storedAddress = sessionStorage.getItem('checkout_address');
+                if (storedAddress) {
+                    try {
+                        const addressData = JSON.parse(storedAddress);
+
+                        // Populate fields if they're empty
+                        if (addressData.state && !document.getElementById('offline-state').value) {
+                            document.getElementById('offline-state').value = addressData.state;
+                        }
+                        if (addressData.city && !document.getElementById('offline-city').value) {
+                            document.getElementById('offline-city').value = addressData.city;
+                        }
+                    } catch (error) {
+                        console.error('Error parsing stored address:', error);
+                    }
+                }
+            }
+
+            validateRequiredField(fieldId) {
+                const field = document.getElementById(fieldId);
+                const value = field.value.trim();
+
+                // Remove existing error
+                const existingError = field.parentNode.querySelector('.field-error');
+                if (existingError) {
+                    existingError.remove();
+                }
+
+                if (!value) {
+                    this.showFieldError(field, '{% trans "This field is required" %}');
+                    return false;
+                }
+
+                return true;
+            }
+
+            showFieldError(field, message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'field-error text-danger';
+                errorDiv.style.fontSize = '0.8em';
+                errorDiv.style.marginTop = '5px';
+                errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+
+                field.parentNode.appendChild(errorDiv);
+            }
+
+            async submitOfflineOrder() {
+                // Validate required fields
+                const requiredFields = ['offline-state', 'offline-city', 'customer-name', 'customer-mobile'];
+                let isValid = true;
+
+                requiredFields.forEach(fieldId => {
+                    if (!this.validateRequiredField(fieldId)) {
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    this.showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+
+                try {
+                    const orderData = await this.collectOrderData();
+
+                    if (window.offlineManager) {
+                        await window.offlineManager.saveOfflineOrder(orderData);
+                        this.showSuccessMessage();
+                    } else {
+                        throw new Error('Offline manager not available');
+                    }
+                } catch (error) {
+                    console.error('Error saving offline order:', error);
+                    this.showNotification('Failed to save order. Please try again.', 'error');
+                }
+            }
+
+            async collectOrderData() {
+                const cartItems = await window.offlineManager.getOfflineCart();
+                const products = await window.offlineManager.getCachedProducts();
+
+                // Calculate order details
+                let subtotal = 0;
+                const orderItems = cartItems.map(cartItem => {
+                    const product = products.find(p => p.id == cartItem.product_id);
+                    if (product) {
+                        const itemTotal = parseFloat(product.price) * cartItem.quantity;
+                        subtotal += itemTotal;
+
+                        return {
+                            product_id: cartItem.product_id,
+                            title: product.title,
+                            price: parseFloat(product.price),
+                            quantity: cartItem.quantity,
+                            total: itemTotal,
+                            image: product.image
+                        };
+                    }
+                    return null;
+                }).filter(item => item !== null);
+
+                return {
+                    order_id: this.orderId || `offline-${Date.now()}`,
+                    shop_id: this.shopId,
+                    customer_name: document.getElementById('customer-name').value.trim(),
+                    customer_mobile: document.getElementById('customer-mobile').value.trim(),
+                    shipping_address: {
+                        state: document.getElementById('offline-state').value.trim(),
+                        city: document.getElementById('offline-city').value.trim(),
+                        township: document.getElementById('offline-township').value.trim() || '',
+                        street_address: document.getElementById('offline-street-address').value.trim() || '',
+                        landmark: document.getElementById('offline-landmark').value.trim() || ''
+                    },
+                    items: orderItems,
+                    subtotal: subtotal,
+                    shipping_fee: 0, // Will be calculated when online
+                    total: subtotal,
+                    payment_method: 'cod',
+                    currency: this.isMyanmar ? 'MMK' : 'USD',
+                    exchange_rate: this.exchangeRate,
+                    created_offline: true,
+                    timestamp: new Date().toISOString()
+                };
+            }
+
+            showSuccessMessage() {
+                // Hide the form and show success message
+                const container = document.querySelector('.checkout-content');
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4em;"></i>
+                        </div>
+                        <h3 class="text-success mb-3">{% trans "Order Saved Successfully!" %}</h3>
+                        <div class="alert alert-success">
+                            <h5>{% trans "Your offline order has been saved" %}</h5>
+                            <ul class="text-start mb-0">
+                                <li>{% trans "Order will be automatically submitted when you're back online" %}</li>
+                                <li>{% trans "You'll receive a confirmation notification when submitted" %}</li>
+                                <li>{% trans "Shipping fee will be calculated and added when online" %}</li>
+                                <li>{% trans "Payment will be collected upon delivery" %}</li>
+                            </ul>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{% url 'flame:product-list' %}" class="btn btn-primary me-3">
+                                {% trans "Continue Shopping" %}
+                            </a>
+                            <a href="{% url 'flame:home' %}" class="btn btn-secondary">
+                                {% trans "Go to Home" %}
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                // Clear offline cart
+                if (window.offlineManager) {
+                    window.offlineManager.getOfflineCart().then(cartItems => {
+                        cartItems.forEach(item => {
+                            window.offlineManager.removeFromOfflineCart(item.product_id);
+                        });
+                    });
+                }
+            }
+
+            showNotification(message, type = 'info') {
+                if (window.showDynamicAlert) {
+                    window.showDynamicAlert(type, message);
+                } else {
+                    alert(message);
+                }
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            new OfflineCheckoutManager();
+        });
+    </script>
+
+    <style>
+    .offline-mode-notice {
+        margin-bottom: 20px;
+        border-left: 4px solid #17a2b8;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .payment-option.active .payment-option-label.selected {
+        border-color: #28a745;
+        background: #d4edda;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+    }
+
+    .field-error {
+        animation: shake 0.3s ease-in-out;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+
+    .address-field small.text-muted {
+        display: block;
+        margin-top: 5px;
+        font-style: italic;
+    }
+
+    /* Myanmar language specific */
+    html[lang="my"] .offline-mode-notice,
+    html[lang="my"] .field-error {
+        font-family: 'Padauk', sans-serif;
+    }
+    </style>
+</body>
+
+<br><br><br>
+<hr>
+
+{% endblock content %}

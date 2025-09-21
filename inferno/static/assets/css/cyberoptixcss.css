@@ -1,3 +1,4 @@
+
 /* Navbar Styles */
 
 body {
@@ -376,18 +377,173 @@ body {
         }
 /* font-weight fix */
 
-.alert-danger,
-.alert-success,
-.alert-info,
-.alert-warning {
-  font-weight: normal;      /* force normal weight */
-  font-family: inherit;     /* Arial, sans-serif as per your body */
-  --bs-alert-margin-bottom: none;
-  
-
+/* Enhanced Alert Styles - Add this to your cyberoptixcss.css */
+.alert-container {
+    position: fixed;
+    top: 80px; /* Adjust based on your navbar height */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    width: 90%;
+    max-width: 600px;
+    pointer-events: none;
 }
 
-/* And if you really want to catch any <strong> inside alerts: */
-.alert strong {
-  font-weight: normal;
+.alert-message {
+    pointer-events: auto;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-weight: normal !important;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideDown 0.3s ease-out;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-message:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Override Bootstrap alert styles */
+.alert-success.alert-message {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+    color: #155724 !important;
+    border-left: 4px solid #28a745;
+    border: none;
+}
+
+.alert-danger.alert-message {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+    color: #721c24 !important;
+    border-left: 4px solid #dc3545;
+    border: none;
+}
+
+.alert-warning.alert-message {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+    color: #856404 !important;
+    border-left: 4px solid #ffc107;
+    border: none;
+}
+
+.alert-info.alert-message {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
+    color: #0c5460 !important;
+    border-left: 4px solid #17a2b8;
+    border: none;
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.alert-icon {
+    margin-right: 12px;
+    font-size: 1.2em;
+}
+
+.alert-text {
+    flex: 1;
+    font-weight: 500 !important;
+}
+
+.alert-close {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    margin-left: 15px;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+}
+
+.alert-close:hover {
+    opacity: 1;
+}
+
+.alert-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 8px 8px;
+    animation: shrink 5s linear;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+.alert-fadeout {
+    animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .alert-container {
+        width: 95%;
+        top: 70px;
+    }
+
+    .alert-message {
+        padding: 12px 16px;
+        font-size: 0.9em;
+    }
+
+    .alert-icon {
+        font-size: 1em;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .alert-message {
+        padding: 10px 12px;
+    }
+    
+    .alert-container {
+        top: 65px;
+    }
+
 }

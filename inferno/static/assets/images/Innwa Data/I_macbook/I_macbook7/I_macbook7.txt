@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Brand 	Apple
 Model Name 	MacBook Air
 Screen Size 	13 Inches
@@ -8,4 +9,16 @@ Ram Memory Installed Size 	16 GB
 Operating System 	Mac OS
 Special Feature 	Backlit Keyboard
 Graphics Card Description
+=======
+Brand 	Apple
+Model Name 	MacBook Air
+Screen Size 	13 Inches
+Color 	Space Gray
+Hard Disk Size 	256 GB
+CPU Model 	Others
+Ram Memory Installed Size 	16 GB
+Operating System 	Mac OS
+Special Feature 	Backlit Keyboard
+Graphics Card Description
+>>>>>>> entibery/main
 Price 	4,450,000 MMK

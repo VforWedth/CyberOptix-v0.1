@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 import os
 # settings.py
 CART_SESSION_ID = 'cart'  # This will be the key used to store cart in session
@@ -22,18 +24,55 @@ env = Env()
 env.read_env()
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dxm@a9vqdond326hd0$!b0x9gft09v2nte-p^(t=@&jxc6kq82'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-LOGIN_URL = "userauths:sign-in"
+# Google OAuth2
+GOOGLE_OAUTH_CLIENT_ID = env('GOOGLE_OAUTH_CLIENT_ID')
+GOOGLE_OAUTH_CLIENT_SECRET = env('GOOGLE_OAUTH_CLIENT_SECRET')
+
+# LOGIN_URL = "userauths:sign-in"
+
+
+# JWT Configuration
+JWT_SECRET_KEY = env('JWT_SECRET_KEY', default=SECRET_KEY)
+JWT_ACCESS_TOKEN_LIFETIME = 24 * 60 * 60  # 24 hours in seconds
+JWT_REFRESH_TOKEN_LIFETIME = 7 * 24 * 60 * 60  # 7 days in seconds
+
+# Security settings
+CSRF_COOKIE_SECURE = False  # Set to True in production
+SECURE_SSL_REDIRECT = False  # Set to True in production
+
+# Email settings for user authentication and notifications
+# For development - use console backend (emails printed to terminal)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# For production - use Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')  # Your Gmail address
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')  # Gmail App Password
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='CyberOptix <noreply@cyberoptix.com>')
+
+# Email timeout settings
+EMAIL_TIMEOUT = 10
+
+# Authentication settings
+LOGIN_URL = '/user/sign-in/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/user/sign-in/'
 
 AUTH_USER_MODEL = 'userauths.User'
 
@@ -65,15 +104,37 @@ INSTALLED_APPS = [
     # Payment Integration
     'paypal.standard.ipn',
     
+    # Translation Apps
+    
+    'rosetta',
+    'parler',
+    
+    # Django REST Framework
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'django_filters',
+    'drf_spectacular',
+    'rest_framework_bulk',
+    
+    # PWA Support
+    'pwa',
+    'verasChatbot',
+
     #Custom Apps
+    'api',
     'flame',
     'userauths',
+    'kbzpay_mock',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -92,9 +153,11 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'flame.context_processors.default', #new added for context processor
+                'flame.context_processors.currency_context',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.template.context_processors.csrf',
+                'django.template.context_processors.i18n',  # Add this for language support
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -108,12 +171,30 @@ WSGI_APPLICATION = 'inferno.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# Database configuration - PostgreSQL (production ready)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DB_NAME', default='laptopmart_db'),
+        'USER': env('DB_USER', default='laptopmart_user'),
+        'PASSWORD': env('DB_PASSWORD', default='your_password'),
+        'HOST': env('DB_HOST', default='localhost'),
+        'PORT': env('DB_PORT', default='5432'),
+        'OPTIONS': {
+            'connect_timeout': 30,
+        },
+        'CONN_MAX_AGE': 3600,  # Connection pooling - reuse connections for 60 seconds
+        'CONN_HEALTH_CHECKS': False,  # Enable connection health checks
     }
 }
+
+# Temporary SQLite database for data export
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -138,11 +219,109 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+LANGUAGES = [
+    ('en', _('English')),
+    ('my', _('Burmese')),
+]
+
+# Language cookie settings
+LANGUAGE_COOKIE_NAME = 'django_language'
+LANGUAGE_COOKIE_AGE = 365 * 24 * 60 * 60  # 1 year
+LANGUAGE_COOKIE_PATH = '/'
+
+# --- Solid I18n URLs ---
+SOLID_I18N_USE_REDIRECTS = True
+SOLID_I18N_HANDLE_DEFAULT_PREFIX = True
+SOLID_I18N_DEFAULT_PREFIX_REDIRECT = True
+
+# Rosetta settings (Translation interface)
+ROSETTA_MESSAGES_PER_PAGE = 50
+ROSETTA_ENABLE_TRANSLATION_SUGGESTIONS = True
+ROSETTA_GOOGLE_TRANSLATE = True  # Enable Google Translate suggestions
+ROSETTA_ACCESS = lambda user: user.is_superuser  # Only superusers can access
+
+
+# Model Translation settings
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_LANGUAGES = ('en', 'my')
+MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
+
+# Session settings for authentication
+SESSION_COOKIE_AGE = 86400 * 30  # 30 days
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_HTTPONLY = True
+SESSION_SAVE_EVERY_REQUEST = True
+
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        
+    }
+}
+
+# Currency settings
+CURRENCY_SETTINGS = {
+    'DEFAULT_CURRENCY': 'USD',
+    'SUPPORTED_CURRENCIES': ['USD', 'MMK'],
+    'EXCHANGE_RATE_API_KEY': 'https://api.exchangerate-api.com/v4/latest/USD',  # If using paid API
+    'EXCHANGE_RATE_CACHE_TIMEOUT': 3600,  # 1 hour
+    'DEFAULT_MMK_RATE': 3000,  # Fallback rate
+}
+
+# --- Parler Settings ---
+PARLER_LANGUAGES =  {
+    None: (
+        {'code': 'en'},
+        {'code': 'my'},
+    ),
+    'default': {
+        'fallbacks' : ['en'],  # Fallback language
+        'hide_untranslated': False, # Show untranslated content
+    }
+}
+PARLER_DEFAULT_LANGUAGE_CODE = 'en'
+
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'auth.log'),
+        },
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'userauths': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+# Ensure logs directory exists
+os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
+
+# Where Django looks for your translation files
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+TIME_ZONE = 'Asia/Yangon'
 
 USE_I18N = True
+USE_I10N = True
 
 USE_TZ = True
 
@@ -185,5 +364,163 @@ PAYPAL_TEST = True
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
 STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET")
+
+# ================================
+# DJANGO REST FRAMEWORK SETTINGS
+# ================================
+
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'EXCEPTION_HANDLER': 'api.v1.utils.custom_exception_handler',
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/hour',
+        'user': '1000/hour'
+    }
+}
+
+# Simple JWT Settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}
+
+# CORS Settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React development server
+    "http://127.0.0.1:3000",
+    "http://localhost:8080",  # Vue development server
+    "http://127.0.0.1:8080",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'accept-language',
+]
+
+# API Documentation Settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'CyberOptix LaptopMart API',
+    'DESCRIPTION': 'A comprehensive e-commerce API for laptop and computer sales with bilingual support (EN/MY)',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api/v1',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SORT_OPERATIONS': False,
+    'ENUM_NAME_OVERRIDES': {
+        'ValidationErrorEnum': 'rest_framework.serializers.ValidationError',
+    },
+}
+
+# API Rate Limiting
+RATELIMIT_ENABLE = True
+RATELIMIT_USE_CACHE = 'default'
+
+# ================================
+# PWA (Progressive Web App) SETTINGS
+# ================================
+
+PWA_APP_NAME = 'LaptopMart Myanmar'
+PWA_APP_DESCRIPTION = 'Your trusted laptop marketplace in Myanmar'
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/icons/icon-72x72.png',
+        'sizes': '72x72'
+    },
+    {
+        'src': '/static/images/icons/icon-96x96.png',
+        'sizes': '96x96'
+    },
+    {
+        'src': '/static/images/icons/icon-128x128.png',
+        'sizes': '128x128'
+    },
+    {
+        'src': '/static/images/icons/icon-144x144.png',
+        'sizes': '144x144'
+    },
+    {
+        'src': '/static/images/icons/icon-152x152.png',
+        'sizes': '152x152'
+    },
+    {
+        'src': '/static/images/icons/icon-192x192.png',
+        'sizes': '192x192'
+    },
+    {
+        'src': '/static/images/icons/icon-384x384.png',
+        'sizes': '384x384'
+    },
+    {
+        'src': '/static/images/icons/icon-512x512.png',
+        'sizes': '512x512'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/icons/icon-152x152.png',
+        'sizes': '152x152'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/icon-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+
+# Service Worker settings
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js/serviceworker.js')
 
 

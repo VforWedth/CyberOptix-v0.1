@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Acer Predator XB283K KVbmiipruzx 28" UHD 3840 x 2160 Agile-Splendor IPS PC & Console Gaming Monitor | AMD FreeSync Premium/G-SYNC Compatible | 144Hz | 1ms | 1xUSB Type-C, 1xDP 1.4, 2xHDMI 2.1 & 4xUSB 
 
 Brand 	acer
@@ -6,4 +7,14 @@ Resolution 	4K UHD 3840 x 2160@144 Hz
 Aspect Ratio 	16:9
 Screen Surface Description 	Glossy
 
+=======
+Acer Predator XB283K KVbmiipruzx 28" UHD 3840 x 2160 Agile-Splendor IPS PC & Console Gaming Monitor | AMD FreeSync Premium/G-SYNC Compatible | 144Hz | 1ms | 1xUSB Type-C, 1xDP 1.4, 2xHDMI 2.1 & 4xUSB 
+
+Brand 	acer
+Screen Size 	28 Inches
+Resolution 	4K UHD 3840 x 2160@144 Hz
+Aspect Ratio 	16:9
+Screen Surface Description 	Glossy
+
+>>>>>>> entibery/main
 Price - $388.17 

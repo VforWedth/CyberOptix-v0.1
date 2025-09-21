@@ -1,3 +1,4 @@
+
 {% load math_filters %}
 
 <style>
@@ -193,11 +194,11 @@
         <div class="cart-summary">
             
             <div class="summary-row">
-                <span>Shipping:</span>
+                <span>{% trans "Shipping:" %}</span>
                 <span>Free</span>
             </div>
             <div class="summary-row">
-                <strong>Total:</strong>
+                <strong>{% trans "Total:" %}</strong>
                 <strong>${{ cart_total_amount|floatformat:2 }}</strong>
             </div>
             
@@ -205,12 +206,13 @@
         </div>
         <div class="cart-actions">
             <a href="{% url 'flame:product-list' %}" class="continue-btn">
-                ← Continue Shopping
+                ←  {% trans "Continue Shopping" %}
             </a>
             {% if totalcartitems %}
             <a href="{% url 'flame:home-checkout' %}" class="checkout-btn">
-                Proceed to Checkout →
+                {% trans "Proceed to Checkout" %} →
             </a>
             {% endif %}
         </div>
+
 </div>

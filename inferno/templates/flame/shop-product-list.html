@@ -1,5 +1,7 @@
+
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <style>
     .main-container {
@@ -41,9 +43,9 @@
             <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
             <h5 class="card-title">{{ p.title }}</h5>
             <div class="card-footer">
-                <span class="price">${{ p.price }}</span>
+                <span class="price"> {% include 'flame/includes/price_display.html' with p=product %}</span>
                 <a href="{% url 'flame:product-detail' p.p_id %}" class="btn btn-primary" style="text-decoration: none;">
-                    View Product
+                    {% trans "View Product" %}
                 </a>
             </div>
         </div>
@@ -56,4 +58,5 @@
                               {% comment "" %} Block Of Home Page End Here{% endcomment %}
                               
 
+                            
 {% endblock content %}

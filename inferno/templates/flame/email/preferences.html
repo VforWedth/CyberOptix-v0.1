@@ -1,0 +1,441 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-envelope-open-text"></i>
+                        {% trans "Email Preferences" %}
+                    </h4>
+                    <p class="text-muted mb-0">
+                        {% trans "Manage your email notification settings" %}
+                    </p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Email Notifications -->
+                        <div class="mb-4">
+                            <h5>
+                                <i class="fas fa-bell"></i>
+                                {% trans "Order Notifications" %}
+                            </h5>
+                            <p class="text-muted">{% trans "Receive updates about your orders" %}</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="order_confirmation" name="order_confirmation" checked>
+                                        <label class="form-check-label" for="order_confirmation">
+                                            <strong>{% trans "Order Confirmation" %}</strong>
+                                            <br><small class="text-muted">{% trans "When your order is confirmed" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="order_shipped" name="order_shipped" checked>
+                                        <label class="form-check-label" for="order_shipped">
+                                            <strong>{% trans "Shipping Updates" %}</strong>
+                                            <br><small class="text-muted">{% trans "When your order ships" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="order_delivered" name="order_delivered" checked>
+                                        <label class="form-check-label" for="order_delivered">
+                                            <strong>{% trans "Delivery Confirmation" %}</strong>
+                                            <br><small class="text-muted">{% trans "When your order is delivered" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="order_cancelled" name="order_cancelled" checked>
+                                        <label class="form-check-label" for="order_cancelled">
+                                            <strong>{% trans "Order Changes" %}</strong>
+                                            <br><small class="text-muted">{% trans "Cancellations and returns" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Marketing Emails -->
+                        <div class="mb-4">
+                            <h5>
+                                <i class="fas fa-bullhorn"></i>
+                                {% trans "Marketing & Promotions" %}
+                            </h5>
+                            <p class="text-muted">{% trans "Receive special offers and product recommendations" %}</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="promotions" name="promotions">
+                                        <label class="form-check-label" for="promotions">
+                                            <strong>{% trans "Special Offers" %}</strong>
+                                            <br><small class="text-muted">{% trans "Sales, discounts, and deals" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="new_products" name="new_products">
+                                        <label class="form-check-label" for="new_products">
+                                            <strong>{% trans "New Products" %}</strong>
+                                            <br><small class="text-muted">{% trans "Latest arrivals and releases" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="recommendations" name="recommendations">
+                                        <label class="form-check-label" for="recommendations">
+                                            <strong>{% trans "Personalized Recommendations" %}</strong>
+                                            <br><small class="text-muted">{% trans "Products you might like" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="newsletter" name="newsletter">
+                                        <label class="form-check-label" for="newsletter">
+                                            <strong>{% trans "Newsletter" %}</strong>
+                                            <br><small class="text-muted">{% trans "Weekly tech news and tips" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Account & Service -->
+                        <div class="mb-4">
+                            <h5>
+                                <i class="fas fa-user-cog"></i>
+                                {% trans "Account & Service" %}
+                            </h5>
+                            <p class="text-muted">{% trans "Important account and service updates" %}</p>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="review_requests" name="review_requests" checked>
+                                        <label class="form-check-label" for="review_requests">
+                                            <strong>{% trans "Review Requests" %}</strong>
+                                            <br><small class="text-muted">{% trans "Rate and review your purchases" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="security_alerts" name="security_alerts" checked>
+                                        <label class="form-check-label" for="security_alerts">
+                                            <strong>{% trans "Security Alerts" %}</strong>
+                                            <br><small class="text-muted">{% trans "Account security notifications" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="policy_updates" name="policy_updates">
+                                        <label class="form-check-label" for="policy_updates">
+                                            <strong>{% trans "Policy Updates" %}</strong>
+                                            <br><small class="text-muted">{% trans "Changes to terms and privacy" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" 
+                                               id="surveys" name="surveys">
+                                        <label class="form-check-label" for="surveys">
+                                            <strong>{% trans "Surveys & Feedback" %}</strong>
+                                            <br><small class="text-muted">{% trans "Help improve our service" %}</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Email Frequency -->
+                        <div class="mb-4">
+                            <h5>
+                                <i class="fas fa-clock"></i>
+                                {% trans "Email Frequency" %}
+                            </h5>
+                            <p class="text-muted">{% trans "How often would you like to receive promotional emails?" %}</p>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" 
+                                               name="email_frequency" id="daily" value="daily">
+                                        <label class="form-check-label" for="daily">
+                                            {% trans "Daily" %}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" 
+                                               name="email_frequency" id="weekly" value="weekly" checked>
+                                        <label class="form-check-label" for="weekly">
+                                            {% trans "Weekly" %}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" 
+                                               name="email_frequency" id="monthly" value="monthly">
+                                        <label class="form-check-label" for="monthly">
+                                            {% trans "Monthly" %}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Save Button -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> {% trans "Save Preferences" %}
+                            </button>
+                            <a href="#" class="text-muted" onclick="unsubscribeAll()">
+                                {% trans "Unsubscribe from all emails" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Recent Emails -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-history"></i>
+                        {% trans "Recent Emails" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_emails %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Subject" %}</th>
+                                        <th>{% trans "Type" %}</th>
+                                        <th>{% trans "Status" %}</th>
+                                        <th>{% trans "Sent" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for email in recent_emails %}
+                                        <tr>
+                                            <td>
+                                                <div class="fw-bold">{{ email.subject|truncatechars:40 }}</div>
+                                                <small class="text-muted">{{ email.recipient_email }}</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-{% if email.email_type == 'order_confirmation' %}primary{% elif email.email_type == 'promotional' %}success{% elif email.email_type == 'security' %}warning{% else %}secondary{% endif %}">
+                                                    {{ email.get_email_type_display }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {% if email.status == 'sent' %}
+                                                    <span class="badge bg-success">
+                                                        <i class="fas fa-check"></i> {% trans "Delivered" %}
+                                                    </span>
+                                                {% elif email.status == 'failed' %}
+                                                    <span class="badge bg-danger">
+                                                        <i class="fas fa-times"></i> {% trans "Failed" %}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge bg-warning">
+                                                        <i class="fas fa-clock"></i> {% trans "Pending" %}
+                                                    </span>
+                                                {% endif %}
+                                                
+                                                {% if email.opened_at %}
+                                                    <br><small class="text-muted">
+                                                        <i class="fas fa-envelope-open"></i> {% trans "Opened" %}
+                                                    </small>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{ email.sent_at|date:"M d, Y H:i"|default:"—" }}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <button class="btn btn-outline-primary" 
+                                                            onclick="previewEmail('{{ email.id }}')">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    {% if email.status == 'failed' %}
+                                                        <button class="btn btn-outline-warning" 
+                                                                onclick="resendEmail('{{ email.id }}')">
+                                                            <i class="fas fa-redo"></i>
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                            <h5>{% trans "No emails sent yet" %}</h5>
+                            <p class="text-muted">{% trans "Your email history will appear here once we start sending you emails." %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Email Preview Modal -->
+<div class="modal fade" id="emailPreviewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-envelope"></i>
+                    {% trans "Email Preview" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="emailPreviewContent">
+                <!-- Email content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.form-check-input:checked {
+    background-color: #4A5C6A;
+    border-color: #4A5C6A;
+}
+
+.form-switch .form-check-input {
+    width: 2.5em;
+    height: 1.25em;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+.table th {
+    border-top: none;
+    font-weight: 600;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+}
+</style>
+
+<script>
+function previewEmail(emailId) {
+    // Fetch email content and show in modal
+    fetch(`/api/email/${emailId}/preview/`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('emailPreviewContent').innerHTML = html;
+            new bootstrap.Modal(document.getElementById('emailPreviewModal')).show();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to load email preview');
+        });
+}
+
+function resendEmail(emailId) {
+    if (confirm('{% trans "Are you sure you want to resend this email?" %}')) {
+        fetch(`/api/email/${emailId}/resend/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Failed to resend email: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while resending the email');
+        });
+    }
+}
+
+function unsubscribeAll() {
+    if (confirm('{% trans "Are you sure you want to unsubscribe from all emails? You will only receive critical account notifications." %}')) {
+        // Uncheck all marketing checkboxes
+        document.querySelectorAll('input[type="checkbox"][name*="promotions"], input[type="checkbox"][name*="new_products"], input[type="checkbox"][name*="recommendations"], input[type="checkbox"][name*="newsletter"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        
+        // Submit form
+        document.querySelector('form').submit();
+    }
+}
+
+// Auto-save preferences when changed
+document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+    input.addEventListener('change', function() {
+        // Add a subtle indicator that changes are being saved
+        const saveButton = document.querySelector('button[type="submit"]');
+        const originalText = saveButton.innerHTML;
+        
+        saveButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Saving..." %}';
+        saveButton.disabled = true;
+        
+        setTimeout(() => {
+            saveButton.innerHTML = originalText;
+            saveButton.disabled = false;
+        }, 1000);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,629 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load myanmar_filter %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/Profile.css' %}">
+
+<div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="sidebar flex-column mt-4 text-center">
+            <img src="{% static 'assets/images/shop-icon.png' %}" class="round" onerror="this.src='{% static 'assets/images/P.png' %}'">
+            <h5 class="text-white mt-2">{{ shop.title }}</h5>
+            <a class="sidebar-link active" href="#" data-page="shop-info">{% trans "Shop Information" %}</a>
+            <a class="sidebar-link" href="#" data-page="shop-location">{% trans "Shop Location" %}</a>
+            <a class="sidebar-link" href="#" data-page="shipping-rates">{% trans "Shipping Rates" %}</a>
+            <a class="sidebar-link" href="#" data-page="orders">{% trans "Orders" %}</a>
+            <a class="sidebar-link" href="{% url 'flame:shop-detail' shop.shop_id %}">{% trans "View Shop" %}</a>
+
+            <!-- Logout Link -->
+            <form id="logout-form" action="{% url 'userauths:sign-out' %}" method="POST" style="display: none;">
+                {% csrf_token %}
+            </form>
+            <a class="sidebar-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {% trans "Logout" %}
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="content-section" style="background-color:rgb(21, 40, 56);">
+        <div class="user-dashboard">
+
+            <!-- Shop Information Section -->
+            <div class="page-section" id="shop-info">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-store"></i> {% trans "Shop Information" %}</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="profile-grid">
+                            <div class="profile-field">
+                                <label class="field-label">{% trans "Shop Name" %}</label>
+                                <div class="field-value">
+                                    <i class="fas fa-store field-icon"></i>
+                                    <span>{{ shop.title }}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-field">
+                                <label class="field-label">{% trans "Description" %}</label>
+                                <div class="field-value">
+                                    <i class="fas fa-align-left field-icon"></i>
+                                    <span>{{ shop.description|default:"Not provided" }}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-field">
+                                <label class="field-label">{% trans "Contact" %}</label>
+                                <div class="field-value">
+                                    <i class="fas fa-phone field-icon"></i>
+                                    <span>{{ shop.contact }}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-field">
+                                <label class="field-label">{% trans "PayPal Email" %}</label>
+                                <div class="field-value">
+                                    <i class="fas fa-envelope field-icon"></i>
+                                    <span>{{ shop.paypal_email }}</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-field">
+                                <label class="field-label">{% trans "Current Address" %}</label>
+                                <div class="field-value">
+                                    <i class="fas fa-map-marker-alt field-icon"></i>
+                                    <span id="current-shop-address">{{ shop.get_shop_full_address }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop Location Section -->
+            <div class="page-section" id="shop-location" style="display: none;">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-map-marker-alt"></i> {% trans "Shop Location Management" %}</h3>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            {% trans "Setting your shop location helps calculate accurate shipping fees for customers." %}
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="shop-location-form">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="shop-state-select">{% trans "State/Region" %} *</label>
+                                        <select id="shop-state-select" name="state" class="form-control" required>
+                                            <option value="">{% trans "Select State/Region" %}</option>
+                                            {% for state in myanmar_states %}
+                                            <option value="{{ state.id }}" {% if shop.state and shop.state.id == state.id %}selected{% endif %}>
+                                                {% if is_myanmar %}
+                                                    {{ state.name_mm|default:state.name }}
+                                                {% else %}
+                                                    {{ state.name }}
+                                                {% endif %}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="shop-city-select">{% trans "City" %} *</label>
+                                        <select id="shop-city-select" name="city" class="form-control" required {% if not shop.state %}disabled{% endif %}>
+                                            <option value="">{% trans "Select City" %}</option>
+                                            {% if shop.city %}
+                                            <option value="{{ shop.city.id }}" selected>
+                                                {% if is_myanmar %}
+                                                    {{ shop.city.name_mm|default:shop.city.name }}
+                                                {% else %}
+                                                    {{ shop.city.name }}
+                                                {% endif %}
+                                            </option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="shop-township-select">{% trans "Township" %}</label>
+                                        <select id="shop-township-select" name="township" class="form-control" {% if not shop.city %}disabled{% endif %}>
+                                            <option value="">{% trans "Select Township (Optional)" %}</option>
+                                            {% if shop.township %}
+                                            <option value="{{ shop.township.id }}" selected>
+                                                {% if is_myanmar %}
+                                                    {{ shop.township.name_mm|default:shop.township.name }}
+                                                {% else %}
+                                                    {{ shop.township.name }}
+                                                {% endif %}
+                                            </option>
+                                            {% endif %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="shop-street-address">{% trans "Street Address" %}</label>
+                                        <input type="text" id="shop-street-address" name="street_address" class="form-control"
+                                               value="{{ shop.street_address }}"
+                                               placeholder="{% trans 'Building No, Street Name, etc.' %}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> {% trans "Update Shop Location" %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Rates Section -->
+            <div class="page-section" id="shipping-rates" style="display: none;">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-shipping-fast"></i> {% trans "Shipping Rate Management" %}</h3>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            {% if not shop.city or not shop.state %}
+                                {% trans "Please set your shop location first to manage shipping rates." %}
+                            {% else %}
+                                {% trans "Configure shipping rates from your shop to different cities." %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        {% if shop.city and shop.state %}
+                        <!-- Add New Shipping Rate Form -->
+                        <div class="mb-4">
+                            <h5>{% trans "Add New Shipping Rate" %}</h5>
+                            <form id="add-shipping-rate-form" class="row">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="add_rate">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>{% trans "To City" %}</label>
+                                        <select name="to_city_id" class="form-control" required>
+                                            <option value="">{% trans "Select destination city" %}</option>
+                                            <!-- Cities will be loaded dynamically -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{% trans "Rate (MMK)" %}</label>
+                                        <input type="number" name="rate_mmk" class="form-control" min="0" step="100" required placeholder="3000">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>{% trans "Rate (USD)" %}</label>
+                                        <input type="number" name="rate_usd" class="form-control" min="0" step="0.1" required placeholder="1.00">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <button type="submit" class="btn btn-success form-control">
+                                            <i class="fas fa-plus"></i> {% trans "Add" %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Existing Shipping Rates -->
+                        <h5>{% trans "Current Shipping Rates" %}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="shipping-rates-table">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "From" %}</th>
+                                        <th>{% trans "To" %}</th>
+                                        <th>{% trans "Rate (MMK)" %}</th>
+                                        <th>{% trans "Rate (USD)" %}</th>
+                                        <th>{% trans "Actions" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rate in shipping_rates %}
+                                    <tr data-rate-id="{{ rate.id }}">
+                                        <td>{{ rate.from_city.name }}, {{ rate.from_state.name }}</td>
+                                        <td>{{ rate.to_city.name }}, {{ rate.to_state.name }}</td>
+                                        <td>
+                                            {% if is_myanmar %}
+                                                {{ rate.rate_mmk|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                            {% else %}
+                                                {{ rate.rate_mmk|floatformat:0 }} MMK
+                                            {% endif %}
+                                        </td>
+                                        <td>${{ rate.rate_usd|floatformat:2 }}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm delete-rate" data-rate-id="{{ rate.id }}">
+                                                <i class="fas fa-trash"></i> {% trans "Delete" %}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr id="no-rates-row">
+                                        <td colspan="5" class="text-center">{% trans "No shipping rates configured yet." %}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center text-muted">
+                            <i class="fas fa-map-marker-alt fa-3x mb-3"></i>
+                            <p>{% trans "Please set your shop location first to manage shipping rates." %}</p>
+                            <button class="btn btn-primary" onclick="showSection('shop-location')">
+                                {% trans "Set Shop Location" %}
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div class="page-section" id="orders" style="display: none;">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fas fa-shopping-bag"></i> {% trans "Shop Orders" %}</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="text-center text-muted">
+                            <i class="fas fa-shopping-bag fa-3x mb-3"></i>
+                            <p>{% trans "Order management feature coming soon..." %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const shopId = '{{ shop.shop_id }}';
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const isMyanmarLanguage = {{ is_myanmar|yesno:"true,false" }};
+
+    // Sidebar navigation
+    document.querySelectorAll('.sidebar-link[data-page]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            showSection(pageId);
+
+            // Update active link
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Shop location form
+    const shopStateSelect = document.getElementById('shop-state-select');
+    const shopCitySelect = document.getElementById('shop-city-select');
+    const shopTownshipSelect = document.getElementById('shop-township-select');
+
+    // Handle state change
+    shopStateSelect.addEventListener('change', function() {
+        const stateId = this.value;
+        shopCitySelect.innerHTML = '<option value="">{% trans "Select City" %}</option>';
+        shopCitySelect.disabled = true;
+        shopTownshipSelect.innerHTML = '<option value="">{% trans "Select Township (Optional)" %}</option>';
+        shopTownshipSelect.disabled = true;
+
+        if (stateId) {
+            fetch(`/api/cities-by-state/?state_id=${stateId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.cities) {
+                        data.cities.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city.id;
+                            option.textContent = isMyanmarLanguage && city.name_mm ? city.name_mm : city.name;
+                            shopCitySelect.appendChild(option);
+                        });
+                        shopCitySelect.disabled = false;
+
+                        // If shop already has a city selected, select it
+                        {% if shop.city %}
+                        shopCitySelect.value = '{{ shop.city.id }}';
+                        shopCitySelect.dispatchEvent(new Event('change'));
+                        {% endif %}
+                    }
+                })
+                .catch(error => console.error('Error fetching cities:', error));
+        }
+    });
+
+    // Handle city change
+    shopCitySelect.addEventListener('change', function() {
+        const cityId = this.value;
+        shopTownshipSelect.innerHTML = '<option value="">{% trans "Select Township (Optional)" %}</option>';
+        shopTownshipSelect.disabled = true;
+
+        if (cityId) {
+            fetch(`/api/townships-by-city/?city_id=${cityId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.townships && data.townships.length > 0) {
+                        data.townships.forEach(township => {
+                            const option = document.createElement('option');
+                            option.value = township.id;
+                            option.textContent = isMyanmarLanguage && township.name_mm ? township.name_mm : township.name;
+                            shopTownshipSelect.appendChild(option);
+                        });
+                        shopTownshipSelect.disabled = false;
+
+                        // If shop already has a township selected, select it
+                        {% if shop.township %}
+                        shopTownshipSelect.value = '{{ shop.township.id }}';
+                        {% endif %}
+                    }
+                })
+                .catch(error => console.error('Error fetching townships:', error));
+        }
+    });
+
+    // Initialize with current shop state
+    {% if shop.state %}
+    shopStateSelect.dispatchEvent(new Event('change'));
+    {% endif %}
+
+    // Shop location form submission
+    document.getElementById('shop-location-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch(`/shop/${shopId}/update-location/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                // Update the current address display
+                document.getElementById('current-shop-address').textContent = data.shop_address;
+                loadAllCitiesForShipping(); // Refresh shipping rate cities
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating shop location.');
+        });
+    });
+
+    // Load all cities for shipping rate management
+    function loadAllCitiesForShipping() {
+        const citySelect = document.querySelector('#add-shipping-rate-form select[name="to_city_id"]');
+        if (citySelect) {
+            // Clear existing options
+            citySelect.innerHTML = '<option value="">{% trans "Select destination city" %}</option>';
+
+            // Load all cities from all states
+            {% for state in myanmar_states %}
+            fetch(`/api/cities-by-state/?state_id={{ state.id }}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.cities) {
+                        data.cities.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city.id;
+                            option.textContent = `${isMyanmarLanguage && city.name_mm ? city.name_mm : city.name}, {{ state.name }}`;
+                            citySelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading cities:', error));
+            {% endfor %}
+        }
+    }
+
+    // Add shipping rate form
+    document.getElementById('add-shipping-rate-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch(`/shop/${shopId}/manage-shipping/`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                location.reload(); // Refresh to show new rate
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while adding shipping rate.');
+        });
+    });
+
+    // Delete shipping rate
+    document.querySelectorAll('.delete-rate').forEach(button => {
+        button.addEventListener('click', function() {
+            if (confirm('{% trans "Are you sure you want to delete this shipping rate?" %}')) {
+                const rateId = this.getAttribute('data-rate-id');
+                const formData = new FormData();
+                formData.append('action', 'delete_rate');
+                formData.append('rate_id', rateId);
+                formData.append('csrfmiddlewaretoken', csrfToken);
+
+                fetch(`/shop/${shopId}/manage-shipping/`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        // Remove the row from table
+                        document.querySelector(`tr[data-rate-id="${rateId}"]`).remove();
+
+                        // Show no rates message if table is empty
+                        if (document.querySelectorAll('#shipping-rates-table tbody tr[data-rate-id]').length === 0) {
+                            document.getElementById('shipping-rates-table').querySelector('tbody').innerHTML =
+                                '<tr id="no-rates-row"><td colspan="5" class="text-center">{% trans "No shipping rates configured yet." %}</td></tr>';
+                        }
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting shipping rate.');
+                });
+            }
+        });
+    });
+
+    // Load cities for shipping management when the section is shown
+    loadAllCitiesForShipping();
+});
+
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.page-section').forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show selected section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.style.display = 'block';
+    }
+}
+</script>
+
+<style>
+/* Additional styles for shop profile */
+.dashboard-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-title {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.profile-field {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.field-label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.field-value {
+    display: flex;
+    align-items: center;
+}
+
+.field-icon {
+    margin-right: 10px;
+    color: #3498db;
+    width: 20px;
+}
+
+.alert {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    color: #0c5460;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+}
+
+/* Myanmar font support */
+html[lang="my"] .dashboard-card,
+html[lang="my"] .form-control,
+html[lang="my"] .btn {
+    font-family: 'Padauk', sans-serif;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sidebar .round {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+</style>
+
+{% endblock content %}

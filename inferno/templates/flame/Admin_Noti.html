@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Notifications - Laptop Sale</title>
+  <style>
+    /* Reset and Base Styles */
+
+
+    .containera {
+      max-width: 1500px;
+      width: 100%;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .filtersa {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .filtersa button {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid #4a5c6a;
+      border-radius: 8px;
+      color: #4a5c6a;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filtersa button.active,
+    .filtersa button:hover {
+      background-color: #4a5c6a;
+      color: #fff;
+    }
+
+    .notification-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-left: 5px solid #4a5c6a;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .notification-card.unread {
+      background-color: #e8eff5;
+      border-left-color: #3498db;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #2c3e50;
+    }
+
+    .notification-body {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .notification-footer {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mark-read {
+      background: none;
+      border: none;
+      color: #3498db;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #e74c3c;
+      color: #fff;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .filters {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+
+  <div class="containera">
+    <h2>🔔 Admin Notifications</h2>
+
+    <div class="filtersa">
+      <button class="active" onclick="filterNotifications('all')">All</button>
+      <button onclick="filterNotifications('order')">Orders</button>
+      <button onclick="filterNotifications('message')">Messages</button>
+      <button onclick="filterNotifications('system')">System</button>
+      <button onclick="filterNotifications('stock')">Stock</button>
+    </div>
+
+    <!-- Notification Cards -->
+    <!-- Summary Stats -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+      <div style="background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107;">
+        <h4 style="margin: 0; color: #856404;">Pending Orders</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 5px 0; color: #856404;">{{ pending_orders_count|default:"0" }}</p>
+      </div>
+      <div style="background: #d1ecf1; padding: 15px; border-radius: 8px; border-left: 4px solid #17a2b8;">
+        <h4 style="margin: 0; color: #0c5460;">New Messages</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 5px 0; color: #0c5460;">0</p>
+      </div>
+      <div style="background: #f8d7da; padding: 15px; border-radius: 8px; border-left: 4px solid #dc3545;">
+        <h4 style="margin: 0; color: #721c24;">Low Stock</h4>
+        <p style="font-size: 24px; font-weight: bold; margin: 5px 0; color: #721c24;">3</p>
+      </div>
+    </div>
+
+    <!-- Dynamic Notifications -->
+    {% if pending_orders_count > 0 %}
+    <div class="notification-card unread" data-type="order">
+      <div class="badge">{{ pending_orders_count }}</div>
+      <div class="notification-title">🛒 Pending Orders</div>
+      <div class="notification-body">You have {{ pending_orders_count }} order{{ pending_orders_count|pluralize }} awaiting confirmation.</div>
+      <div class="notification-footer">
+        <span>Real-time</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- System Notification -->
+    <div class="notification-card" data-type="system">
+      <div class="notification-title">⚙️ System Status</div>
+      <div class="notification-body">All systems operational. Last update: {{ "now"|date:"M d, Y H:i" }}</div>
+      <div class="notification-footer">
+        <span>{{ "now"|timesince }} ago</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+
+    <!-- User Activity Notification -->
+    {% if current_user.is_authenticated %}
+    <div class="notification-card" data-type="system">
+      <div class="notification-title">👋 Welcome Back</div>
+      <div class="notification-body">Welcome back, {{ current_user.get_full_name|default:current_user.username }}! You logged in as {{ user_role }}.</div>
+      <div class="notification-footer">
+        <span>Session active</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Low Stock Alert (placeholder) -->
+    <div class="notification-card unread" data-type="stock">
+      <div class="badge">Low</div>
+      <div class="notification-title">📦 Inventory Check Needed</div>
+      <div class="notification-body">Some products may need restocking. Please check your inventory levels.</div>
+      <div class="notification-footer">
+        <span>Daily reminder</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+
+    {% if pending_orders_count == 0 %}
+    <div class="notification-card" data-type="order">
+      <div class="notification-title">✅ All Orders Up to Date</div>
+      <div class="notification-body">Great! No pending orders at the moment. All orders are being processed.</div>
+      <div class="notification-footer">
+        <span>{{ "now"|date:"H:i" }}</span>
+        <button class="mark-read" onclick="markAsRead(this)">Mark as Read</button>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function markAsRead(button) {
+      const card = button.closest('.notification-card');
+      card.classList.remove('unread');
+      const badge = card.querySelector('.badge');
+      if (badge) badge.remove();
+      button.remove();
+    }
+
+    function filterNotifications(type) {
+      const allButtons = document.querySelectorAll('.filtersa button');
+      allButtons.forEach(btn => btn.classList.remove('active'));
+
+      const activeBtn = Array.from(allButtons).find(btn =>
+        btn.textContent.toLowerCase().includes(type)
+      );
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const allCards = document.querySelectorAll('.notification-card');
+
+      allCards.forEach(card => {
+        if (type === 'all') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = card.dataset.type === type ? 'block' : 'none';
+        }
+      });
+    }
+  </script>
+
+</html>

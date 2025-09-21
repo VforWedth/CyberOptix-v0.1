@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Lenovo ThinkPad T14s Gen 6-2024 - Premium Laptop - Wi-Fi 7-14" WUXGA IPS Display - 32GB Memory - 1TB SSD Storage - Snapdragon® X Elite - Black 
 
 Brand 	Lenovo
@@ -11,4 +12,19 @@ Operating System 	Windows 11 Pro
 Special Feature 	Fingerprint Reader
 Graphics Card Description 	Integrated
 
+=======
+Lenovo ThinkPad T14s Gen 6-2024 - Premium Laptop - Wi-Fi 7-14" WUXGA IPS Display - 32GB Memory - 1TB SSD Storage - Snapdragon® X Elite - Black 
+
+Brand 	Lenovo
+Model Name 	ThinkPad T14s G6
+Screen Size 	14 Inches
+Color 	Black
+Hard Disk Size 	1 TB
+CPU Model 	Snapdragon
+Ram Memory Installed Size 	32 GB
+Operating System 	Windows 11 Pro
+Special Feature 	Fingerprint Reader
+Graphics Card Description 	Integrated
+
+>>>>>>> entibery/main
 Price - $1,393.00

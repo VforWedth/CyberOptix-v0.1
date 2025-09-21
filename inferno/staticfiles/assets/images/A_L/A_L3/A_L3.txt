@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 Lenovo Legion RGB Gaming in-Ear Headphones with USB-C
 
+=======
+Lenovo Legion RGB Gaming in-Ear Headphones with USB-C
+
+>>>>>>> entibery/main
 Price	$69.99

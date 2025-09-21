@@ -1,0 +1,2 @@
+- Restore full admin functionality
+- "Deployment with free IP"

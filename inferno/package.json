@@ -1,6 +1,12 @@
 {
   "dependencies": {
     "@paypal/paypal-js": "^8.2.0",
-    "jspdf": "^3.0.1"
+    "flag-icons": "^7.5.0",
+    "idb": "^8.0.0",
+    "jspdf": "^3.0.1",
+    "localforage": "^1.10.0"
+  },
+  "devDependencies": {
+    "workbox-webpack-plugin": "^7.0.0"
   }
 }

@@ -1,0 +1,474 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fas fa-boxes text-primary"></i>
+                        {% trans "Inventory Management" %}
+                    </h2>
+                    <p class="text-muted mb-0">{% trans "Monitor and manage your product inventory" %}</p>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'flame:bulk-restock' %}" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> {% trans "Bulk Restock" %}
+                    </a>
+                    <button class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" 
+                            type="button" data-bs-toggle="dropdown">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="exportInventory()">
+                            <i class="fas fa-download"></i> {% trans "Export Inventory" %}
+                        </a></li>
+                        <li><a class="dropdown-item" href="#" onclick="generateReport()">
+                            <i class="fas fa-file-alt"></i> {% trans "Generate Report" %}
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Inventory Overview Cards -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-danger shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        {% trans "Low Stock Items" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ low_stock_count }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        {% trans "Out of Stock" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ out_of_stock_count }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        {% trans "Total Products" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ total_products }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-box fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        {% trans "Total Stock Value" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        ${{ total_stock_value|floatformat:2 }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Low Stock Alert -->
+                <div class="col-lg-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                {% trans "Low Stock Alert" %}
+                            </h6>
+                            <span class="badge badge-danger">{{ low_stock_count }} {% trans "items" %}</span>
+                        </div>
+                        <div class="card-body p-0">
+                            {% if low_stock_products %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>{% trans "Product" %}</th>
+                                                <th>{% trans "Current Stock" %}</th>
+                                                <th>{% trans "Min Level" %}</th>
+                                                <th>{% trans "Status" %}</th>
+                                                <th>{% trans "Actions" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in low_stock_products %}
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="{{ product.image.url }}" 
+                                                                 alt="{{ product.title }}" 
+                                                                 class="rounded me-2" 
+                                                                 style="width: 40px; height: 40px; object-fit: cover;">
+                                                            <div>
+                                                                <div class="fw-bold">{{ product.title|truncatechars:40 }}</div>
+                                                                <small class="text-muted">SKU: {{ product.sku }}</small>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="{% if product.get_available_stock <= 0 %}text-danger{% elif product.get_available_stock <= product.min_stock_level %}text-warning{% endif %}">
+                                                            {{ product.get_available_stock }}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{ product.min_stock_level }}</td>
+                                                    <td>
+                                                        {% if product.get_available_stock <= 0 %}
+                                                            <span class="badge bg-danger">{% trans "Out of Stock" %}</span>
+                                                        {% else %}
+                                                            <span class="badge bg-warning">{% trans "Low Stock" %}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-sm">
+                                                            <button class="btn btn-outline-primary" 
+                                                                    onclick="restockProduct({{ product.id }})">
+                                                                <i class="fas fa-plus"></i> {% trans "Restock" %}
+                                                            </button>
+                                                            <a href="{% url 'flame:product-analytics' product.id %}" 
+                                                               class="btn btn-outline-info">
+                                                                <i class="fas fa-chart-line"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-4">
+                                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                                    <h5 class="text-success">{% trans "All products are well stocked!" %}</h5>
+                                    <p class="text-muted">{% trans "No low stock alerts at this time." %}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Inventory Activity -->
+                <div class="col-lg-4">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                <i class="fas fa-history"></i>
+                                {% trans "Recent Activity" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="inventory-activity" style="max-height: 400px; overflow-y: auto;">
+                                {% for log in recent_logs %}
+                                    <div class="activity-item mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <div class="activity-icon me-3">
+                                                <i class="fas fa-{% if log.action == 'restock' %}plus text-success{% elif log.action == 'sale' %}minus text-primary{% elif log.action == 'damage' %}exclamation text-danger{% elif log.action == 'return' %}undo text-info{% else %}circle text-secondary{% endif %}"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <div class="fw-bold">{{ log.get_action_display }}</div>
+                                                <div class="text-muted small">
+                                                    {{ log.product.title|truncatechars:30 }}
+                                                </div>
+                                                <div class="text-muted small">
+                                                    {% if log.action == 'restock' %}+{% elif log.action == 'sale' or log.action == 'damage' %}-{% endif %}{{ log.quantity }} units
+                                                </div>
+                                                <div class="text-muted small">
+                                                    {{ log.timestamp|timesince }} {% trans "ago" %}
+                                                </div>
+                                            </div>
+                                            {% if log.cost_per_unit %}
+                                                <div class="text-end">
+                                                    <small class="text-muted">${{ log.cost_per_unit }}</small>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <div class="text-center py-4">
+                                        <i class="fas fa-clock fa-2x text-gray-400 mb-3"></i>
+                                        <p class="text-muted">{% trans "No recent activity" %}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Charts -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Stock Status Distribution" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie">
+                                <canvas id="stockStatusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Category Stock Levels" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-bar">
+                                <canvas id="categoryStockChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Restock Modal -->
+<div class="modal fade" id="restockModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-plus-circle"></i>
+                    {% trans "Restock Product" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="restockForm">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" id="productId" name="product_id">
+                    
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">
+                            {% trans "Quantity to Add" %} *
+                        </label>
+                        <input type="number" class="form-control" id="quantity" 
+                               name="quantity" min="1" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="costPerUnit" class="form-label">
+                            {% trans "Cost per Unit" %}
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="costPerUnit" 
+                                   name="cost_per_unit" step="0.01" min="0">
+                        </div>
+                        <div class="form-text">
+                            {% trans "Leave blank if cost hasn't changed" %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">
+                            {% trans "Notes" %}
+                        </label>
+                        <textarea class="form-control" id="notes" name="notes" 
+                                  rows="3" placeholder="{% trans 'Optional notes about this restock...' %}"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {% trans "Cancel" %}
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> {% trans "Add Stock" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary { border-left: 4px solid #4A5C6A; }
+.border-left-success { border-left: 4px solid #28a745; }
+.border-left-info { border-left: 4px solid #17a2b8; }
+.border-left-warning { border-left: 4px solid #ffc107; }
+.border-left-danger { border-left: 4px solid #dc3545; }
+
+.text-xs { font-size: 0.75rem; }
+
+.activity-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.chart-pie, .chart-bar {
+    position: relative;
+    height: 280px;
+}
+
+.table th {
+    border-top: none;
+}
+
+.badge {
+    font-size: 0.75em;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="document.write('<script src='{% static "assets/libs/chartjs/chart.min.js" %}'></script>')"></script>
+<script>
+// Stock Status Chart
+const stockStatusCtx = document.getElementById('stockStatusChart').getContext('2d');
+new Chart(stockStatusCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['{% trans "In Stock" %}', '{% trans "Low Stock" %}', '{% trans "Out of Stock" %}'],
+        datasets: [{
+            data: [
+                {{ total_products|add:"-"|add:low_stock_count|add:"-"|add:out_of_stock_count }},
+                {{ low_stock_count }},
+                {{ out_of_stock_count }}
+            ],
+            backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+
+// Category Stock Chart
+const categoryStockCtx = document.getElementById('categoryStockChart').getContext('2d');
+new Chart(categoryStockCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Laptops', 'Desktops', 'Accessories'],
+        datasets: [{
+            label: '{% trans "Stock Level" %}',
+            data: [150, 89, 203],
+            backgroundColor: '#4A5C6A'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Restock Product Function
+function restockProduct(productId) {
+    document.getElementById('productId').value = productId;
+    new bootstrap.Modal(document.getElementById('restockModal')).show();
+}
+
+// Handle Restock Form Submission
+document.getElementById('restockForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('/admin/inventory/restock/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload(); // Refresh page to show updated stock
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while restocking the product.');
+    });
+});
+
+// Export Functions
+function exportInventory() {
+    window.open('/admin/inventory/export/', '_blank');
+}
+
+function generateReport() {
+    window.open('/admin/inventory/report/', '_blank');
+}
+</script>
+{% endblock %}

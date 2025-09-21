@@ -1,33 +1,46 @@
+
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberOptix</title>
+    <title>{% trans "CyberOptix - Premium Laptops Myanmar" %}</title>
     <!-- CDN version of QRCode.js, must load before you call new QRCode() -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
       integrity="sha512-Tgm85HU6gO7aU+ksSXsDXgx0M7xWdE7X7+Fu7nchhwXg6GzXlV1x9cTxzIhV+QfLQR5e09azn162IK8aSelfNQ=="
       crossorigin="anonymous"
-      referrerpolicy="no-referrer">
+      referrerpolicy="no-referrer"
+      onerror="this.src='{% static "assets/libs/qrcode/qrcode.min.js" %}'">
     </script>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" onerror="this.href='{% static "assets/libs/fontawesome/all.min.css" %}'">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" onerror="this.href='{% static "assets/libs/boxicons/boxicons.min.css" %}'">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" onerror="this.href='{% static "assets/libs/bootstrap-icons/bootstrap-icons.css" %}'">
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jzsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- Bootstrap JS Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" onerror="this.href='{% static "assets/libs/bootstrap/css/bootstrap.min.css" %}'">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" onerror="document.write('<script src=\\'{% static "assets/libs/jquery/jquery.min.js" %}\\'><\/script>')"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" onerror="document.write('<script src=\\'{% static "assets/libs/bootstrap/js/bootstrap.bundle.min.js" %}\\'><\/script>')"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "assets/css/cyberoptixcss.css" %}">
+    <script src="{% url 'javascript-catalog' %}"></script>
     <script src="{% static "assets/js/function.js" %}"></script>
+    <style>
+        /* Myanmar language specific styles */
+        html[lang="my"] {
+            font-family: 'Padauk', sans-serif;
+        }
+        
+        html[lang="my"] .navbar {
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,22 +48,30 @@
     <div class="navbar" style="background-color:#4A5C6A;">
         <div class="logo">
             <span id="menu-toggle"><i class="fas fa-bars"></i></span>
-            <i class="fas fa-laptop"></i> CyberOptix
+            <i class="fas fa-laptop"></i>  {% trans "CyberOptix" %}
         </div>
         <nav style="background-color:#4A5C6A;">
-            <a href="{% url "flame:home" %}">Home</a>
+            <a href="{% url "flame:home" %}">{% trans "Home" %}</a>
             <div class="shop-dropdown">
-                <a class="shop-trigger" style="cursor:pointer;">Shop</a>
+                <a class="shop-trigger" style="cursor:pointer;">{% trans "Shop" %}</a>
                 <div class="shop-menu">
                     {% for s in shop_views %}  
                         <a href="{% url 'flame:shop-detail' s.shop_id %}">
-                            <i class="shop-item">{{s.title}} Shop</i>
+                            <i class="shop-item"> 
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% if LANGUAGE_CODE == 'my' and s.title_my %}
+                                    {{ s.title_my }}
+                                {% else %}
+                                    {{ s.title }}
+                                {% endif %} 
+                                {% trans "Shop" %}</i>
                         </a>
                     {% endfor %}
                 </div>
             </div>
-            <a href="{% url "flame:About" %}">About</a>
-            <a href="{% url "flame:FAQs" %}">FAQs</a>
+            <a href="{% url "flame:About" %}">{% trans "About" %}</a>
+            <a href="{% url "flame:FAQs" %}">{% trans "FAQs" %}</a>
+            {% include 'partials/language_switcher.html' %}
             <div class="icon-cart">
                 <a href="{% url 'flame:wishlist' %}">
                     <i class="fas fa-heart"></i>
@@ -75,17 +96,17 @@
                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
                      {% if user.is_authenticated %}
                         <a href="{% url 'flame:profile' %}" class="dropdown-item">
-                            <i class="fas fa-user" style="font-size: 1rem;"></i> Profile
+                            <i class="fas fa-user" style="font-size: 1rem;"></i> {% trans "Profile" %}
                         </a>
                         <a href="{% url 'userauths:sign-out' %}" class="dropdown-item">
-                            <i class="fas fa-sign-out" style="font-size: 1rem;"></i> Sign Out
+                            <i class="fas fa-sign-out" style="font-size: 1rem;"></i> {% trans "Sign Out" %}
                         </a>      
                     {% else %}
                         <a href="{% url 'userauths:sign-in' %}" class="dropdown-item">
-                            <i class="fas fa-sign-in" style="font-size:1rem;"></i> Sign In
+                            <i class="fas fa-sign-in" style="font-size:1rem;"></i> {% trans "Sign In" %}
                         </a>
                         <a href="{% url 'userauths:sign-up' %}" class="dropdown-item">
-                            <i class="fas fa-user" style="font-size:1rem;"></i> Sign up
+                            <i class="fas fa-user" style="font-size:1rem;"></i> {% trans "Sign up" %}
                         </a>
                     {% endif %}
                 </div>
@@ -100,12 +121,12 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <a href="#" id="brand-link" onclick="toggleBrandOptions()">
-            <span>Brand</span>
+            <span>{% trans "Brand" %}</span>
             <span id="arrow">&#9660;</span>
         </a>
         <form method="get" action="{% url 'flame:product-list' %}">
             <div id="brand-options" style="display: none; margin-left: 40px;">
-                <a href="{% url 'flame:product-list' %}" class="filter-option {% if active_brand == '' or active_brand == 'All' %}active{% endif %}">All</a><br>
+                <a href="{% url 'flame:product-list' %}" class="filter-option {% if active_brand == '' or active_brand == 'All' %}active{% endif %}">{% trans "All" %}</a><br>
                 <a href="{% url 'flame:product-list' %}?brand=Apple" class="filter-option {% if active_brand == 'Apple' %}active{% endif %}">Apple</a><br>
                 <a href="{% url 'flame:product-list' %}?brand=Lenovo" class="filter-option {% if active_brand == 'Lenovo' %}active{% endif %}">Lenovo</a><br> 
                 <a href="{% url 'flame:product-list' %}?brand=HP" class="filter-option {% if active_brand == 'HP' %}active{% endif %}">HP</a><br>
@@ -113,9 +134,9 @@
                 <a href="{% url 'flame:product-list' %}?brand=Asus" class="filter-option {% if active_brand == 'Asus' %}active{% endif %}">Asus</a><br> 
                 <a href="{% url 'flame:product-list' %}?brand=Acer" class="filter-option {% if active_brand == 'Acer' %}active{% endif %}">Acer</a><br> 
             </div>
-                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' %}active{% endif %}">Laptop</a><br>
-                <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop'  %}active{% endif %}">Desktop</a><br>
-                <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' %}active{% endif %}">Accessories</a><br> 
+                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' or active_category == 'လက်ပ်တော့' %}active{% endif %}">{% trans 'Laptop' %}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop' or active_category == 'ဒက်စ်တော့' %}active{% endif %}">{% trans "Desktop" %}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' or active_category == 'အသုံးအဆောင်ပစ္စည်းများ' %}active{% endif %}">{% trans "Accessories" %}</a><br> 
         </form>
     </div>
     <!-- Overlay -->
@@ -130,6 +151,7 @@
 
     
     <br><br>
+    {% comment %} 
     {% if messages %}
         {% for message in messages %}
         
@@ -142,8 +164,91 @@
         setTimeout (() => {
             $(".alert").alert("close")
         },3000)
-    </script>
+    </script> {% endcomment %}
 
+
+    <!-- Alert Container -->
+<div class="alert-container" id="alertContainer">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert-message alert-{{ message.tags }}" id="alert-{{ forloop.counter }}">
+            <div class="alert-content">
+                <i class="alert-icon 
+                    {% if message.tags == 'success' %}fas fa-check-circle
+                    {% elif message.tags == 'error' or message.tags == 'danger' %}fas fa-exclamation-circle
+                    {% elif message.tags == 'warning' %}fas fa-exclamation-triangle
+                    {% elif message.tags == 'info' %}fas fa-info-circle
+                    {% else %}fas fa-info-circle{% endif %}"></i>
+                <span class="alert-text">{{ message }}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('alert-{{ forloop.counter }}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Enhanced Alert Script -->
+<script>
+// Function to close alert
+function closeAlert(alertId) {
+    const alert = document.getElementById(alertId);
+    if (alert) {
+        alert.classList.add('alert-fadeout');
+        setTimeout(() => {
+            alert.remove();
+        }, 300);
+    }
+}
+
+// Auto-dismiss alerts after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert-message');
+    alerts.forEach((alert, index) => {
+        setTimeout(() => {
+            if (document.contains(alert)) {
+                closeAlert(alert.id);
+            }
+        }, 5000); // 5 seconds delay
+    });
+});
+
+// Function to show new alerts dynamically (for AJAX requests)
+function showDynamicAlert(type, message) {
+    const container = document.getElementById('alertContainer');
+    const alertId = 'alert-dynamic-' + Date.now();
+    
+    const iconMap = {
+        'success': 'fas fa-check-circle',
+        'danger': 'fas fa-exclamation-circle',
+        'error': 'fas fa-exclamation-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+    
+    const alertHTML = `
+        <div class="alert-message alert-${type}" id="${alertId}">
+            <div class="alert-content">
+                <i class="alert-icon ${iconMap[type] || 'fas fa-info-circle'}"></i>
+                <span class="alert-text">${message}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('${alertId}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+    `;
+    
+    container.insertAdjacentHTML('beforeend', alertHTML);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        closeAlert(alertId);
+    }, 5000);
+}
+</script>
 
     {% block content %}
 
@@ -157,26 +262,26 @@
                 <div class="logo">
                     <i class="fas fa-laptop"></i>CyberOptix
                 </div><br>
-                <p>All Rights Reserved 2024-2025</p>
+                <p>{% trans "All Rights Reserved 2024-2025" %}</p>
             </div>
             <div class="footer-links">
-                <h4>Information</h4>
+                <h4>{% trans "Information" %}</h4>
                 <ul>
-                    <li><a href="{% url 'flame:AboutUs' %}">About Us</a></li>
+                    <li><a href="{% url 'flame:AboutUs' %}">"{% trans "About Us" %}"</a></li>
                   
                 </ul>
             </div>
             <div class="footer-links">
-                <h4>Helpful Links</h4>
+                <h4>{%trans "Helpful Links" %}</h4>
                 <ul>
-                    <li><a href="{% url 'flame:Services' %}">Services</a></li>
-                    <li><a href="{% url 'flame:PrivacyPolicy' %}">Privacy Policy</a></li>
-                    <li><a href="{% url 'flame:Terms' %}">Terms & Condition</a></li>
+                    <li><a href="{% url 'flame:Services' %}">{% trans "Services" %}</a></li>
+                    <li><a href="{% url 'flame:PrivacyPolicy' %}">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="{% url 'flame:Terms' %}">{% trans "Terms & Condition" %}</a></li>
                 </ul>
             </div>
            
             <div class="footer-contact">
-                <h4>Contact Us</h4>
+                <h4>{% trans "Contact Us" %}</h4>
                 <p>+959 00090999</p>
                 <p>cyberoptix@gmail.com</p>
                 <div class="social-icons">
@@ -229,4 +334,5 @@
 });
     </script>
 </body>
+
 </html>

@@ -1,6 +1,8 @@
+
 {% extends 'partials/base.html' %}
 {% load math_filters %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 <style>
@@ -48,16 +50,16 @@
 <main>
     <div class="text-center">
         <div class="error-icon">⚠️</div>
-        <h1>PAYMENT FAILED</h1>
+        <h1>{% trans "PAYMENT FAILED" %}</h1>
         {% if order.order_type == 'shop' %}
         <div class="payment-error">
-            <p>Transaction ID: {{ order.id }}</p>
-            <p>Attempted payment to: {{ order.shop.title }}</p>
-            <p>Shop PayPal: {{ order.shop.paypal_email }}</p>
+            <p>{% blocktrans with id=order.id %}Transaction ID: {{ id }}{% endblocktrans %}</p>
+            <p>{% blocktrans with shop=order.shop.title %}Attempted payment to: {{ shop }}{% endblocktrans %}</p>
+            <p>{% blocktrans with paypal=order.shop.paypal_email %}Shop PayPal: {{ paypal }}{% endblocktrans %}</p>
         </div>
         {% else %}
         <div class="payment-error">
-            <h2>General Order Payment Failed</h2>
+            <h2>{% trans "General Order Payment Failed" %}</h2>
         </div>
         {% endif %}
     </div>
@@ -65,13 +67,13 @@
 
 
     <div class="troubleshoot-list">
-        <h3>Need Help?</h3>
+        <h3>{% trans "Need Help?" %}</h3>
         <ul>
-            <li>Check if your payment method has sufficient funds</li>
-            <li>Verify your card details are entered correctly</li>
-            <li>Ensure your card hasn't expired</li>
-            <li>Contact your bank for authorization issues</li>
-            <li>Try using a different payment method</li>
+            <li>{% trans "Check if your payment method has sufficient funds" %}</li>
+            <li>{% trans "Verify your card details are entered correctly" %}</li>
+            <li>{% trans "Ensure your card hasn't expired" %}</li>
+            <li>{% trans "Contact your bank for authorization issues" %}</li>
+            <li>{% trans "Try using a different payment method" %}</li>
         </ul>
     </div>
 {% comment %} 
@@ -91,12 +93,15 @@
 
     <div class="text-center">
         <p style="color: #333;">
-            <strong>Need immediate assistance?</strong><br>
-            Call us at +1 (800) 123-4567 or email support@cyberoptix.com
+            <strong>{% trans "Need immediate assistance?" %}</strong><br>
+            {% blocktrans with phone="+1 (800) 123-4567" email="support@cyberoptix.com" %}
+                Call us at {{ phone }} or email {{ email }}
+            {% endblocktrans %}
         </p>
     </div>
 </main>
 
 <br><br><br>
 <hr>
+
 {% endblock content %}
