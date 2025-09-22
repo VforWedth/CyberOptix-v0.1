@@ -4108,39 +4108,6 @@ def filter_product(request):
     return JsonResponse({"data": data}) 
 
 # Add to cart (With Specific Shop)
-def add_to_shop_cart(request):
-    shop_id  =str(request.GET['sid'])
-    product_id = str(request.GET['id'])
-    
-    cart_product = {
-        'title': request.GET['title'],
-        'qty': int(request.GET['qty']),
-        'price': float(request.GET['price']),
-        'image': request.GET['image'],
-        'pid': request.GET['pid'],
-        'sid': shop_id,
-    }
-    
-    if 'cart_data' not in request.session:
-        request.session['cart_data'] = {}
-        
-    shop_cart = request.session['cart_data'].get(shop_id,{})
-    
-    if product_id in shop_cart:
-        shop_cart[product_id]['qty'] = cart_product['qty']
-    else:
-        shop_cart[product_id] = cart_product
-        
-    request.session['cart_data'][shop_id] = shop_cart
-    request.session.modified = True
-    
-    total_items = sum(len(shop) for shop in request.session['cart_data'].values())
-    
-    return JsonResponse({
-        "data": request.session['cart_data'],
-        "totalcartitems": total_items,
-    })
-    
 # Cart View (With Specific Shop)
 def shop_cart_view(request):
     shop_views = Shop.objects.all()
