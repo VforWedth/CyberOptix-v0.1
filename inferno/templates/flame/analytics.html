@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <!-- Include Chart.js -->
@@ -434,16 +435,16 @@
 
 <!-- Header -->
 <div class="dashboard-header">
-  <h2><i class="fas fa-chart-line text-primary me-2"></i>Admin Analytics Dashboard</h2>
+  <h2><i class="fas fa-chart-line text-primary me-2"></i>{% trans "Admin Analytics Dashboard" %}</h2>
   <div class="date-picker">
     <button class="btn btn-dashboard btn-dashboard-outline">
       <i class="fas fa-calendar-alt me-2"></i>
-      Last 30 days
+      {% trans "Last 30 days" %}
       <i class="fas fa-chevron-down ms-2"></i>
     </button>
     <button class="btn btn-dashboard btn-dashboard-primary">
       <i class="fas fa-download me-2"></i>
-      Export
+      {% trans "Export" %}
     </button>
   </div>
 </div>
@@ -454,9 +455,9 @@
     <div class="kpi-card text-white bg-primary">
       <div class="card-body">
         <i class="fas fa-dollar-sign kpi-icon"></i>
-        <h6>Total Sales</h6>
-        <h3>${{ total_sales | floatformat:2 }}</h3>
-        <small><i class="fas fa-arrow-up"></i> 12% vs last month</small>
+        <h6>{% trans "Total Sales" %}</h6>
+        <h3>{% if is_myanmar %}{{ total_sales|floatformat:0 }} ကျပ်{% else %}${{ total_sales|floatformat:2 }}{% endif %}</h3>
+        <small><i class="fas fa-arrow-up"></i> {% trans "12% vs last month" %}</small>
       </div>
     </div>
   </div>
@@ -464,9 +465,9 @@
     <div class="kpi-card text-white bg-success">
       <div class="card-body">
         <i class="fas fa-shopping-cart kpi-icon"></i>
-        <h6>Total Orders</h6>
+        <h6>{% trans "Total Orders" %}</h6>
         <h3>{{ total_orders }}</h3>
-        <small><i class="fas fa-arrow-up"></i> 8% vs last month</small>
+        <small><i class="fas fa-arrow-up"></i> {% trans "8% vs last month" %}</small>
       </div>
     </div>
   </div>
@@ -474,9 +475,9 @@
     <div class="kpi-card text-white bg-warning">
       <div class="card-body">
         <i class="fas fa-box-open kpi-icon"></i>
-        <h6>Total Products</h6>
-        <h3>520</h3>
-        <small><i class="fas fa-plus"></i> 3 new this week</small>
+        <h6>{% trans "Total Products" %}</h6>
+        <h3>{{ total_products|default:"0" }}</h3>
+        <small><i class="fas fa-plus"></i> {% trans "3 new this week" %}</small>
       </div>
     </div>
   </div>
@@ -484,9 +485,9 @@
     <div class="kpi-card text-white bg-dark">
       <div class="card-body">
         <i class="fas fa-users kpi-icon"></i>
-        <h6>Total Customers</h6>
-        <h3>4,120</h3>
-        <small><i class="fas fa-plus"></i> 150 new this month</small>
+        <h6>{% trans "Total Customers" %}</h6>
+        <h3>{{ total_customers|default:"0" }}</h3>
+        <small><i class="fas fa-plus"></i> {% trans "150 new this month" %}</small>
       </div>
     </div>
   </div>
@@ -497,13 +498,13 @@
   <div class="col-md-8">
     <div class="chart-card card">
       <div class="card-header">
-        <span>Sales Performance</span>
+        <span>{% trans "Sales Performance" %}</span>
         <div>
           <select class="form-select form-select-sm custom-select">
-            <option>Last 7 days</option>
-            <option selected>Last 30 days</option>
-            <option>Last 90 days</option>
-            <option>This year</option>
+            <option>{% trans "Last 7 days" %}</option>
+            <option selected>{% trans "Last 30 days" %}</option>
+            <option>{% trans "Last 90 days" %}</option>
+            <option>{% trans "This year" %}</option>
           </select>
         </div>
       </div>
@@ -517,7 +518,7 @@
   <div class="col-md-4">
     <div class="chart-card card">
       <div class="card-header">
-        <span>Order Trends</span>
+        <span>{% trans "Order Trends" %}</span>
       </div>
       <div class="card-body">
         <div class="chart-container">
@@ -529,14 +530,17 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Sales Performance Chart
+  // Sales Performance Chart - Dynamic Data
+  const salesLabels = {{ sales_labels|safe }};
+  const salesData = {{ sales_values|safe }};
+
   new Chart(document.getElementById('salesChart'), {
     type: 'line',
     data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      datasets: [{ 
-        label: 'Sales ($)',
-        data: [12000,15000,14000,18000,22000,20000,25000,28000,26000,30000,32000,35000],
+      labels: salesLabels,
+      datasets: [{
+        label: '{% if is_myanmar %}ရောင်းချငွေ (ကျပ်){% else %}Sales ($){% endif %}',
+        data: salesData,
         borderColor: 'rgba(67, 97, 238, 1)',
         backgroundColor: 'rgba(67, 97, 238, 0.1)',
         fill: true,
@@ -578,7 +582,11 @@
           },
           ticks: {
             callback: function(value) {
+              {% if is_myanmar %}
+              return value.toLocaleString() + ' ကျပ်';
+              {% else %}
               return '$' + value.toLocaleString();
+              {% endif %}
             }
           }
         },
@@ -591,14 +599,17 @@
     }
   });
 
-  // Orders Trend Chart
+  // Orders Trend Chart - Dynamic Data
+  const ordersLabels = {{ sales_labels|safe }};  // Same months as sales
+  const ordersData = {{ orders_values|safe }};
+
   new Chart(document.getElementById('ordersChart'), {
     type: 'bar',
     data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      labels: ordersLabels,
       datasets: [{
-        label: 'Orders',
-        data: [820,950,870,1120,1280,1100,1350,1420,1300,1500,1600,1750],
+        label: '{% if is_myanmar %}အော်ဒါများ{% else %}Orders{% endif %}',
+        data: ordersData,
         backgroundColor: 'rgba(255, 193, 7, 0.7)',
         borderColor: 'rgba(255, 193, 7, 1)',
         borderWidth: 1,

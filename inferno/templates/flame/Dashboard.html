@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
     {% block content %}
 
         
@@ -24,8 +25,10 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> CSS file not found, using inline styles -->
 
+    <!-- Offline Support -->
+    <script src="{% static 'js/offline-manager.js' %}"></script>
 
   </head>
   <style>
@@ -319,9 +322,187 @@
             background: linear-gradient(to right, var(--primary-dark), var(--card-bg), var(--dark-bg));
 
     }
+
+    /* Table styles */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      white-space: nowrap;
+    }
+
+    .data-table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .data-table tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .data-table .status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .data-table .status.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .data-table .status.active,
+    .data-table .status.completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .data-table .status.cancelled {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .table-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .card-title h3 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #ddd;
+      color: #666;
+    }
+
+    .btn-outline:hover {
+      background: #f8f9fa;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    /* Navigation link styles */
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      margin: 5px 0;
+      text-decoration: none;
+      color: var(--text-light);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.25);
+      color: var(--text-light);
+      border-left: 4px solid #4ECDC4;
+      transform: translateX(5px);
+    }
+
+    .nav-item.active:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateX(7px);
+      color: var(--text-light);
+      text-decoration: none;
+    }
+
+    .nav-item i {
+      margin-right: 12px;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-item span {
+      font-weight: 500;
+    }
+
+    /* Ensure main content is properly displayed */
+    .main-content {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      min-height: 500px;
+      background: white;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 20px;
+    }
+
+    /* Admin Dashboard Overlay Prevention */
+    .container .overlay {
+      display: none !important;
+      visibility: hidden !important;
+    }
+
+    /* Ensure admin dashboard body doesn't shift */
+    body.admin-dashboard {
+      margin-left: 0 !important;
+    }
+
+    /* Prevent any modal/overlay interference in admin sections */
+    .admin-content .overlay,
+    .admin-content .modal {
+      display: none !important;
+    }
   </style>
-  <body>
-    <div class="container">
+  <body class="admin-dashboard">
+    <div class="container admin-content">
       <!-- Sidebar -->
       <div class="sidebar">
         <div class="logo">
@@ -329,43 +510,43 @@
         </div>
         <div class="nav-menu">
           <div class="menu-heading">Main</div>
-          <div class="nav-item active">
+          <div class="nav-item" data-section="dashboard" data-url="{% url 'flame:admindashboard' %}">
             <i class="fas fa-chart-pie"></i>
             <span>Dashboard</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="users" data-url="{% url 'flame:admindash' %}">
             <i class="fas fa-users"></i>
             <span>Users</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="products" data-url="{% url 'flame:adminproducts' %}">
             <i class="fas fa-box"></i>
             <span>Products</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="orders" data-url="{% url 'flame:orders' %}">
             <i class="fas fa-shopping-cart"></i>
             <span>Orders</span>
           </div>
 
           <div class="menu-heading">Reports</div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="analytics" data-url="{% url 'flame:adminanalytic' %}">
             <i class="fas fa-chart-line"></i>
             <span>Analytics</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="sales" data-url="{% url 'flame:adminsales' %}">
             <i class="fas fa-coins"></i>
             <span>Sales</span>
           </div>
 
           <div class="menu-heading">Admin</div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="settings" data-url="{% url 'flame:adminsetting' %}">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="notifications" data-url="{% url 'flame:adminnoti' %}">
             <i class="fas fa-bell"></i>
             <span>Notifications</span>
           </div>
-          <div class="nav-item">
+          <div class="nav-item" data-section="security" data-url="{% url 'flame:adminsecurity' %}">
             <i class="fas fa-shield-alt"></i>
             <span>Security</span>
           </div>
@@ -395,24 +576,25 @@
     
     <a href="{% url 'flame:About' %}" class="cyber-nav-link">About</a>
     <a href="{% url 'flame:FAQs' %}" class="cyber-nav-link">FAQs</a>
+    {% include 'partials/language_switcher.html' %}
   </nav>
   
   <div class="cyber-header-actions">
     <div class="cyber-notification">
       <i class="fas fa-bell"></i>
-      <div class="cyber-badge">3</div>
+      {% if unread_count > 0 %}<div class="cyber-badge">{{ unread_count|default:0 }}</div>{% endif %}
     </div>
-    
+
     <div class="cyber-notification">
       <i class="fas fa-envelope"></i>
-      <div class="cyber-badge">5</div>
+      {% if urgent_count > 0 %}<div class="cyber-badge">{{ urgent_count|default:0 }}</div>{% endif %}
     </div>
     
     <div class="cyber-user-profile">
-      <div class="cyber-profile-img">JD</div>
+      <div class="cyber-profile-img">{{ user.first_name.0|default:'A' }}{{ user.last_name.0|default:'U' }}</div>
       <div class="cyber-user-info">
-        <div class="cyber-user-name">John Doe</div>
-        <div class="cyber-user-role">Administrator</div>
+        <div class="cyber-user-name">{{ user.get_full_name|default:user.username }}</div>
+        <div class="cyber-user-role">{% if user.is_superuser %}{% trans "Super Admin" %}{% elif user.is_staff %}{% trans "Administrator" %}{% else %}{% trans "User" %}{% endif %}</div>
       </div>
     </div>
 
@@ -423,15 +605,15 @@
       <!-- Main Content -->
       <div class="main-content">
         <div class="page-title">
-          <div class="title">Dashboard</div>
+          <div class="title">{% trans "Dashboard" %}</div>
           <div class="action-buttons">
             <button class="btn btn-outline">
               <i class="fas fa-download"></i>
-              Export
+              {% trans "Export" %}
             </button>
             <button class="btn btn-primary">
               <i class="fas fa-plus"></i>
-              Add New
+              {% trans "Add New" %}
             </button>
           </div>
         </div>
@@ -441,64 +623,80 @@
           <div class="stat-card">
             <div class="card-header">
               <div>
-                <div class="card-value">1,504</div>
-                <div class="card-label">Total Users</div>
+                <div class="card-value">{{ total_users|default:0 }}</div>
+                <div class="card-label">{% trans "Total Users" %}</div>
               </div>
-              <div class="card-icon purple">
+              <div class="card-icon blue">
                 <i class="fas fa-users"></i>
               </div>
             </div>
             <div class="card-change positive">
-              <i class="fas fa-arrow-up"></i>
-              <span>12.5% from last month</span>
+              <i class="fas fa-info-circle"></i>
+              <span>{% trans "All registered users" %}</span>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="card-header">
               <div>
-                <div class="card-value">${{ total_sales |floatformat:2 }}</div>
-                <div class="card-label">Total Revenue</div>
+                <div class="card-value">{{ total_customers|default:0 }}</div>
+                <div class="card-label">{% trans "Total Customers" %}</div>
               </div>
-              <div class="card-icon blue">
-                <i class="fas fa-dollar-sign"></i>
+              <div class="card-icon purple">
+                <i class="fas fa-user-friends"></i>
               </div>
             </div>
             <div class="card-change positive">
               <i class="fas fa-arrow-up"></i>
-              <span>8.2% from last month</span>
+              <span>{% blocktrans with count=new_customers_today %}{{ count }} new today{% endblocktrans %}</span>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="card-header">
               <div>
-                <div class="card-value">{{ total_orders }}</div>
-                <div class="card-label">Total Orders</div>
+                <div class="card-value">{% if is_myanmar %}{{ total_sales|floatformat:2 }} ကျပ်{% else %}${{ total_sales|floatformat:2 }}{% endif %}</div>
+                <div class="card-label">{% trans "Total Revenue" %}</div>
               </div>
               <div class="card-icon green">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="card-change {% if sales_growth >= 0 %}positive{% else %}negative{% endif %}">
+              <i class="fas fa-arrow-{% if sales_growth >= 0 %}up{% else %}down{% endif %}"></i>
+              <span>{% if sales_growth >= 0 %}+{% endif %}{{ sales_growth|floatformat:1 }}% {% trans "from yesterday" %}</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_orders|default:0 }}</div>
+                <div class="card-label">{% trans "Total Orders" %}</div>
+              </div>
+              <div class="card-icon red">
                 <i class="fas fa-shopping-cart"></i>
               </div>
             </div>
-            <div class="card-change negative">
-              <i class="fas fa-arrow-down"></i>
-              <span>3.1% from last month</span>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{% blocktrans with pending=pending_orders %}{{ pending }} pending{% endblocktrans %}</span>
             </div>
           </div>
 
           <div class="stat-card">
             <div class="card-header">
               <div>
-                <div class="card-value">85%</div>
-                <div class="card-label">Conversion Rate</div>
+                <div class="card-value">{{ conversion_rate|default:0|floatformat:1 }}%</div>
+                <div class="card-label">{% trans "Conversion Rate" %}</div>
               </div>
               <div class="card-icon orange">
                 <i class="fas fa-chart-line"></i>
               </div>
             </div>
             <div class="card-change positive">
-              <i class="fas fa-arrow-up"></i>
-              <span>4.6% from last month</span>
+              <i class="fas fa-chart-line"></i>
+              <span>{% trans "Avg Order Value" %}: {% if is_myanmar %}{{ avg_order_value|floatformat:0 }} ကျပ်{% else %}${{ avg_order_value|floatformat:2 }}{% endif %}</span>
             </div>
           </div>
         </div>
@@ -506,103 +704,66 @@
         <!-- Recent Orders -->
         <div class="table-card">
           <div class="card-title">
-            <h3><i class="fas fa-shopping-bag"></i> Recent Orders</h3>
+            <h3><i class="fas fa-shopping-bag"></i> {% trans "Recent Orders" %}</h3>
             <button class="btn btn-outline btn-sm">
-              <i class="fas fa-eye"></i> View All
+              <i class="fas fa-eye"></i> {% trans "View All" %}
             </button>
           </div>
           <table class="data-table">
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>{% trans "Order ID" %}</th>
+                <th>{% trans "Customer" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Amount" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Actions" %}</th>
               </tr>
             </thead>
             <tbody>
+              {% for order in recent_orders %}
               <tr>
-                <td>#ORD-001</td>
-                <td>John Smith</td>
-                <td>15 Mar 2025</td>
-                <td>$125.00</td>
+                <td>{{ order.order_number|default:order.id }}</td>
+                <td>{{ order.user.get_full_name|default:order.user.username }}</td>
+                <td>{{ order.order_date|date:"d M Y" }}</td>
                 <td>
-                  <span class="status active"
-                    ><i class="fas fa-check-circle"></i> Completed</span
-                  >
+                  {% if is_myanmar %}
+                    {{ order.price|floatformat:0 }} ကျပ်
+                  {% else %}
+                    ${{ order.price|floatformat:2 }}
+                  {% endif %}
                 </td>
                 <td>
-                  <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-eye"></i> View
+                  <span class="status {% if order.product_status == 'delivered' %}active{% elif order.product_status == 'cancelled' %}cancelled{% else %}pending{% endif %}">
+                    {% if order.product_status == 'delivered' %}
+                      <i class="fas fa-check-circle"></i> {% trans "Completed" %}
+                    {% elif order.product_status == 'cancelled' %}
+                      <i class="fas fa-times-circle"></i> {% trans "Cancelled" %}
+                    {% elif order.product_status == 'pending' %}
+                      <i class="fas fa-clock"></i> {% trans "Pending" %}
+                    {% elif order.product_status == 'shipped' %}
+                      <i class="fas fa-shipping-fast"></i> {% trans "Shipped" %}
+                    {% elif order.product_status == 'processing' %}
+                      <i class="fas fa-cog"></i> {% trans "Processing" %}
+                    {% else %}
+                      <i class="fas fa-info-circle"></i> {{ order.product_status|title }}
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-outline btn-sm" data-cartorder-id="{{ order.id }}">
+                    <i class="fas fa-eye"></i> {% trans "View" %}
                   </button>
                 </td>
               </tr>
+              {% empty %}
               <tr>
-                <td>#ORD-002</td>
-                <td>Emma Johnson</td>
-                <td>14 Mar 2025</td>
-                <td>$245.99</td>
-                <td>
-                  <span class="status pending"
-                    ><i class="fas fa-clock"></i> Pending</span
-                  >
-                </td>
-                <td>
-                  <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-eye"></i> View
-                  </button>
+                <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                  <i class="fas fa-shopping-bag" style="font-size: 48px; color: #ddd; margin-bottom: 10px;"></i>
+                  <p>{% trans "No recent orders found" %}</p>
                 </td>
               </tr>
-              <tr>
-                <td>#ORD-003</td>
-                <td>Michael Brown</td>
-                <td>13 Mar 2025</td>
-                <td>$79.50</td>
-                <td>
-                  <span class="status active"
-                    ><i class="fas fa-check-circle"></i> Completed</span
-                  >
-                </td>
-                <td>
-                  <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-eye"></i> View
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>#ORD-004</td>
-                <td>Sarah Davis</td>
-                <td>12 Mar 2025</td>
-                <td>$350.00</td>
-                <td>
-                  <span class="status cancelled"
-                    ><i class="fas fa-times-circle"></i> Cancelled</span
-                  >
-                </td>
-                <td>
-                  <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-eye"></i> View
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>#ORD-005</td>
-                <td>David Wilson</td>
-                <td>11 Mar 2025</td>
-                <td>$185.25</td>
-                <td>
-                  <span class="status active"
-                    ><i class="fas fa-check-circle"></i> Completed</span
-                  >
-                </td>
-                <td>
-                  <button class="btn btn-outline btn-sm">
-                    <i class="fas fa-eye"></i> View
-                  </button>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -650,494 +811,713 @@
 
   <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const navItems = document.querySelectorAll(".nav-item");
   const mainContent = document.querySelector(".main-content");
+  const navItems = document.querySelectorAll(".nav-item");
 
-  navItems.forEach((item) => {
-    item.addEventListener("click", function () {
-      navItems.forEach((el) => el.classList.remove("active"));
-      this.classList.add("active");
+  // SPA Navigation System
+  class AdminSPA {
+    constructor() {
+      this.currentSection = 'dashboard';
+      this.isLoading = false;
+      this.offlineManager = window.offlineManager;
+      this.init();
+    }
 
-      const sectionName = this.querySelector("span")?.innerText.trim();
-      console.log("Clicked section:", sectionName);
+    init() {
+      this.attachEventListeners();
+      this.handleInitialLoad();
+      window.addEventListener('popstate', (e) => this.handlePopState(e));
 
-      if (!sectionName) {
-        console.warn("No section name found for nav item.");
+      // Prevent overlay issues in admin dashboard
+      this.preventOverlayIssues();
+
+      // Wait for offline manager to be ready
+      this.waitForOfflineManager();
+    }
+
+    attachEventListeners() {
+      navItems.forEach(item => {
+        if (item.dataset.section) {
+          item.addEventListener('click', (e) => this.handleNavClick(e, item));
+        }
+      });
+    }
+
+    handleInitialLoad() {
+      // Check if there's a hash in URL or load dashboard by default
+      const urlParams = new URLSearchParams(window.location.search);
+      const section = urlParams.get('section') || 'dashboard';
+      this.loadSection(section, false);
+    }
+
+    handleNavClick(e, item) {
+      e.preventDefault();
+      if (this.isLoading) return;
+
+      const section = item.dataset.section;
+      const url = item.dataset.url;
+
+      if (section === this.currentSection) return;
+
+      this.loadSection(section, true, url);
+    }
+
+    async loadSection(section, pushState = true, url = null) {
+      if (this.isLoading) return;
+
+      console.log(`[AdminSPA] Loading section: ${section}, URL: ${url}`);
+      this.isLoading = true;
+      this.setActiveNav(section);
+      this.showLoading();
+
+      try {
+        // Get the URL from nav item if not provided
+        if (!url) {
+          const navItem = document.querySelector(`[data-section="${section}"]`);
+          url = navItem ? navItem.dataset.url : '/admin-dashboard/';
+        }
+
+        // Add AJAX parameter to get partial content
+        const fetchUrl = `${url}${url.includes('?') ? '&' : '?'}ajax=1`;
+
+        let response;
+        let html;
+
+        // Try to fetch from network first
+        try {
+          response = await fetch(fetchUrl, {
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': this.getCookie('csrftoken')
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        html = await response.text();
+        console.log(`[AdminSPA] Received HTML for ${section}: ${html.length} characters`);
+
+        // Store data for offline access
+        if (this.offlineManager && navigator.onLine) {
+          await this.offlineManager.storeAdminData(url, html);
+          await this.storeDataFromHTML(html, section);
+        }
+
+        } catch (networkError) {
+          console.log('[AdminSPA] Network failed, trying offline cache:', networkError);
+
+          // Try to get data from cache
+          if (this.offlineManager) {
+            html = await this.offlineManager.getAdminData(url);
+          }
+
+          if (!html) {
+            throw new Error('No offline data available for this section');
+          }
+
+          // Show offline indicator
+          this.showOfflineNotice();
+        }
+
+        // Update main content
+        console.log(`[AdminSPA] Updating main content for ${section}`);
+        mainContent.innerHTML = html;
+        console.log(`[AdminSPA] Main content updated, new content length: ${mainContent.innerHTML.length}`);
+
+        // Ensure overlay prevention after content load
+        this.preventOverlayIssues();
+
+        // Execute any scripts in the loaded content
+        this.executeScripts(mainContent);
+
+        // Update URL without page reload
+        if (pushState) {
+          const newUrl = `${window.location.pathname}?section=${section}`;
+          window.history.pushState({ section }, '', newUrl);
+        }
+
+        this.currentSection = section;
+        this.initializeSectionScripts(section);
+
+      } catch (error) {
+        console.error('Error loading section:', error);
+        this.showError(`Failed to load ${section}: ${error.message}`);
+      } finally {
+        this.isLoading = false;
+        this.hideLoading();
+      }
+    }
+
+    setActiveNav(section) {
+      navItems.forEach(item => {
+        if (item.dataset.section) {
+          item.classList.toggle('active', item.dataset.section === section);
+        }
+      });
+    }
+
+    showLoading() {
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.id = 'loading-overlay';
+      loadingOverlay.innerHTML = `
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Loading...</p>
+        </div>
+      `;
+      loadingOverlay.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      `;
+
+      mainContent.style.position = 'relative';
+      mainContent.appendChild(loadingOverlay);
+    }
+
+    hideLoading() {
+      const loadingOverlay = document.getElementById('loading-overlay');
+      if (loadingOverlay) {
+        loadingOverlay.remove();
+      }
+    }
+
+    handlePopState(e) {
+      if (e.state && e.state.section) {
+        this.loadSection(e.state.section, false);
+      } else {
+        // Handle direct URL access
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section') || 'dashboard';
+        this.loadSection(section, false);
+      }
+    }
+
+    initializeSectionScripts(section) {
+      // Initialize section-specific functionality
+      switch(section) {
+        case 'sales':
+          this.initializeSalesCharts();
+          break;
+        case 'analytics':
+          this.initializeAnalyticsCharts();
+          break;
+        case 'products':
+          this.initializeProductHandlers();
+          break;
+        case 'orders':
+          this.initializeOrderHandlers();
+          break;
+      }
+
+      // Initialize common handlers
+      this.initializeCommonHandlers();
+    }
+
+    initializeSalesCharts() {
+      // Charts are now initialized by executeScripts method
+      // Additional sales-specific initialization can be added here if needed
+      console.log('Sales charts initialized');
+    }
+
+    initializeAnalyticsCharts() {
+      // Charts are now initialized by executeScripts method
+      // Additional analytics-specific initialization can be added here if needed
+      console.log('Analytics charts initialized');
+    }
+
+    executeScripts(container) {
+      // Find and execute scripts in the loaded content
+      const scripts = container.querySelectorAll('script');
+      scripts.forEach(script => {
+        if (script.src) {
+          // External script
+          const newScript = document.createElement('script');
+          newScript.src = script.src;
+          document.head.appendChild(newScript);
+        } else if (script.textContent) {
+          // Inline script
+          try {
+            const func = new Function(script.textContent);
+            func();
+          } catch (error) {
+            console.warn('Script execution error:', error);
+          }
+        }
+      });
+    }
+
+    showNoDataChart(ctx, message) {
+      const noDataDiv = document.createElement('div');
+      noDataDiv.className = 'no-data-message';
+      noDataDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <i class="fas fa-chart-pie" style="font-size: 48px; color: #ccc;"></i>
+          <p style="margin-top: 10px; color: #666;">${message}</p>
+        </div>
+      `;
+      ctx.parentNode.replaceChild(noDataDiv, ctx);
+    }
+
+    initializeProductHandlers() {
+      // Product-specific handlers
+      document.querySelectorAll('.edit-icon').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const productId = button.getAttribute('data-order-id');
+          this.loadEditProduct(productId);
+        });
+      });
+    }
+
+    initializeOrderHandlers() {
+      // Order-specific handlers
+      document.querySelectorAll('.btn-sm, .btn-action').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const orderId = button.getAttribute('data-cartorder-id');
+          if (orderId) {
+            this.loadCartOrder(orderId);
+          }
+        });
+      });
+
+      // Edit order handlers
+      document.querySelectorAll('.edit-icon').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const href = button.getAttribute('href');
+          if (href && href.includes('/edit/')) {
+            const orderId = href.match(/\/(\d+)\/edit\//)?.[1];
+            if (orderId) {
+              this.loadEditOrder(orderId);
+            }
+          }
+        });
+      });
+    }
+
+    initializeCommonHandlers() {
+      // Common handlers for all sections
+      document.querySelectorAll('.btn-primary, .btn-success').forEach(button => {
+        if (button.textContent.includes('Add')) {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Handle add operations
+          });
+        }
+      });
+    }
+
+    showError(message) {
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-danger alert-dismissible';
+      alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      mainContent.insertBefore(alert, mainContent.firstChild);
+    }
+
+    getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    // Offline functionality methods
+    preventOverlayIssues() {
+      // Ensure overlays are not active in admin dashboard
+      const overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.display = 'none';
+      }
+
+      // Remove any body classes that cause layout shifts
+      document.body.classList.remove('shift-right');
+
+      // Add admin dashboard class
+      document.body.classList.add('admin-dashboard');
+
+      // Prevent future overlay activations in admin context
+      const menuToggle = document.getElementById('menu-toggle');
+      if (menuToggle) {
+        menuToggle.removeEventListener('click', this.handleMenuToggle);
+      }
+
+      console.log('[AdminSPA] Overlay prevention measures applied');
+    }
+
+    async waitForOfflineManager() {
+      if (window.offlineManager) {
+        this.offlineManager = window.offlineManager;
         return;
       }
 
-      if (sectionName === "Products") {
-        fetch("/adminproducts/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-      else if (sectionName === "Settings") {
-        fetch("/admin-setting/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-          else if (sectionName === "Notifications") {
-        fetch("/admin-noti/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-       else if (sectionName === "Security") {
-        fetch("/admin-security/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-         else if (sectionName === "Users") {
-        fetch("/admin-dash/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-        else    if (sectionName === "Dashboard") {
-        fetch("/admin-dashboard/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load products");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after products load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const productId = this.getAttribute('data-order-id');
-                loadEditProduct(productId);
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading products: ${err.message}`);
-          });
-      }
-    else if (sectionName === "Sales") {
-  fetch("/admin-sales/")
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to load sales");
-      return res.text();
-    })
-    .then(html => {
-      mainContent.innerHTML = html;
-
-      // Initialize Sales by Category Doughnut Chart
-    const categoryCtx = document.getElementById("salesByCategory");
-if (categoryCtx) {
-    const hasData = {{ has_category_data|yesno:"true,false" }};
-    
-    if (hasData) {
-        try {
-            const categoryLabels = JSON.parse('{{ category_labels|escapejs }}');
-            const categoryValues = JSON.parse('{{ category_values|escapejs }}');
-            const categoryColors = JSON.parse('{{ category_colors|escapejs }}');
-            
-            new Chart(categoryCtx, {
-                type: "doughnut",
-                data: {
-                    labels: categoryLabels,
-                    datasets: [{
-                        data: categoryValues,
-                        backgroundColor: categoryColors,
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: "70%",
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || "";
-                                    let value = context.raw || 0;
-                                    let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    let percentage = Math.round((value / total) * 100);
-                                    return `${label}: $${value.toLocaleString()} (${percentage}%)`;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        } catch (error) {
-            showNoDataMessage(categoryCtx);
+      // Wait up to 5 seconds for offline manager to be ready
+      let attempts = 0;
+      const checkInterval = setInterval(() => {
+        if (window.offlineManager || attempts >= 50) {
+          clearInterval(checkInterval);
+          this.offlineManager = window.offlineManager;
         }
-    } else {
-        showNoDataMessage(categoryCtx);
+        attempts++;
+      }, 100);
     }
-}
 
-function showNoDataMessage(ctxElement) {
-    // Create a "no data" message element
-    const noDataDiv = document.createElement('div');
-    noDataDiv.className = 'no-data-message';
-    noDataDiv.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-            <i class="fas fa-chart-pie" style="font-size: 48px; color: #ccc;"></i>
-            <p style="margin-top: 10px; color: #666;">No sales data available by category</p>
+    async storeDataFromHTML(html, section) {
+      if (!this.offlineManager) return;
+
+      try {
+        // Extract data based on section type
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        switch (section) {
+          case 'products':
+            await this.extractAndStoreProducts(doc);
+            break;
+          case 'orders':
+            await this.extractAndStoreOrders(doc);
+            break;
+          case 'users':
+            await this.extractAndStoreUsers(doc);
+            break;
+          case 'analytics':
+            await this.extractAndStoreAnalytics(doc);
+            break;
+        }
+      } catch (error) {
+        console.error('[AdminSPA] Error storing data from HTML:', error);
+      }
+    }
+
+    async extractAndStoreProducts(doc) {
+      const products = [];
+      const productRows = doc.querySelectorAll('tr[data-product-id]');
+
+      productRows.forEach(row => {
+        const id = row.dataset.productId;
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 5) {
+          products.push({
+            id: parseInt(id),
+            title: cells[1]?.textContent?.trim() || '',
+            price: cells[2]?.textContent?.trim() || '',
+            category: cells[3]?.textContent?.trim() || '',
+            stock: cells[4]?.textContent?.trim() || ''
+          });
+        }
+      });
+
+      if (products.length > 0) {
+        await this.offlineManager.storeProducts(products);
+      }
+    }
+
+    async extractAndStoreOrders(doc) {
+      const orders = [];
+      const orderRows = doc.querySelectorAll('tr[data-order-id]');
+
+      orderRows.forEach(row => {
+        const id = row.dataset.orderId;
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 6) {
+          orders.push({
+            id: parseInt(id),
+            order_number: cells[1]?.textContent?.trim() || '',
+            customer: cells[2]?.textContent?.trim() || '',
+            total: cells[3]?.textContent?.trim() || '',
+            product_status: cells[4]?.textContent?.trim() || '',
+            date: cells[5]?.textContent?.trim() || ''
+          });
+        }
+      });
+
+      if (orders.length > 0) {
+        await this.offlineManager.storeOrders(orders);
+      }
+    }
+
+    async extractAndStoreUsers(doc) {
+      const users = [];
+      const userRows = doc.querySelectorAll('tbody tr');
+
+      userRows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length >= 6) {
+          const id = row.querySelector('[data-user-id]')?.dataset.userId;
+          if (id) {
+            users.push({
+              id: parseInt(id),
+              username: cells[1]?.textContent?.trim() || '',
+              email: cells[2]?.textContent?.trim() || '',
+              role: cells[3]?.textContent?.trim() || '',
+              is_active: cells[4]?.textContent?.includes('Active') || false,
+              date_joined: cells[5]?.textContent?.trim() || ''
+            });
+          }
+        }
+      });
+
+      if (users.length > 0) {
+        await this.offlineManager.storeUsers(users);
+      }
+    }
+
+    async extractAndStoreAnalytics(doc) {
+      try {
+        const scripts = doc.querySelectorAll('script');
+        let analyticsData = {};
+
+        scripts.forEach(script => {
+          const content = script.textContent;
+          if (content.includes('Chart.js') || content.includes('chartData')) {
+            // Extract chart data for offline use
+            analyticsData.chartScripts = content;
+          }
+        });
+
+        if (Object.keys(analyticsData).length > 0) {
+          await this.offlineManager.storeAnalytics(analyticsData);
+        }
+      } catch (error) {
+        console.error('[AdminSPA] Error extracting analytics data:', error);
+      }
+    }
+
+    showOfflineNotice() {
+      const existingNotice = document.querySelector('.offline-notice');
+      if (existingNotice) return;
+
+      const notice = document.createElement('div');
+      notice.className = 'offline-notice';
+      notice.innerHTML = `
+        <div style="
+          background: #ff6b6b;
+          color: white;
+          padding: 10px 20px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 10000;
+          text-align: center;
+          font-weight: 600;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        ">
+          <i class="fas fa-wifi-slash"></i>
+          You're viewing cached data - Some features may be limited
+          <button onclick="this.parentElement.parentElement.remove()" style="
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin-left: 15px;
+            cursor: pointer;
+          ">×</button>
         </div>
-    `;
-    
-    // Replace the canvas with our message
-    ctxElement.parentNode.replaceChild(noDataDiv, ctxElement);
-    
-    // Optional: You could also create an empty chart if preferred
-    // new Chart(ctxElement, {
-    //     type: "doughnut",
-    //     data: {
-    //         labels: ["No data"],
-    //         datasets: [{
-    //             data: [1],
-    //             backgroundColor: ["#eee"]
-    //         }]
-    //     }
-    // });
-}
-      // Add event listeners for edit buttons after products load
-      document.querySelectorAll(".edit-icon").forEach(button => {
-        button.addEventListener("click", function () {
-          const productId = this.getAttribute("data-order-id");
-          loadEditProduct(productId);
-        });
-      });
-    })
-    .catch(err => {
-      showError(`Error loading sales: ${err.message}`);
-    });
-}
+      `;
+      document.body.appendChild(notice);
 
-       else if (sectionName === "Analytics") {
-  fetch("/admin-analytic/")
-    .then(res => {
-      if (!res.ok) throw new Error("Failed to load analytics");
-      return res.text();
-    })
-    .then(html => {
-      mainContent.innerHTML = html;
-
-      // Initialize charts AFTER content is inserted
-    const salesCtx = document.getElementById("salesChart");
-const ordersCtx = document.getElementById("ordersChart");
-
-if (salesCtx) {
-  new Chart(salesCtx, {
-    type: "line",
-    data: {
-      labels: JSON.parse('{{ sales_labels|escapejs }}'),
-      datasets: [{
-        label: 'Sales ($)',
-        data: JSON.parse('{{ sales_values|escapejs }}'),
-        borderColor: 'rgba(67, 97, 238, 1)',
-        backgroundColor: 'rgba(67, 97, 238, 0.1)',
-        fill: true,
-        tension: 0.3,
-        borderWidth: 2,
-        pointBackgroundColor: 'white',
-        pointBorderColor: 'rgba(67, 97, 238, 1)',
-        pointBorderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          titleFont: { size: 14, weight: 'bold' },
-          bodyFont: { size: 12 },
-          padding: 12,
-          cornerRadius: 6,
-          displayColors: false,
-          callbacks: {
-            label: function(context) {
-              return '$' + context.raw.toLocaleString();
-            }
-          }
+      // Auto-remove after 10 seconds
+      setTimeout(() => {
+        if (notice.parentElement) {
+          notice.remove();
         }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          grid: { color: 'rgba(0, 0, 0, 0.05)' },
-          ticks: {
-            callback: function(value) {
-              return '$' + value.toLocaleString();
-            }
-          }
-        },
-        x: {
-          grid: { display: false }
-        }
-      }
+      }, 10000);
     }
-  });
-}
 
-if (ordersCtx) {
-  new Chart(ordersCtx, {
-    type: "bar",
-    data: {
-      labels: JSON.parse('{{ sales_labels|escapejs }}'),  // Same months as sales
-      datasets: [{
-        label: 'Orders',
-        data: JSON.parse('{{ orders_values|escapejs }}'),
-        backgroundColor: 'rgba(255, 193, 7, 0.7)',
-        borderColor: 'rgba(255, 193, 7, 1)',
-        borderWidth: 1,
-        borderRadius: 4
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { 
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: function(context) {
-              return context.raw + ' orders';
-            }
+    // Product management methods
+    async loadEditProduct(productId) {
+      try {
+        const response = await fetch(`/products/${productId}/edit/?ajax=1`, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': this.getCookie('csrftoken')
           }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          grid: { color: 'rgba(0, 0, 0, 0.05)' },
-          ticks: {
-            precision: 0  // Show whole numbers only
-          }
-        },
-        x: { grid: { display: false } }
-      }
-    }
-  });
-}
-      // Keep your product edit button listeners if needed
-      document.querySelectorAll(".edit-icon").forEach(button => {
-        button.addEventListener("click", function() {
-          const productId = this.getAttribute("data-order-id");
-          loadEditProduct(productId);
         });
-      });
-    })
-    .catch(err => {
-      showError(`Error loading analytics: ${err.message}`);
-    });
-}
 
-      else if (sectionName === "Orders") {
-        fetch("/orders/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load orders");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-            
-            // Add event listeners for edit buttons after orders load
-            document.querySelectorAll('.edit-icon').forEach(button => {
-              button.addEventListener('click', function() {
-                const orderId = this.getAttribute('data-order-id');
-                loadEditOrder(orderId);
-              });
-            });
-              // Add event listeners for edit buttons after orders load
-            document.querySelectorAll('.btn-sm').forEach(button => {
-              button.addEventListener('click', function() {
-                const orderId = this.getAttribute('data-cartorder-id');
-                loadCartOrder(orderId);
-              });
-            });
-          })
-            document.querySelectorAll('.order-detail__back-btn btn').forEach(button => {
-              button.addEventListener('click', function() {
-                 fetch("/orders/")
-          .then(res => {
-            if (!res.ok) throw new Error("Failed to load orders");
-            return res.text();
-          })
-          .then(html => {
-            mainContent.innerHTML = html;
-              });
-            });
-          })
-          .catch(err => {
-            showError(`Error loading orders: ${err.message}`);
-          });
-      }
-      else {
-        mainContent.innerHTML =`
-          <div class="page-title">
-            <div class="title">${sectionName}</div>
-          </div>
-          <p>${sectionName} content goes here.</p>
-        `;
-      }
-    });
-  });
+        if (!response.ok) throw new Error("Failed to load product edit form");
 
-
-  function loadEditProduct(productId) {
-    fetch(`/products/${productId}/edit/`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load product edit form");
-        return res.text();
-      })
-      .then(html => {
+        const html = await response.text();
         mainContent.innerHTML = html;
-        
+
         const form = mainContent.querySelector('#product-edit-form');
         if (form) {
-          form.addEventListener('submit', function(e) {
-            handleProductFormSubmit(e, productId);
-          });
+          form.addEventListener('submit', (e) => this.handleProductFormSubmit(e, productId));
         }
-      })
-      .catch(err => {
-        showError('Error loading product edit form: ' + err.message);
-      });
-  }
- function loadEditOrder(orderId) {
-    fetch(`/orders/${orderId}/edit/`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load order edit form");
-        return res.text();
-      })
-      .then(html => {
+      } catch (error) {
+        this.showError('Error loading product edit form: ' + error.message);
+      }
+    }
+
+    async loadCartOrder(orderId) {
+      try {
+        const response = await fetch(`/profile/order/${orderId}/?ajax=1`, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': this.getCookie('csrftoken')
+          }
+        });
+
+        if (!response.ok) throw new Error("Failed to load order details");
+
+        const html = await response.text();
         mainContent.innerHTML = html;
-        
+      } catch (error) {
+        this.showError('Error loading order details: ' + error.message);
+      }
+    }
+
+    async loadEditOrder(orderId) {
+      try {
+        const response = await fetch(`/orders/${orderId}/edit/?ajax=1`, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': this.getCookie('csrftoken')
+          }
+        });
+
+        if (!response.ok) throw new Error("Failed to load order edit form");
+
+        const html = await response.text();
+        mainContent.innerHTML = html;
+
         const form = mainContent.querySelector('#order-edit-form');
         if (form) {
-          form.addEventListener('submit', function(e) {
-            handleOrderFormSubmit(e, orderId);
-          });
+          form.addEventListener('submit', (e) => this.handleOrderFormSubmit(e, orderId));
         }
-      })
-      .catch(err => {
-        showError('Error loading order edit form: ' + err.message);
-      });
-  }
- function loadCartOrder(orderId) {
-    fetch(`/profile/order/${orderId}/`)  // Changed endpoint to view rather than edit
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load order details");
-        return res.text();
-      })
-      .then(html => {
-        mainContent.innerHTML = html;
-        // No need for form submission handling since this is just a view
-      })
-      .catch(err => {
-        showError('Error loading order details: ' + err.message);
-      });
-}
-  function loadEditOrder(orderId) {
-    fetch(`/orders/${orderId}/edit/`)
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load order edit form");
-        return res.text();
-      })
-      .then(html => {
-        mainContent.innerHTML = html;
-        
-        const form = mainContent.querySelector('#order-edit-form');
-        if (form) {
-          form.addEventListener('submit', function(e) {
-            handleOrderFormSubmit(e, orderId);
-          });
+      } catch (error) {
+        this.showError('Error loading order edit form: ' + error.message);
+      }
+    }
+
+    async handleProductFormSubmit(e, productId) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch(`/products/${productId}/edit/`, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': this.getCookie('csrftoken')
+          }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          this.showSuccess(data.message || 'Product updated successfully!');
+          setTimeout(() => this.loadSection('products'), 2000);
+        } else {
+          this.showFormErrors(data.errors || {});
         }
-      })
-      .catch(err => {
-        showError('Error loading order edit form: ' + err.message);
-      });
+      } catch (error) {
+        this.showError(error.message || 'Failed to save product changes');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+      }
+    }
+
+    async handleOrderFormSubmit(e, orderId) {
+      e.preventDefault();
+      const form = e.target;
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+      try {
+        const formData = new FormData(form);
+
+        const response = await fetch(`/orders/${orderId}/edit/`, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': this.getCookie('csrftoken')
+          }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          this.showSuccess(data.message || 'Order updated successfully!');
+          setTimeout(() => this.loadSection('orders'), 2000);
+        } else {
+          this.showFormErrors(data.errors || {});
+        }
+      } catch (error) {
+        this.showError(error.message || 'Failed to save order changes');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+      }
+    }
+
+    showSuccess(message) {
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-success alert-dismissible';
+      alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" onclick="this.parentElement.remove()">
+          <i class="fas fa-times"></i>
+        </button>
+      `;
+      mainContent.insertBefore(alert, mainContent.firstChild);
+    }
+
+    showFormErrors(errors) {
+      document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+      document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+
+      for (const field in errors) {
+        const input = document.querySelector(`[name="${field}"]`);
+        if (input) {
+          input.classList.add('is-invalid');
+          const errorDiv = document.createElement('div');
+          errorDiv.className = 'invalid-feedback';
+          errorDiv.textContent = Array.isArray(errors[field]) ?
+            errors[field].join(' ') : errors[field];
+          input.parentNode.appendChild(errorDiv);
+        }
+      }
+    }
   }
+
+  // Initialize the SPA
+  const adminSPA = new AdminSPA();
+
 
   function handleProductFormSubmit(e, productId) {
     e.preventDefault();

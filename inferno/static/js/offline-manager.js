@@ -1,64 +1,91 @@
-// Offline Manager for LaptopMart Myanmar
-// Handles offline data storage, cart management, and synchronization
+// Admin Offline Manager for LaptopMart Myanmar
+// Handles offline admin data storage and synchronization
 
 class OfflineManager {
     constructor() {
-        this.isOnline = navigator.onLine;
-        this.dbName = 'LaptopMartOfflineDB';
+        this.dbName = 'LaptopMartAdmin';
         this.dbVersion = 1;
         this.db = null;
+        this.isOnline = navigator.onLine;
+        this.syncQueue = [];
 
-        this.initDB();
+        this.initializeDB();
         this.setupEventListeners();
         this.registerServiceWorker();
+        this.showOfflineIndicator();
+        this.initializeAddressData();
     }
 
     // Initialize IndexedDB
-    async initDB() {
+    async initializeDB() {
+        try {
+            this.db = await this.openDatabase();
+            console.log('[OfflineManager] Database initialized successfully');
+        } catch (error) {
+            console.error('[OfflineManager] Database initialization failed:', error);
+        }
+    }
+
+    openDatabase() {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(this.dbName, this.dbVersion);
 
-            request.onerror = () => reject(request.error);
-            request.onsuccess = () => {
-                this.db = request.result;
-                resolve(this.db);
+            request.onerror = () => {
+                reject(new Error('Failed to open database'));
+            };
+
+            request.onsuccess = (event) => {
+                resolve(event.target.result);
             };
 
             request.onupgradeneeded = (event) => {
                 const db = event.target.result;
 
+                // Admin data store
+                if (!db.objectStoreNames.contains('adminData')) {
+                    const adminStore = db.createObjectStore('adminData', { keyPath: 'path' });
+                    adminStore.createIndex('timestamp', 'timestamp', { unique: false });
+                }
+
                 // Products store
                 if (!db.objectStoreNames.contains('products')) {
-                    const productsStore = db.createObjectStore('products', { keyPath: 'id' });
-                    productsStore.createIndex('category', 'category', { unique: false });
-                    productsStore.createIndex('brand', 'brand', { unique: false });
-                    productsStore.createIndex('shop', 'shop', { unique: false });
+                    const productStore = db.createObjectStore('products', { keyPath: 'id' });
+                    productStore.createIndex('category', 'category', { unique: false });
+                    productStore.createIndex('title', 'title', { unique: false });
                 }
 
-                // Cart store
-                if (!db.objectStoreNames.contains('cart')) {
-                    const cartStore = db.createObjectStore('cart', { keyPath: 'product_id' });
-                    cartStore.createIndex('shop', 'shop', { unique: false });
+                // Orders store
+                if (!db.objectStoreNames.contains('orders')) {
+                    const orderStore = db.createObjectStore('orders', { keyPath: 'id' });
+                    orderStore.createIndex('status', 'product_status', { unique: false });
+                    orderStore.createIndex('date', 'date', { unique: false });
                 }
 
-                // Wishlist store
-                if (!db.objectStoreNames.contains('wishlist')) {
-                    db.createObjectStore('wishlist', { keyPath: 'product_id' });
+                // Users store
+                if (!db.objectStoreNames.contains('users')) {
+                    const userStore = db.createObjectStore('users', { keyPath: 'id' });
+                    userStore.createIndex('username', 'username', { unique: false });
+                    userStore.createIndex('email', 'email', { unique: false });
                 }
 
-                // Offline actions store
-                if (!db.objectStoreNames.contains('offline_actions')) {
-                    const actionsStore = db.createObjectStore('offline_actions', { keyPath: 'id', autoIncrement: true });
-                    actionsStore.createIndex('type', 'type', { unique: false });
-                    actionsStore.createIndex('timestamp', 'timestamp', { unique: false });
+                // Analytics store
+                if (!db.objectStoreNames.contains('analytics')) {
+                    const analyticsStore = db.createObjectStore('analytics', { keyPath: 'type' });
+                    analyticsStore.createIndex('timestamp', 'timestamp', { unique: false });
                 }
 
-                // User data store
-                if (!db.objectStoreNames.contains('user_data')) {
-                    db.createObjectStore('user_data', { keyPath: 'key' });
+                // Address data store for Myanmar locations
+                if (!db.objectStoreNames.contains('addressData')) {
+                    const addressStore = db.createObjectStore('addressData', { keyPath: 'type' });
+                    addressStore.createIndex('timestamp', 'timestamp', { unique: false });
                 }
 
-                console.log('IndexedDB initialized successfully');
+                // Sync queue store
+                if (!db.objectStoreNames.contains('syncQueue')) {
+                    const syncStore = db.createObjectStore('syncQueue', { keyPath: 'id', autoIncrement: true });
+                    syncStore.createIndex('timestamp', 'timestamp', { unique: false });
+                    syncStore.createIndex('action', 'action', { unique: false });
+                }
             };
         });
     }
@@ -67,12 +94,12 @@ class OfflineManager {
     async registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             try {
-                const registration = await navigator.serviceWorker.register('/static/js/serviceworker.js');
-                console.log('Service Worker registered successfully:', registration);
+                const registration = await navigator.serviceWorker.register('/static/js/sw.js');
+                console.log('[OfflineManager] Service Worker registered successfully:', registration);
 
                 // Enable background sync
                 if ('sync' in window.ServiceWorkerRegistration.prototype) {
-                    console.log('Background Sync is supported');
+                    console.log('[OfflineManager] Background Sync is supported');
                 }
 
                 // Listen for service worker updates
@@ -85,7 +112,7 @@ class OfflineManager {
                     });
                 });
             } catch (error) {
-                console.error('Service Worker registration failed:', error);
+                console.error('[OfflineManager] Service Worker registration failed:', error);
             }
         }
     }
@@ -414,6 +441,104 @@ class OfflineManager {
             }
         }
         return '';
+    }
+
+    // Load and cache Myanmar address data
+    async loadAddressData() {
+        try {
+            const response = await fetch('/static/data/myanmar_address_data.json');
+            if (response.ok) {
+                const addressData = await response.json();
+                await this.cacheAddressData(addressData);
+                console.log('[OfflineManager] Address data loaded and cached successfully');
+                return addressData;
+            }
+        } catch (error) {
+            console.error('[OfflineManager] Failed to load address data from server:', error);
+        }
+
+        // Fallback to cached data
+        return await this.getCachedAddressData();
+    }
+
+    // Cache address data in IndexedDB
+    async cacheAddressData(addressData) {
+        if (!this.db) await this.initializeDB();
+
+        const transaction = this.db.transaction(['addressData'], 'readwrite');
+        const store = transaction.objectStore('addressData');
+
+        await store.put({
+            type: 'full_data',
+            data: addressData,
+            timestamp: new Date().toISOString()
+        });
+
+        console.log('[OfflineManager] Address data cached successfully');
+    }
+
+    // Get cached address data
+    async getCachedAddressData() {
+        if (!this.db) await this.initializeDB();
+
+        return new Promise((resolve, reject) => {
+            const transaction = this.db.transaction(['addressData'], 'readonly');
+            const store = transaction.objectStore('addressData');
+            const request = store.get('full_data');
+
+            request.onsuccess = () => {
+                const result = request.result;
+                resolve(result ? result.data : null);
+            };
+
+            request.onerror = () => reject(request.error);
+        });
+    }
+
+    // Get all states
+    async getStates() {
+        const addressData = await this.getCachedAddressData();
+        if (!addressData) {
+            return await this.loadAddressData().then(data => data ? data.states : []);
+        }
+        return addressData.states || [];
+    }
+
+    // Get cities by state ID
+    async getCitiesByState(stateId) {
+        const addressData = await this.getCachedAddressData();
+        if (!addressData) {
+            const data = await this.loadAddressData();
+            if (!data) return [];
+            return data.cities.filter(city => city.state_id == stateId);
+        }
+        return addressData.cities.filter(city => city.state_id == stateId);
+    }
+
+    // Get townships by city ID
+    async getTownshipsByCity(cityId) {
+        const addressData = await this.getCachedAddressData();
+        if (!addressData) {
+            const data = await this.loadAddressData();
+            if (!data) return [];
+            return data.townships.filter(township => township.city_id == cityId);
+        }
+        return addressData.townships.filter(township => township.city_id == cityId);
+    }
+
+    // Initialize address data on first load
+    async initializeAddressData() {
+        try {
+            const cachedData = await this.getCachedAddressData();
+            if (!cachedData) {
+                console.log('[OfflineManager] No cached address data found, loading from server...');
+                await this.loadAddressData();
+            } else {
+                console.log('[OfflineManager] Using cached address data');
+            }
+        } catch (error) {
+            console.error('[OfflineManager] Failed to initialize address data:', error);
+        }
     }
 
     // Show update notification

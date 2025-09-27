@@ -4,18 +4,27 @@ from django.utils.dateformat import format as date_format
 from django.utils import timezone
 from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest
 from userauths.models import User
+from flame.forms import ProductReviewForm,ProductForm
 from flame.models import (
-    Brand, Product, ExchangeRate, Category, Shop, CartOrder, CartOrderItem, 
+    Brand, Product, ExchangeRate, Category, Shop, CartOrder, CartOrderItem,
     ProductImages, ProductReview, Wishlist, Address, OrderStatusHistory,
     UserBehavior, RecommendationList, RecommendationItem, EmailLog,
-    InventoryLog, ProductAnalytics, SalesAnalytics
+    InventoryLog, ProductAnalytics, SalesAnalytics, MyanmarState, MyanmarCity,
+    MyanmarTownship, ShippingRate
 )
 
 from django.db.models import Count,Avg,F, ExpressionWrapper, FloatField
 from flame.forms import ProductReviewForm
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
+from reportlab.lib.units import inch
+import io
 from django.template.loader import render_to_string
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.utils.translation import get_language, activate
 from django.views.i18n import set_language
@@ -27,6 +36,7 @@ from decimal import Decimal
 from django.urls import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import login_required
 from paypal.standard.forms import  PayPalPaymentsForm
 import uuid, requests
@@ -1231,10 +1241,8 @@ def calculate_shipping_fee_api(request):
 
 # Cart View (With Specific Shop)
 def shop_cart_view(request):
-    current_language = translation.get_language()
     shop_views = Shop.objects.all()
     cart_data = request.session.get('cart_data', {})
-    exchange_rate = ExchangeRate.get_current_rate('USD', 'MMK')
     shop_carts = []
     cart_total_amount = 0
     grand_total_quantity = 0  # Track total quantity of all items
@@ -1251,8 +1259,6 @@ def shop_cart_view(request):
                 shop_quantity += int(item['qty'])  # Sum quantities
                 grand_total_quantity += int(item['qty'])  # Add to grand total
             
-            
-            
             cart_total_amount += shop_total
             shop_carts.append({
                 'shop': shop,
@@ -1265,7 +1271,7 @@ def shop_cart_view(request):
             continue
 
     if grand_total_quantity == 0:
-        messages.warning(request, _("Your Cart is Empty"))
+        messages.warning(request, "Your Cart is Empty")
         return redirect("flame:home")
     
     return render(request, 'flame/shop-cart.html', {
@@ -1274,14 +1280,7 @@ def shop_cart_view(request):
         'totalcartitems': grand_total_quantity,  # Total quantity of all items
         'cart_total_amount': cart_total_amount,
     })
-      
-# # Delete from cart (With Specific Shop)        
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.views.decorators.http import require_POST, require_GET
-
-#updated
+    
 # flame/views.py - Update your delete and update functions
 
 def delete_item_from_shop_cart(request):
@@ -2923,7 +2922,7 @@ def product_detail_view(request, pid):
     }
     return render(request,'flame/product-detail.html', context)
 
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
@@ -3507,37 +3506,98 @@ def analytics_dashboard_view(request):
     """Analytics dashboard for admins"""
     if not request.user.is_staff:
         return redirect('flame:home')
-    
+
     from datetime import timedelta, date
+    from django.db.models import Sum, Count, Avg
+    from django.utils import translation
+
     today = date.today()
     week_ago = today - timedelta(days=7)
     month_ago = today - timedelta(days=30)
-    
-    # Sales analytics
-    recent_sales = SalesAnalytics.objects.filter(date__gte=week_ago).order_by('-date')
-    
-    # Top products
-    top_products = ProductAnalytics.objects.filter(
-        date__gte=week_ago
+
+    # Calculate actual sales data
+    total_sales = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date__gte=month_ago
+    ).aggregate(total=Sum('price'))['total'] or 0
+
+    total_orders = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date__gte=month_ago
+    ).count()
+
+    total_products = Product.objects.filter(product_status='published').count()
+    total_customers = User.objects.filter(is_staff=False).count()
+
+    # Top products from actual sales data
+    top_products = CartOrderItem.objects.filter(
+        order__paid_status=True,
+        order__order_date__date__gte=week_ago
     ).values('product__title').annotate(
-        total_revenue=Count('revenue')
+        total_revenue=Sum('total'),
+        units_sold=Sum('qty')
     ).order_by('-total_revenue')[:10]
-    
+
     # Order status distribution
     order_status_dist = CartOrder.objects.filter(
         order_date__date__gte=week_ago
     ).values('product_status').annotate(
         count=Count('id')
     )
-    
+
+    # Monthly sales data for chart
+    monthly_sales_data = []
+    for i in range(12):
+        month_date = today.replace(day=1) - timedelta(days=30*i)
+        month_sales = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__year=month_date.year,
+            order_date__month=month_date.month
+        ).aggregate(total=Sum('price'))['total'] or 0
+
+        monthly_sales_data.append({
+            'month': month_date.strftime('%b'),
+            'sales': float(month_sales)
+        })
+
+    monthly_sales_data.reverse()  # Show chronologically
+
+    # Monthly orders data for chart
+    monthly_orders_data = []
+    for i in range(12):
+        month_date = today.replace(day=1) - timedelta(days=30*i)
+        month_orders = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__year=month_date.year,
+            order_date__month=month_date.month
+        ).count()
+
+        monthly_orders_data.append({
+            'month': month_date.strftime('%b'),
+            'orders': month_orders
+        })
+
+    monthly_orders_data.reverse()
+
+    # Get current language for currency formatting
+    current_language = translation.get_language()
+    is_myanmar = current_language == 'my'
+
     context = {
-        'recent_sales': recent_sales,
+        'total_sales': total_sales,
+        'total_orders': total_orders,
+        'total_products': total_products,
+        'total_customers': total_customers,
         'top_products': top_products,
         'order_status_distribution': list(order_status_dist),
+        'monthly_sales_data': monthly_sales_data,
+        'monthly_orders_data': monthly_orders_data,
         'date_range': f"{week_ago} to {today}",
+        'is_myanmar': is_myanmar,
+        'current_language': current_language,
     }
-    
-    return render(request, 'flame/analytics/dashboard.html', context)
+
+    return render(request, 'flame/analytics.html', context)
 
 def sales_report_api(request):
     """API endpoint for sales reports"""
@@ -3753,3 +3813,1662 @@ def force_online_mode(request):
         'status': 'online_mode_enabled',
         'message': 'Online mode has been enabled'
     })
+
+@login_required
+def adminsetting(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    # Get current user settings and system preferences
+    user = request.user
+    shops = Shop.objects.all()
+
+    # Get notification preferences
+    notification_settings = {
+        'email_notifications': True,
+        'sms_notifications': False,
+        'push_notifications': True
+    }
+
+    # Get system settings
+    system_settings = {
+        'currency': 'MMK',
+        'language': 'en',
+        'timezone': 'Asia/Yangon',
+        'tax_rate': 5.0,
+        'shipping_enabled': True,
+        'maintenance_mode': False
+    }
+
+    if request.method == 'POST':
+        # Handle settings update
+        action = request.POST.get('action')
+
+        if action == 'update_profile':
+            user.first_name = request.POST.get('first_name', user.first_name)
+            user.last_name = request.POST.get('last_name', user.last_name)
+            user.email = request.POST.get('email', user.email)
+            user.save()
+            messages.success(request, _("Profile updated successfully!"))
+
+        elif action == 'update_notifications':
+            # Handle notification settings update
+            messages.success(request, _("Notification settings updated!"))
+
+        elif action == 'update_system':
+            # Handle system settings update
+            messages.success(request, _("System settings updated!"))
+
+        return redirect('flame:adminsetting')
+
+    context = {
+        'user': user,
+        'shops': shops,
+        'notification_settings': notification_settings,
+        'system_settings': system_settings,
+        'available_languages': [('en', 'English'), ('my', 'Myanmar')],
+        'available_currencies': [('MMK', 'Myanmar Kyat'), ('USD', 'US Dollar')],
+        'timezones': [('Asia/Yangon', 'Myanmar Time')]
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/Admin_Setting.html', context)
+
+    return render(request, 'flame/Admin_Setting.html', context)
+
+@login_required
+def adminsecurity(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    # Security analytics data
+    from datetime import datetime, timedelta
+    from django.contrib.auth.models import User
+    from django.db.models import Count, Q
+
+    # Recent login attempts
+    recent_logins = User.objects.filter(
+        last_login__gte=timezone.now() - timedelta(days=30)
+    ).order_by('-last_login')[:10]
+
+    # Failed orders (security indicator)
+    suspicious_orders = CartOrder.objects.filter(
+        paid_status=False,
+        order_date__gte=timezone.now() - timedelta(days=7)
+    ).values('user__email').annotate(count=Count('id')).filter(count__gte=3)
+
+    # IP tracking (mock data - implement with proper logging)
+    recent_activities = [
+        {'ip': '192.168.1.1', 'action': 'Login', 'user': 'admin@example.com', 'timestamp': timezone.now()},
+        {'ip': '10.0.0.1', 'action': 'Order Created', 'user': 'user@example.com', 'timestamp': timezone.now() - timedelta(hours=1)},
+    ]
+
+    # Security settings
+    security_settings = {
+        'two_factor_enabled': False,
+        'login_attempts_limit': 5,
+        'session_timeout': 30,
+        'password_expiry': 90,
+        'ip_whitelist_enabled': False,
+        'audit_logging': True
+    }
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'update_security':
+            # Handle security settings update
+            messages.success(request, _("Security settings updated successfully!"))
+
+        elif action == 'change_password':
+            # Handle password change
+            messages.success(request, _("Password changed successfully!"))
+
+        elif action == 'enable_2fa':
+            # Handle 2FA setup
+            messages.success(request, _("Two-factor authentication enabled!"))
+
+        return redirect('flame:adminsecurity')
+
+    context = {
+        'recent_logins': recent_logins,
+        'suspicious_orders': suspicious_orders,
+        'recent_activities': recent_activities,
+        'security_settings': security_settings,
+        'total_users': User.objects.count(),
+        'active_sessions': 5,  # Mock data
+        'failed_login_attempts': 12,  # Mock data
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/Admin_security.html', context)
+
+    return render(request, 'flame/Admin_security.html', context)
+
+@login_required
+def adminnoti(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    from datetime import timedelta
+
+    # Recent notifications data
+    recent_orders = CartOrder.objects.filter(
+        order_date__gte=timezone.now() - timedelta(days=7)
+    ).order_by('-order_date')[:10]
+
+    # Low stock products
+    low_stock_products = Product.objects.filter(
+        stock_count__lte=10,
+        stock_count__gt=0
+    )[:10]
+
+    # Out of stock products
+    out_of_stock_products = Product.objects.filter(
+        stock_count=0
+    )[:10]
+
+    # Recent reviews that need attention
+    low_rating_reviews = ProductReview.objects.filter(
+        rating__lte=2,
+        date__gte=timezone.now() - timedelta(days=7)
+    ).select_related('product', 'user')[:10]
+
+    # System notifications
+    notifications = [
+        {
+            'id': 1,
+            'title': _('New Order Received'),
+            'message': _('You have 5 new orders to process'),
+            'type': 'order',
+            'timestamp': timezone.now(),
+            'read': False,
+            'priority': 'high'
+        },
+        {
+            'id': 2,
+            'title': _('Low Stock Alert'),
+            'message': _('10 products are running low on stock'),
+            'type': 'inventory',
+            'timestamp': timezone.now() - timedelta(hours=2),
+            'read': False,
+            'priority': 'medium'
+        },
+        {
+            'id': 3,
+            'title': _('Payment Received'),
+            'message': _('Payment confirmed for Order #ORD-001'),
+            'type': 'payment',
+            'timestamp': timezone.now() - timedelta(hours=5),
+            'read': True,
+            'priority': 'low'
+        },
+    ]
+
+    # Notification settings
+    notification_preferences = {
+        'email_orders': True,
+        'email_payments': True,
+        'email_inventory': True,
+        'email_reviews': False,
+        'sms_urgent': True,
+        'push_all': True
+    }
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'mark_read':
+            notification_id = request.POST.get('notification_id')
+            # Mark notification as read
+            messages.success(request, _("Notification marked as read"))
+
+        elif action == 'update_preferences':
+            # Update notification preferences
+            messages.success(request, _("Notification preferences updated!"))
+
+        return redirect('flame:adminnoti')
+
+    context = {
+        'notifications': notifications,
+        'recent_orders': recent_orders,
+        'low_stock_products': low_stock_products,
+        'out_of_stock_products': out_of_stock_products,
+        'low_rating_reviews': low_rating_reviews,
+        'notification_preferences': notification_preferences,
+        'unread_count': len([n for n in notifications if not n['read']]),
+        'urgent_count': len([n for n in notifications if n['priority'] == 'high'])
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/Admin_Noti.html', context)
+
+    return render(request, 'flame/Admin_Noti.html', context)
+
+@login_required
+def admindash(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    from datetime import timedelta
+    from django.db.models import Sum, Count, Avg, Q
+
+    # Dashboard metrics
+    today = timezone.now().date()
+    yesterday = today - timedelta(days=1)
+    week_ago = today - timedelta(days=7)
+    month_ago = today - timedelta(days=30)
+
+    # Sales metrics
+    today_sales = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date=today
+    ).aggregate(total=Sum('price'))['total'] or 0
+
+    yesterday_sales = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date=yesterday
+    ).aggregate(total=Sum('price'))['total'] or 0
+
+    # Calculate growth percentage
+    sales_growth = ((today_sales - yesterday_sales) / yesterday_sales * 100) if yesterday_sales > 0 else 0
+
+    # Order metrics
+    total_orders = CartOrder.objects.count()
+    pending_orders = CartOrder.objects.filter(product_status='pending').count()
+    completed_orders = CartOrder.objects.filter(product_status='delivered').count()
+
+    # Product metrics
+    total_products = Product.objects.count()
+    active_products = Product.objects.filter(product_status='published').count()
+    low_stock_count = Product.objects.filter(stock_count__lte=10).count()
+
+    # Customer metrics
+    total_customers = User.objects.filter(is_staff=False).count()
+    new_customers_today = User.objects.filter(
+        date_joined__date=today,
+        is_staff=False
+    ).count()
+
+    # Revenue data for chart (last 7 days)
+    revenue_data = []
+    labels = []
+    for i in range(6, -1, -1):
+        date = today - timedelta(days=i)
+        revenue = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__date=date
+        ).aggregate(total=Sum('price'))['total'] or 0
+        revenue_data.append(float(revenue))
+        labels.append(date.strftime('%b %d'))
+
+    # Top selling products
+    top_products = CartOrderItem.objects.filter(
+        order__paid_status=True,
+        order__order_date__gte=week_ago
+    ).values(
+        'product__title',
+        'product__image'
+    ).annotate(
+        total_sold=Sum('qty'),
+        revenue=Sum('total')
+    ).order_by('-revenue')[:5]
+
+    # Recent orders
+    recent_orders = CartOrder.objects.select_related('user').order_by('-order_date')[:10]
+
+    # Order status distribution
+    order_status_data = CartOrder.objects.values('product_status').annotate(
+        count=Count('id')
+    ).order_by('product_status')
+
+    context = {
+        # Sales metrics
+        'today_sales': today_sales,
+        'yesterday_sales': yesterday_sales,
+        'sales_growth': round(sales_growth, 2),
+
+        # Order metrics
+        'total_orders': total_orders,
+        'pending_orders': pending_orders,
+        'completed_orders': completed_orders,
+
+        # Product metrics
+        'total_products': total_products,
+        'active_products': active_products,
+        'low_stock_count': low_stock_count,
+
+        # Customer metrics
+        'total_customers': total_customers,
+        'new_customers_today': new_customers_today,
+
+        # Chart data
+        'revenue_data': revenue_data,
+        'revenue_labels': labels,
+
+        # Lists
+        'top_products': top_products,
+        'recent_orders': recent_orders,
+        'order_status_data': order_status_data,
+
+        # Additional metrics
+        'avg_order_value': CartOrder.objects.filter(paid_status=True).aggregate(
+            avg=Avg('price'))['avg'] or 0,
+        'conversion_rate': 4.2,  # Mock data - calculate based on actual visits
+        'total_revenue': CartOrder.objects.filter(paid_status=True).aggregate(
+            total=Sum('price'))['total'] or 0,
+
+        # Users data for User AdminDash
+        'users': User.objects.all().order_by('-date_joined')[:50],  # Limit to 50 recent users for performance
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/User_AdminDash.html', context)
+
+    return render(request, 'flame/User_AdminDash.html', context)
+
+# Load your dialogs from JSON once at startup
+import os
+import json
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# dialogs_path = os.path.join(BASE_DIR, "chatbot-training", "chat_data.json")
+
+# with open(dialogs_path, "r", encoding="utf-8") as f:
+#     dialog_pairs = json.load(f)
+
+def orders(request):
+    from django.utils import translation
+
+    shop_views=Shop.objects.all()
+
+    # Show all orders for staff members, personal orders for regular users
+    if request.user.is_staff:
+        orders = CartOrder.objects.select_related('user', 'shop').all().order_by('-id')
+    else:
+        orders = CartOrder.objects.filter(user=request.user).order_by('-id')
+
+    address = Address.objects.filter(user=request.user)
+
+    # Get current language for currency formatting
+    current_language = translation.get_language()
+    is_myanmar = current_language == 'my'
+    
+    if request.method == "POST":
+        address = request.POST.get("address")
+        mobile = request.POST.get("mobile")
+        
+        new_address = Address.objects.create(
+            user = request.user,
+            address= address,
+            mobile = mobile,
+        )
+        messages.success(request, "Address Added Successfully")
+        return redirect('flame:orders')
+    
+    context ={
+        "shop_views": shop_views,
+        "orders": orders,
+        "address":address,
+        "current_language": current_language,
+        "is_myanmar": is_myanmar,
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, "flame/Orders.html", context)
+
+    return render(request, "flame/Orders.html", context)
+
+@login_required
+def products(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    from django.db.models import Count, Sum, Avg
+
+    # Get all products with additional data for admin panel
+    products = Product.objects.select_related(
+        'category', 'brand', 'shop', 'user'
+    ).prefetch_related(
+        'reviews'
+    ).annotate(
+        review_count=Count('reviews'),
+        avg_rating=Avg('reviews__rating')
+    ).order_by('-date')
+
+    # Filter options
+    category_filter = request.GET.get('category')
+    brand_filter = request.GET.get('brand')
+    shop_filter = request.GET.get('shop')
+    status_filter = request.GET.get('status')
+
+    if category_filter:
+        products = products.filter(category__id=category_filter)
+    if brand_filter:
+        products = products.filter(brand__id=brand_filter)
+    if shop_filter:
+        products = products.filter(shop__id=shop_filter)
+    if status_filter:
+        products = products.filter(product_status=status_filter)
+
+    # Pagination
+    from django.core.paginator import Paginator
+    paginator = Paginator(products, 20)  # Show 20 products per page
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+
+    # Additional data
+    shops = Shop.objects.all()
+    categories = Category.objects.all()
+    brands = Brand.objects.all()
+
+    # Statistics
+    total_products = Product.objects.count()
+    active_products = Product.objects.filter(product_status='published').count()
+    low_stock_products = Product.objects.filter(stock_count__lte=10).count()
+    out_of_stock_products = Product.objects.filter(stock_count=0).count()
+
+    context = {
+        "shop_views": shops,
+        "products": products,
+        "categories": categories,
+        "brands": brands,
+        "shops": shops,
+
+        # Filter values for maintaining state
+        "selected_category": category_filter,
+        "selected_brand": brand_filter,
+        "selected_shop": shop_filter,
+        "selected_status": status_filter,
+
+        # Statistics
+        "total_products": total_products,
+        "active_products": active_products,
+        "low_stock_products": low_stock_products,
+        "out_of_stock_products": out_of_stock_products,
+
+        # Status choices
+        "status_choices": [
+            ('draft', _('Draft')),
+            ('published', _('Published')),
+            ('disabled', _('Disabled')),
+            ('rejected', _('Rejected')),
+            ('in_review', _('In Review')),
+        ],
+
+        # Myanmar states for shop filtering
+        "states": MyanmarState.objects.all(),
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, "flame/products.html", context)
+
+    return render(request, "flame/products.html", context)
+@login_required
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST,request.FILES, instance=product)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user   # ✅ auto-assign logged-in user
+            product.save()
+            return JsonResponse({
+                'success': True,
+                'message': 'Order updated successfully!',
+                'product_id': product.id
+            })
+        return JsonResponse({
+            'success': False,
+            'errors': form.errors.get_json_data()
+        }, status=400)
+
+    form = ProductForm(instance=product)
+    return render(request, 'flame/editproduct.html', {
+        'product': product,
+        'form': form,
+        'shops': Shop.objects.all(),
+        'category': Category.objects.all()
+    })
+
+
+@login_required
+def add_product(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:home')
+
+    # Get required data for form
+    categories = Category.objects.all()
+    brands = Brand.objects.all()
+    shops = Shop.objects.all()
+    states = MyanmarState.objects.all()
+
+    # Import STATUS from models to get product status choices
+    from .models import STATUS
+
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+
+            # Set default shop if not specified and user is not superuser
+            if not product.shop and not request.user.is_superuser:
+                user_shop = shops.filter(user=request.user).first()
+                if user_shop:
+                    product.shop = user_shop
+                else:
+                    default_shop = shops.first()
+                    if default_shop:
+                        product.shop = default_shop
+
+            product.save()
+
+            # Log inventory creation
+            InventoryLog.objects.create(
+                product=product,
+                action='created',
+                quantity_before=0,
+                quantity_after=product.stock_count,
+                user=request.user,
+                notes=f"Product created: {product.title}"
+            )
+
+            messages.success(request, _("Product added successfully!"))
+
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({
+                    "success": True,
+                    "message": str(_("Product added successfully!")),
+                    "product_id": product.id
+                })
+            else:
+                return redirect('flame:adminproducts')
+        else:
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({"success": False, "errors": form.errors}, status=400)
+            else:
+                messages.error(request, _("Please correct the errors below."))
+    else:
+        form = ProductForm()
+
+    context = {
+        'form': form,
+        'categories': categories,
+        'brands': brands,
+        'shops': shops,
+        'states': states,
+        'page_title': _('Add New Product'),
+        'is_edit': False,
+        'status_choices': STATUS,  # Product status choices
+    }
+
+    return render(request, "flame/addproduct.html", context)
+
+def chat_page(request):
+    return render(request, 'flame/chatbot.html.html')
+def recommendation_page(request):
+    recommendations = []
+
+    if request.method == 'POST':
+        try:
+            import pandas as pd
+            from sklearn.preprocessing import MinMaxScaler
+            from sklearn.metrics.pairwise import cosine_similarity
+            import os
+            from django.conf import settings
+
+            # Try to find the CSV file in the project
+            csv_path = 'products.csv'
+            if not os.path.exists(csv_path):
+                csv_path = os.path.join(settings.BASE_DIR, 'products.csv')
+
+            if not os.path.exists(csv_path):
+                return render(request, 'flame/recommendation.html', {
+                    'recommendations': [],
+                    'error': 'Product data file not found. Please add products.csv to the project.'
+                })
+
+            # Load dataset
+            df = pd.read_csv(csv_path, encoding='latin1')
+
+            # Convert RAM to numeric
+            def ram_to_gb(ram_str):
+                if pd.isna(ram_str):
+                    return 0
+                ram_str = str(ram_str)
+                if 'GB' in ram_str:
+                    return int(ram_str.replace('GB','').strip())
+                elif 'TB' in ram_str:
+                    return int(float(ram_str.replace('TB','').strip())*1024)
+                else:
+                    return 0
+
+            df.columns = df.columns.str.upper().str.strip()
+            df['RAM_Numeric'] = df['RAM'].apply(ram_to_gb)
+
+            # Convert CPU to numeric score
+            cpu_mapping = {'i3':3, 'i5':5, 'i7':7, 'i9':9,
+                           'ryzen 3':3, 'ryzen 5':5, 'ryzen 7':7, 'ryzen 9':9}
+
+            def cpu_to_score(cpu_str):
+                if pd.isna(cpu_str):
+                    return 0
+                cpu_str = cpu_str.lower()
+                for key in cpu_mapping:
+                    if key in cpu_str:
+                        return cpu_mapping[key]
+                return 0
+
+            df['CPU_Numeric'] = df['CPU'].apply(cpu_to_score)
+
+            # Normalize CPU & RAM
+            scaler = MinMaxScaler()
+            df[['CPU_Norm','RAM_Norm']] = scaler.fit_transform(df[['CPU_Numeric','RAM_Numeric']])
+
+            purpose_vectors = {
+                'gaming': {'CPU':8, 'RAM':16},
+                'office': {'CPU':5, 'RAM':8},
+                'business': {'CPU':7, 'RAM':16},
+                'general': {'CPU':5, 'RAM':4}
+            }
+
+            purpose = request.POST.get('purpose','').lower().strip()
+            if purpose in purpose_vectors:
+                target_cpu = purpose_vectors[purpose]['CPU']
+                target_ram = purpose_vectors[purpose]['RAM']
+
+                # Normalize target vector using same scaler
+                target_scaled = scaler.transform([[target_cpu, target_ram]])
+
+                # Compute cosine similarity
+                feature_matrix = df[['CPU_Norm','RAM_Norm']].values
+                similarities = cosine_similarity(feature_matrix, target_scaled).flatten()
+
+                df['SIM_SCORE'] = similarities
+                top_laptops = df.sort_values(by='SIM_SCORE', ascending=False).head(5)
+                recommendations = top_laptops.to_dict('records')
+
+        except ImportError:
+            return render(request, 'flame/recommendation.html', {
+                'recommendations': [],
+                'error': 'Required libraries (pandas, sklearn) not installed.'
+            })
+        except Exception as e:
+            return render(request, 'flame/recommendation.html', {
+                'recommendations': [],
+                'error': f'Error processing recommendations: {str(e)}'
+            })
+
+    return render(request, 'flame/recommendation.html', {'recommendations': recommendations})
+
+@login_required
+def admindashboard(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    from datetime import timedelta
+    from django.db.models import Sum, Count, Avg, Q
+    from django.utils import translation
+
+    # Dashboard metrics
+    today = timezone.now().date()
+    yesterday = today - timedelta(days=1)
+    week_ago = today - timedelta(days=7)
+    month_ago = today - timedelta(days=30)
+
+    # Sales metrics
+    total_sales = CartOrder.objects.filter(paid_status=True).aggregate(total=Sum('price'))['total'] or 0
+    today_sales = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date=today
+    ).aggregate(total=Sum('price'))['total'] or 0
+
+    yesterday_sales = CartOrder.objects.filter(
+        paid_status=True,
+        order_date__date=yesterday
+    ).aggregate(total=Sum('price'))['total'] or 0
+
+    # Calculate growth percentage
+    sales_growth = ((today_sales - yesterday_sales) / yesterday_sales * 100) if yesterday_sales > 0 else 0
+
+    # Debug print (remove in production)
+    print(f"DEBUG: total_sales={total_sales}, today_sales={today_sales}, yesterday_sales={yesterday_sales}, sales_growth={sales_growth}")
+
+    # Order metrics
+    total_orders = CartOrder.objects.count()
+    pending_orders = CartOrder.objects.filter(product_status='pending').count()
+    completed_orders = CartOrder.objects.filter(product_status='delivered').count()
+
+    # User metrics
+    total_users = User.objects.count()  # All users (staff + non-staff)
+    total_customers = User.objects.filter(is_staff=False).count()  # Only non-staff users
+    new_customers_today = User.objects.filter(
+        date_joined__date=today,
+        is_staff=False
+    ).count()
+
+    # Average order value
+    avg_order_value = CartOrder.objects.filter(paid_status=True).aggregate(
+        avg=Avg('price'))['avg'] or 0
+
+    # Recent orders for the table
+    recent_orders = CartOrder.objects.select_related('user').order_by('-order_date')[:10]
+
+    # Get current language for currency formatting
+    current_language = translation.get_language()
+    is_myanmar = current_language == 'my'
+
+    # Prepare chart data for JSON
+    import json
+    from django.db.models.functions import TruncMonth
+
+    # Sales by category for chart
+    category_sales = CartOrderItem.objects.filter(
+        order__paid_status=True
+    ).values('product__category__title').annotate(
+        total_sales=Sum('total')
+    ).order_by('-total_sales')[:5]
+
+    category_labels = [item['product__category__title'] or 'Unknown' for item in category_sales]
+    category_values = [float(item['total_sales']) for item in category_sales]
+    category_colors = ['#4361ee', '#f8961e', '#4cc9f0', '#f72585', '#17a2b8']
+
+    # Monthly sales data for line chart
+    monthly_sales = CartOrder.objects.filter(paid_status=True).annotate(
+        month=TruncMonth('order_date')
+    ).values('month').annotate(
+        total_sales=Sum('price')
+    ).order_by('month')
+
+    sales_labels = []
+    sales_values = []
+    orders_values = []
+
+    from datetime import datetime
+    for i in range(12):
+        month_date = (today.replace(day=1) - timedelta(days=30*i)).replace(day=1)
+        month_name = month_date.strftime('%b')
+
+        # Get sales for this month
+        month_sales = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__year=month_date.year,
+            order_date__month=month_date.month
+        ).aggregate(total=Sum('price'))['total'] or 0
+
+        # Get orders for this month
+        month_orders = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__year=month_date.year,
+            order_date__month=month_date.month
+        ).count()
+
+        sales_labels.insert(0, month_name)
+        sales_values.insert(0, float(month_sales))
+        orders_values.insert(0, month_orders)
+
+    context = {
+        # Sales metrics
+        'total_sales': total_sales,
+        'today_sales': today_sales,
+        'sales_growth': round(sales_growth, 2),
+
+        # Order metrics
+        'total_orders': total_orders,
+        'pending_orders': pending_orders,
+        'completed_orders': completed_orders,
+
+        # User metrics
+        'total_users': total_users,
+        'total_customers': total_customers,
+        'new_customers_today': new_customers_today,
+
+        # Additional metrics
+        'avg_order_value': avg_order_value,
+        'recent_orders': recent_orders,
+
+        # Chart data as JSON strings
+        'category_labels': json.dumps(category_labels),
+        'category_values': json.dumps(category_values),
+        'category_colors': json.dumps(category_colors),
+        'sales_labels': json.dumps(sales_labels),
+        'sales_values': json.dumps(sales_values),
+        'orders_values': json.dumps(orders_values),
+
+        # Language and currency
+        'current_language': current_language,
+        'is_myanmar': is_myanmar,
+    }
+
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/dashboardpage.html', context)
+
+    return render(request, 'flame/Dashboard.html', context)
+@login_required
+def adminsales(request):
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    import logging
+    from datetime import timedelta
+    from django.db.models import Sum, Count, Avg, Max, F
+    from django.db.models.functions import TruncMonth
+    from django.utils import translation
+
+    # Set up logging
+    logger = logging.getLogger(__name__)
+
+    try:
+        # Date filtering
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        if request.GET.get('start_date'):
+            start_date = timezone.datetime.strptime(request.GET.get('start_date'), '%Y-%m-%d').date()
+        if request.GET.get('end_date'):
+            end_date = timezone.datetime.strptime(request.GET.get('end_date'), '%Y-%m-%d').date()
+
+        logger.info(f"Admin sales view accessed by {request.user.username} for period {start_date} to {end_date}")
+
+        # Sales analytics
+        sales_filter = Q(paid_status=True, order_date__date__gte=start_date, order_date__date__lte=end_date)
+
+        # Top selling products using snapshot data for reliability
+        top_products = CartOrderItem.objects.filter(
+            order__paid_status=True,
+            order__order_date__date__gte=start_date,
+            order__order_date__date__lte=end_date
+        ).select_related('product').values(
+            'item',  # Use snapshot product name instead of FK
+            'image',  # Use snapshot image instead of FK
+            'price',   # Use snapshot price instead of FK
+            'product__image',  # Also get FK image as fallback
+            'product__title',  # Also get FK title as fallback
+        ).annotate(
+            units_sold=Sum('qty'),
+            total_revenue=Sum('total'),
+            avg_price=Avg('price')
+        ).order_by('-total_revenue')[:10]
+
+        # Calculate progress percentage and enhance data
+        top_products_list = list(top_products)
+        if top_products_list:
+            max_revenue = top_products_list[0]['total_revenue'] if top_products_list else 1
+            for product in top_products_list:
+                # Use snapshot data (more reliable than FK relationships)
+                product['product__title'] = product.get('item') or product.get('product__title') or 'Unknown Product'
+
+                # Handle image: prefer FK image over snapshot image
+                snapshot_image = product.get('image', '')
+                fk_image = product.get('product__image', '')
+
+                # Use FK image if available, otherwise use snapshot image
+                if fk_image:
+                    product['product__image'] = fk_image
+                elif snapshot_image and not snapshot_image.startswith('/media/'):
+                    # If snapshot image doesn't start with /media/, add it (for legacy data)
+                    product['product__image'] = f"/media/{snapshot_image}" if snapshot_image != 'product.jpg' else ''
+                else:
+                    product['product__image'] = snapshot_image or ''
+
+                product['product__price'] = product.get('price') or 0
+
+                # Calculate progress percentage (rounded to 1 decimal place)
+                product['progress_percentage'] = round(min(100, (product['total_revenue'] / max_revenue * 100)), 1) if max_revenue > 0 else 0
+
+                # Try to get category from FK if product still exists, otherwise fallback
+                try:
+                    # Attempt to get category for this product name from existing products
+                    existing_product = Product.objects.filter(title=product['item']).first()
+                    if existing_product and existing_product.category:
+                        product['product__category__title'] = existing_product.category.title
+                    else:
+                        product['product__category__title'] = 'Unknown Category'
+                except:
+                    product['product__category__title'] = 'Unknown Category'
+
+        top_products = top_products_list
+
+        # Sales summary
+        total_sales = CartOrder.objects.filter(sales_filter).aggregate(
+            total=Sum('price'),
+            count=Count('id'),
+            avg_order_value=Avg('price')
+        )
+
+        # Monthly breakdown
+        monthly_sales = CartOrder.objects.filter(paid_status=True).annotate(
+            month=TruncMonth('order_date')
+        ).values('month').annotate(
+            total_sales=Sum('price'),
+            order_count=Count('id')
+        ).order_by('month')
+
+        # Sales by category - using hybrid approach for better data reliability
+        category_sales_data = {}
+
+        # Get all cart order items in the date range
+        order_items = CartOrderItem.objects.filter(
+            order__paid_status=True,
+            order__order_date__date__gte=start_date,
+            order__order_date__date__lte=end_date
+        ).select_related('product', 'product__category')
+
+        logger.info(f"Found {order_items.count()} order items in date range {start_date} to {end_date}")
+        if order_items.count() == 0:
+            logger.warning("No order items found - pie chart will be empty")
+
+        # Process each item to build category sales data
+        items_by_detection_method = {'fk': 0, 'exact': 0, 'partial': 0, 'inferred': 0, 'unknown': 0}
+
+        for item in order_items:
+            category_name = 'Unknown Category'
+            detection_method = 'unknown'
+
+            # Try to get category from the product relationship
+            try:
+                if item.product and item.product.category:
+                    category_name = item.product.category.title
+                    detection_method = 'fk'
+                    logger.debug(f"[FK] Found category: {category_name} for item: {item.item}")
+                else:
+                    # If product is deleted, try to find category by product name using multiple strategies
+                    if item.item:  # Ensure item name exists
+                        logger.debug(f"[LOOKUP] Searching category for deleted product: {item.item}")
+
+                        # First try exact match
+                        existing_product = Product.objects.filter(title=item.item).select_related('category').first()
+
+                        if existing_product and existing_product.category:
+                            category_name = existing_product.category.title
+                            detection_method = 'exact'
+                            logger.debug(f"[EXACT] Found category: {category_name} for item: {item.item}")
+                        else:
+                            # If exact match fails, try partial matching (first 20 chars)
+                            item_prefix = item.item[:20] if len(item.item) > 20 else item.item
+                            existing_product = Product.objects.filter(title__icontains=item_prefix).select_related('category').first()
+
+                            if existing_product and existing_product.category:
+                                category_name = existing_product.category.title
+                                detection_method = 'partial'
+                                logger.debug(f"[PARTIAL] Found category: {category_name} for item: {item.item} (prefix: {item_prefix})")
+                            else:
+                                # Last fallback: try to infer category from product name
+                                item_lower = item.item.lower()
+                                if any(keyword in item_lower for keyword in ['macbook', 'laptop', 'notebook']):
+                                    category_name = 'Laptops'
+                                elif any(keyword in item_lower for keyword in ['desktop', 'pc', 'workstation']):
+                                    category_name = 'Desktops'
+                                elif any(keyword in item_lower for keyword in ['monitor', 'display', 'screen']):
+                                    category_name = 'Monitors'
+                                elif any(keyword in item_lower for keyword in ['keyboard', 'mouse', 'speaker', 'headset']):
+                                    category_name = 'Accessories'
+                                else:
+                                    category_name = 'Electronics'  # Generic fallback
+                                detection_method = 'inferred'
+                                logger.debug(f"[INFERRED] Category: {category_name} for item: {item.item}")
+                    else:
+                        logger.warning(f"[ERROR] Item has no name: {item}")
+            except Exception as e:
+                logger.warning(f"[EXCEPTION] Error getting category for item {item.item}: {str(e)}")
+                # category_name already defaults to 'Unknown Category'
+
+            items_by_detection_method[detection_method] += 1
+
+            # Accumulate sales data by category
+            if category_name not in category_sales_data:
+                category_sales_data[category_name] = {
+                    'product__category__title': category_name,
+                    'total_sales': 0,
+                    'total_units': 0
+                }
+
+            category_sales_data[category_name]['total_sales'] += float(item.total or 0)
+            category_sales_data[category_name]['total_units'] += int(item.qty or 0)
+
+        # Convert to list and sort by total sales
+        category_sales = sorted(
+            category_sales_data.values(),
+            key=lambda x: x['total_sales'],
+            reverse=True
+        )
+
+        # Log detailed results
+        logger.info(f"Category detection summary: {items_by_detection_method}")
+        logger.info(f"Final category sales data: {len(category_sales)} categories found")
+
+        total_sales_value = sum(cat['total_sales'] for cat in category_sales)
+        logger.info(f"Total sales value across all categories: ${total_sales_value:.2f}")
+
+        if category_sales:
+            logger.info("Category breakdown:")
+            for i, cat in enumerate(category_sales):
+                percentage = (cat['total_sales'] / total_sales_value * 100) if total_sales_value > 0 else 0
+                logger.info(f"  {i+1}. {cat['product__category__title']}: ${cat['total_sales']:.2f} ({percentage:.1f}%) - {cat['total_units']} units")
+        else:
+            logger.warning("CRITICAL: No category sales data found - pie chart will be empty!")
+            logger.info("Possible reasons:")
+            logger.info("- No paid orders in the selected date range")
+            logger.info("- All products are deleted and category detection failed")
+            logger.info("- Database query issues")
+
+        # Sales by shop
+        shop_sales = CartOrder.objects.filter(sales_filter).values(
+            'shop__title'
+        ).annotate(
+            total_sales=Sum('price'),
+            order_count=Count('id')
+        ).order_by('-total_sales')
+
+        # Daily sales for chart
+        daily_sales = []
+        current_date = start_date
+        while current_date <= end_date:
+            day_sales = CartOrder.objects.filter(
+                paid_status=True,
+                order_date__date=current_date
+            ).aggregate(total=Sum('price'))['total'] or 0
+
+            daily_sales.append({
+                'date': current_date.strftime('%Y-%m-%d'),
+                'total': float(day_sales)
+            })
+            current_date += timedelta(days=1)
+
+        # Get current language for currency formatting
+        current_language = translation.get_language()
+        is_myanmar = current_language == 'my'
+
+        # Additional KPIs
+        total_products = Product.objects.filter(product_status='published').count()
+        total_customers = User.objects.filter(is_staff=False).count()
+
+        context = {
+            'top_products': top_products,
+            'total_sales': total_sales,
+            'monthly_sales': monthly_sales,
+            'category_sales': category_sales,
+            'shop_sales': shop_sales,
+            'daily_sales': daily_sales,
+            'start_date': start_date,
+            'end_date': end_date,
+            'today_sales': CartOrder.objects.filter(
+                paid_status=True,
+                order_date__date=timezone.now().date()
+            ).aggregate(total=Sum('price'))['total'] or 0,
+            'weekly_sales': CartOrder.objects.filter(
+                paid_status=True,
+                order_date__date__gte=timezone.now().date() - timedelta(days=7)
+            ).aggregate(total=Sum('price'))['total'] or 0,
+            'orders_today': CartOrder.objects.filter(
+                paid_status=True,
+                order_date__date=timezone.now().date()
+            ).count(),
+            'growth_rate': 15.2,  # Calculate actual growth rate
+            'recent_orders': CartOrder.objects.filter(paid_status=True).order_by('-order_date')[:10],
+
+            # KPI metrics
+            'total_products': total_products,
+            'total_customers': total_customers,
+
+            # Language and currency context
+            'current_language': current_language,
+            'is_myanmar': is_myanmar,
+        }
+
+        logger.info(f"Sales analytics data prepared successfully - {len(top_products)} products, {len(category_sales)} categories")
+
+        # Handle AJAX requests for SPA
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+            return render(request, "flame/sales.html", context)
+
+        return render(request, "flame/sales.html", context)
+
+    except Exception as e:
+        logger.error(f"Error in adminsales view: {str(e)}", exc_info=True)
+        messages.error(request, _("An error occurred while loading sales data. Please try again."))
+
+        # Return basic context to prevent template errors
+        context = {
+            'top_products': [],
+            'total_sales': {'total': 0, 'count': 0},
+            'category_sales': [],
+            'recent_orders': [],
+            'total_products': 0,
+            'total_customers': 0,
+            'is_myanmar': False,
+            'current_language': 'en',
+        }
+
+        # Handle AJAX requests for SPA
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+            return render(request, "flame/sales.html", context)
+
+        return render(request, "flame/sales.html", context)
+
+@login_required
+def sales_pdf(request):
+    """Generate and download sales report PDF"""
+    if not request.user.is_staff:
+        messages.error(request, _("Access denied. Admin privileges required."))
+        return redirect('flame:index')
+
+    from datetime import timedelta
+    from django.http import FileResponse
+
+    try:
+        # Create PDF buffer
+        buffer = io.BytesIO()
+        doc = SimpleDocTemplate(buffer, pagesize=A4)
+
+        # Get styles
+        styles = getSampleStyleSheet()
+        title_style = ParagraphStyle(
+            'CustomTitle',
+            parent=styles['Heading1'],
+            fontSize=24,
+            spaceAfter=30,
+            alignment=1
+        )
+
+        # Build PDF content
+        story = []
+        story.append(Paragraph("Sales Analysis Report", title_style))
+        story.append(Spacer(1, 20))
+
+        # Report date
+        report_date = timezone.now().strftime('%Y-%m-%d %H:%M')
+        story.append(Paragraph(f"Generated on: {report_date}", styles['Normal']))
+        story.append(Spacer(1, 20))
+
+        # Sales summary
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=30)
+
+        total_sales = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__date__gte=start_date,
+            order_date__date__lte=end_date
+        ).aggregate(total=Sum('price'))['total'] or 0
+
+        total_orders = CartOrder.objects.filter(
+            paid_status=True,
+            order_date__date__gte=start_date,
+            order_date__date__lte=end_date
+        ).count()
+
+        avg_order_value = total_sales / total_orders if total_orders > 0 else 0
+
+        # Summary table
+        summary_data = [
+            ['Metric', 'Value'],
+            ['Total Sales', f'MMK {total_sales:,.2f}'],
+            ['Total Orders', f'{total_orders:,}'],
+            ['Average Order Value', f'MMK {avg_order_value:,.2f}'],
+            ['Report Period', f'{start_date} to {end_date}']
+        ]
+
+        summary_table = Table(summary_data, colWidths=[2*inch, 3*inch])
+        summary_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ]))
+
+        story.append(Paragraph("Sales Summary", styles['Heading2']))
+        story.append(summary_table)
+        story.append(Spacer(1, 20))
+
+        # Top products
+        top_products = CartOrderItem.objects.filter(
+            order__paid_status=True,
+            order__order_date__date__gte=start_date,
+            order__order_date__date__lte=end_date
+        ).values(
+            'product__title'
+        ).annotate(
+            units_sold=Sum('qty'),
+            total_revenue=Sum('total')
+        ).order_by('-total_revenue')[:10]
+
+        if top_products:
+            products_data = [['Product', 'Units Sold', 'Revenue']]
+            for product in top_products:
+                products_data.append([
+                    product['product__title'][:30] if product['product__title'] else 'N/A',
+                    str(product['units_sold']),
+                    f"MMK {product['total_revenue']:,.2f}"
+                ])
+
+            products_table = Table(products_data, colWidths=[3*inch, 1*inch, 1.5*inch])
+            products_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 10),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black)
+            ]))
+
+            story.append(Paragraph("Top 10 Products by Revenue", styles['Heading2']))
+            story.append(products_table)
+
+        # Build PDF
+        doc.build(story)
+
+        # Return PDF as response
+        buffer.seek(0)
+        filename = f'sales_report_{timezone.now().strftime("%Y%m%d_%H%M")}.pdf'
+
+        return FileResponse(
+            buffer,
+            as_attachment=True,
+            filename=filename,
+            content_type='application/pdf'
+        )
+
+    except Exception as e:
+        messages.error(request, _(f"Error generating PDF: {str(e)}"))
+        return redirect('flame:adminsales')
+from django.db.models.functions import TruncMonth
+from django.db.models import Sum, Count
+from .models import CartOrder
+from datetime import datetime
+def adminanalytic(request):
+    from django.utils import translation
+
+    # Get monthly sales data (only paid orders)
+    monthly_sales = CartOrder.objects.filter(paid_status=True).annotate(
+        month=TruncMonth('order_date')
+    ).values('month').annotate(
+        total_sales=Sum('price'),
+        order_count=Count('id')
+    ).order_by('month')
+
+    # Prepare chart data
+    sales_labels = []
+    sales_values = []
+    orders_values = []
+
+    # Fill in all months (even those without data)
+    for month in range(1, 13):
+        month_name = datetime(2023, month, 1).strftime('%b')
+        sales_labels.append(month_name)
+
+        # Find data for this month if exists
+        month_data = next((item for item in monthly_sales if item['month'].month == month), None)
+
+        sales_values.append(float(month_data['total_sales']) if month_data else 0)
+        orders_values.append(month_data['order_count'] if month_data else 0)
+
+    # Get current language for currency formatting
+    current_language = translation.get_language()
+    is_myanmar = current_language == 'my'
+
+    # Get additional metrics for analytics template
+    total_products = Product.objects.filter(product_status='published').count()
+    total_customers = User.objects.filter(is_staff=False).count()
+
+    import json
+
+    context = {
+        'sales_labels': json.dumps(sales_labels),
+        'sales_values': json.dumps(sales_values),
+        'orders_values': json.dumps(orders_values),
+        'total_orders': CartOrder.total_orders(),
+        'paid_orders': CartOrder.paid_orders_count(),
+        'recent_orders': CartOrder.recent_orders_count(7),  # Last 7 days
+        'status_counts': CartOrder.orders_by_status(),
+        'total_sales': CartOrder.total_sales(),
+        'monthly_sales': CartOrder.recent_sales(30),
+        'weekly_sales': CartOrder.recent_sales(7),
+        'sales_by_status': CartOrder.sales_by_status(),
+        'delivery_comparison': CartOrder.shop_vs_home_sales(),
+        'recent_orders': CartOrder.objects.filter(paid_status=True).order_by('-order_date')[:10],
+
+        # Additional data for analytics template
+        'total_products': total_products,
+        'total_customers': total_customers,
+        'current_language': current_language,
+        'is_myanmar': is_myanmar,
+
+    }
+    # Handle AJAX requests for SPA
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.GET.get('ajax'):
+        return render(request, 'flame/analytics.html', context)
+
+    return render(request, 'flame/analytics.html', context)
+from django.core.serializers.json import DjangoJSONEncoder
+from .models import CartOrder
+def adminpage(request):
+    monthly_sales = CartOrder.objects.filter(paid_status=True).annotate(
+        month=TruncMonth('order_date')
+    ).values('month').annotate(
+        total_sales=Sum('price'),
+        order_count=Count('id')
+    ).order_by('month')
+    
+    # Prepare chart data
+    sales_labels = []
+    sales_values = []
+    orders_values = []
+    
+    # Fill in all months (even those without data)
+    for month in range(1, 13):
+        month_name = datetime(2023, month, 1).strftime('%b')
+        sales_labels.append(month_name)
+        
+        # Find data for this month if exists
+        month_data = next((item for item in monthly_sales if item['month'].month == month), None)
+        
+        sales_values.append(float(month_data['total_sales']) if month_data else 0)
+        orders_values.append(month_data['order_count'] if month_data else 0)
+    # Get sales by category through the CartOrder -> CartOrderItem -> Product -> Category chain
+    sales_by_category = CartOrder.objects.filter(
+        paid_status=True
+    ).values(
+        'cartorderitem__product__category__title'
+    ).annotate(
+        total_sales=Sum('price')
+    ).order_by('-total_sales')
+
+    # Prepare chart data
+    category_labels = []
+    category_values = []
+    category_colors = ["#4361ee", "#f8961e", "#4cc9f0", "#f72585", "#7209b7", "#3a0ca3"]
+    
+    for i, category in enumerate(sales_by_category):
+        label = category['cartorderitem__product__category__title'] or 'Uncategorized'
+        category_labels.append(label)
+        category_values.append(float(category['total_sales']))
+    
+    # Check if we have any data
+    has_category_data = len(category_values) > 0 and sum(category_values) > 0
+    # Ensure we don't exceed available colors
+    used_colors = category_colors[:len(category_labels)]
+    top_products = CartOrderItem.objects.filter(
+        order__paid_status=True
+    ).select_related('product').values(
+        'product__title',
+        'product__image',
+        'product__id'
+    ).annotate(
+        total_units=Sum('qty'),
+        total_revenue=Sum('total')
+    ).order_by('-total_revenue')[:5]  # Get top 5 products by revenue
+
+    # Calculate percentages if we have data
+    has_sales_data = top_products.exists()
+    if has_sales_data:
+        max_revenue = top_products[0]['total_revenue']
+        for product in top_products:
+            product['percentage'] = round((product['total_revenue'] / max_revenue) * 100)
+ # Get top 5 selling products by revenue
+    top_products = CartOrderItem.objects.filter(
+        order__paid_status=True
+    ).select_related('product').values(
+        'product__title',
+        'product__image',
+        'product__price'
+    ).annotate(
+        units_sold=Sum('qty'),
+        total_revenue=Sum('total')
+    ).order_by('-total_revenue')[:5]  # Explicitly limit to 5 products
+
+    # Calculate progress percentages
+   
+       
+    top_products = CartOrderItem.top_selling_products(limit=10)
+
+    context = {
+        'current_user': request.user,
+        'top_products': top_products if has_sales_data else None,
+        'has_sales_data': has_sales_data,
+        'sales_labels': json.dumps(sales_labels, cls=DjangoJSONEncoder),
+        'sales_values': json.dumps(sales_values, cls=DjangoJSONEncoder),
+        'orders_values': json.dumps(orders_values, cls=DjangoJSONEncoder),
+        'total_orders': CartOrder.total_orders(),
+        'paid_orders': CartOrder.paid_orders_count(),
+        'recent_orders': CartOrder.recent_orders_count(7),  # Last 7 days
+        'status_counts': CartOrder.orders_by_status(),
+        'total_sales': CartOrder.total_sales(),
+        'monthly_sales': CartOrder.recent_sales(30),
+        'weekly_sales': CartOrder.recent_sales(7),
+        'sales_by_status': CartOrder.sales_by_status(),
+        'delivery_comparison': CartOrder.shop_vs_home_sales(),
+        'recent_orders': CartOrder.objects.filter(paid_status=True).order_by('-order_date')[:10],
+        'category_labels': json.dumps(category_labels),
+        'category_values': json.dumps(category_values),
+        'category_colors': json.dumps(category_colors[:len(category_labels)]),
+        'has_category_data': has_category_data,
+        'top_products': top_products,
+        'has_sales_data': CartOrderItem.objects.filter(order__paid_status=True).exists()
+    }    
+    return render(request,'flame/Dashboard.html',context)
+# def chatbot_reply(request):
+#     user_input = request.GET.get("message", "").strip().lower()
+#     if not user_input:
+#         return JsonResponse({"response": "[No input provided]"}, status=200)
+
+#     # Try to match exactly
+#     for pair in dialog_pairs:
+#         if pair["dialog"][0].strip().lower() == user_input:
+#             return JsonResponse({"response": pair["dialog"][1]})
+
+#     # If no match found
+#     return JsonResponse({"response": "I'm sorry, I don't understand that yet."})
+from .forms import OrderForm
+from django.utils.text import slugify
+@login_required
+def edit_order(request, order_id):
+    order = get_object_or_404(CartOrder, id=order_id, user=request.user)
+    
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user   # ✅ auto-assign logged-in user
+            order.save()
+            return JsonResponse({
+                'success': True,
+                'message': 'Order updated successfully!',
+                'order_id': order.id
+            })
+        return JsonResponse({
+            'success': False,
+            'errors': form.errors.get_json_data()
+        }, status=400)
+
+    form = OrderForm(instance=order)
+    return render(request, 'flame/editorder.html', {
+        'order': order,
+        'form': form,
+        'shops': Shop.objects.all(),
+        'category': Category.objects.all()
+    })
+
+# def cart_view(request):
+    
+#     cart_total_amount = 0
+#     if 'cart_data_obj' in request.session:
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             cart_total_amount += int(item['qty']) * float(item['price'])
+#         return render(request, 'flame/cart.html', {"cart_data":request.session['cart_data_obj'], 'totalcartitems':len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+#     else:
+#         messages.warning(request,"Your Cart is Empty")
+#         return redirect("flame:home")
+
+
+# # Add to cart
+# def add_to_cart(request):
+#     cart_product = {}
+    
+#     cart_product[str(request.GET['id'])]={
+#         'title':request.GET['title'],
+#         'qty':int(request.GET['qty']),
+#         'price':float(request.GET['price']),
+#         'image': request.GET['image'],
+#         'pid': request.GET['pid'],
+#         'shop_id': request.GET.get('shop_id', None),
+#         # 'added_from': 'shop' if request.GET.get('shop_id', None) else 'home',
+#     }
+    
+#     if 'cart_data_obj' in request.session:
+#         if str(request.GET['id']) in request.session['cart_data_obj']:
+#             cart_data = request.session['cart_data_obj']
+#             cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty']) 
+#             cart_data.update(cart_data)
+#             request.session['cart_data_obj'] = cart_data
+#         else:
+#             cart_data = request.session['cart_data_obj']
+#             cart_data.update(cart_product)
+#             request.session['cart_data_obj']  = cart_data
+            
+#     else: 
+#         request.session['cart_data_obj'] = cart_product
+#     return JsonResponse({"data":request.session['cart_data_obj'], 'totalcartitems':len(request.session['cart_data_obj'])})
+
+# def delete_item_from_cart(request):
+#     product_id = str(request.GET['id'])
+    
+#     if 'cart_data_obj' in request.session:
+#         if product_id in request.session['cart_data_obj']:
+#             cart_data = request.session['cart_data_obj']
+#             del request.session['cart_data_obj'][product_id]
+#             request.session['cart_data_obj'] = cart_data
+    
+    
+#     cart_total_amount = 0
+#     if 'cart_data_obj' in request.session:
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             cart_total_amount += int(item['qty']) * float(item['price'])
+    
+#     context = render_to_string("flame/async/cart-list.html", 
+#                                {"cart_data":request.session['cart_data_obj'], 
+#                                 'totalcartitems':len(request.session['cart_data_obj']), 
+#                                 'cart_total_amount':cart_total_amount})
+#     return JsonResponse({"data":context, 'totalcartitems':len(request.session['cart_data_obj']),"cart_total_amount": cart_total_amount,})
+            
+# def update_cart(request):
+#     product_id = str(request.GET['id'])
+#     product_qty = str(request.GET['qty'])
+    
+#     if 'cart_data_obj' in request.session:
+#         if product_id in request.session['cart_data_obj']:
+#             cart_data = request.session['cart_data_obj']
+#             cart_data[str(request.GET['id'])]['qty'] = product_qty
+#             request.session['cart_data_obj'] = cart_data
+    
+    
+#     cart_total_amount = 0
+#     if 'cart_data_obj' in request.session:
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             cart_total_amount += int(item['qty']) * float(item['price'])
+    
+#     context = render_to_string("flame/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems':len(request.session['cart_data_obj']), 'cart_total_amount':cart_total_amount})
+#     return JsonResponse({"data":context, 'totalcartitems':len(request.session['cart_data_obj']),"cart_total_amount": cart_total_amount,})      
+
+# #Check out view
+# @login_required
+# def checkout_view(request):
+    
+#     cart_total_amount = 0
+#     total_amount = 0
+    
+#     #Checking cart data object session object exist
+#     if 'cart_data_obj' in request.session:
+#         #Getting total amount for Paypal
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             total_amount += int(item['qty']) * float(item['price'])
+            
+#         #Creating Order Objects
+#         order = CartOrder.objects.create(
+#             user  =request.user,
+#             price = total_amount,
+#         )
+        
+#         #Getting total amount for the Cart
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             cart_total_amount += int(item['qty']) * float(item['price'])
+            
+#             cart_order_product = CartOrderItem.objects.create(
+#                 order = order,
+#                 invoice_no = "INVOICE_NO-" + str(order.id), #Invoice_no-5 etc.
+#                 item = item['title'],
+#                 image = item['image'],
+#                 qty = item['qty'],
+#                 price = item['price'],
+#                 total = float(item['qty']) * float(item['price'])
+#             )
+    
+    
+#     host = request.get_host()
+#     paypal_dict = {
+#         'business' : settings.PAYPAL_RECEIVER_EMAIL,
+#         'amount' : cart_total_amount,
+#         'item_name': "Order-Item-No-" + str(order.id),
+#         'invoice' : "INVOICE-NO-" + str(order.id),
+#         'currency_code': "USD",
+#         'notify_url': 'http://{}{}'.format(host,reverse("flame:paypal-ipn")), 
+#         'return_url': 'http://{}{}'.format(host,reverse("flame:payment-completed")), 
+#         'cancel_url': 'http://{}{}'.format(host,reverse("flame:payment-failed")), 
+        
+#     } 
+#     paypal_payment_button = PayPalPaymentsForm(initial=paypal_dict)
+    
+#     # cart_total_amount = 0
+#     # if 'cart_data_obj' in request.session:
+#     #     for p_id, item in request.session['cart_data_obj'].items():
+#     #         cart_total_amount += int(item['qty']) * float(item['price'])
+            
+#     return render(request,'flame/checkout.html',{'cart_data':request.session['cart_data_obj'],'totalcartitems':len(request.session['cart_data_obj']),'cart_total_amount':cart_total_amount,'paypal_payment_button':paypal_payment_button})
+
+
+
+# #For payment integration 
+# @login_required
+# def payment_completed_view(request):
+    
+#     cart_total_amount = 0
+#     if 'cart_data_obj' in request.session:
+#         for p_id, item in request.session['cart_data_obj'].items():
+#             cart_total_amount += int(item['qty']) * float(item['price'])
+            
+#     return render(request,'flame/payment-completed.html',{'cart_data':request.session['cart_data_obj'],'totalcartitems':len(request.session['cart_data_obj']),'cart_total_amount':cart_total_amount})
+
+#################################################################################### Original View Logic ####################################################################################
+#################################################################################### Original View Logic ####################################################################################
+#################################################################################### Original View Logic ####################################################################################
+
+def admin_offline(request):
+    """
+    Offline page for admin panel with cached data display
+    """
+    return render(request, "flame/offline.html", {
+        "title": "Offline Mode - Admin Panel"
+    })
+

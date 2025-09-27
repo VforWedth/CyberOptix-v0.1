@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Profiles - Admin Dashboard</title>
+{% load static %}
+{% load i18n %}
+<div class="page-title">
+  <div class="title">{% trans "User Management" %}</div>
+  <div class="action-buttons">
+    <button class="btn btn-outline">
+      <i class="fas fa-download"></i>
+      {% trans "Export Users" %}
+    </button>
+    <button class="btn btn-primary">
+      <i class="fas fa-plus"></i>
+      {% trans "Add User" %}
+    </button>
+  </div>
+</div>
   <style>
  
     .containera {
@@ -88,6 +97,34 @@
       color: #fff;
     }
 
+    .enable-btn {
+      background: #27ae60;
+      color: #fff;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-danger {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .badge-warning {
+      background: #f39c12;
+      color: white;
+    }
+
+    .badge-info {
+      background: #3498db;
+      color: white;
+    }
+
     @media(max-width: 768px) {
       table, thead, tbody, th, td, tr {
         display: block;
@@ -142,47 +179,46 @@
         </tr>
       </thead>
       <tbody>
+        {% for user in users %}
         <tr>
-          <td data-label="#">1</td>
-          <td data-label="Name">John Doe</td>
-          <td data-label="Email">john@example.com</td>
-          <td data-label="Role">Customer</td>
-          <td data-label="Status"><span class="status-active">Active</span></td>
-          <td data-label="Joined">2024-11-12</td>
+          <td data-label="#">{{ forloop.counter }}</td>
+          <td data-label="Name">{{ user.get_full_name|default:user.username }}</td>
+          <td data-label="Email">{{ user.email|default:"No email" }}</td>
+          <td data-label="Role">
+            {% if user.is_superuser %}
+              <span class="badge badge-danger">{% trans "Super Admin" %}</span>
+            {% elif user.is_staff %}
+              <span class="badge badge-warning">{% trans "Admin" %}</span>
+            {% else %}
+              <span class="badge badge-info">{% trans "Customer" %}</span>
+            {% endif %}
+          </td>
+          <td data-label="Status">
+            {% if user.is_active %}
+              <span class="status-active">{% trans "Active" %}</span>
+            {% else %}
+              <span class="status-disabled">{% trans "Disabled" %}</span>
+            {% endif %}
+          </td>
+          <td data-label="Joined">{{ user.date_joined|date:"M d, Y" }}</td>
           <td data-label="Actions" class="actions">
-            <button class="view-btn">View</button>
-            <button class="edit-btn">Edit</button>
-            <button class="disable-btn" onclick="disableUser(this)">Disable</button>
+            <button class="view-btn" data-user-id="{{ user.id }}">{% trans "View" %}</button>
+            <button class="edit-btn" data-user-id="{{ user.id }}">{% trans "Edit" %}</button>
+            {% if user.is_active %}
+              <button class="disable-btn" data-user-id="{{ user.id }}" onclick="toggleUserStatus(this, false)">{% trans "Disable" %}</button>
+            {% else %}
+              <button class="enable-btn" data-user-id="{{ user.id }}" onclick="toggleUserStatus(this, true)">{% trans "Enable" %}</button>
+            {% endif %}
           </td>
         </tr>
-
+        {% empty %}
         <tr>
-          <td data-label="#">2</td>
-          <td data-label="Name">Alice Smith</td>
-          <td data-label="Email">alice@example.com</td>
-          <td data-label="Role">Admin</td>
-          <td data-label="Status"><span class="status-active">Active</span></td>
-          <td data-label="Joined">2023-08-20</td>
-          <td data-label="Actions" class="actions">
-            <button class="view-btn">View</button>
-            <button class="edit-btn">Edit</button>
-            <button class="disable-btn" onclick="disableUser(this)">Disable</button>
+          <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
+            <i class="fas fa-users" style="font-size: 48px; color: #ddd; margin-bottom: 10px;"></i>
+            <p>{% trans "No users found" %}</p>
           </td>
         </tr>
-
-        <tr>
-          <td data-label="#">3</td>
-          <td data-label="Name">Michael Ray</td>
-          <td data-label="Email">michael@example.com</td>
-          <td data-label="Role">Customer</td>
-          <td data-label="Status"><span class="status-disabled">Disabled</span></td>
-          <td data-label="Joined">2023-01-05</td>
-          <td data-label="Actions" class="actions">
-            <button class="view-btn">View</button>
-            <button class="edit-btn">Edit</button>
-            <button class="disable-btn" disabled>Disabled</button>
-          </td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
@@ -193,21 +229,76 @@
       const rows = document.querySelectorAll("#userTable tbody tr");
 
       rows.forEach(row => {
-        const name = row.cells[1].innerText.toLowerCase();
-        const email = row.cells[2].innerText.toLowerCase();
-        row.style.display = (name.includes(input) || email.includes(input)) ? "" : "none";
+        if (row.cells.length > 1) { // Skip empty state row
+          const name = row.cells[1].innerText.toLowerCase();
+          const email = row.cells[2].innerText.toLowerCase();
+          row.style.display = (name.includes(input) || email.includes(input)) ? "" : "none";
+        }
       });
     }
 
-    function disableUser(button) {
+    function toggleUserStatus(button, enable) {
+      const userId = button.getAttribute('data-user-id');
       const row = button.closest("tr");
       const statusCell = row.querySelector("td:nth-child(5) span");
 
-      statusCell.innerText = "Disabled";
-      statusCell.className = "status-disabled";
-
-      button.innerText = "Disabled";
+      // Show loading state
       button.disabled = true;
+      button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Processing..." %}';
+
+      // Make AJAX request to toggle user status
+      fetch(`/admin/users/${userId}/toggle-status/`, {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': getCookie('csrftoken'),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 'enable': enable })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update UI based on new status
+          if (enable) {
+            statusCell.innerText = "{% trans 'Active' %}";
+            statusCell.className = "status-active";
+            button.className = "disable-btn";
+            button.innerHTML = "{% trans 'Disable' %}";
+            button.onclick = () => toggleUserStatus(button, false);
+          } else {
+            statusCell.innerText = "{% trans 'Disabled' %}";
+            statusCell.className = "status-disabled";
+            button.className = "enable-btn";
+            button.innerHTML = "{% trans 'Enable' %}";
+            button.onclick = () => toggleUserStatus(button, true);
+          }
+        } else {
+          alert(data.message || "{% trans 'Error updating user status' %}");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert("{% trans 'Error updating user status' %}");
+      })
+      .finally(() => {
+        button.disabled = false;
+      });
+    }
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
     }
   </script>
 

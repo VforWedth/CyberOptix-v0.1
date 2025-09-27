@@ -1,5 +1,5 @@
 from django import forms
-from flame.models import ProductReview, ReviewReport, EmailTemplate, SocialMediaPost, Shop, MyanmarState, MyanmarCity, MyanmarTownship, ShippingRate
+from flame.models import ProductReview, CartOrder,Product, ReviewReport, EmailTemplate, SocialMediaPost, Shop, MyanmarState, MyanmarCity, MyanmarTownship, ShippingRate
 from django.utils.translation import gettext_lazy as _
 
 class ProductReviewForm(forms.ModelForm):
@@ -15,7 +15,7 @@ class ProductReviewForm(forms.ModelForm):
         widgets = {
             'rating': forms.Select(choices=[(i, i) for i in range(1, 6)], attrs={'class': 'form-control'})
         }
-
+        
 class EnhancedProductReviewForm(forms.ModelForm):
     """Enhanced review form with detailed ratings"""
     title = forms.CharField(
@@ -394,3 +394,46 @@ class ShippingRateForm(forms.ModelForm):
             raise forms.ValidationError(_("USD rate must be greater than zero"))
 
         return cleaned_data
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = CartOrder
+        exclude = ['user']   # 👈 don’t ask user in form
+        fields = ['price', 'paid_status', 'product_status', 'shop', 'order_type']
+        widgets = {
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            # Add other widgets as needed
+        }
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        exclude = ['user', 'p_id', 'sku', 'date', 'updated', 'last_translated', 'translation_status']
+
+        fields = ['title', 'category', 'brand', 'shop', 'product_status', 'price', 'old_price',
+                 'stock_count', 'featured', 'digital', 'image', 'description', 'specification',
+                 'cpu', 'ram', 'display_currency_preference', 'in_stock', 'status',
+                 'min_stock_level', 'max_stock_level']
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'old_price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'stock_count': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'min_stock_level': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'max_stock_level': forms.NumberInput(attrs={'class': 'form-control', 'min': '1'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'brand': forms.Select(attrs={'class': 'form-control'}),
+            'shop': forms.Select(attrs={'class': 'form-control'}),
+            'product_status': forms.Select(attrs={'class': 'form-control'}),
+            'display_currency_preference': forms.Select(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'specification': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'cpu': forms.TextInput(attrs={'class': 'form-control'}),
+            'ram': forms.TextInput(attrs={'class': 'form-control'}),
+            'featured': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'digital': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'in_stock': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'status': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }

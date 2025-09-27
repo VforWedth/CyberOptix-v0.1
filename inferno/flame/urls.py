@@ -176,5 +176,28 @@ urlpatterns = [
     path("api/ping/", views.api_ping, name="api-ping"),
     path("api/force-offline/", views.force_offline_mode, name="force-offline"),
     path("api/force-online/", views.force_online_mode, name="force-online"),
+    
+    # Return Policy
+    path("Return-Policy/", views.ReturnPolicy, name= "ReturnPolicy"),
+    path('chatbot/', views.chat_page,name="chatbot"),
+
+    # path('chatbot-reply/', views.chatbot_reply,name="chatbotReply"),
+
+    path('admin-page-panel/',views.adminpage,name="adminpage"),
+    path('admin-dashboard/',views.admindashboard,name="admindashboard"),
+    path('admin-sales/',views.adminsales,name="adminsales"),
+    path('admin-sales/pdf/',views.sales_pdf,name="sales_pdf"),
+    path('admin-analytic/',views.adminanalytic,name="adminanalytic"),
+    path('admin-dash/',views.admindash,name="admindash"),
+    path('admin-noti/',views.adminnoti,name="adminnoti"),
+    path('admin-security/',views.adminsecurity,name="adminsecurity"),
+    path('admin-setting/',views.adminsetting,name="adminsetting"),
+    path('admin/offline/', views.admin_offline, name="admin-offline"),
+
+    path("orders/", views.orders, name="orders"),
+    path("recommendation_page/",views.recommendation_page,name="recommendation_page"),
+    path("adminproducts/", views.products, name="adminproducts"),
+    path('products/add/', views.add_product, name='add_product'),
+    path('orders/<int:order_id>/edit/', views.edit_order, name='edit_order'),
 
 ]

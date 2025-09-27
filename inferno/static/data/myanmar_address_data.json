@@ -1,0 +1,1843 @@
+{
+  "states": [
+    {
+      "id": 6,
+      "name": "Ayeyarwady",
+      "name_mm": "ဧရာဝတီတိုင်းဒေသကြီး",
+      "code": "AYE"
+    },
+    {
+      "id": 5,
+      "name": "Bago",
+      "name_mm": "ပဲခူးတိုင်းဒေသကြီး",
+      "code": "BGO"
+    },
+    {
+      "id": 15,
+      "name": "Chin",
+      "name_mm": "ချင်းပြည်နယ်",
+      "code": "CHN"
+    },
+    {
+      "id": 13,
+      "name": "Kachin",
+      "name_mm": "ကချင်ပြည်နယ်",
+      "code": "KCH"
+    },
+    {
+      "id": 14,
+      "name": "Kayah",
+      "name_mm": "ကယားပြည်နယ်",
+      "code": "KYH"
+    },
+    {
+      "id": 9,
+      "name": "Kayin",
+      "name_mm": "ကရင်ပြည်နယ်",
+      "code": "KYN"
+    },
+    {
+      "id": 7,
+      "name": "Magway",
+      "name_mm": "မကွေးတိုင်းဒေသကြီး",
+      "code": "MGW"
+    },
+    {
+      "id": 2,
+      "name": "Mandalay",
+      "name_mm": "မန္တလေးတိုင်းဒေသကြီး",
+      "code": "MDY"
+    },
+    {
+      "id": 10,
+      "name": "Mon",
+      "name_mm": "မွန်ပြည်နယ်",
+      "code": "MON"
+    },
+    {
+      "id": 3,
+      "name": "Naypyitaw",
+      "name_mm": "နေပြည်တော်",
+      "code": "NPT"
+    },
+    {
+      "id": 11,
+      "name": "Rakhine",
+      "name_mm": "ရခိုင်ပြည်နယ်",
+      "code": "RKH"
+    },
+    {
+      "id": 4,
+      "name": "Sagaing",
+      "name_mm": "စစ်ကိုင်းတိုင်းဒေသကြီး",
+      "code": "SAG"
+    },
+    {
+      "id": 12,
+      "name": "Shan",
+      "name_mm": "ရှမ်းပြည်နယ်",
+      "code": "SHN"
+    },
+    {
+      "id": 8,
+      "name": "Tanintharyi",
+      "name_mm": "တနင်္သာရီတိုင်းဒေသကြီး",
+      "code": "TNI"
+    },
+    {
+      "id": 1,
+      "name": "Yangon",
+      "name_mm": "ရန်ကုန်တိုင်းဒေသကြီး",
+      "code": "YGN"
+    }
+  ],
+  "cities": [
+    {
+      "id": 25,
+      "state_id": 6,
+      "name": "Hinthada",
+      "name_mm": "ဟင်္သာတမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 26,
+      "state_id": 6,
+      "name": "Maubin",
+      "name_mm": "မအူပင်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 24,
+      "state_id": 6,
+      "name": "Myaungmya",
+      "name_mm": "မြောင်းမြမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 23,
+      "state_id": 6,
+      "name": "Pathein",
+      "name_mm": "ပုသိမ်မြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 19,
+      "state_id": 5,
+      "name": "Bago",
+      "name_mm": "ပဲခူးမြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 21,
+      "state_id": 5,
+      "name": "Pyay",
+      "name_mm": "ပြည်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 20,
+      "state_id": 5,
+      "name": "Taungoo",
+      "name_mm": "တောင်ငူမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 22,
+      "state_id": 5,
+      "name": "Tharyarwady",
+      "name_mm": "သာယာဝတီမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 47,
+      "state_id": 5,
+      "name": "Thayarwady",
+      "name_mm": "သာယာဝတီ",
+      "is_major_city": false
+    },
+    {
+      "id": 53,
+      "state_id": 15,
+      "name": "Falam",
+      "name_mm": "ဖလမ်း",
+      "is_major_city": false
+    },
+    {
+      "id": 43,
+      "state_id": 15,
+      "name": "Hakha",
+      "name_mm": "ဟားခါး",
+      "is_major_city": true
+    },
+    {
+      "id": 52,
+      "state_id": 13,
+      "name": "Bhamo",
+      "name_mm": "ဗန်းမော်",
+      "is_major_city": false
+    },
+    {
+      "id": 42,
+      "state_id": 13,
+      "name": "Myitkyina",
+      "name_mm": "မြစ်ကြီးနား",
+      "is_major_city": true
+    },
+    {
+      "id": 39,
+      "state_id": 14,
+      "name": "Loikaw",
+      "name_mm": "လွိုင်ကော်",
+      "is_major_city": true
+    },
+    {
+      "id": 37,
+      "state_id": 9,
+      "name": "Hpa-An",
+      "name_mm": "ဘားအံ",
+      "is_major_city": true
+    },
+    {
+      "id": 38,
+      "state_id": 9,
+      "name": "Myawaddy",
+      "name_mm": "မြဝတီ",
+      "is_major_city": false
+    },
+    {
+      "id": 30,
+      "state_id": 7,
+      "name": "Chauk",
+      "name_mm": "ချောက်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 27,
+      "state_id": 7,
+      "name": "Magway",
+      "name_mm": "မကွေးမြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 29,
+      "state_id": 7,
+      "name": "Minbu",
+      "name_mm": "မင်းဘူးမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 28,
+      "state_id": 7,
+      "name": "Pakokku",
+      "name_mm": "ပခုက္ကူမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 8,
+      "state_id": 2,
+      "name": "Kyaukse",
+      "name_mm": "ကျောက်ဆည်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 6,
+      "state_id": 2,
+      "name": "Mandalay",
+      "name_mm": "မန္တလေးမြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 9,
+      "state_id": 2,
+      "name": "Meiktila",
+      "name_mm": "မိတ္တီလာမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 10,
+      "state_id": 2,
+      "name": "Myingyan",
+      "name_mm": "မြင်းခြံမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 46,
+      "state_id": 2,
+      "name": "Nyaung-U",
+      "name_mm": "ညောင်ဦး",
+      "is_major_city": false
+    },
+    {
+      "id": 7,
+      "state_id": 2,
+      "name": "Pyin Oo Lwin",
+      "name_mm": "ပျဉ်းဦးလွင်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 35,
+      "state_id": 10,
+      "name": "Mawlamyine",
+      "name_mm": "မော်လမြိုင်",
+      "is_major_city": true
+    },
+    {
+      "id": 36,
+      "state_id": 10,
+      "name": "Thaton",
+      "name_mm": "သထုံ",
+      "is_major_city": false
+    },
+    {
+      "id": 49,
+      "state_id": 10,
+      "name": "Ye",
+      "name_mm": "ရေး",
+      "is_major_city": false
+    },
+    {
+      "id": 12,
+      "state_id": 3,
+      "name": "Lewe",
+      "name_mm": "လယ်ဝေးမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 32,
+      "state_id": 3,
+      "name": "Naypyidaw",
+      "name_mm": "နေပြည်တော်",
+      "is_major_city": true
+    },
+    {
+      "id": 11,
+      "state_id": 3,
+      "name": "Naypyitaw",
+      "name_mm": "နေပြည်တော်မြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 13,
+      "state_id": 3,
+      "name": "Pyinmana",
+      "name_mm": "ပျဉ်းမနားမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 45,
+      "state_id": 11,
+      "name": "Kyaukpyu",
+      "name_mm": "ကျောက်ဖြူ",
+      "is_major_city": false
+    },
+    {
+      "id": 44,
+      "state_id": 11,
+      "name": "Sittwe",
+      "name_mm": "စစ်တွေ",
+      "is_major_city": true
+    },
+    {
+      "id": 54,
+      "state_id": 11,
+      "name": "Thandwe",
+      "name_mm": "သံတွဲ",
+      "is_major_city": false
+    },
+    {
+      "id": 17,
+      "state_id": 4,
+      "name": "Katha",
+      "name_mm": "ကသားမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 15,
+      "state_id": 4,
+      "name": "Monywa",
+      "name_mm": "မုံရွာမြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 14,
+      "state_id": 4,
+      "name": "Sagaing",
+      "name_mm": "စစ်ကိုင်းမြို့",
+      "is_major_city": true
+    },
+    {
+      "id": 16,
+      "state_id": 4,
+      "name": "Shwebo",
+      "name_mm": "ရွှေဘိုမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 18,
+      "state_id": 4,
+      "name": "Tamu",
+      "name_mm": "တမူးမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 50,
+      "state_id": 12,
+      "name": "Kengtung",
+      "name_mm": "ကျိုင်းတုံ",
+      "is_major_city": false
+    },
+    {
+      "id": 41,
+      "state_id": 12,
+      "name": "Lashio",
+      "name_mm": "လားရှိုး",
+      "is_major_city": true
+    },
+    {
+      "id": 51,
+      "state_id": 12,
+      "name": "Tachileik",
+      "name_mm": "တာချီလိတ်",
+      "is_major_city": false
+    },
+    {
+      "id": 40,
+      "state_id": 12,
+      "name": "Taunggyi",
+      "name_mm": "တောင်ကြီး",
+      "is_major_city": true
+    },
+    {
+      "id": 33,
+      "state_id": 8,
+      "name": "Dawei",
+      "name_mm": "ထားဝယ်",
+      "is_major_city": true
+    },
+    {
+      "id": 48,
+      "state_id": 8,
+      "name": "Kawthaung",
+      "name_mm": "ကော့သောင်း",
+      "is_major_city": false
+    },
+    {
+      "id": 34,
+      "state_id": 8,
+      "name": "Myeik",
+      "name_mm": "မြိတ်",
+      "is_major_city": true
+    },
+    {
+      "id": 5,
+      "state_id": 1,
+      "name": "Khayan",
+      "name_mm": "ခရမ်းမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 4,
+      "state_id": 1,
+      "name": "Kungyangon",
+      "name_mm": "ကွမ်းယန်ကုန်းမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 31,
+      "state_id": 1,
+      "name": "Kyauktan",
+      "name_mm": "ကျောက်တန်း",
+      "is_major_city": false
+    },
+    {
+      "id": 2,
+      "state_id": 1,
+      "name": "Thanlyin",
+      "name_mm": "သန်လျင်မြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 3,
+      "state_id": 1,
+      "name": "Twante",
+      "name_mm": "တွံ့တေးမြို့",
+      "is_major_city": false
+    },
+    {
+      "id": 1,
+      "state_id": 1,
+      "name": "Yangon",
+      "name_mm": "ရန်ကုန်မြို့",
+      "is_major_city": true
+    }
+  ],
+  "townships": [
+    {
+      "id": 40,
+      "city_id": 6,
+      "name": "Aungmyethazan",
+      "name_mm": ""
+    },
+    {
+      "id": 31,
+      "city_id": 6,
+      "name": "ChanAyeTharZan",
+      "name_mm": "ချမ်းအေးသာစံ"
+    },
+    {
+      "id": 41,
+      "city_id": 6,
+      "name": "Chanayethazan",
+      "name_mm": ""
+    },
+    {
+      "id": 30,
+      "city_id": 6,
+      "name": "ChanMyaTharZi",
+      "name_mm": "ချမ်းမြသာစည်"
+    },
+    {
+      "id": 42,
+      "city_id": 6,
+      "name": "Chanmyathazi",
+      "name_mm": ""
+    },
+    {
+      "id": 43,
+      "city_id": 6,
+      "name": "Mahaaungmye",
+      "name_mm": ""
+    },
+    {
+      "id": 44,
+      "city_id": 6,
+      "name": "Pyigyidagun",
+      "name_mm": ""
+    },
+    {
+      "id": 45,
+      "city_id": 32,
+      "name": "Dekkhina",
+      "name_mm": ""
+    },
+    {
+      "id": 46,
+      "city_id": 32,
+      "name": "Lewe",
+      "name_mm": ""
+    },
+    {
+      "id": 47,
+      "city_id": 32,
+      "name": "Ottara",
+      "name_mm": ""
+    },
+    {
+      "id": 48,
+      "city_id": 32,
+      "name": "Pobbathiri",
+      "name_mm": ""
+    },
+    {
+      "id": 49,
+      "city_id": 32,
+      "name": "Pyinmana",
+      "name_mm": ""
+    },
+    {
+      "id": 50,
+      "city_id": 32,
+      "name": "Tatkon",
+      "name_mm": ""
+    },
+    {
+      "id": 56,
+      "city_id": 32,
+      "name": "Zabuthiri",
+      "name_mm": ""
+    },
+    {
+      "id": 51,
+      "city_id": 32,
+      "name": "Zeyathiri",
+      "name_mm": ""
+    },
+    {
+      "id": 8,
+      "city_id": 1,
+      "name": "Ahlone",
+      "name_mm": ""
+    },
+    {
+      "id": 32,
+      "city_id": 1,
+      "name": "Bahan",
+      "name_mm": ""
+    },
+    {
+      "id": 1,
+      "city_id": 1,
+      "name": "Botataung",
+      "name_mm": ""
+    },
+    {
+      "id": 28,
+      "city_id": 1,
+      "name": "Cocokyun",
+      "name_mm": ""
+    },
+    {
+      "id": 2,
+      "city_id": 1,
+      "name": "Dagon",
+      "name_mm": "ဒဂုံ"
+    },
+    {
+      "id": 26,
+      "city_id": 1,
+      "name": "Dala",
+      "name_mm": ""
+    },
+    {
+      "id": 33,
+      "city_id": 1,
+      "name": "Dawbon",
+      "name_mm": ""
+    },
+    {
+      "id": 11,
+      "city_id": 1,
+      "name": "Hlaing",
+      "name_mm": "လှိုင်"
+    },
+    {
+      "id": 52,
+      "city_id": 1,
+      "name": "Hlaingthaya",
+      "name_mm": ""
+    },
+    {
+      "id": 18,
+      "city_id": 1,
+      "name": "Hlegu",
+      "name_mm": ""
+    },
+    {
+      "id": 17,
+      "city_id": 1,
+      "name": "Hmawbi",
+      "name_mm": "မှော်ဘီ"
+    },
+    {
+      "id": 20,
+      "city_id": 1,
+      "name": "Htantabin",
+      "name_mm": ""
+    },
+    {
+      "id": 14,
+      "city_id": 1,
+      "name": "Insein",
+      "name_mm": ""
+    },
+    {
+      "id": 12,
+      "city_id": 1,
+      "name": "Kamayut",
+      "name_mm": ""
+    },
+    {
+      "id": 24,
+      "city_id": 1,
+      "name": "Kawhmu",
+      "name_mm": ""
+    },
+    {
+      "id": 29,
+      "city_id": 1,
+      "name": "Kayan",
+      "name_mm": ""
+    },
+    {
+      "id": 25,
+      "city_id": 1,
+      "name": "Kungyangon",
+      "name_mm": ""
+    },
+    {
+      "id": 3,
+      "city_id": 1,
+      "name": "Kyauktada",
+      "name_mm": ""
+    },
+    {
+      "id": 22,
+      "city_id": 1,
+      "name": "Kyauktan",
+      "name_mm": ""
+    },
+    {
+      "id": 9,
+      "city_id": 1,
+      "name": "Kyeemyindaing",
+      "name_mm": ""
+    },
+    {
+      "id": 7,
+      "city_id": 1,
+      "name": "Lanmadaw",
+      "name_mm": ""
+    },
+    {
+      "id": 6,
+      "city_id": 1,
+      "name": "Latha",
+      "name_mm": ""
+    },
+    {
+      "id": 34,
+      "city_id": 1,
+      "name": "Mayangon",
+      "name_mm": ""
+    },
+    {
+      "id": 13,
+      "city_id": 1,
+      "name": "Mayangone",
+      "name_mm": ""
+    },
+    {
+      "id": 16,
+      "city_id": 1,
+      "name": "Mingaladon",
+      "name_mm": ""
+    },
+    {
+      "id": 53,
+      "city_id": 1,
+      "name": "Mingalar Taungnyunt",
+      "name_mm": ""
+    },
+    {
+      "id": 35,
+      "city_id": 1,
+      "name": "North Okkalapa",
+      "name_mm": ""
+    },
+    {
+      "id": 4,
+      "city_id": 1,
+      "name": "Pabedan",
+      "name_mm": ""
+    },
+    {
+      "id": 54,
+      "city_id": 1,
+      "name": "Pazundaung",
+      "name_mm": ""
+    },
+    {
+      "id": 10,
+      "city_id": 1,
+      "name": "Sanchaung",
+      "name_mm": ""
+    },
+    {
+      "id": 5,
+      "city_id": 1,
+      "name": "Seikkan",
+      "name_mm": ""
+    },
+    {
+      "id": 27,
+      "city_id": 1,
+      "name": "Seikkyi Kanaungto",
+      "name_mm": ""
+    },
+    {
+      "id": 15,
+      "city_id": 1,
+      "name": "Shwepyitha",
+      "name_mm": ""
+    },
+    {
+      "id": 36,
+      "city_id": 1,
+      "name": "South Okkalapa",
+      "name_mm": ""
+    },
+    {
+      "id": 19,
+      "city_id": 1,
+      "name": "Taikkyi",
+      "name_mm": ""
+    },
+    {
+      "id": 37,
+      "city_id": 1,
+      "name": "Tamwe",
+      "name_mm": ""
+    },
+    {
+      "id": 38,
+      "city_id": 1,
+      "name": "Thaketa",
+      "name_mm": ""
+    },
+    {
+      "id": 21,
+      "city_id": 1,
+      "name": "Thanlyin",
+      "name_mm": ""
+    },
+    {
+      "id": 55,
+      "city_id": 1,
+      "name": "Thingangyun",
+      "name_mm": ""
+    },
+    {
+      "id": 23,
+      "city_id": 1,
+      "name": "Twante",
+      "name_mm": ""
+    },
+    {
+      "id": 39,
+      "city_id": 1,
+      "name": "Yankin",
+      "name_mm": ""
+    }
+  ],
+  "hierarchy": {
+    "6": {
+      "state": {
+        "id": 6,
+        "name": "Ayeyarwady",
+        "name_mm": "ဧရာဝတီတိုင်းဒေသကြီး",
+        "code": "AYE"
+      },
+      "cities": {
+        "25": {
+          "city": {
+            "id": 25,
+            "state_id": 6,
+            "name": "Hinthada",
+            "name_mm": "ဟင်္သာတမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "26": {
+          "city": {
+            "id": 26,
+            "state_id": 6,
+            "name": "Maubin",
+            "name_mm": "မအူပင်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "24": {
+          "city": {
+            "id": 24,
+            "state_id": 6,
+            "name": "Myaungmya",
+            "name_mm": "မြောင်းမြမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "23": {
+          "city": {
+            "id": 23,
+            "state_id": 6,
+            "name": "Pathein",
+            "name_mm": "ပုသိမ်မြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "5": {
+      "state": {
+        "id": 5,
+        "name": "Bago",
+        "name_mm": "ပဲခူးတိုင်းဒေသကြီး",
+        "code": "BGO"
+      },
+      "cities": {
+        "19": {
+          "city": {
+            "id": 19,
+            "state_id": 5,
+            "name": "Bago",
+            "name_mm": "ပဲခူးမြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "21": {
+          "city": {
+            "id": 21,
+            "state_id": 5,
+            "name": "Pyay",
+            "name_mm": "ပြည်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "20": {
+          "city": {
+            "id": 20,
+            "state_id": 5,
+            "name": "Taungoo",
+            "name_mm": "တောင်ငူမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "22": {
+          "city": {
+            "id": 22,
+            "state_id": 5,
+            "name": "Tharyarwady",
+            "name_mm": "သာယာဝတီမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "47": {
+          "city": {
+            "id": 47,
+            "state_id": 5,
+            "name": "Thayarwady",
+            "name_mm": "သာယာဝတီ",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "15": {
+      "state": {
+        "id": 15,
+        "name": "Chin",
+        "name_mm": "ချင်းပြည်နယ်",
+        "code": "CHN"
+      },
+      "cities": {
+        "53": {
+          "city": {
+            "id": 53,
+            "state_id": 15,
+            "name": "Falam",
+            "name_mm": "ဖလမ်း",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "43": {
+          "city": {
+            "id": 43,
+            "state_id": 15,
+            "name": "Hakha",
+            "name_mm": "ဟားခါး",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "13": {
+      "state": {
+        "id": 13,
+        "name": "Kachin",
+        "name_mm": "ကချင်ပြည်နယ်",
+        "code": "KCH"
+      },
+      "cities": {
+        "52": {
+          "city": {
+            "id": 52,
+            "state_id": 13,
+            "name": "Bhamo",
+            "name_mm": "ဗန်းမော်",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "42": {
+          "city": {
+            "id": 42,
+            "state_id": 13,
+            "name": "Myitkyina",
+            "name_mm": "မြစ်ကြီးနား",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "14": {
+      "state": {
+        "id": 14,
+        "name": "Kayah",
+        "name_mm": "ကယားပြည်နယ်",
+        "code": "KYH"
+      },
+      "cities": {
+        "39": {
+          "city": {
+            "id": 39,
+            "state_id": 14,
+            "name": "Loikaw",
+            "name_mm": "လွိုင်ကော်",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "9": {
+      "state": {
+        "id": 9,
+        "name": "Kayin",
+        "name_mm": "ကရင်ပြည်နယ်",
+        "code": "KYN"
+      },
+      "cities": {
+        "37": {
+          "city": {
+            "id": 37,
+            "state_id": 9,
+            "name": "Hpa-An",
+            "name_mm": "ဘားအံ",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "38": {
+          "city": {
+            "id": 38,
+            "state_id": 9,
+            "name": "Myawaddy",
+            "name_mm": "မြဝတီ",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "7": {
+      "state": {
+        "id": 7,
+        "name": "Magway",
+        "name_mm": "မကွေးတိုင်းဒေသကြီး",
+        "code": "MGW"
+      },
+      "cities": {
+        "30": {
+          "city": {
+            "id": 30,
+            "state_id": 7,
+            "name": "Chauk",
+            "name_mm": "ချောက်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "27": {
+          "city": {
+            "id": 27,
+            "state_id": 7,
+            "name": "Magway",
+            "name_mm": "မကွေးမြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "29": {
+          "city": {
+            "id": 29,
+            "state_id": 7,
+            "name": "Minbu",
+            "name_mm": "မင်းဘူးမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "28": {
+          "city": {
+            "id": 28,
+            "state_id": 7,
+            "name": "Pakokku",
+            "name_mm": "ပခုက္ကူမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "2": {
+      "state": {
+        "id": 2,
+        "name": "Mandalay",
+        "name_mm": "မန္တလေးတိုင်းဒေသကြီး",
+        "code": "MDY"
+      },
+      "cities": {
+        "8": {
+          "city": {
+            "id": 8,
+            "state_id": 2,
+            "name": "Kyaukse",
+            "name_mm": "ကျောက်ဆည်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "6": {
+          "city": {
+            "id": 6,
+            "state_id": 2,
+            "name": "Mandalay",
+            "name_mm": "မန္တလေးမြို့",
+            "is_major_city": true
+          },
+          "townships": [
+            {
+              "id": 40,
+              "city_id": 6,
+              "name": "Aungmyethazan",
+              "name_mm": ""
+            },
+            {
+              "id": 31,
+              "city_id": 6,
+              "name": "ChanAyeTharZan",
+              "name_mm": "ချမ်းအေးသာစံ"
+            },
+            {
+              "id": 41,
+              "city_id": 6,
+              "name": "Chanayethazan",
+              "name_mm": ""
+            },
+            {
+              "id": 30,
+              "city_id": 6,
+              "name": "ChanMyaTharZi",
+              "name_mm": "ချမ်းမြသာစည်"
+            },
+            {
+              "id": 42,
+              "city_id": 6,
+              "name": "Chanmyathazi",
+              "name_mm": ""
+            },
+            {
+              "id": 43,
+              "city_id": 6,
+              "name": "Mahaaungmye",
+              "name_mm": ""
+            },
+            {
+              "id": 44,
+              "city_id": 6,
+              "name": "Pyigyidagun",
+              "name_mm": ""
+            }
+          ]
+        },
+        "9": {
+          "city": {
+            "id": 9,
+            "state_id": 2,
+            "name": "Meiktila",
+            "name_mm": "မိတ္တီလာမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "10": {
+          "city": {
+            "id": 10,
+            "state_id": 2,
+            "name": "Myingyan",
+            "name_mm": "မြင်းခြံမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "46": {
+          "city": {
+            "id": 46,
+            "state_id": 2,
+            "name": "Nyaung-U",
+            "name_mm": "ညောင်ဦး",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "7": {
+          "city": {
+            "id": 7,
+            "state_id": 2,
+            "name": "Pyin Oo Lwin",
+            "name_mm": "ပျဉ်းဦးလွင်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "10": {
+      "state": {
+        "id": 10,
+        "name": "Mon",
+        "name_mm": "မွန်ပြည်နယ်",
+        "code": "MON"
+      },
+      "cities": {
+        "35": {
+          "city": {
+            "id": 35,
+            "state_id": 10,
+            "name": "Mawlamyine",
+            "name_mm": "မော်လမြိုင်",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "36": {
+          "city": {
+            "id": 36,
+            "state_id": 10,
+            "name": "Thaton",
+            "name_mm": "သထုံ",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "49": {
+          "city": {
+            "id": 49,
+            "state_id": 10,
+            "name": "Ye",
+            "name_mm": "ရေး",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "3": {
+      "state": {
+        "id": 3,
+        "name": "Naypyitaw",
+        "name_mm": "နေပြည်တော်",
+        "code": "NPT"
+      },
+      "cities": {
+        "12": {
+          "city": {
+            "id": 12,
+            "state_id": 3,
+            "name": "Lewe",
+            "name_mm": "လယ်ဝေးမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "32": {
+          "city": {
+            "id": 32,
+            "state_id": 3,
+            "name": "Naypyidaw",
+            "name_mm": "နေပြည်တော်",
+            "is_major_city": true
+          },
+          "townships": [
+            {
+              "id": 45,
+              "city_id": 32,
+              "name": "Dekkhina",
+              "name_mm": ""
+            },
+            {
+              "id": 46,
+              "city_id": 32,
+              "name": "Lewe",
+              "name_mm": ""
+            },
+            {
+              "id": 47,
+              "city_id": 32,
+              "name": "Ottara",
+              "name_mm": ""
+            },
+            {
+              "id": 48,
+              "city_id": 32,
+              "name": "Pobbathiri",
+              "name_mm": ""
+            },
+            {
+              "id": 49,
+              "city_id": 32,
+              "name": "Pyinmana",
+              "name_mm": ""
+            },
+            {
+              "id": 50,
+              "city_id": 32,
+              "name": "Tatkon",
+              "name_mm": ""
+            },
+            {
+              "id": 56,
+              "city_id": 32,
+              "name": "Zabuthiri",
+              "name_mm": ""
+            },
+            {
+              "id": 51,
+              "city_id": 32,
+              "name": "Zeyathiri",
+              "name_mm": ""
+            }
+          ]
+        },
+        "11": {
+          "city": {
+            "id": 11,
+            "state_id": 3,
+            "name": "Naypyitaw",
+            "name_mm": "နေပြည်တော်မြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "13": {
+          "city": {
+            "id": 13,
+            "state_id": 3,
+            "name": "Pyinmana",
+            "name_mm": "ပျဉ်းမနားမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "11": {
+      "state": {
+        "id": 11,
+        "name": "Rakhine",
+        "name_mm": "ရခိုင်ပြည်နယ်",
+        "code": "RKH"
+      },
+      "cities": {
+        "45": {
+          "city": {
+            "id": 45,
+            "state_id": 11,
+            "name": "Kyaukpyu",
+            "name_mm": "ကျောက်ဖြူ",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "44": {
+          "city": {
+            "id": 44,
+            "state_id": 11,
+            "name": "Sittwe",
+            "name_mm": "စစ်တွေ",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "54": {
+          "city": {
+            "id": 54,
+            "state_id": 11,
+            "name": "Thandwe",
+            "name_mm": "သံတွဲ",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "4": {
+      "state": {
+        "id": 4,
+        "name": "Sagaing",
+        "name_mm": "စစ်ကိုင်းတိုင်းဒေသကြီး",
+        "code": "SAG"
+      },
+      "cities": {
+        "17": {
+          "city": {
+            "id": 17,
+            "state_id": 4,
+            "name": "Katha",
+            "name_mm": "ကသားမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "15": {
+          "city": {
+            "id": 15,
+            "state_id": 4,
+            "name": "Monywa",
+            "name_mm": "မုံရွာမြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "14": {
+          "city": {
+            "id": 14,
+            "state_id": 4,
+            "name": "Sagaing",
+            "name_mm": "စစ်ကိုင်းမြို့",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "16": {
+          "city": {
+            "id": 16,
+            "state_id": 4,
+            "name": "Shwebo",
+            "name_mm": "ရွှေဘိုမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "18": {
+          "city": {
+            "id": 18,
+            "state_id": 4,
+            "name": "Tamu",
+            "name_mm": "တမူးမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        }
+      }
+    },
+    "12": {
+      "state": {
+        "id": 12,
+        "name": "Shan",
+        "name_mm": "ရှမ်းပြည်နယ်",
+        "code": "SHN"
+      },
+      "cities": {
+        "50": {
+          "city": {
+            "id": 50,
+            "state_id": 12,
+            "name": "Kengtung",
+            "name_mm": "ကျိုင်းတုံ",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "41": {
+          "city": {
+            "id": 41,
+            "state_id": 12,
+            "name": "Lashio",
+            "name_mm": "လားရှိုး",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "51": {
+          "city": {
+            "id": 51,
+            "state_id": 12,
+            "name": "Tachileik",
+            "name_mm": "တာချီလိတ်",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "40": {
+          "city": {
+            "id": 40,
+            "state_id": 12,
+            "name": "Taunggyi",
+            "name_mm": "တောင်ကြီး",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "8": {
+      "state": {
+        "id": 8,
+        "name": "Tanintharyi",
+        "name_mm": "တနင်္သာရီတိုင်းဒေသကြီး",
+        "code": "TNI"
+      },
+      "cities": {
+        "33": {
+          "city": {
+            "id": 33,
+            "state_id": 8,
+            "name": "Dawei",
+            "name_mm": "ထားဝယ်",
+            "is_major_city": true
+          },
+          "townships": []
+        },
+        "48": {
+          "city": {
+            "id": 48,
+            "state_id": 8,
+            "name": "Kawthaung",
+            "name_mm": "ကော့သောင်း",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "34": {
+          "city": {
+            "id": 34,
+            "state_id": 8,
+            "name": "Myeik",
+            "name_mm": "မြိတ်",
+            "is_major_city": true
+          },
+          "townships": []
+        }
+      }
+    },
+    "1": {
+      "state": {
+        "id": 1,
+        "name": "Yangon",
+        "name_mm": "ရန်ကုန်တိုင်းဒေသကြီး",
+        "code": "YGN"
+      },
+      "cities": {
+        "5": {
+          "city": {
+            "id": 5,
+            "state_id": 1,
+            "name": "Khayan",
+            "name_mm": "ခရမ်းမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "4": {
+          "city": {
+            "id": 4,
+            "state_id": 1,
+            "name": "Kungyangon",
+            "name_mm": "ကွမ်းယန်ကုန်းမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "31": {
+          "city": {
+            "id": 31,
+            "state_id": 1,
+            "name": "Kyauktan",
+            "name_mm": "ကျောက်တန်း",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "2": {
+          "city": {
+            "id": 2,
+            "state_id": 1,
+            "name": "Thanlyin",
+            "name_mm": "သန်လျင်မြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "3": {
+          "city": {
+            "id": 3,
+            "state_id": 1,
+            "name": "Twante",
+            "name_mm": "တွံ့တေးမြို့",
+            "is_major_city": false
+          },
+          "townships": []
+        },
+        "1": {
+          "city": {
+            "id": 1,
+            "state_id": 1,
+            "name": "Yangon",
+            "name_mm": "ရန်ကုန်မြို့",
+            "is_major_city": true
+          },
+          "townships": [
+            {
+              "id": 8,
+              "city_id": 1,
+              "name": "Ahlone",
+              "name_mm": ""
+            },
+            {
+              "id": 32,
+              "city_id": 1,
+              "name": "Bahan",
+              "name_mm": ""
+            },
+            {
+              "id": 1,
+              "city_id": 1,
+              "name": "Botataung",
+              "name_mm": ""
+            },
+            {
+              "id": 28,
+              "city_id": 1,
+              "name": "Cocokyun",
+              "name_mm": ""
+            },
+            {
+              "id": 2,
+              "city_id": 1,
+              "name": "Dagon",
+              "name_mm": "ဒဂုံ"
+            },
+            {
+              "id": 26,
+              "city_id": 1,
+              "name": "Dala",
+              "name_mm": ""
+            },
+            {
+              "id": 33,
+              "city_id": 1,
+              "name": "Dawbon",
+              "name_mm": ""
+            },
+            {
+              "id": 11,
+              "city_id": 1,
+              "name": "Hlaing",
+              "name_mm": "လှိုင်"
+            },
+            {
+              "id": 52,
+              "city_id": 1,
+              "name": "Hlaingthaya",
+              "name_mm": ""
+            },
+            {
+              "id": 18,
+              "city_id": 1,
+              "name": "Hlegu",
+              "name_mm": ""
+            },
+            {
+              "id": 17,
+              "city_id": 1,
+              "name": "Hmawbi",
+              "name_mm": "မှော်ဘီ"
+            },
+            {
+              "id": 20,
+              "city_id": 1,
+              "name": "Htantabin",
+              "name_mm": ""
+            },
+            {
+              "id": 14,
+              "city_id": 1,
+              "name": "Insein",
+              "name_mm": ""
+            },
+            {
+              "id": 12,
+              "city_id": 1,
+              "name": "Kamayut",
+              "name_mm": ""
+            },
+            {
+              "id": 24,
+              "city_id": 1,
+              "name": "Kawhmu",
+              "name_mm": ""
+            },
+            {
+              "id": 29,
+              "city_id": 1,
+              "name": "Kayan",
+              "name_mm": ""
+            },
+            {
+              "id": 25,
+              "city_id": 1,
+              "name": "Kungyangon",
+              "name_mm": ""
+            },
+            {
+              "id": 3,
+              "city_id": 1,
+              "name": "Kyauktada",
+              "name_mm": ""
+            },
+            {
+              "id": 22,
+              "city_id": 1,
+              "name": "Kyauktan",
+              "name_mm": ""
+            },
+            {
+              "id": 9,
+              "city_id": 1,
+              "name": "Kyeemyindaing",
+              "name_mm": ""
+            },
+            {
+              "id": 7,
+              "city_id": 1,
+              "name": "Lanmadaw",
+              "name_mm": ""
+            },
+            {
+              "id": 6,
+              "city_id": 1,
+              "name": "Latha",
+              "name_mm": ""
+            },
+            {
+              "id": 34,
+              "city_id": 1,
+              "name": "Mayangon",
+              "name_mm": ""
+            },
+            {
+              "id": 13,
+              "city_id": 1,
+              "name": "Mayangone",
+              "name_mm": ""
+            },
+            {
+              "id": 16,
+              "city_id": 1,
+              "name": "Mingaladon",
+              "name_mm": ""
+            },
+            {
+              "id": 53,
+              "city_id": 1,
+              "name": "Mingalar Taungnyunt",
+              "name_mm": ""
+            },
+            {
+              "id": 35,
+              "city_id": 1,
+              "name": "North Okkalapa",
+              "name_mm": ""
+            },
+            {
+              "id": 4,
+              "city_id": 1,
+              "name": "Pabedan",
+              "name_mm": ""
+            },
+            {
+              "id": 54,
+              "city_id": 1,
+              "name": "Pazundaung",
+              "name_mm": ""
+            },
+            {
+              "id": 10,
+              "city_id": 1,
+              "name": "Sanchaung",
+              "name_mm": ""
+            },
+            {
+              "id": 5,
+              "city_id": 1,
+              "name": "Seikkan",
+              "name_mm": ""
+            },
+            {
+              "id": 27,
+              "city_id": 1,
+              "name": "Seikkyi Kanaungto",
+              "name_mm": ""
+            },
+            {
+              "id": 15,
+              "city_id": 1,
+              "name": "Shwepyitha",
+              "name_mm": ""
+            },
+            {
+              "id": 36,
+              "city_id": 1,
+              "name": "South Okkalapa",
+              "name_mm": ""
+            },
+            {
+              "id": 19,
+              "city_id": 1,
+              "name": "Taikkyi",
+              "name_mm": ""
+            },
+            {
+              "id": 37,
+              "city_id": 1,
+              "name": "Tamwe",
+              "name_mm": ""
+            },
+            {
+              "id": 38,
+              "city_id": 1,
+              "name": "Thaketa",
+              "name_mm": ""
+            },
+            {
+              "id": 21,
+              "city_id": 1,
+              "name": "Thanlyin",
+              "name_mm": ""
+            },
+            {
+              "id": 55,
+              "city_id": 1,
+              "name": "Thingangyun",
+              "name_mm": ""
+            },
+            {
+              "id": 23,
+              "city_id": 1,
+              "name": "Twante",
+              "name_mm": ""
+            },
+            {
+              "id": 39,
+              "city_id": 1,
+              "name": "Yankin",
+              "name_mm": ""
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -402,37 +402,270 @@
             addressData: {},
             offlineAddressData: null, // Will be loaded from JSON
 
-            init: function() {
-                this.loadOfflineAddressData();
+            init: async function() {
+                // Load address data immediately for offline compatibility
+                await this.loadOfflineAddressData();
+
+                // Restore cached form state before binding events
+                await this.restoreCachedFormState();
+
                 this.bindEvents();
                 this.loadActiveAddress();
                 this.bindFormSubmission();
             },
 
-            // Load offline address data
+            // Load offline address data using OfflineManager
             async loadOfflineAddressData() {
                 try {
-                    const response = await fetch('{% static "js/myanmar-addresses.min.json" %}');
-                    this.offlineAddressData = await response.json();
-                    console.log(`Loaded offline address data: ${this.offlineAddressData.total_states} states, ${this.offlineAddressData.total_cities} cities, ${this.offlineAddressData.total_townships} townships`);
+                    if (window.offlineManager) {
+                        this.offlineAddressData = await window.offlineManager.getCachedAddressData();
+                        if (!this.offlineAddressData) {
+                            console.log('No cached address data, loading from server via OfflineManager...');
+                            this.offlineAddressData = await window.offlineManager.loadAddressData();
+                        }
 
-                    // Force enable dropdowns if they're disabled and we have data
-                    this.enableAddressDropdowns();
+                        if (this.offlineAddressData) {
+                            console.log(`Loaded address data via OfflineManager: ${this.offlineAddressData.states?.length || 0} states, ${this.offlineAddressData.cities?.length || 0} cities, ${this.offlineAddressData.townships?.length || 0} townships`);
+                            this.enableAddressDropdowns();
+                        } else {
+                            console.error('Failed to load address data via OfflineManager');
+                        }
+                    } else {
+                        console.error('OfflineManager not available, falling back to direct fetch');
+                        const response = await fetch('/static/data/myanmar_address_data.json');
+                        this.offlineAddressData = await response.json();
+                        console.log(`Loaded offline address data directly: ${this.offlineAddressData.states?.length || 0} states, ${this.offlineAddressData.cities?.length || 0} cities, ${this.offlineAddressData.townships?.length || 0} townships`);
+                        this.enableAddressDropdowns();
+                    }
                 } catch (error) {
                     console.error('Failed to load offline address data:', error);
                 }
             },
 
-            // Simple function to ensure dropdowns are ready (simplified)
-            enableAddressDropdowns: function() {
+            // Enhanced function to ensure dropdowns are ready with fallback mechanisms
+            async enableAddressDropdowns() {
                 console.log('Address system initialized - dropdowns ready for dynamic loading');
 
                 const stateSelect = document.getElementById('state-select');
+
+                // Check if states are available, if not, load from offline data
+                if (stateSelect && stateSelect.children.length <= 1) {
+                    console.log('No states found in dropdown, loading from offline data...');
+                    await this.loadStatesFromOfflineData();
+                }
 
                 // If a state is already selected, load cities immediately
                 if (stateSelect && stateSelect.value) {
                     console.log('Auto-loading cities for pre-selected state:', stateSelect.value);
                     this.loadCities(stateSelect.value);
+                }
+            },
+
+            // Load states from offline data if server-rendered states are not available
+            async loadStatesFromOfflineData() {
+                try {
+                    let states = [];
+
+                    if (window.offlineManager) {
+                        states = await window.offlineManager.getStates();
+                        console.log('OfflineManager returned', states.length, 'states');
+                    } else if (this.offlineAddressData) {
+                        states = this.offlineAddressData.states || [];
+                        console.log('Using local offline data:', states.length, 'states');
+                    }
+
+                    if (states && states.length > 0) {
+                        this.populateStateDropdown(states);
+                        console.log('States loaded from offline data successfully');
+                    } else {
+                        console.error('No states available from offline data');
+                    }
+                } catch (error) {
+                    console.error('Error loading states from offline data:', error);
+                }
+            },
+
+            // Helper function to populate state dropdown
+            populateStateDropdown: function(states) {
+                const stateSelect = document.getElementById('state-select');
+                const currentLang = document.documentElement.lang || 'en';
+
+                // Clear existing options except the default one
+                stateSelect.innerHTML = '<option value="">{% trans "Select State/Region" %}</option>';
+
+                states.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.id;
+
+                    // Use Myanmar name if available and current language is Myanmar
+                    if (currentLang === 'my' && state.name_mm) {
+                        option.textContent = state.name_mm;
+                    } else {
+                        option.textContent = state.name;
+                    }
+
+                    stateSelect.appendChild(option);
+                });
+
+                stateSelect.disabled = false;
+            },
+
+            // Cache current form state to localStorage
+            cacheFormState: function() {
+                const formState = {
+                    state: document.getElementById('state-select').value,
+                    city: document.getElementById('city-select').value,
+                    township: document.getElementById('township-select').value,
+                    streetAddress: document.getElementById('street-address').value,
+                    landmark: document.getElementById('landmark').value,
+                    mobile: document.querySelector('[data-field="mobile"]').value,
+                    timestamp: Date.now()
+                };
+
+                localStorage.setItem('checkout_form_state', JSON.stringify(formState));
+                console.log('Form state cached:', formState);
+            },
+
+            // Restore cached form state from localStorage
+            async restoreCachedFormState() {
+                try {
+                    const cachedState = localStorage.getItem('checkout_form_state');
+                    if (!cachedState) {
+                        console.log('No cached form state found');
+                        return;
+                    }
+
+                    const formState = JSON.parse(cachedState);
+                    console.log('Restoring cached form state:', formState);
+
+                    // Check if cache is not too old (24 hours)
+                    const maxAge = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+                    if (Date.now() - formState.timestamp > maxAge) {
+                        console.log('Cached form state is too old, clearing it');
+                        localStorage.removeItem('checkout_form_state');
+                        return;
+                    }
+
+                    // Restore text fields
+                    if (formState.streetAddress) {
+                        const streetInput = document.getElementById('street-address');
+                        if (streetInput) streetInput.value = formState.streetAddress;
+                    }
+
+                    if (formState.landmark) {
+                        const landmarkInput = document.getElementById('landmark');
+                        if (landmarkInput) landmarkInput.value = formState.landmark;
+                    }
+
+                    if (formState.mobile) {
+                        const mobileInput = document.querySelector('[data-field="mobile"]');
+                        if (mobileInput) mobileInput.value = formState.mobile;
+                    }
+
+                    // Restore state selection
+                    if (formState.state) {
+                        const stateSelect = document.getElementById('state-select');
+
+                        // If state is not available, try to load states from offline data
+                        if (stateSelect.children.length <= 1) {
+                            await this.loadStatesFromOfflineData();
+                        }
+
+                        // Set state value
+                        stateSelect.value = formState.state;
+
+                        // Load cities for the selected state
+                        if (formState.state) {
+                            console.log('Loading cities for cached state:', formState.state);
+                            await this.loadCitiesAndRestoreSelection(formState.state, formState.city, formState.township);
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Error restoring cached form state:', error);
+                    localStorage.removeItem('checkout_form_state'); // Clear invalid cache
+                }
+            },
+
+            // Load cities and restore city/township selection
+            async loadCitiesAndRestoreSelection(stateId, cityId = null, townshipId = null) {
+                try {
+                    console.log('Loading cities for state:', stateId, 'with city:', cityId, 'township:', townshipId);
+
+                    // Try API first
+                    let cities = [];
+                    try {
+                        const response = await fetch(`/api/cities-by-state/?state_id=${stateId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            cities = data.cities || [];
+                            console.log('API success: Loaded', cities.length, 'cities');
+                        }
+                    } catch (error) {
+                        console.warn('API failed, using offline data:', error.message);
+                    }
+
+                    // Fallback to offline data
+                    if (cities.length === 0) {
+                        if (window.offlineManager) {
+                            cities = await window.offlineManager.getCitiesByState(stateId);
+                        } else if (this.offlineAddressData) {
+                            cities = this.offlineAddressData.cities.filter(city => city.state_id == stateId);
+                        }
+                        console.log('Using offline data:', cities.length, 'cities');
+                    }
+
+                    // Populate cities dropdown
+                    this.populateCityDropdown(cities, cityId);
+
+                    // If city was selected, load townships
+                    if (cityId && cities.some(c => c.id == cityId)) {
+                        console.log('Loading townships for cached city:', cityId);
+                        await this.loadTownshipsAndRestoreSelection(cityId, townshipId);
+                    }
+
+                    // Calculate shipping after restoration
+                    this.calculateShipping();
+
+                } catch (error) {
+                    console.error('Error in loadCitiesAndRestoreSelection:', error);
+                }
+            },
+
+            // Load townships and restore township selection
+            async loadTownshipsAndRestoreSelection(cityId, townshipId = null) {
+                try {
+                    console.log('Loading townships for city:', cityId, 'with township:', townshipId);
+
+                    let townships = [];
+
+                    // Try API first
+                    try {
+                        const response = await fetch(`/api/townships-by-city/?city_id=${cityId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            townships = data.townships || [];
+                            console.log('API success: Loaded', townships.length, 'townships');
+                        }
+                    } catch (error) {
+                        console.warn('API failed for townships, using offline data:', error.message);
+                    }
+
+                    // Fallback to offline data
+                    if (townships.length === 0) {
+                        if (window.offlineManager) {
+                            townships = await window.offlineManager.getTownshipsByCity(cityId);
+                        } else if (this.offlineAddressData) {
+                            townships = this.offlineAddressData.townships.filter(township => township.city_id == cityId);
+                        }
+                        console.log('Using offline data:', townships.length, 'townships');
+                    }
+
+                    // Populate townships dropdown
+                    this.populateTownshipDropdown(townships, townshipId);
+
+                } catch (error) {
+                    console.error('Error in loadTownshipsAndRestoreSelection:', error);
                 }
             },
 
@@ -443,6 +676,7 @@
                     this.loadCities(stateId);
                     this.resetTownships();
                     this.calculateShipping();
+                    this.cacheFormState(); // Cache state changes
                 });
 
                 // City change event
@@ -450,12 +684,30 @@
                     const cityId = e.target.value;
                     this.loadTownships(cityId);
                     this.calculateShipping();
+                    this.cacheFormState(); // Cache city changes
                 });
 
                 // Township change event
                 document.getElementById('township-select').addEventListener('change', () => {
                     this.calculateShipping();
+                    this.cacheFormState(); // Cache township changes
                 });
+
+                // Cache form state when text fields change
+                document.getElementById('street-address').addEventListener('input', () => {
+                    this.cacheFormState();
+                });
+
+                document.getElementById('landmark').addEventListener('input', () => {
+                    this.cacheFormState();
+                });
+
+                const mobileInput = document.querySelector('[data-field="mobile"]');
+                if (mobileInput) {
+                    mobileInput.addEventListener('input', () => {
+                        this.cacheFormState();
+                    });
+                }
             },
 
             loadActiveAddress: function() {
@@ -839,63 +1091,67 @@
 
 
             // Load cities from offline data (fallback only)
-            loadCitiesOffline: function(stateId, selectedCityId = null) {
+            async loadCitiesOffline(stateId, selectedCityId = null) {
                 console.log('Loading cities from offline data for state:', stateId);
 
-                if (!this.offlineAddressData) {
-                    console.error('No offline address data available');
+                try {
+                    let cities = [];
+
+                    if (window.offlineManager) {
+                        cities = await window.offlineManager.getCitiesByState(stateId);
+                        console.log('OfflineManager returned', cities.length, 'cities for state:', stateId);
+                    } else if (this.offlineAddressData) {
+                        // Fallback to local data if OfflineManager not available
+                        cities = this.offlineAddressData.cities.filter(city => city.state_id == stateId);
+                        console.log('Using local offline data:', cities.length, 'cities for state:', stateId);
+                    }
+
+                    if (cities && cities.length > 0) {
+                        this.populateCityDropdown(cities, selectedCityId);
+                        this.showOfflineNotice('cities');
+                    } else {
+                        console.warn('No cities found for state:', stateId);
+                        const citySelect = document.getElementById('city-select');
+                        citySelect.innerHTML = '<option value="">{% trans "No cities found" %}</option>';
+                        citySelect.disabled = true;
+                    }
+                } catch (error) {
+                    console.error('Error loading cities offline:', error);
                     const citySelect = document.getElementById('city-select');
                     citySelect.innerHTML = '<option value="">{% trans "Offline data not available" %}</option>';
-                    citySelect.disabled = true;
-                    return;
-                }
-
-                // Find the state in offline data
-                const state = this.offlineAddressData.states.find(s => s.id == stateId);
-
-                if (state && state.cities) {
-                    console.log('Found offline data:', state.cities.length, 'cities for', state.name);
-                    this.populateCityDropdown(state.cities, selectedCityId);
-                    this.showOfflineNotice('cities');
-                } else {
-                    console.warn('No cities found in offline data for state:', stateId);
-                    const citySelect = document.getElementById('city-select');
-                    citySelect.innerHTML = '<option value="">{% trans "No cities found" %}</option>';
                     citySelect.disabled = true;
                 }
             },
 
             // Load townships from offline data (fallback only)
-            loadTownshipsOffline: function(cityId, selectedTownshipId = null) {
+            async loadTownshipsOffline(cityId, selectedTownshipId = null) {
                 console.log('Loading townships from offline data for city:', cityId);
 
-                if (!this.offlineAddressData) {
-                    console.error('No offline address data available');
+                try {
+                    let townships = [];
+
+                    if (window.offlineManager) {
+                        townships = await window.offlineManager.getTownshipsByCity(cityId);
+                        console.log('OfflineManager returned', townships.length, 'townships for city:', cityId);
+                    } else if (this.offlineAddressData) {
+                        // Fallback to local data if OfflineManager not available
+                        townships = this.offlineAddressData.townships.filter(township => township.city_id == cityId);
+                        console.log('Using local offline data:', townships.length, 'townships for city:', cityId);
+                    }
+
+                    if (townships && townships.length > 0) {
+                        this.populateTownshipDropdown(townships, selectedTownshipId);
+                        this.showOfflineNotice('townships');
+                    } else {
+                        console.log('No townships found for city:', cityId, '- this is normal for some cities');
+                        const townshipSelect = document.getElementById('township-select');
+                        townshipSelect.innerHTML = '<option value="">{% trans "No townships available" %}</option>';
+                        townshipSelect.disabled = false; // Keep enabled as township is optional
+                    }
+                } catch (error) {
+                    console.error('Error loading townships offline:', error);
                     const townshipSelect = document.getElementById('township-select');
                     townshipSelect.innerHTML = '<option value="">{% trans "Offline data not available" %}</option>';
-                    townshipSelect.disabled = true;
-                    return;
-                }
-
-                // Find the city in offline data
-                let city = null;
-                let stateName = '';
-                for (const state of this.offlineAddressData.states) {
-                    city = state.cities.find(c => c.id == cityId);
-                    if (city) {
-                        stateName = state.name;
-                        break;
-                    }
-                }
-
-                if (city) {
-                    console.log('Found offline data:', city.townships?.length || 0, 'townships for', city.name, 'in', stateName);
-                    this.populateTownshipDropdown(city.townships, selectedTownshipId);
-                    this.showOfflineNotice('townships');
-                } else {
-                    console.warn('No city found in offline data with ID:', cityId);
-                    const townshipSelect = document.getElementById('township-select');
-                    townshipSelect.innerHTML = '<option value="">{% trans "No townships found" %}</option>';
                     townshipSelect.disabled = true;
                 }
             },

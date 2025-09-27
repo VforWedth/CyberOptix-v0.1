@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import JSONField
+from django.db.models import JSONField, Sum, Avg
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
@@ -700,6 +700,65 @@ class CartOrder(models.Model):
     class Meta:
         verbose_name_plural = "Cart Orders"
         ordering = ['-order_date']
+        
+    @property
+    def formatted_price(self):
+        """Format price with currency symbol"""
+        return f"${self.price}"  # Adjust for your currency
+    
+    @classmethod
+    def total_sales(cls):
+        """Calculate total completed sales"""
+        return cls.objects.filter(paid_status=True).aggregate(
+            total_sales=models.Sum('price')
+        )['total_sales'] or 0
+    
+    @classmethod
+    def recent_sales(cls, days=30):
+        """Sales for the last N days"""
+        cutoff_date = timezone.now() - timezone.timedelta(days=days)
+        return cls.objects.filter(
+            paid_status=True,
+            order_date__gte=cutoff_date
+        ).aggregate(total_sales=models.Sum('price'))['total_sales'] or 0
+    
+    @classmethod
+    def sales_by_status(cls):
+        """Sales grouped by product status"""
+        return cls.objects.filter(paid_status=True).values('product_status').annotate(
+            total_sales=models.Sum('price'),
+            order_count=models.Count('id')
+        ).order_by('-total_sales')
+    
+    @classmethod
+    def shop_vs_home_sales(cls):
+        """Compare shop vs home delivery sales"""
+        return cls.objects.filter(paid_status=True).values('order_type').annotate(
+            total_sales=models.Sum('price'),
+            order_count=models.Count('id')
+        ).order_by('-total_sales')
+        
+    @classmethod
+    def total_orders(cls):
+        """Count all orders (both paid and unpaid)"""
+        return cls.objects.count()
+    @classmethod
+    def paid_orders_count(cls):
+        """Count only paid orders"""
+        return cls.objects.filter(paid_status=True).count()
+    @classmethod
+    def orders_by_status(cls):
+        """Count orders grouped by their status"""
+        return cls.objects.values('product_status').annotate(
+            count=models.Count('id')
+        ).order_by('-count')
+    @classmethod
+    def recent_orders_count(cls, days=30):
+        """Count orders from last N days"""
+        cutoff_date = timezone.now() - timezone.timedelta(days=days)
+        return cls.objects.filter(
+            order_date__gte=cutoff_date
+        ).count()
     
     def save(self, *args, **kwargs):
         if not self.order_number:
@@ -784,6 +843,19 @@ class CartOrderItem(models.Model):
     
     class Meta:
         verbose_name_plural = "Cart Order Item"
+    
+    @classmethod
+    def top_selling_products(cls, limit=5):
+        results = (
+            cls.objects.filter(order__paid_status=True)
+            .values("item", "price")  # use snapshot fields instead of FK
+        .annotate(
+            total_quantity=Sum("qty"),
+            total_revenue=Sum("total")
+        )
+        .order_by("-total_quantity")[:limit]
+    )
+        return results
         
     def category_image(self):
         return mark_safe('<img src="%s" width="50" height="50" />' %(self.image.url))

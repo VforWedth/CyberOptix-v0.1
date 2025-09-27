@@ -1,8 +1,10 @@
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Sales Dashboard</title>
+  <title>{% trans "Admin Sales Dashboard" %}</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -640,13 +642,13 @@
     <!-- Header -->
     <header class="sales-dashboard__header">
       <div>
-        <h1 class="mb-0"><i class="fas fa-chart-line me-2"></i>Sales Dashboard</h1>
-        <p class="text-muted mb-0">Overview of your store's performance</p>
+        <h1 class="mb-0"><i class="fas fa-chart-line me-2"></i>{% trans "Sales Dashboard" %}</h1>
+        <p class="text-muted mb-0">{% trans "Overview of your store's performance" %}</p>
       </div>
       <div class="sales-dashboard__header-actions">
-        <button class="btn btn-dashboard btn-dashboard-primary">
-          <i class="fas fa-download me-1"></i> Export Report
-        </button>
+        <a href="{% url 'flame:sales_pdf' %}" class="btn btn-dashboard btn-dashboard-primary">
+          <i class="fas fa-download me-1"></i> {% trans "Export Report" %}
+        </a>
         <button class="btn btn-outline-secondary rounded-pill">
           <i class="fas fa-cog"></i>
         </button>
@@ -655,46 +657,50 @@
     
     <!-- Summary Cards -->
     <div class="sales-summary">
+      <!-- Total Sales Card -->
       <div class="summary-card theme-primary">
         <div class="summary-card__body">
-          <i class="fas fa-shopping-bag summary-card__icon"></i>
-          <h6 class="summary-card__title">Today's Sales</h6>
-          <h3 class="summary-card__value">$ {{ today_sales  | floatformat:2  }}</h3>
+          <i class="fas fa-dollar-sign summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Sales" %}</h6>
+          <h3 class="summary-card__value">{% if is_myanmar %}{{ total_sales.total|floatformat:0 }} ကျပ်{% else %}${{ total_sales.total|floatformat:2 }}{% endif %}</h3>
           <div class="summary-card__change">
-            <i class="fas fa-arrow-up me-1"></i> 12% from yesterday
+            <i class="fas fa-arrow-up me-1"></i> {% trans "12% vs last month" %}
           </div>
         </div>
       </div>
-      
+
+      <!-- Total Orders Card -->
       <div class="summary-card theme-success">
         <div class="summary-card__body">
-          <i class="fas fa-calendar-week summary-card__icon"></i>
-          <h6 class="summary-card__title">This Week</h6>
-          <h3 class="summary-card__value">$  {{ weekly_sales  | floatformat:2  }} </h3>
+          <i class="fas fa-shopping-cart summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Orders" %}</h6>
+          <h3 class="summary-card__value">{{ total_sales.count|default:"0" }}</h3>
           <div class="summary-card__change">
-            <i class="fas fa-arrow-up me-1"></i> 8% from last week
+            <i class="fas fa-arrow-up me-1"></i> {% trans "8% vs last month" %}
           </div>
         </div>
       </div>
-      
+
+      <!-- Total Products Card -->
       <div class="summary-card theme-warning">
         <div class="summary-card__body">
-          <i class="fas fa-calendar-alt summary-card__icon"></i>
-          <h6 class="summary-card__title">This Month</h6>
-          <h3 class="summary-card__value">$ {{ monthly_sales  | floatformat:2  }}</h3>
+          <i class="fas fa-box-open summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Products" %}</h6>
+          <h3 class="summary-card__value">{{ total_products|default:"0" }}</h3>
           <div class="summary-card__change">
-            <i class="fas fa-arrow-down me-1"></i> 3% from last month
+            <i class="fas fa-plus me-1"></i> {% trans "3 new this week" %}
           </div>
         </div>
       </div>
-      
+
+      <!-- Total Customers Card -->
       <div class="summary-card theme-dark">
         <div class="summary-card__body">
-          <i class="fas fa-chart-bar summary-card__icon"></i>
-          <h6 class="summary-card__title">Total Revenue</h6>
-          <h3 class="summary-card__value">$ {{ total_sales  | floatformat:2  }} </h3>
+          <i class="fas fa-users summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Customers" %}</h6>
+          <h3 class="summary-card__value">{{ total_customers|default:"0" }}</h3>
           <div class="summary-card__change">
-            <i class="fas fa-arrow-up me-1"></i> 22% from last year
+            <i class="fas fa-arrow-up me-1"></i> {% trans "15% vs last month" %}
           </div>
         </div>
       </div>
@@ -706,26 +712,37 @@
       <section class="sales-card">
         <header class="sales-card__header">
           <i class="fas fa-star"></i>
-          <h2 class="h5 mb-0">Top Selling Products</h2>
+          <h2 class="h5 mb-0">{% trans "Top Selling Products" %}</h2>
         </header>
         <div class="sales-card__body">
           <div class="table-scroll">
             <table class="sales-table table">
               <thead>
                 <tr>
-                  <th>Product</th>
-                  <th>Progress</th>
-                  <th>Revenue</th>
+                  <th>{% trans "Product" %}</th>
+                  <th>{% trans "Progress" %}</th>
+                  <th>{% trans "Revenue" %}</th>
                 </tr>
               </thead>
               <tbody>
+                {% for product in top_products %}
                 <tr>
                   <td>
                     <div class="d-flex align-items-center">
-                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;"></div>
+                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;">
+                        {% if product.product__image %}
+                          <img src="{% if '/media/' in product.product__image %}{{ product.product__image }}{% else %}/media/{{ product.product__image }}{% endif %}"
+                               alt="{{ product.product__title }}"
+                               style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;"
+                               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        {% endif %}
+                        <div style="width: 40px; height: 40px; background-color: #f8f9fa; border-radius: 4px; display: {% if product.product__image %}none{% else %}flex{% endif %}; align-items: center; justify-content: center; color: #6c757d; font-size: 10px;">
+                          <i class="fas fa-image"></i>
+                        </div>
+                      </div>
                       <div>
-                        <div class="fw-semibold">Laptop Pro 15</div>
-                        <div class="text-muted small">120 units sold</div>
+                        <div class="fw-semibold">{{ product.product__title }}</div>
+                        <div class="text-muted small">{{ product.units_sold }} {% trans "units sold" %}</div>
                       </div>
                     </div>
                   </td>
@@ -733,102 +750,19 @@
                     <div class="product-progress">
                       <div class="product-progress-bar">
                         <div class="progress progress-thin">
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 85%"></div>
+                          <div class="progress-bar bg-primary" role="progressbar" style="width: {{ product.progress_percentage|default:50 }}%"></div>
                         </div>
                       </div>
-                      <div class="product-progress-value">85%</div>
+                      <div class="product-progress-value">{{ product.progress_percentage|default:50 }}%</div>
                     </div>
                   </td>
-                  <td class="fw-semibold">$72,000</td>
+                  <td class="fw-semibold">{% if is_myanmar %}{{ product.total_revenue|floatformat:0 }} ကျပ်{% else %}${{ product.total_revenue|floatformat:2 }}{% endif %}</td>
                 </tr>
+                {% empty %}
                 <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;"></div>
-                      <div>
-                        <div class="fw-semibold">Gaming Mouse X</div>
-                        <div class="text-muted small">310 units sold</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="product-progress">
-                      <div class="product-progress-bar">
-                        <div class="progress progress-thin">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 65%"></div>
-                        </div>
-                      </div>
-                      <div class="product-progress-value">65%</div>
-                    </div>
-                  </td>
-                  <td class="fw-semibold">$15,500</td>
+                  <td colspan="3" class="text-center text-muted">{% trans "No product data available" %}</td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;"></div>
-                      <div>
-                        <div class="fw-semibold">Wireless Headset</div>
-                        <div class="text-muted small">220 units sold</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="product-progress">
-                      <div class="product-progress-bar">
-                        <div class="progress progress-thin">
-                          <div class="progress-bar bg-warning" role="progressbar" style="width: 55%"></div>
-                        </div>
-                      </div>
-                      <div class="product-progress-value">55%</div>
-                    </div>
-                  </td>
-                  <td class="fw-semibold">$22,000</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;"></div>
-                      <div>
-                        <div class="fw-semibold">Ultra 4K Monitor</div>
-                        <div class="text-muted small">85 units sold</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="product-progress">
-                      <div class="product-progress-bar">
-                        <div class="progress progress-thin">
-                          <div class="progress-bar bg-danger" role="progressbar" style="width: 45%"></div>
-                        </div>
-                      </div>
-                      <div class="product-progress-value">45%</div>
-                    </div>
-                  </td>
-                  <td class="fw-semibold">$25,500</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;"></div>
-                      <div>
-                        <div class="fw-semibold">Mechanical Keyboard Z</div>
-                        <div class="text-muted small">190 units sold</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="product-progress">
-                      <div class="product-progress-bar">
-                        <div class="progress progress-thin">
-                          <div class="progress-bar bg-info" role="progressbar" style="width: 35%"></div>
-                        </div>
-                      </div>
-                      <div class="product-progress-value">35%</div>
-                    </div>
-                  </td>
-                  <td class="fw-semibold">$9,500</td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -839,33 +773,22 @@
       <section class="sales-card">
         <header class="sales-card__header">
           <i class="fas fa-tags"></i>
-          <h2 class="h5 mb-0">Sales by Category</h2>
+          <h2 class="h5 mb-0">{% trans "Sales by Category" %}</h2>
         </header>
         <div class="sales-card__body">
           <div class="chart-container">
             <canvas id="salesByCategory"></canvas>
           </div>
           <div class="mt-4">
+            {% for category in category_sales %}
             <div class="d-flex align-items-center mb-2">
-              <div class="badge rounded-pill bg-primary me-2" style="width: 12px; height: 12px;"></div>
-              <div class="flex-grow-1">Laptops</div>
-              <div class="fw-semibold">$153,600 (60%)</div>
+              <div class="badge rounded-pill bg-{% cycle 'primary' 'warning' 'success' 'danger' 'info' %} me-2" style="width: 12px; height: 12px;"></div>
+              <div class="flex-grow-1">{{ category.product__category__title }}</div>
+              <div class="fw-semibold">{% if is_myanmar %}{{ category.total_sales|floatformat:0 }} ကျပ်{% else %}${{ category.total_sales|floatformat:2 }}{% endif %}</div>
             </div>
-            <div class="d-flex align-items-center mb-2">
-              <div class="badge rounded-pill bg-warning me-2" style="width: 12px; height: 12px;"></div>
-              <div class="flex-grow-1">Accessories</div>
-              <div class="fw-semibold">$51,200 (20%)</div>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-              <div class="badge rounded-pill bg-success me-2" style="width: 12px; height: 12px;"></div>
-              <div class="flex-grow-1">Headphones</div>
-              <div class="fw-semibold">$25,600 (10%)</div>
-            </div>
-            <div class="d-flex align-items-center">
-              <div class="badge rounded-pill bg-danger me-2" style="width: 12px; height: 12px;"></div>
-              <div class="flex-grow-1">Monitors</div>
-              <div class="fw-semibold">$25,600 (10%)</div>
-            </div>
+            {% empty %}
+            <div class="text-center text-muted">{% trans "No category data available" %}</div>
+            {% endfor %}
           </div>
         </div>
       </section>
@@ -875,7 +798,7 @@
     <section class="sales-card">
       <header class="sales-card__header">
         <i class="fas fa-clock"></i>
-        <h2 class="h5 mb-0">Recent Orders</h2>
+        <h2 class="h5 mb-0">{% trans "Recent Orders" %}</h2>
         <div class="ms-auto">
           <select class="form-select form-select-sm" style="width: 120px;">
             <option>Last 7 days</option>
@@ -889,90 +812,50 @@
           <table class="sales-table table">
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Date</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>{% trans "Order ID" %}</th>
+                <th>{% trans "Customer" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Amount" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Action" %}</th>
               </tr>
             </thead>
             <tbody>
+              {% for order in recent_orders %}
               <tr>
-                <td class="fw-semibold">#ORD-1001</td>
+                <td class="fw-semibold">{{ order.order_number|default:order.id }}</td>
                 <td>
                   <div class="d-flex align-items-center">
-                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%;"></div>
-                    <div>John Smith</div>
+                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; font-weight: bold;">
+                      {{ order.user.first_name.0|default:order.user.username.0|upper }}
+                    </div>
+                    <div>{{ order.user.get_full_name|default:order.user.username }}</div>
                   </div>
                 </td>
-                <td>Jun 15, 2023</td>
-                <td class="fw-semibold">$1,250</td>
-                <td><span class="status-badge badge-completed"><i class="fas fa-check-circle"></i> Completed</span></td>
+                <td>{{ order.order_date|date:"M d, Y" }}</td>
+                <td class="fw-semibold">{% if is_myanmar %}{{ order.price|floatformat:0 }} ကျပ်{% else %}${{ order.price|floatformat:2 }}{% endif %}</td>
                 <td>
-                  <button class="btn btn-sm btn-outline-primary">View</button>
+                  <span class="status-badge {% if order.product_status == 'delivered' %}badge-completed{% elif order.product_status == 'processing' %}badge-processing{% elif order.product_status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
+                    {% if order.product_status == 'delivered' %}
+                      <i class="fas fa-check-circle"></i> {% trans "Completed" %}
+                    {% elif order.product_status == 'processing' %}
+                      <i class="fas fa-sync-alt"></i> {% trans "Processing" %}
+                    {% elif order.product_status == 'pending' %}
+                      <i class="fas fa-clock"></i> {% trans "Pending" %}
+                    {% else %}
+                      <i class="fas fa-times-circle"></i> {% trans "Cancelled" %}
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">{% trans "View" %}</button>
                 </td>
               </tr>
+              {% empty %}
               <tr>
-                <td class="fw-semibold">#ORD-1002</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%;"></div>
-                    <div>Sarah Johnson</div>
-                  </div>
-                </td>
-                <td>Jun 15, 2023</td>
-                <td class="fw-semibold">$220</td>
-                <td><span class="status-badge badge-completed"><i class="fas fa-check-circle"></i> Completed</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">View</button>
-                </td>
+                <td colspan="6" class="text-center text-muted">{% trans "No recent orders available" %}</td>
               </tr>
-              <tr>
-                <td class="fw-semibold">#ORD-1003</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%;"></div>
-                    <div>Michael Brown</div>
-                  </div>
-                </td>
-                <td>Jun 14, 2023</td>
-                <td class="fw-semibold">$850</td>
-                <td><span class="status-badge badge-processing"><i class="fas fa-sync-alt"></i> Processing</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">View</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="fw-semibold">#ORD-1004</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%;"></div>
-                    <div>Emily Davis</div>
-                  </div>
-                </td>
-                <td>Jun 14, 2023</td>
-                <td class="fw-semibold">$95</td>
-                <td><span class="status-badge badge-completed"><i class="fas fa-check-circle"></i> Completed</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">View</button>
-                </td>
-              </tr>
-              <tr>
-                <td class="fw-semibold">#ORD-1005</td>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%;"></div>
-                    <div>Robert Wilson</div>
-                  </div>
-                </td>
-                <td>Jun 13, 2023</td>
-                <td class="fw-semibold">$50</td>
-                <td><span class="status-badge badge-cancelled"><i class="fas fa-times-circle"></i> Cancelled</span></td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary">View</button>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
@@ -998,39 +881,78 @@
 
   <!-- Chart JS -->
   <script>
-    // Sales by Category (Doughnut Chart)
-    new Chart(document.getElementById('salesByCategory'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Laptops','Accessories','Headphones','Monitors'],
-        datasets: [{
-          data: [153600, 51200, 25600, 25600],
-          backgroundColor: ['#4361ee','#f8961e','#4cc9f0','#f72585'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '70%',
-        plugins: {
-          legend: {
-            display: false
+    // Sales by Category (Doughnut Chart) - Dynamic Data with Safety Checks
+
+    // Safely generate category labels with proper escaping
+    const categoryLabels = [
+      {% for category in category_sales %}'{{ category.product__category__title|escapejs }}'{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
+
+    // Generate category data with validation
+    const categoryData = [
+      {% for category in category_sales %}{{ category.total_sales|floatformat:2|default:0 }}{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
+
+    const categoryColors = ['#4361ee','#f8961e','#4cc9f0','#f72585','#17a2b8','#6c757d','#28a745','#dc3545','#ffc107','#20c997'];
+
+    // Check if we have data before initializing the chart
+    if (categoryLabels.length > 0 && categoryData.length > 0) {
+      console.log('Initializing pie chart with data:', {labels: categoryLabels, data: categoryData});
+
+      try {
+        new Chart(document.getElementById('salesByCategory'), {
+          type: 'doughnut',
+          data: {
+            labels: categoryLabels,
+            datasets: [{
+              data: categoryData,
+              backgroundColor: categoryColors.slice(0, categoryLabels.length),
+              borderWidth: 0
+            }]
           },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                let label = context.label || '';
-                let value = context.raw || 0;
-                let total = context.dataset.data.reduce((a, b) => a + b, 0);
-                let percentage = Math.round((value / total) * 100);
-                return `${label}: $${value.toLocaleString()} (${percentage}%)`;
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.label || '';
+                    let value = context.raw || 0;
+                    let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    let percentage = Math.round((value / total) * 100);
+                    const currency = {% if is_myanmar %}'ကျပ်'{% else %}'$'{% endif %};
+                    const prefix = {% if is_myanmar %}''{% else %}'$'{% endif %};
+                    const suffix = {% if is_myanmar %}' ကျပ်'{% else %}''{% endif %};
+                    return `${label}: ${prefix}${value.toLocaleString()}${suffix} (${percentage}%)`;
+                  }
+                }
               }
             }
           }
+        });
+
+      } catch (error) {
+        console.error('Error initializing pie chart:', error);
+        // Show error message in the chart container
+        const chartContainer = document.getElementById('salesByCategory').parentElement;
+        if (chartContainer) {
+          chartContainer.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-exclamation-triangle mb-2"></i><br>Error loading chart data</div>';
         }
       }
-    });
+
+    } else {
+      console.log('No data available for pie chart. Labels:', categoryLabels.length, 'Data:', categoryData.length);
+      // Show "No data available" message
+      const chartContainer = document.getElementById('salesByCategory').parentElement;
+      if (chartContainer) {
+        chartContainer.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-chart-pie mb-2"></i><br>No sales data available by category<br><small>Try adjusting the date range or add some orders</small></div>';
+      }
+    }
   </script>
 </body>
 </html>

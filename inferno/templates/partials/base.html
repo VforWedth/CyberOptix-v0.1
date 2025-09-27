@@ -70,6 +70,8 @@
             </div>
             <a href="{% url "flame:About" %}">{% trans "About" %}</a>
             <a href="{% url "flame:FAQs" %}">{% trans "FAQs" %}</a>
+            <a href="{% url "flame:recommendation_page" %}">{% trans "Recommendations" %}</a>
+
             {% include 'partials/language_switcher.html' %}
             <div class="icon-cart">
                 <a href="{% url 'flame:wishlist' %}">

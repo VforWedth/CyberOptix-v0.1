@@ -1,6 +1,142 @@
 {% load static %}
+{% load i18n %}
+
+<style>
+/* Edit Order page styling */
+.page-title {
+  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 3px solid #667eea;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+}
+
+.page-title .title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-order-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-control, .form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-control:focus, .form-select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.form-check:hover {
+  border-color: #667eea;
+  background: white;
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.form-check-label {
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+  margin-left: 12px;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(108, 117, 125, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .edit-order-form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .page-title .title {
+    font-size: 24px;
+  }
+}
+</style>
+
 <div class="page-title">
-  <div class="title">Edit Order #{{ order.id }}</div>
+  <div class="title">{% trans "Edit Order" %} #{{ order.id }}</div>
 </div>
 
 <div class="edit-order-form">
@@ -10,20 +146,20 @@
   
     
     <div class="mb-3">
-      <label for="id_price" class="form-label">Price</label>
-      <input type="number" name="price" id="id_price" 
-             class="form-control" step="0.01" 
+      <label for="id_price" class="form-label">{% trans "Price" %}</label>
+      <input type="number" name="price" id="id_price"
+             class="form-control" step="0.01"
              value="{{ form.price.value|default_if_none:'' }}" required>
     </div>
-    
+
     <div class="mb-3 form-check">
-      <input type="checkbox" name="paid_status" id="id_paid_status" 
+      <input type="checkbox" name="paid_status" id="id_paid_status"
              class="form-check-input" {% if form.paid_status.value %}checked{% endif %}>
-      <label class="form-check-label" for="id_paid_status">Paid Status</label>
+      <label class="form-check-label" for="id_paid_status">{% trans "Paid Status" %}</label>
     </div>
-    
+
     <div class="mb-3">
-      <label for="id_product_status" class="form-label">Product Status</label>
+      <label for="id_product_status" class="form-label">{% trans "Product Status" %}</label>
       <select name="product_status" id="id_product_status" class="form-select" required>
         {% for value, label in form.product_status.field.choices %}
           <option value="{{ value }}" 
@@ -35,7 +171,7 @@
     </div>
     
     <div class="mb-3">
-      <label for="id_shop" class="form-label">Shop</label>
+      <label for="id_shop" class="form-label">{% trans "Shop" %}</label>
       <select name="shop" id="id_shop" class="form-select">
       {% for shop in shops %}
                 <option value="{{ shop.id }}" 
@@ -47,7 +183,7 @@
     </div>
     
     <div class="mb-3">
-      <label for="id_order_type" class="form-label">Order Type</label>
+      <label for="id_order_type" class="form-label">{% trans "Order Type" %}</label>
       <select name="order_type" id="id_order_type" class="form-select" required>
         {% for value, label in form.order_type.field.choices %}
           <option value="{{ value }}" 
@@ -60,251 +196,11 @@
     
     <div class="form-actions mt-4">
       <button type="submit" class="btn btn-primary">
-        <i class="fas fa-save"></i> Save Changes
+        <i class="fas fa-save"></i> {% trans "Save Changes" %}
       </button>
       <button type="button" class="btn btn-secondary" onclick="history.back()">
-        <i class="fas fa-times"></i> Cancel
+        <i class="fas fa-times"></i> {% trans "Cancel" %}
       </button>
     </div>
   </form>
-</div><style>
-.edit-order-form {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 40px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(103, 114, 229, 0.1);
-  border: 1px solid rgba(224, 228, 255, 0.8);
-  position: relative;
-  overflow: hidden;
-}
-
-.edit-order-form::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  background: linear-gradient(90deg, #4a3aff 0%, #6a56ff 50%, #8a74ff 100%);
-}
-
-.page-title .title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #2a2a72;
-  margin-bottom: 15px;
-  position: relative;
-  display: inline-block;
-}
-
-.page-title .title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, #4a3aff 0%, #6a56ff 100%);
-  border-radius: 2px;
-}
-
-.mb-3 {
-  margin-bottom: 1.75rem !important;
-  position: relative;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: #2a2a72;
-  font-size: 16px;
-  letter-spacing: 0.3px;
-}
-
-.form-control, .form-select {
-  width: 100%;
-  padding: 14px 18px;
-  font-size: 16px;
-  border: 2px solid #e0e4ff;
-  border-radius: 14px;
-  background-color: #f9faff;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #2a2a72;
-  font-weight: 500;
-}
-
-.form-control:hover, .form-select:hover {
-  background-color: #f5f7ff;
-}
-
-.form-control:focus, .form-select:focus {
-  border-color: #4a3aff;
-  box-shadow: 0 0 0 4px rgba(74, 58, 255, 0.15);
-  background-color: white;
-  outline: none;
-  transform: translateY(-2px);
-}
-
-.form-check-input {
-  width: 22px;
-  height: 22px;
-  margin-top: 0.15em;
-  border: 2px solid #d1d5ff;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.form-check-input:checked {
-  background-color: #4a3aff;
-  border-color: #4a3aff;
-}
-
-.form-check-input:focus {
-  box-shadow: 0 0 0 4px rgba(74, 58, 255, 0.2);
-}
-
-.form-check-label {
-  margin-left: 12px;
-  color: #4a4a7d;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.btn {
-  padding: 14px 28px;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.btn:hover::after {
-  opacity: 1;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #4a3aff 0%, #6a56ff 100%);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #3a2ae8 0%, #5a46f5 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(74, 58, 255, 0.25);
-}
-
-.btn-secondary {
-  background: white;
-  color: #4a4a7d;
-  border: 2px solid #e0e4ff;
-}
-
-.btn-secondary:hover {
-  background: #f5f7ff;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: #d1d5ff;
-}
-
-.form-actions {
-  display: flex;
-  gap: 20px;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(224, 228, 255, 0.8);
-}
-
-.invalid-feedback {
-  color: #ff4a6a;
-  font-size: 0.9em;
-  margin-top: 10px;
-  font-weight: 500;
-}
-
-.is-invalid {
-  border-color: #ff4a6a !important;
-  background-color: rgba(255, 74, 106, 0.05) !important;
-}
-
-/* Custom select arrow with animation */
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%234a3aff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 18px center;
-  background-size: 16px;
-  transition: background-position 0.2s ease;
-}
-
-.form-select:focus {
-  background-position: right 14px center;
-}
-
-/* File input customization */
-#id_image::-webkit-file-upload-button {
-  visibility: hidden;
-}
-
-#id_image::before {
-  content: 'Choose Image';
-  display: inline-block;
-  background: linear-gradient(135deg, #f5f7ff 0%, #e8ebff 100%);
-  border: 2px solid #e0e4ff;
-  border-radius: 10px;
-  padding: 10px 16px;
-  outline: none;
-  white-space: nowrap;
-  cursor: pointer;
-  color: #4a4a7d;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-#id_image:hover::before {
-  background: linear-gradient(135deg, #e8ebff 0%, #dde0ff 100%);
-  border-color: #d1d5ff;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .edit-order-form {
-    padding: 30px 20px;
-    margin: 20px 15px;
-  }
-  
-  .form-actions {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .btn {
-    width: 100%;
-  }
-}
-</style>
+</div>

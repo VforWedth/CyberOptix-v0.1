@@ -5,7 +5,7 @@
       <i class="fas fa-cube"></i>
     </div>
     <div class="product-form__header-text">
-      <h2 class="product-form__title">Add New Product</h2>
+      <h2 class="product-form__title">{{ page_title|default:"Add New Product" }}</h2>
       <p class="product-form__subtitle">Fill in the details to list your product in our marketplace</p>
     </div>
   </div>
@@ -17,10 +17,7 @@
     <input type="text" name="title" id="id_title" class="product-form__input" required>
   </div>
   
-  <div class="product-form__field">
-    <label for="id_user" class="product-form__label">User</label>
-    <input type="text" name="user" id="id_user" class="product-form__input" required>
-  </div>
+  <!-- User field is automatically set by the backend, no need to display -->
   
   <div class="product-form__field">
     <label for="id_price" class="product-form__label">Price</label>
@@ -30,6 +27,7 @@
   <div class="product-form__field">
     <label for="id_category" class="product-form__label">Category</label>
     <select name="category" id="id_category" class="product-form__select" required>
+      <option value="">Select a category...</option>
       {% for c in categories %}
         <option value="{{ c.id }}">{{ c.title }}</option>
       {% endfor %}
@@ -37,9 +35,20 @@
   </div>
 
   <div class="product-form__field">
+    <label for="id_brand" class="product-form__label">Brand</label>
+    <select name="brand" id="id_brand" class="product-form__select">
+      <option value="">Select a brand...</option>
+      {% for b in brands %}
+        <option value="{{ b.id }}">{{ b.title }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="product-form__field">
     <label for="id_shop" class="product-form__label">Shop</label>
     <select name="shop" id="id_shop" class="product-form__select" required>
-      {% for s in shop  %}
+      <option value="">Select a shop...</option>
+      {% for s in shops %}
         <option value="{{ s.id }}">{{ s.title }}</option>
       {% endfor %}
     </select>
@@ -48,10 +57,35 @@
   <div class="product-form__field">
     <label for="id_product_status" class="product-form__label">Product Status</label>
     <select name="product_status" id="id_product_status" class="product-form__select" required>
-      {% for value, label in form.product_status.field.choices %}
+      {% for value, label in status_choices %}
         <option value="{{ value }}">{{ label }}</option>
       {% endfor %}
     </select>
+  </div>
+
+  <div class="product-form__field">
+    <label for="id_stock_count" class="product-form__label">Stock Count</label>
+    <input type="number" name="stock_count" id="id_stock_count" class="product-form__input" min="0" value="0">
+  </div>
+
+  <div class="product-form__field">
+    <label for="id_description" class="product-form__label">Description</label>
+    <textarea name="description" id="id_description" class="product-form__textarea" rows="4" placeholder="Enter product description..."></textarea>
+  </div>
+
+  <div class="product-form__field">
+    <label for="id_specification" class="product-form__label">Specifications</label>
+    <textarea name="specification" id="id_specification" class="product-form__textarea" rows="3" placeholder="Enter technical specifications..."></textarea>
+  </div>
+
+  <div class="product-form__field">
+    <label for="id_cpu" class="product-form__label">CPU (Optional)</label>
+    <input type="text" name="cpu" id="id_cpu" class="product-form__input" placeholder="e.g., Intel i7-12700H">
+  </div>
+
+  <div class="product-form__field">
+    <label for="id_ram" class="product-form__label">RAM (Optional)</label>
+    <input type="text" name="ram" id="id_ram" class="product-form__input" placeholder="e.g., 16GB DDR4">
   </div>
 
   <div class="product-form__field">
@@ -167,7 +201,8 @@
 }
 
 .product-form__input,
-.product-form__select {
+.product-form__select,
+.product-form__textarea {
   width: 100%;
   padding: 14px 18px;
   font-size: 16px;
@@ -180,12 +215,14 @@
 }
 
 .product-form__input:hover,
-.product-form__select:hover {
+.product-form__select:hover,
+.product-form__textarea:hover {
   background-color: #f5f7ff;
 }
 
 .product-form__input:focus,
-.product-form__select:focus {
+.product-form__select:focus,
+.product-form__textarea:focus {
   border-color: #4a3aff;
   box-shadow: 0 0 0 4px rgba(74, 58, 255, 0.15);
   background-color: white;

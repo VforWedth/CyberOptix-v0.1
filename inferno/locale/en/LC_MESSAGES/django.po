@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-19 17:53+0630\n"
+"POT-Creation-Date: 2025-09-27 07:07+0630\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Product not in wishlist"
 msgstr ""
 
-#: .\api\v1\views\product.py:249 .\flame\views.py:367
+#: .\api\v1\views\product.py:249 .\flame\views.py:378
 msgid "You cannot review this product"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "All Brands"
 msgstr ""
 
-#: .\flame\forms.py:270 .\templates\flame\checkout.html:67
+#: .\flame\forms.py:270 .\templates\flame\checkout.html:80
 #: .\templates\flame\shop_profile.html:108
 msgid "Select State/Region"
 msgstr ""
@@ -362,9 +362,9 @@ msgstr ""
 msgid "Select City"
 msgstr ""
 
-#: .\flame\forms.py:290 .\templates\flame\checkout.html:93
-#: .\templates\flame\checkout.html:477 .\templates\flame\checkout.html:489
-#: .\templates\flame\checkout.html:522
+#: .\flame\forms.py:290 .\templates\flame\checkout.html:106
+#: .\templates\flame\checkout.html:549 .\templates\flame\checkout.html:581
+#: .\templates\flame\checkout.html:612
 msgid "Select Township"
 msgstr ""
 
@@ -416,146 +416,248 @@ msgstr ""
 msgid "USD rate must be greater than zero"
 msgstr ""
 
-#: .\flame\views.py:100
+#: .\flame\views.py:111
 msgid "Welcome to CyberOptix"
 msgstr ""
 
-#: .\flame\views.py:118
+#: .\flame\views.py:129
 msgid "ဒက်စ်တော့"
 msgstr ""
 
-#: .\flame\views.py:119
+#: .\flame\views.py:130
 msgid "လက်ပ်တော့"
 msgstr ""
 
-#: .\flame\views.py:120
+#: .\flame\views.py:131
 msgid "အသုံး အဆောင်ပစ္စည်းများ"
 msgstr ""
 
-#: .\flame\views.py:411
+#: .\flame\views.py:422
 msgid "Review submitted successfully"
 msgstr ""
 
-#: .\flame\views.py:489
+#: .\flame\views.py:500
 msgid "You have already reported this review"
 msgstr ""
 
-#: .\flame\views.py:499
+#: .\flame\views.py:510
 msgid "Review reported successfully. We will review it shortly."
 msgstr ""
 
-#: .\flame\views.py:1254
-msgid "Your Cart is Empty"
-msgstr ""
-
-#: .\flame\views.py:1545 .\flame\views.py:2313
+#: .\flame\views.py:1673 .\flame\views.py:2445
 msgid "Your cart for this shop is empty"
 msgstr ""
 
-#: .\flame\views.py:1633
+#: .\flame\views.py:1761
 msgid "Please add a shipping address"
 msgstr ""
 
-#: .\flame\views.py:1659 .\flame\views.py:2425
+#: .\flame\views.py:1787 .\flame\views.py:2559
 msgid "Shop not found"
 msgstr ""
 
-#: .\flame\views.py:1663
+#: .\flame\views.py:1791
 msgid "An error occurred during checkout"
 msgstr ""
 
-#: .\flame\views.py:2112
+#: .\flame\views.py:2244
 msgid "Order not found"
 msgstr ""
 
-#: .\flame\views.py:2150 .\flame\views.py:2156 .\templates\flame\cart.html:230
+#: .\flame\views.py:2282 .\flame\views.py:2288 .\templates\flame\cart.html:230
 msgid "Free"
 msgstr ""
 
-#: .\flame\views.py:2249
+#: .\flame\views.py:2381
 msgid "Invalid shop"
 msgstr ""
 
-#: .\flame\views.py:2253
+#: .\flame\views.py:2385
 msgid "An error occurred"
 msgstr ""
 
-#: .\flame\views.py:2331
+#: .\flame\views.py:2464
 msgid "Please fill in your complete delivery address"
 msgstr ""
 
-#: .\flame\views.py:2379
+#: .\flame\views.py:2513
 msgid "Invalid delivery location selected"
 msgstr ""
 
-#: .\flame\views.py:2419
+#: .\flame\views.py:2553
 msgid ""
 "Cash on Delivery order placed successfully! You will pay when your order is "
 "delivered."
 msgstr ""
 
-#: .\flame\views.py:2428
+#: .\flame\views.py:2562
 msgid "An error occurred while processing your order. Please try again."
 msgstr ""
 
-#: .\flame\views.py:2513
+#: .\flame\views.py:2647
 msgid "Shop not found or you don't have permission to access it"
 msgstr ""
 
-#: .\flame\views.py:2532 .\flame\views.py:2535
+#: .\flame\views.py:2666 .\flame\views.py:2669
 msgid "Shop location updated successfully"
 msgstr ""
 
-#: .\flame\views.py:2596 .\flame\views.py:2641
+#: .\flame\views.py:2730 .\flame\views.py:2775
 msgid "Shipping rate {} successfully"
 msgstr ""
 
-#: .\flame\views.py:2596
+#: .\flame\views.py:2730
 msgid "created"
 msgstr ""
 
-#: .\flame\views.py:2596
+#: .\flame\views.py:2730
 msgid "updated"
 msgstr ""
 
-#: .\flame\views.py:2625
+#: .\flame\views.py:2759
 msgid "Shipping rate deleted successfully"
 msgstr ""
 
-#: .\flame\views.py:2641
+#: .\flame\views.py:2775
 msgid "activated"
 msgstr ""
 
-#: .\flame\views.py:2641
+#: .\flame\views.py:2775
 msgid "deactivated"
 msgstr ""
 
-#: .\flame\views.py:3201
+#: .\flame\views.py:3335
 msgid "This order cannot be cancelled"
 msgstr ""
 
-#: .\flame\views.py:3219
+#: .\flame\views.py:3353
 msgid "Your order has been cancelled successfully"
 msgstr ""
 
-#: .\flame\views.py:3234
+#: .\flame\views.py:3368
 msgid "This order cannot be returned"
 msgstr ""
 
-#: .\flame\views.py:3248
+#: .\flame\views.py:3382
 msgid "Return request submitted successfully"
 msgstr ""
 
-#: .\flame\views.py:3442
+#: .\flame\views.py:3637
 msgid "Email preferences updated successfully"
 msgstr ""
 
-#: .\flame\views.py:3463
+#: .\flame\views.py:3658
 msgid "You have been unsubscribed from email notifications"
 msgstr ""
 
-#: .\flame\views.py:3466
+#: .\flame\views.py:3661
 msgid "Invalid unsubscribe link"
+msgstr ""
+
+#: .\flame\views.py:3820 .\flame\views.py:3884 .\flame\views.py:3955
+#: .\flame\views.py:4057 .\flame\views.py:4234 .\flame\views.py:4350
+#: .\flame\views.py:4521 .\flame\views.py:4666 .\flame\views.py:4970
+msgid "Access denied. Admin privileges required."
+msgstr ""
+
+#: .\flame\views.py:3853
+msgid "Profile updated successfully!"
+msgstr ""
+
+#: .\flame\views.py:3857
+msgid "Notification settings updated!"
+msgstr ""
+
+#: .\flame\views.py:3861
+msgid "System settings updated!"
+msgstr ""
+
+#: .\flame\views.py:3924
+msgid "Security settings updated successfully!"
+msgstr ""
+
+#: .\flame\views.py:3928
+msgid "Password changed successfully!"
+msgstr ""
+
+#: .\flame\views.py:3932
+msgid "Two-factor authentication enabled!"
+msgstr ""
+
+#: .\flame\views.py:3986
+msgid "New Order Received"
+msgstr ""
+
+#: .\flame\views.py:3987
+msgid "You have 5 new orders to process"
+msgstr ""
+
+#: .\flame\views.py:3995 .\templates\flame\inventory\dashboard.html:126
+msgid "Low Stock Alert"
+msgstr ""
+
+#: .\flame\views.py:3996
+msgid "10 products are running low on stock"
+msgstr ""
+
+#: .\flame\views.py:4004
+msgid "Payment Received"
+msgstr ""
+
+#: .\flame\views.py:4005
+msgid "Payment confirmed for Order #ORD-001"
+msgstr ""
+
+#: .\flame\views.py:4029
+msgid "Notification marked as read"
+msgstr ""
+
+#: .\flame\views.py:4033
+msgid "Notification preferences updated!"
+msgstr ""
+
+#: .\flame\views.py:4302 .\templates\flame\social\campaign-detail.html:212
+#: .\templates\flame\social\post-calendar.html:61
+msgid "Draft"
+msgstr ""
+
+#: .\flame\views.py:4303 .\templates\flame\social\dashboard.html:157
+#: .\templates\flame\social\post-calendar.html:55
+msgid "Published"
+msgstr ""
+
+#: .\flame\views.py:4304 .\templates\flame\User_AdminDash.html:200
+#: .\templates\flame\User_AdminDash.html:270
+#: .\templates\flame\profile.html:306
+msgid "Disabled"
+msgstr ""
+
+#: .\flame\views.py:4305
+msgid "Rejected"
+msgstr ""
+
+#: .\flame\views.py:4306
+msgid "In Review"
+msgstr ""
+
+#: .\flame\views.py:4390 .\flame\views.py:4395
+msgid "Product added successfully!"
+msgstr ""
+
+#: .\flame\views.py:4404
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\flame\views.py:4414
+msgid "Add New Product"
+msgstr ""
+
+#: .\flame\views.py:4946
+msgid "An error occurred while loading sales data. Please try again."
+msgstr ""
+
+#: .\flame\views.py:5095
+msgid "Error generating PDF: {str(e)}"
 msgstr ""
 
 #: .\inferno\settings.py:224
@@ -579,29 +681,30 @@ msgstr ""
 msgid "Search products"
 msgstr ""
 
-#: .\templates\Shop\shop.html:372 .\templates\partials\base.html:127
+#: .\templates\Shop\shop.html:372 .\templates\flame\editproduct.html:247
+#: .\templates\partials\base.html:125
 #: .\templates\partials\base_offline.html:188
 msgid "Brand"
 msgstr ""
 
-#: .\templates\Shop\shop.html:387
+#: .\templates\Shop\shop.html:387 .\templates\flame\editproduct.html:223
 msgid "Category"
 msgstr ""
 
 #: .\templates\Shop\shop.html:392 .\templates\flame\category.html:50
-#: .\templates\partials\base.html:140
+#: .\templates\partials\base.html:138
 #: .\templates\partials\base_offline.html:201
 msgid "Laptop"
 msgstr ""
 
 #: .\templates\Shop\shop.html:393 .\templates\flame\category.html:69
-#: .\templates\partials\base.html:141
+#: .\templates\partials\base.html:139
 #: .\templates\partials\base_offline.html:202
 msgid "Desktop"
 msgstr ""
 
 #: .\templates\Shop\shop.html:394 .\templates\flame\category.html:87
-#: .\templates\partials\base.html:142
+#: .\templates\partials\base.html:140
 #: .\templates\partials\base_offline.html:203
 msgid "Accessories"
 msgstr ""
@@ -641,36 +744,654 @@ msgstr ""
 msgid "View Product"
 msgstr ""
 
+#: .\templates\flame\Admin_Setting.html:6
+#: .\templates\flame\Admin_Setting.html:180
+msgid "Admin Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:196
+msgid "Profile Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:201
+msgid "First Name"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:202
+msgid "Enter first name"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:205
+msgid "Last Name"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:206
+msgid "Enter last name"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:212
+#: .\templates\flame\checkout_direct_input.html:78
+#: .\templates\flame\profile.html:72 .\templates\userauths\sign-in.html:50
+#: .\templates\userauths\sign-up.html:104 .\userauths\forms.py:130
+msgid "Email Address"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:216
+#: .\templates\userauths\sign-up.html:89 .\userauths\forms.py:12
+msgid "Username"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:222
+msgid "Update Profile"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:232
+msgid "Notification Preferences"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:236
+msgid "Email Notifications"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:244
+msgid "SMS Notifications"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:252
+msgid "Push Notifications"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:260
+msgid "Update Notifications"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:270
+msgid "System Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:275
+msgid "Default Language"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:283
+msgid "Default Currency"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:294
+msgid "Timezone"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:302
+#, python-format
+msgid "Tax Rate (%%)"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:308
+msgid "Enable Shipping"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:316
+msgid "Maintenance Mode"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:324
+msgid "Update System Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:331
+msgid "Available Shops"
+msgstr ""
+
+#: .\templates\flame\Admin_Setting.html:338
+msgid "No shops available"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:6
+#: .\templates\flame\Admin_security.html:278
+#: .\templates\flame\profile.html:286
+msgid "Security Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:6
+msgid "Admin Dashboard"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:293
+msgid "Security Overview"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:298
+#: .\templates\flame\Dashboard.html:627
+#: .\templates\flame\dashboardpage.html:47
+msgid "Total Users"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:300
+msgid "Registered users in system"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:304
+msgid "Active Sessions"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:306
+msgid "Currently logged in users"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:310
+msgid "Failed Login Attempts"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:312
+msgid "Last 24 hours"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:320
+#: .\templates\flame\profile.html:359
+msgid "Change Password"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:329
+msgid "Current Password"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:336
+#: .\templates\userauths\password_reset_comirm.html:55
+#: .\userauths\forms.py:236 .\userauths\forms.py:238
+msgid "New Password"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:340
+#: .\templates\userauths\password_reset_comirm.html:66
+#: .\userauths\forms.py:245 .\userauths\forms.py:247
+msgid "Confirm New Password"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:346
+msgid "Update Password"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:354
+msgid "Security Configuration"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:362
+#: .\templates\flame\profile.html:294
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:371
+msgid "Login Attempts Limit"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:376
+msgid "Session Timeout (minutes)"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:384
+msgid "Password Expiry (days)"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:391
+msgid "IP Whitelist"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:399
+msgid "Audit Logging"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:407
+msgid "Update Security Settings"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:415
+msgid "Setup 2FA"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:423
+#: .\templates\flame\profile.html:369
+msgid "Recent Login Activity"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:432
+msgid "Last login"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:436
+#: .\templates\flame\Admin_security.html:487
+#: .\templates\flame\inventory\dashboard.html:225
+msgid "ago"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:440
+msgid "No recent login activity"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:449
+msgid "Suspicious Activity"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:453
+msgid "Warning:"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:453
+msgid "The following users have multiple failed orders:"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:462
+#, python-format
+msgid "%(count)s failed orders in the last 7 days"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:474
+msgid "System Activity"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:483
+#: .\templates\flame\Dashboard.html:597 .\templates\flame\Orders.html:137
+#: .\templates\flame\shop-product-detail.html:208
+msgid "User"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:483
+msgid "IP"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:491
+msgid "No recent system activity"
+msgstr ""
+
+#: .\templates\flame\Admin_security.html:516
+msgid "Passwords do not match"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:597
+#: .\templates\flame\User_AdminDash.html:189
+msgid "Super Admin"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:597
+msgid "Administrator"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:608
+#: .\templates\flame\dashboardpage.html:28
+msgid "Dashboard"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:612 .\templates\flame\analytics.html:447
+#: .\templates\flame\dashboardpage.html:32
+msgid "Export"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:616
+#: .\templates\flame\dashboardpage.html:36
+msgid "Add New"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:635
+#: .\templates\flame\dashboardpage.html:55
+msgid "All registered users"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:643 .\templates\flame\analytics.html:488
+#: .\templates\flame\dashboardpage.html:63 .\templates\flame\sales.html:700
+msgid "Total Customers"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:651
+#: .\templates\flame\dashboardpage.html:71
+#, python-format
+msgid "%(count)s new today"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:659
+#: .\templates\flame\analytics\dashboard.html:38
+#: .\templates\flame\dashboardpage.html:79
+msgid "Total Revenue"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:667
+#: .\templates\flame\dashboardpage.html:87
+msgid "from yesterday"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:675 .\templates\flame\analytics.html:468
+#: .\templates\flame\analytics\dashboard.html:58
+#: .\templates\flame\dashboardpage.html:95
+#: .\templates\flame\orders\order-list.html:13
+#: .\templates\flame\sales.html:676
+msgid "Total Orders"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:683
+#: .\templates\flame\dashboardpage.html:103
+#, python-format
+msgid "%(pending)s pending"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:691
+msgid "Conversion Rate"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:699
+#: .\templates\flame\analytics\dashboard.html:272
+#: .\templates\flame\dashboardpage.html:111
+msgid "Avg Order Value"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:707
+#: .\templates\flame\dashboardpage.html:127 .\templates\flame\sales.html:801
+msgid "Recent Orders"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:709
+#: .\templates\flame\dashboardpage.html:129
+msgid "View All"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:715 .\templates\flame\Orders.html:32
+#: .\templates\flame\dashboardpage.html:135 .\templates\flame\profile.html:98
+#: .\templates\flame\sales.html:815
+msgid "Order ID"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:716 .\templates\flame\Orders.html:33
+#: .\templates\flame\User_AdminDash.html:193
+#: .\templates\flame\dashboardpage.html:136 .\templates\flame\profile.html:56
+#: .\templates\flame\sales.html:816
+msgid "Customer"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:717 .\templates\flame\Orders.html:35
+#: .\templates\flame\analytics\dashboard.html:267
+#: .\templates\flame\dashboardpage.html:137 .\templates\flame\profile.html:99
+#: .\templates\flame\sales.html:817
+#: .\templates\flame\social\analytics.html:223
+msgid "Date"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:718 .\templates\flame\Orders.html:36
+#: .\templates\flame\dashboardpage.html:138
+#: .\templates\flame\payment-completed.html:272
+#: .\templates\flame\sales.html:818
+msgid "Amount"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:719
+#: .\templates\flame\dashboardpage.html:139
+#: .\templates\flame\email\preferences.html:253
+#: .\templates\flame\inventory\dashboard.html:139
+#: .\templates\flame\orders\cancel-order.html:34
+#: .\templates\flame\orders\return-order.html:35
+#: .\templates\flame\profile.html:100 .\templates\flame\sales.html:819
+#: .\templates\flame\social\campaign-detail.html:78
+#: .\templates\flame\social\post-calendar.html:104
+#: .\templates\flame\social\post-calendar.html:604
+msgid "Status"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:720 .\templates\flame\Orders.html:39
+#: .\templates\flame\cart.html:190 .\templates\flame\dashboardpage.html:140
+#: .\templates\flame\email\preferences.html:255
+#: .\templates\flame\inventory\dashboard.html:140
+#: .\templates\flame\orders\track-order.html:218
+#: .\templates\flame\profile.html:103 .\templates\flame\shop-cart.html:49
+#: .\templates\flame\shop_profile.html:249
+#: .\templates\flame\social\campaign-detail.html:32
+#: .\templates\flame\social\post-calendar.html:105
+msgid "Actions"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:739
+#: .\templates\flame\dashboardpage.html:159
+#: .\templates\flame\payment-completed.html:401
+#: .\templates\flame\sales.html:840
+msgid "Completed"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:741 .\templates\flame\Orders.html:90
+#: .\templates\flame\dashboardpage.html:161 .\templates\flame\sales.html:846
+msgid "Cancelled"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:743 .\templates\flame\Orders.html:81
+#: .\templates\flame\dashboardpage.html:163
+#: .\templates\flame\email\preferences.html:281
+#: .\templates\flame\profile.html:121 .\templates\flame\sales.html:844
+msgid "Pending"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:745 .\templates\flame\Orders.html:92
+#: .\templates\flame\dashboardpage.html:165
+#: .\templates\flame\orders\track-order.html:66
+msgid "Shipped"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:747 .\templates\flame\Orders.html:94
+#: .\templates\flame\dashboardpage.html:167
+#: .\templates\flame\orders\track-order.html:55
+#: .\templates\flame\sales.html:842
+msgid "Processing"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:755
+#: .\templates\flame\User_AdminDash.html:205
+#: .\templates\flame\dashboardpage.html:175 .\templates\flame\sales.html:851
+#: .\templates\flame\social\post-calendar.html:23
+msgid "View"
+msgstr ""
+
+#: .\templates\flame\Dashboard.html:763
+#: .\templates\flame\dashboardpage.html:183
+msgid "No recent orders found"
+msgstr ""
+
+#: .\templates\flame\Orders.html:6
+msgid "Orders Management"
+msgstr ""
+
+#: .\templates\flame\Orders.html:10
+msgid "Export Orders"
+msgstr ""
+
+#: .\templates\flame\Orders.html:14
+#: .\templates\flame\orders\order-list.html:35
+#: .\templates\flame\social\dashboard.html:153
+msgid "Filter"
+msgstr ""
+
+#: .\templates\flame\Orders.html:22
+#: .\templates\flame\orders\order-list.html:25
+msgid "All Orders"
+msgstr ""
+
+#: .\templates\flame\Orders.html:24
+msgid "orders"
+msgstr ""
+
+#: .\templates\flame\Orders.html:34 .\templates\flame\editorder.html:174
+#: .\templates\flame\editproduct.html:235
+#: .\templates\flame\product-detail.html:61
+#: .\templates\flame\shop-product-detail.html:79
+#: .\templates\partials\base.html:55 .\templates\partials\base.html:66
+#: .\templates\partials\base_offline.html:120
+#: .\templates\partials\base_offline.html:131
+msgid "Shop"
+msgstr ""
+
+#: .\templates\flame\Orders.html:37
+msgid "Payment Status"
+msgstr ""
+
+#: .\templates\flame\Orders.html:38
+msgid "Order Status"
+msgstr ""
+
+#: .\templates\flame\Orders.html:58
+msgid "No Shop"
+msgstr ""
+
+#: .\templates\flame\Orders.html:79 .\templates\flame\profile.html:119
+msgid "Paid"
+msgstr ""
+
+#: .\templates\flame\Orders.html:88
+#: .\templates\flame\email\preferences.html:273
+#: .\templates\flame\orders\track-order.html:77
+msgid "Delivered"
+msgstr ""
+
+#: .\templates\flame\Orders.html:102
+#: .\templates\flame\orders\order-list.html:94
+msgid "View Details"
+msgstr ""
+
+#: .\templates\flame\Orders.html:105 .\templates\flame\editorder.html:139
+msgid "Edit Order"
+msgstr ""
+
+#: .\templates\flame\Orders.html:119
+msgid "No Orders Found"
+msgstr ""
+
+#: .\templates\flame\Orders.html:122
+msgid "No orders exist in the system yet."
+msgstr ""
+
+#: .\templates\flame\Orders.html:124
+msgid "You haven't placed any orders yet."
+msgstr ""
+
+#: .\templates\flame\Orders.html:135
+msgid "Debug Info"
+msgstr ""
+
+#: .\templates\flame\Orders.html:136
+msgid "Total orders in context"
+msgstr ""
+
+#: .\templates\flame\Orders.html:137
+msgid "Staff"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:4 .\templates\flame\offline.html:225
+msgid "User Management"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:8
+msgid "Export Users"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:12
+msgid "Add User"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:191
+msgid "Admin"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:198
+#: .\templates\flame\User_AdminDash.html:264
+msgid "Active"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:206
+msgid "Edit"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:208
+#: .\templates\flame\User_AdminDash.html:267
+msgid "Disable"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:210
+#: .\templates\flame\User_AdminDash.html:273
+msgid "Enable"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:218
+msgid "No users found"
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:247
+msgid "Processing..."
+msgstr ""
+
+#: .\templates\flame\User_AdminDash.html:277
+#: .\templates\flame\User_AdminDash.html:282
+msgid "Error updating user status"
+msgstr ""
+
+#: .\templates\flame\analytics.html:438
+msgid "Admin Analytics Dashboard"
+msgstr ""
+
+#: .\templates\flame\analytics.html:442 .\templates\flame\analytics.html:505
+#: .\templates\flame\analytics\dashboard.html:24
+#: .\templates\flame\social\analytics.html:25
+msgid "Last 30 days"
+msgstr ""
+
+#: .\templates\flame\analytics.html:458 .\templates\flame\sales.html:664
+msgid "Total Sales"
+msgstr ""
+
+#: .\templates\flame\analytics.html:460 .\templates\flame\sales.html:667
+#, python-format
+msgid "12%% vs last month"
+msgstr ""
+
+#: .\templates\flame\analytics.html:470 .\templates\flame\sales.html:679
+#, python-format
+msgid "8%% vs last month"
+msgstr ""
+
+#: .\templates\flame\analytics.html:478
+#: .\templates\flame\inventory\dashboard.html:84
+#: .\templates\flame\sales.html:688
+msgid "Total Products"
+msgstr ""
+
+#: .\templates\flame\analytics.html:480 .\templates\flame\sales.html:691
+msgid "3 new this week"
+msgstr ""
+
+#: .\templates\flame\analytics.html:490
+msgid "150 new this month"
+msgstr ""
+
+#: .\templates\flame\analytics.html:501
+msgid "Sales Performance"
+msgstr ""
+
+#: .\templates\flame\analytics.html:504
+#: .\templates\flame\analytics\dashboard.html:23
+#: .\templates\flame\social\analytics.html:24
+msgid "Last 7 days"
+msgstr ""
+
+#: .\templates\flame\analytics.html:506
+#: .\templates\flame\analytics\dashboard.html:25
+#: .\templates\flame\social\analytics.html:26
+msgid "Last 90 days"
+msgstr ""
+
+#: .\templates\flame\analytics.html:507
+msgid "This year"
+msgstr ""
+
+#: .\templates\flame\analytics.html:521
+msgid "Order Trends"
+msgstr ""
+
 #: .\templates\flame\analytics\dashboard.html:13
 msgid "Analytics Dashboard"
 msgstr ""
 
 #: .\templates\flame\analytics\dashboard.html:20
 msgid "Date Range"
-msgstr ""
-
-#: .\templates\flame\analytics\dashboard.html:23
-#: .\templates\flame\social\analytics.html:24
-msgid "Last 7 days"
-msgstr ""
-
-#: .\templates\flame\analytics\dashboard.html:24
-#: .\templates\flame\social\analytics.html:25
-msgid "Last 30 days"
-msgstr ""
-
-#: .\templates\flame\analytics\dashboard.html:25
-#: .\templates\flame\social\analytics.html:26
-msgid "Last 90 days"
-msgstr ""
-
-#: .\templates\flame\analytics\dashboard.html:38
-msgid "Total Revenue"
-msgstr ""
-
-#: .\templates\flame\analytics\dashboard.html:58
-#: .\templates\flame\orders\order-list.html:13
-msgid "Total Orders"
 msgstr ""
 
 #: .\templates\flame\analytics\dashboard.html:78
@@ -706,13 +1427,14 @@ msgstr ""
 #: .\templates\flame\cart.html:186
 #: .\templates\flame\inventory\dashboard.html:136
 #: .\templates\flame\order-detail.html:86 .\templates\flame\profile.html:161
-#: .\templates\flame\shop-cart.html:45
+#: .\templates\flame\sales.html:722 .\templates\flame\shop-cart.html:45
 msgid "Product"
 msgstr ""
 
 #: .\templates\flame\analytics\dashboard.html:183
 #: .\templates\flame\analytics\dashboard.html:269
 #: .\templates\flame\analytics\dashboard.html:393
+#: .\templates\flame\sales.html:724
 msgid "Revenue"
 msgstr ""
 
@@ -721,6 +1443,7 @@ msgid "Growth"
 msgstr ""
 
 #: .\templates\flame\analytics\dashboard.html:205
+#: .\templates\flame\sales.html:763
 msgid "No product data available"
 msgstr ""
 
@@ -742,15 +1465,9 @@ msgstr ""
 msgid "Daily Sales Report"
 msgstr ""
 
-#: .\templates\flame\analytics\dashboard.html:267
-#: .\templates\flame\profile.html:99
-#: .\templates\flame\social\analytics.html:223
-msgid "Date"
-msgstr ""
-
 #: .\templates\flame\analytics\dashboard.html:268
-#: .\templates\flame\order-detail.html:69 .\templates\flame\profile.html:14
-#: .\templates\flame\shop_profile.html:18
+#: .\templates\flame\offline.html:241 .\templates\flame\order-detail.html:69
+#: .\templates\flame\profile.html:14 .\templates\flame\shop_profile.html:18
 msgid "Orders"
 msgstr ""
 
@@ -758,27 +1475,27 @@ msgstr ""
 msgid "Items Sold"
 msgstr ""
 
-#: .\templates\flame\analytics\dashboard.html:272
-msgid "Avg Order Value"
-msgstr ""
-
 #: .\templates\flame\analytics\dashboard.html:290
 msgid "No sales data available"
 msgstr ""
 
 #: .\templates\flame\async\cart-list.html:196 .\templates\flame\cart.html:229
-#: .\templates\flame\checkout.html:188
+#: .\templates\flame\checkout.html:203
+#: .\templates\flame\checkout_direct_input.html:234
 #: .\templates\flame\checkout_offline.html:157
 msgid "Shipping:"
 msgstr ""
 
 #: .\templates\flame\async\cart-list.html:200 .\templates\flame\cart.html:233
-#: .\templates\flame\checkout.html:195
+#: .\templates\flame\checkout.html:210
+#: .\templates\flame\checkout_direct_input.html:243
 #: .\templates\flame\checkout_offline.html:166
 msgid "Total:"
 msgstr ""
 
 #: .\templates\flame\async\cart-list.html:208 .\templates\flame\cart.html:241
+#: .\templates\flame\checkout_direct_input.html:291
+#: .\templates\flame\checkout_direct_input.html:670
 #: .\templates\flame\checkout_offline.html:505
 #: .\templates\flame\payment-completed.html:429
 #: .\templates\flame\shop-cart.html:119
@@ -799,7 +1516,8 @@ msgid "Shop Total:"
 msgstr ""
 
 #: .\templates\flame\async\shop-cart-list.html:63
-#: .\templates\flame\checkout.html:40
+#: .\templates\flame\checkout.html:51
+#: .\templates\flame\checkout_direct_input.html:48
 #: .\templates\flame\checkout_offline.html:51
 msgid "Checkout"
 msgstr ""
@@ -856,17 +1574,6 @@ msgstr ""
 msgid "Subtotal"
 msgstr ""
 
-#: .\templates\flame\cart.html:190
-#: .\templates\flame\email\preferences.html:255
-#: .\templates\flame\inventory\dashboard.html:140
-#: .\templates\flame\orders\track-order.html:218
-#: .\templates\flame\profile.html:103 .\templates\flame\shop-cart.html:49
-#: .\templates\flame\shop_profile.html:249
-#: .\templates\flame\social\campaign-detail.html:32
-#: .\templates\flame\social\post-calendar.html:105
-msgid "Actions"
-msgstr ""
-
 #: .\templates\flame\category.html:16
 msgid "Latest Trendings"
 msgstr ""
@@ -919,256 +1626,473 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: .\templates\flame\checkout.html:15
+#: .\templates\flame\checkout.html:18
+#: .\templates\flame\checkout_direct_input.html:18
+msgid "Offline Mode"
+msgstr ""
+
+#: .\templates\flame\checkout.html:19
+msgid ""
+"You can still place Cash on Delivery orders. They will be submitted when "
+"you're back online."
+msgstr ""
+
+#: .\templates\flame\checkout.html:26
+#: .\templates\flame\checkout_direct_input.html:26
 #: .\templates\flame\checkout_offline.html:26
 msgid "Checking out from"
 msgstr ""
 
-#: .\templates\flame\checkout.html:18
+#: .\templates\flame\checkout.html:29
 #: .\templates\flame\checkout_offline.html:29
 msgid "PayPal Account:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:21
+#: .\templates\flame\checkout.html:32
+#: .\templates\flame\checkout_direct_input.html:29
 #: .\templates\flame\checkout_offline.html:32
 msgid "Order ID:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:33
+#: .\templates\flame\checkout.html:44
+#: .\templates\flame\checkout_direct_input.html:41
 #: .\templates\flame\checkout_offline.html:44
 msgid "Current Exchange Rate:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:46
+#: .\templates\flame\checkout.html:57
 #: .\templates\flame\checkout_offline.html:57
 msgid "Billing Details"
 msgstr ""
 
-#: .\templates\flame\checkout.html:51
+#: .\templates\flame\checkout.html:62
 #: .\templates\flame\checkout_offline.html:63
 msgid "Name"
 msgstr ""
 
-#: .\templates\flame\checkout.html:56
+#: .\templates\flame\checkout.html:68
 #: .\templates\flame\checkout_offline.html:69
 msgid "Mobile"
 msgstr ""
 
-#: .\templates\flame\checkout.html:61
+#: .\templates\flame\checkout.html:74
 #: .\templates\flame\checkout_offline.html:74
 msgid "Shipping Address"
 msgstr ""
 
-#: .\templates\flame\checkout.html:65
+#: .\templates\flame\checkout.html:78
+#: .\templates\flame\checkout_direct_input.html:99
 #: .\templates\flame\checkout_offline.html:78
 #: .\templates\flame\shop_profile.html:106
 msgid "State/Region"
 msgstr ""
 
-#: .\templates\flame\checkout.html:83
+#: .\templates\flame\checkout.html:96
+#: .\templates\flame\checkout_direct_input.html:130
 #: .\templates\flame\checkout_offline.html:93
 msgid "City/Town"
 msgstr ""
 
-#: .\templates\flame\checkout.html:85 .\templates\flame\checkout.html:433
-#: .\templates\flame\checkout.html:445
+#: .\templates\flame\checkout.html:98 .\templates\flame\checkout.html:480
+#: .\templates\flame\checkout.html:514
 msgid "Select City/Town"
 msgstr ""
 
-#: .\templates\flame\checkout.html:91
+#: .\templates\flame\checkout.html:104
 #: .\templates\flame\checkout_offline.html:108
 #: .\templates\flame\shop_profile.html:144
 msgid "Township"
 msgstr ""
 
-#: .\templates\flame\checkout.html:99
+#: .\templates\flame\checkout.html:112
+#: .\templates\flame\checkout_direct_input.html:160
 #: .\templates\flame\checkout_offline.html:118
 #: .\templates\flame\shop_profile.html:162
 msgid "Street Address"
 msgstr ""
 
-#: .\templates\flame\checkout.html:104
+#: .\templates\flame\checkout.html:118
 #: .\templates\flame\checkout_offline.html:123
 msgid "Building No, Street Name"
 msgstr ""
 
-#: .\templates\flame\checkout.html:109
+#: .\templates\flame\checkout.html:123
 #: .\templates\flame\checkout_offline.html:128
 msgid "Near Landmark"
 msgstr ""
 
-#: .\templates\flame\checkout.html:114
+#: .\templates\flame\checkout.html:129
 #: .\templates\flame\checkout_offline.html:133
 msgid "Near landmark for easy delivery"
 msgstr ""
 
-#: .\templates\flame\checkout.html:122
+#: .\templates\flame\checkout.html:137
+#: .\templates\flame\checkout_direct_input.html:218
 #: .\templates\flame\checkout_offline.html:141
 msgid "Your Order"
 msgstr ""
 
-#: .\templates\flame\checkout.html:133 .\templates\flame\checkout.html:152
+#: .\templates\flame\checkout.html:148 .\templates\flame\checkout.html:167
 #: .\templates\flame\checkout_offline.html:311
 msgid "Qty:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:180
+#: .\templates\flame\checkout.html:195
+#: .\templates\flame\checkout_direct_input.html:229
 #: .\templates\flame\checkout_offline.html:152
 msgid "Subtotal:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:189
+#: .\templates\flame\checkout.html:204
 msgid "Please select address"
 msgstr ""
 
-#: .\templates\flame\checkout.html:208
+#: .\templates\flame\checkout.html:223
 #: .\templates\flame\checkout_offline.html:179
 msgid "Note: Payment will be processed in USD"
 msgstr ""
 
-#: .\templates\flame\checkout.html:214
+#: .\templates\flame\checkout.html:229
 msgid "Choose Payment Method"
 msgstr ""
 
-#: .\templates\flame\checkout.html:222
-msgid "Online Payments"
-msgstr ""
-
-#: .\templates\flame\checkout.html:223
-msgid "PayPal, Stripe, KBZPay"
-msgstr ""
-
-#: .\templates\flame\checkout.html:232 .\templates\flame\checkout.html:327
+#: .\templates\flame\checkout.html:237 .\templates\flame\checkout.html:343
+#: .\templates\flame\checkout_direct_input.html:262
 #: .\templates\flame\checkout_offline.html:196
 #: .\templates\flame\checkout_offline.html:206
 msgid "Cash on Delivery"
 msgstr ""
 
-#: .\templates\flame\checkout.html:233
+#: .\templates\flame\checkout.html:238
+#: .\templates\flame\checkout_direct_input.html:263
 #: .\templates\flame\checkout_offline.html:197
 msgid "Pay when you receive your order"
 msgstr ""
 
+#: .\templates\flame\checkout.html:247
+msgid "Online Payments"
+msgstr ""
+
 #: .\templates\flame\checkout.html:248
+#: .\templates\flame\checkout_direct_input.html:273
+msgid "PayPal, Stripe, KBZPay"
+msgstr ""
+
+#: .\templates\flame\checkout.html:264
 msgid "Pay with PayPal"
 msgstr ""
 
-#: .\templates\flame\checkout.html:265 .\templates\flame\checkout.html:746
-#: .\templates\flame\checkout.html:784
+#: .\templates\flame\checkout.html:281 .\templates\flame\checkout.html:1218
+#: .\templates\flame\checkout.html:1256
 msgid "Pay with Stripe"
 msgstr ""
 
-#: .\templates\flame\checkout.html:273
+#: .\templates\flame\checkout.html:289
 msgid "or pay locally with"
 msgstr ""
 
-#: .\templates\flame\checkout.html:281
+#: .\templates\flame\checkout.html:297
 msgid "Educational Demo Mode"
 msgstr ""
 
-#: .\templates\flame\checkout.html:282
+#: .\templates\flame\checkout.html:298
 msgid ""
 "KBZPay integration running in demonstration mode for educational purposes"
 msgstr ""
 
-#: .\templates\flame\checkout.html:297
+#: .\templates\flame\checkout.html:313
 msgid "Pay with KBZPay"
 msgstr ""
 
-#: .\templates\flame\checkout.html:308
+#: .\templates\flame\checkout.html:324
 msgid "Secure payment via 2C2P gateway"
 msgstr ""
 
-#: .\templates\flame\checkout.html:311 .\templates\flame\checkout.html:314
+#: .\templates\flame\checkout.html:327 .\templates\flame\checkout.html:330
 msgid "Educational Testing:"
 msgstr ""
 
-#: .\templates\flame\checkout.html:315
+#: .\templates\flame\checkout.html:331
 msgid "Actual charge will be 100-1000 MMK for testing purposes"
 msgstr ""
 
-#: .\templates\flame\checkout.html:328
+#: .\templates\flame\checkout.html:344
 #: .\templates\flame\checkout_offline.html:207
 msgid "You will pay for your order when it's delivered to your address."
 msgstr ""
 
-#: .\templates\flame\checkout.html:330
+#: .\templates\flame\checkout.html:346
 #: .\templates\flame\checkout_offline.html:209
 msgid "No online payment required"
 msgstr ""
 
-#: .\templates\flame\checkout.html:331
+#: .\templates\flame\checkout.html:347
 #: .\templates\flame\checkout_offline.html:210
 msgid "Pay with cash to the delivery person"
 msgstr ""
 
-#: .\templates\flame\checkout.html:332
+#: .\templates\flame\checkout.html:348
 msgid "Order will be processed immediately"
 msgstr ""
 
-#: .\templates\flame\checkout.html:354
+#: .\templates\flame\checkout.html:371
 msgid "Confirm Cash on Delivery Order"
 msgstr ""
 
-#: .\templates\flame\checkout.html:366
+#: .\templates\flame\checkout.html:383
 #: .\templates\flame\checkout_offline.html:232
 msgid "Go back to Explore More"
 msgstr ""
 
-#: .\templates\flame\checkout.html:439
+#: .\templates\flame\checkout.html:488
 msgid "Loading cities..."
 msgstr ""
 
-#: .\templates\flame\checkout.html:469
-msgid "Error loading cities"
+#: .\templates\flame\checkout.html:536
+msgid "No cities available"
 msgstr ""
 
-#: .\templates\flame\checkout.html:483
+#: .\templates\flame\checkout.html:556
 msgid "Loading townships..."
 msgstr ""
 
-#: .\templates\flame\checkout.html:516
-msgid "Error loading townships"
+#: .\templates\flame\checkout.html:605
+msgid "No townships available"
 msgstr ""
 
-#: .\templates\flame\checkout.html:531
-msgid "Please select city"
-msgstr ""
-
-#: .\templates\flame\checkout.html:536
-msgid "Calculating..."
-msgstr ""
-
-#: .\templates\flame\checkout.html:542 .\templates\flame\checkout.html:570
-msgid "Error calculating shipping"
-msgstr ""
-
-#: .\templates\flame\checkout.html:557
+#: .\templates\flame\checkout.html:649
 msgid "Same city delivery"
 msgstr ""
 
-#: .\templates\flame\checkout.html:559
+#: .\templates\flame\checkout.html:651
 msgid "Same state delivery"
 msgstr ""
 
-#: .\templates\flame\checkout.html:729
+#: .\templates\flame\checkout.html:849 .\templates\flame\checkout.html:876
+msgid "Offline data not available"
+msgstr ""
+
+#: .\templates\flame\checkout.html:864
+msgid "No cities found"
+msgstr ""
+
+#: .\templates\flame\checkout.html:899
+msgid "No townships found"
+msgstr ""
+
+#: .\templates\flame\checkout.html:917
+msgid "Using cached data (offline mode)"
+msgstr ""
+
+#: .\templates\flame\checkout.html:1201
 msgid "Generating QR..."
 msgstr ""
 
-#: .\templates\flame\checkout.html:744
+#: .\templates\flame\checkout.html:1216
 msgid "Could not start checkout. Please check your address information."
 msgstr ""
 
-#: .\templates\flame\checkout.html:761
+#: .\templates\flame\checkout.html:1233
 msgid "Scan QR to Pay or Click Here"
 msgstr ""
 
-#: .\templates\flame\checkout.html:782
+#: .\templates\flame\checkout.html:1254
 msgid "An error occurred. Please try again."
 msgstr ""
 
-#: .\templates\flame\checkout.html:803
+#: .\templates\flame\checkout.html:1275
 msgid "Creating PayPal Payment..."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:19
+msgid ""
+"Enter your delivery address directly. Order will be saved and submitted when "
+"online."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:54
+msgid "Customer Details"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:58
+#: .\templates\flame\profile.html:45
+msgid "Full Name"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:63
+msgid "Enter your full name"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:68
+msgid "Mobile Number"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:73
+msgid "Enter your mobile number"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:83
+msgid "Enter your email address (optional)"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:90
+#: .\templates\flame\orders\order-detail.html:157
+#: .\templates\flame\orders\track-order.html:200
+#: .\templates\flame\payment-completed.html:256
+#: .\templates\flame\product-detail.html:117
+#: .\templates\flame\shop-product-detail.html:140
+msgid "Delivery Address"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:94
+msgid "Enter your complete delivery address. No internet connection required."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:103
+msgid "e.g., Yangon, Mandalay, Shan State"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:124
+msgid "Type to see suggestions or enter manually"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:134
+msgid "e.g., Downtown, Thanlyin, Insein"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:141
+msgid "Enter the main city or town name"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:147
+msgid "Township/District"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:151
+msgid "e.g., Dagon, Kamayut, Thingangyun (optional)"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:154
+msgid "Optional: Specific township or district"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:164
+msgid "Building number, street name, neighborhood details"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:166
+msgid "Include building number, street name, and any specific directions"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:172
+msgid "Nearby Landmark"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:176
+msgid "e.g., Near City Mall, Behind Police Station"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:178
+msgid "Help delivery person find your location easily"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:184
+msgid "Delivery Instructions"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:188
+msgid "Special delivery instructions, best time to deliver, etc."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:190
+msgid "Any special instructions for the delivery person"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:198
+#: .\templates\flame\checkout_direct_input.html:496
+msgid "Validate Address"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:209
+msgid "Save this address for future orders"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:236
+msgid "Will be calculated based on your address"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:247
+msgid "(+ shipping fee)"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:255
+#: .\templates\flame\checkout_offline.html:185
+msgid "Payment Method"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:272
+msgid "Online Payment"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:285
+msgid "Place Order"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:395
+msgid "Please enter a valid name (at least 2 characters)"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:401
+msgid "Please enter a valid mobile number"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:407
+#: .\templates\flame\checkout_direct_input.html:465
+msgid "State/Region is required"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:413
+#: .\templates\flame\checkout_direct_input.html:470
+msgid "City/Town is required"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:448
+msgid "Validating..."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:480
+msgid "Address validation successful!"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:488
+msgid "Please fix the following issues:"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:607
+msgid "Please fill in all required fields correctly"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:629
+msgid "Failed to submit order. Please try again."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:661
+msgid "Order Submitted Successfully!"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:663
+msgid "Your order has been placed"
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:665
+msgid ""
+"You will receive a confirmation notification shortly. Payment will be "
+"collected upon delivery."
+msgstr ""
+
+#: .\templates\flame\checkout_direct_input.html:673
+#: .\templates\flame\checkout_offline.html:508
+msgid "Go to Home"
 msgstr ""
 
 #: .\templates\flame\checkout_offline.html:18
@@ -1207,10 +2131,6 @@ msgstr ""
 
 #: .\templates\flame\checkout_offline.html:170
 msgid "(+ shipping fee will be calculated when online)"
-msgstr ""
-
-#: .\templates\flame\checkout_offline.html:185
-msgid "Payment Method"
 msgstr ""
 
 #: .\templates\flame\checkout_offline.html:189
@@ -1257,8 +2177,68 @@ msgstr ""
 msgid "Payment will be collected upon delivery"
 msgstr ""
 
-#: .\templates\flame\checkout_offline.html:508
-msgid "Go to Home"
+#: .\templates\flame\editorder.html:149 .\templates\flame\editproduct.html:187
+#: .\templates\flame\order-detail.html:88
+#: .\templates\flame\orders\cancel-order.html:54
+#: .\templates\flame\payment-completed.html:270
+#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:163
+#: .\templates\flame\search.html:761
+msgid "Price"
+msgstr ""
+
+#: .\templates\flame\editorder.html:158
+msgid "Paid Status"
+msgstr ""
+
+#: .\templates\flame\editorder.html:162 .\templates\flame\editproduct.html:211
+msgid "Product Status"
+msgstr ""
+
+#: .\templates\flame\editorder.html:186
+msgid "Order Type"
+msgstr ""
+
+#: .\templates\flame\editorder.html:199 .\templates\flame\editproduct.html:260
+#: .\templates\flame\social\campaign-detail.html:393
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\flame\editorder.html:202 .\templates\flame\editproduct.html:263
+#: .\templates\flame\inventory\dashboard.html:331
+#: .\templates\flame\orders\order-list.html:105
+#: .\templates\flame\social\campaign-detail.html:390
+#: .\templates\flame\social\campaign-detail.html:465
+#: .\templates\flame\social\dashboard.html:351
+#: .\templates\flame\social\dashboard.html:407
+#: .\templates\flame\social\post-calendar.html:236
+msgid "Cancel"
+msgstr ""
+
+#: .\templates\flame\editproduct.html:172
+msgid "Edit Product"
+msgstr ""
+
+#: .\templates\flame\editproduct.html:180
+msgid "Title"
+msgstr ""
+
+#: .\templates\flame\editproduct.html:194
+#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:162
+#: .\templates\flame\social\campaign-detail.html:422
+#: .\templates\flame\social\dashboard.html:312
+#: .\templates\flame\social\post-calendar.html:191
+#: .\templates\flame\social\post-calendar.html:591
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\templates\flame\editproduct.html:199
+msgid "Current Image"
+msgstr ""
+
+#: .\templates\flame\editproduct.html:207
+#: .\templates\flame\recommendations\user-recommendations.html:74
+msgid "Featured"
 msgstr ""
 
 #: .\templates\flame\email\preferences.html:13
@@ -1430,34 +2410,13 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: .\templates\flame\email\preferences.html:253
-#: .\templates\flame\inventory\dashboard.html:139
-#: .\templates\flame\orders\cancel-order.html:34
-#: .\templates\flame\orders\return-order.html:35
-#: .\templates\flame\profile.html:100
-#: .\templates\flame\social\campaign-detail.html:78
-#: .\templates\flame\social\post-calendar.html:104
-#: .\templates\flame\social\post-calendar.html:604
-msgid "Status"
-msgstr ""
-
 #: .\templates\flame\email\preferences.html:254
 msgid "Sent"
-msgstr ""
-
-#: .\templates\flame\email\preferences.html:273
-#: .\templates\flame\orders\track-order.html:77
-msgid "Delivered"
 msgstr ""
 
 #: .\templates\flame\email\preferences.html:277
 #: .\templates\flame\profile.html:398
 msgid "Failed"
-msgstr ""
-
-#: .\templates\flame\email\preferences.html:281
-#: .\templates\flame\profile.html:121
-msgid "Pending"
 msgstr ""
 
 #: .\templates\flame\email\preferences.html:287
@@ -1577,16 +2536,8 @@ msgstr ""
 msgid "Out of Stock"
 msgstr ""
 
-#: .\templates\flame\inventory\dashboard.html:84
-msgid "Total Products"
-msgstr ""
-
 #: .\templates\flame\inventory\dashboard.html:104
 msgid "Total Stock Value"
-msgstr ""
-
-#: .\templates\flame\inventory\dashboard.html:126
-msgid "Low Stock Alert"
 msgstr ""
 
 #: .\templates\flame\inventory\dashboard.html:128
@@ -1616,10 +2567,6 @@ msgstr ""
 
 #: .\templates\flame\inventory\dashboard.html:192
 msgid "No low stock alerts at this time."
-msgstr ""
-
-#: .\templates\flame\inventory\dashboard.html:225
-msgid "ago"
 msgstr ""
 
 #: .\templates\flame\inventory\dashboard.html:253
@@ -1654,16 +2601,6 @@ msgstr ""
 msgid "Optional notes about this restock..."
 msgstr ""
 
-#: .\templates\flame\inventory\dashboard.html:331
-#: .\templates\flame\orders\order-list.html:105
-#: .\templates\flame\social\campaign-detail.html:390
-#: .\templates\flame\social\campaign-detail.html:465
-#: .\templates\flame\social\dashboard.html:351
-#: .\templates\flame\social\dashboard.html:407
-#: .\templates\flame\social\post-calendar.html:236
-msgid "Cancel"
-msgstr ""
-
 #: .\templates\flame\inventory\dashboard.html:383
 #: .\templates\flame\recommendations\user-recommendations.html:133
 #: .\templates\flame\wishlist.html:133
@@ -1674,92 +2611,64 @@ msgstr ""
 msgid "Stock Level"
 msgstr ""
 
-#: .\templates\flame\offline.html:12
+#: .\templates\flame\offline.html:8
+msgid "Offline - LaptopMart Admin"
+msgstr ""
+
+#: .\templates\flame\offline.html:188
 msgid "You're Offline"
 msgstr ""
 
-#: .\templates\flame\offline.html:15
-msgid "It looks like you don't have an internet connection right now."
+#: .\templates\flame\offline.html:192 .\templates\flame\offline.html:264
+msgid "No internet connection"
 msgstr ""
 
-#: .\templates\flame\offline.html:20
-msgid "What you can still do:"
+#: .\templates\flame\offline.html:196
+msgid ""
+"Don't worry! You can still access cached admin data and continue working. "
+"Some features may be limited until you're back online."
 msgstr ""
 
-#: .\templates\flame\offline.html:24
-msgid "Browse cached products"
-msgstr ""
-
-#: .\templates\flame\offline.html:28
-msgid "Manage your cart"
-msgstr ""
-
-#: .\templates\flame\offline.html:32
-msgid "Update your wishlist"
-msgstr ""
-
-#: .\templates\flame\offline.html:36
-msgid "View your profile"
-msgstr ""
-
-#: .\templates\flame\offline.html:40
-msgid "Check order history"
-msgstr ""
-
-#: .\templates\flame\offline.html:48
-msgid "Features requiring internet:"
-msgstr ""
-
-#: .\templates\flame\offline.html:52
-msgid "Payment processing (except Cash on Delivery)"
-msgstr ""
-
-#: .\templates\flame\offline.html:56
-msgid "Email notifications"
-msgstr ""
-
-#: .\templates\flame\offline.html:60
-msgid "Real-time inventory updates"
-msgstr ""
-
-#: .\templates\flame\offline.html:64
-msgid "New user registration"
-msgstr ""
-
-#: .\templates\flame\offline.html:74
+#: .\templates\flame\offline.html:202
 #: .\templates\partials\base_offline.html:107
 #: .\templates\userauths\password_reset_done.html:32
 msgid "Try Again"
 msgstr ""
 
-#: .\templates\flame\offline.html:80
-msgid "Browse Offline"
+#: .\templates\flame\offline.html:206
+msgid "Go to Dashboard"
 msgstr ""
 
-#: .\templates\flame\offline.html:87
-msgid ""
-"Your offline actions will be automatically synced when you're back online."
+#: .\templates\flame\offline.html:211
+msgid "Available Offline Features"
 msgstr ""
 
-#: .\templates\flame\offline.html:93
-msgid "Cached Products"
+#: .\templates\flame\offline.html:217
+msgid "Analytics"
 msgstr ""
 
-#: .\templates\flame\offline.html:125
-#: .\templates\flame\shop-product-detail.html:112
-msgid "Add to Cart"
+#: .\templates\flame\offline.html:218
+msgid "View cached analytics data and charts"
 msgstr ""
 
-#: .\templates\flame\offline.html:135
-msgid "No cached products available."
+#: .\templates\flame\offline.html:226
+msgid "Browse user profiles and information"
 msgstr ""
 
-#: .\templates\flame\offline.html:140
-msgid "Error loading cached products."
+#: .\templates\flame\offline.html:233
+msgid "Products"
 msgstr ""
 
-#: .\templates\flame\offline.html:157
-msgid "Added to offline cart!"
+#: .\templates\flame\offline.html:234
+msgid "View product catalog and details"
+msgstr ""
+
+#: .\templates\flame\offline.html:242
+msgid "Access order history and status"
+msgstr ""
+
+#: .\templates\flame\offline.html:256
+msgid "Connection restored!"
 msgstr ""
 
 #: .\templates\flame\order-detail.html:67
@@ -1767,7 +2676,7 @@ msgid "Profile picture"
 msgstr ""
 
 #: .\templates\flame\order-detail.html:68 .\templates\flame\profile.html:13
-#: .\templates\partials\base.html:102
+#: .\templates\partials\base.html:100
 #: .\templates\partials\base_offline.html:163
 msgid "Profile"
 msgstr ""
@@ -1789,23 +2698,6 @@ msgid ""
 "\n"
 "                Order Details: INVOICE_NO-%(invoice)s\n"
 "            "
-msgstr ""
-
-#: .\templates\flame\order-detail.html:87 .\templates\flame\profile.html:162
-#: .\templates\flame\social\campaign-detail.html:422
-#: .\templates\flame\social\dashboard.html:312
-#: .\templates\flame\social\post-calendar.html:191
-#: .\templates\flame\social\post-calendar.html:591
-#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
-msgid "Image"
-msgstr ""
-
-#: .\templates\flame\order-detail.html:88
-#: .\templates\flame\orders\cancel-order.html:54
-#: .\templates\flame\payment-completed.html:270
-#: .\templates\flame\product-list.html:786 .\templates\flame\profile.html:163
-#: .\templates\flame\search.html:761
-msgid "Price"
 msgstr ""
 
 #: .\templates\flame\order-detail.html:90
@@ -2019,14 +2911,6 @@ msgstr ""
 msgid "Delivery Information"
 msgstr ""
 
-#: .\templates\flame\orders\order-detail.html:157
-#: .\templates\flame\orders\track-order.html:200
-#: .\templates\flame\payment-completed.html:256
-#: .\templates\flame\product-detail.html:117
-#: .\templates\flame\shop-product-detail.html:140
-msgid "Delivery Address"
-msgstr ""
-
 #: .\templates\flame\orders\order-detail.html:167
 #: .\templates\flame\orders\track-order.html:191
 msgid "Estimated Delivery"
@@ -2057,15 +2941,6 @@ msgstr ""
 msgid "Filter by Status"
 msgstr ""
 
-#: .\templates\flame\orders\order-list.html:25
-msgid "All Orders"
-msgstr ""
-
-#: .\templates\flame\orders\order-list.html:35
-#: .\templates\flame\social\dashboard.html:153
-msgid "Filter"
-msgstr ""
-
 #: .\templates\flame\orders\order-list.html:78
 #: .\templates\flame\payment-completed.html:271
 #: .\templates\flame\profile.html:164
@@ -2080,10 +2955,6 @@ msgstr ""
 
 #: .\templates\flame\orders\order-list.html:85
 msgid "more items"
-msgstr ""
-
-#: .\templates\flame\orders\order-list.html:94
-msgid "View Details"
 msgstr ""
 
 #: .\templates\flame\orders\order-list.html:138
@@ -2328,14 +3199,6 @@ msgstr ""
 msgid "Payment Confirmed"
 msgstr ""
 
-#: .\templates\flame\orders\track-order.html:55
-msgid "Processing"
-msgstr ""
-
-#: .\templates\flame\orders\track-order.html:66
-msgid "Shipped"
-msgstr ""
-
 #: .\templates\flame\orders\track-order.html:135
 msgid "Latest"
 msgstr ""
@@ -2405,10 +3268,6 @@ msgstr ""
 msgid "Payment Method:"
 msgstr ""
 
-#: .\templates\flame\payment-completed.html:272
-msgid "Amount"
-msgstr ""
-
 #: .\templates\flame\payment-completed.html:356
 msgid "Grand Total"
 msgstr ""
@@ -2444,10 +3303,6 @@ msgstr ""
 
 #: .\templates\flame\payment-completed.html:392
 msgid "Total Amount Due"
-msgstr ""
-
-#: .\templates\flame\payment-completed.html:401
-msgid "Completed"
 msgstr ""
 
 #: .\templates\flame\payment-completed.html:406
@@ -2566,14 +3421,6 @@ msgstr ""
 msgid "Additional Info"
 msgstr ""
 
-#: .\templates\flame\product-detail.html:61
-#: .\templates\flame\shop-product-detail.html:79
-#: .\templates\partials\base.html:59 .\templates\partials\base.html:70
-#: .\templates\partials\base_offline.html:120
-#: .\templates\partials\base_offline.html:131
-msgid "Shop"
-msgstr ""
-
 #: .\templates\flame\product-detail.html:62
 #: .\templates\flame\shop-product-detail.html:83
 #, python-format
@@ -2686,49 +3533,49 @@ msgid "to write a review."
 msgstr ""
 
 #: .\templates\flame\product-detail.html:234
-#: .\templates\partials\base.html:269
+#: .\templates\partials\base.html:267
 #: .\templates\partials\base_offline.html:315
 msgid "All Rights Reserved 2024-2025"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:237
-#: .\templates\partials\base.html:272
+#: .\templates\partials\base.html:270
 #: .\templates\partials\base_offline.html:318
 msgid "Information"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:239
-#: .\templates\partials\base.html:274
+#: .\templates\partials\base.html:272
 #: .\templates\partials\base_offline.html:320
 msgid "About Us"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:244
-#: .\templates\partials\base.html:279
+#: .\templates\partials\base.html:277
 #: .\templates\partials\base_offline.html:325
 msgid "Helpful Links"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:246
-#: .\templates\partials\base.html:281
+#: .\templates\partials\base.html:279
 #: .\templates\partials\base_offline.html:327
 msgid "Services"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:247
-#: .\templates\partials\base.html:282
+#: .\templates\partials\base.html:280
 #: .\templates\partials\base_offline.html:328
 msgid "Privacy Policy"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:248
-#: .\templates\partials\base.html:283
+#: .\templates\partials\base.html:281
 #: .\templates\partials\base_offline.html:329
 msgid "Terms & Condition"
 msgstr ""
 
 #: .\templates\flame\product-detail.html:253
-#: .\templates\partials\base.html:288
+#: .\templates\partials\base.html:286
 #: .\templates\partials\base_offline.html:334
 msgid "Contact Us"
 msgstr ""
@@ -2835,16 +3682,8 @@ msgstr ""
 msgid "Edit Profile"
 msgstr ""
 
-#: .\templates\flame\profile.html:45
-msgid "Full Name"
-msgstr ""
-
 #: .\templates\flame\profile.html:53
 msgid "About Me"
-msgstr ""
-
-#: .\templates\flame\profile.html:56
-msgid "Customer"
 msgstr ""
 
 #: .\templates\flame\profile.html:61 .\templates\flame\profile.html:246
@@ -2855,11 +3694,6 @@ msgstr ""
 msgid "Not Verified"
 msgstr ""
 
-#: .\templates\flame\profile.html:72 .\templates\userauths\sign-in.html:50
-#: .\templates\userauths\sign-up.html:104 .\userauths\forms.py:130
-msgid "Email Address"
-msgstr ""
-
 #: .\templates\flame\profile.html:77
 msgid "Verified"
 msgstr ""
@@ -2868,16 +3702,8 @@ msgstr ""
 msgid "Order History"
 msgstr ""
 
-#: .\templates\flame\profile.html:98
-msgid "Order ID"
-msgstr ""
-
 #: .\templates\flame\profile.html:101
 msgid "Payment"
-msgstr ""
-
-#: .\templates\flame\profile.html:119
-msgid "Paid"
 msgstr ""
 
 #: .\templates\flame\profile.html:153
@@ -2917,14 +3743,6 @@ msgstr ""
 msgid "Make Default"
 msgstr ""
 
-#: .\templates\flame\profile.html:286
-msgid "Security Settings"
-msgstr ""
-
-#: .\templates\flame\profile.html:294
-msgid "Two-Factor Authentication"
-msgstr ""
-
 #: .\templates\flame\profile.html:296
 msgid ""
 "Add an extra layer of security to your account by requiring a verification "
@@ -2933,10 +3751,6 @@ msgstr ""
 
 #: .\templates\flame\profile.html:302
 msgid "Enabled"
-msgstr ""
-
-#: .\templates\flame\profile.html:306
-msgid "Disabled"
 msgstr ""
 
 #: .\templates\flame\profile.html:315
@@ -2989,14 +3803,6 @@ msgstr ""
 msgid "Use a strong, unique password to keep your account secure."
 msgstr ""
 
-#: .\templates\flame\profile.html:359
-msgid "Change Password"
-msgstr ""
-
-#: .\templates\flame\profile.html:369
-msgid "Recent Login Activity"
-msgstr ""
-
 #: .\templates\flame\profile.html:371
 msgid "Review your recent login activity to ensure your account security."
 msgstr ""
@@ -3043,10 +3849,6 @@ msgstr ""
 msgid "Specially curated for you"
 msgstr ""
 
-#: .\templates\flame\recommendations\user-recommendations.html:74
-msgid "Featured"
-msgstr ""
-
 #: .\templates\flame\recommendations\user-recommendations.html:79
 msgid "OFF"
 msgstr ""
@@ -3076,6 +3878,56 @@ msgstr ""
 
 #: .\templates\flame\recommendations\user-recommendations.html:179
 msgid "Shop by Category"
+msgstr ""
+
+#: .\templates\flame\sales.html:7
+msgid "Admin Sales Dashboard"
+msgstr ""
+
+#: .\templates\flame\sales.html:645
+msgid "Sales Dashboard"
+msgstr ""
+
+#: .\templates\flame\sales.html:646
+msgid "Overview of your store's performance"
+msgstr ""
+
+#: .\templates\flame\sales.html:650 .\templates\flame\social\analytics.html:31
+#: .\templates\flame\social\campaign-detail.html:39
+msgid "Export Report"
+msgstr ""
+
+#: .\templates\flame\sales.html:703
+#, python-format
+msgid "15%% vs last month"
+msgstr ""
+
+#: .\templates\flame\sales.html:715
+msgid "Top Selling Products"
+msgstr ""
+
+#: .\templates\flame\sales.html:723
+msgid "Progress"
+msgstr ""
+
+#: .\templates\flame\sales.html:745
+msgid "units sold"
+msgstr ""
+
+#: .\templates\flame\sales.html:776
+msgid "Sales by Category"
+msgstr ""
+
+#: .\templates\flame\sales.html:790
+msgid "No category data available"
+msgstr ""
+
+#: .\templates\flame\sales.html:820
+msgid "Action"
+msgstr ""
+
+#: .\templates\flame\sales.html:856
+msgid "No recent orders available"
 msgstr ""
 
 #: .\templates\flame\search.html:699
@@ -3151,6 +4003,10 @@ msgstr ""
 msgid "Product Image"
 msgstr ""
 
+#: .\templates\flame\shop-product-detail.html:112
+msgid "Add to Cart"
+msgstr ""
+
 #: .\templates\flame\shop-product-detail.html:113
 msgid "Countinue Browsing"
 msgstr ""
@@ -3158,10 +4014,6 @@ msgstr ""
 #: .\templates\flame\shop-product-detail.html:135
 #, python-format
 msgid "Image for %(shop)s"
-msgstr ""
-
-#: .\templates\flame\shop-product-detail.html:208
-msgid "User"
 msgstr ""
 
 #: .\templates\flame\shop_profile.html:15
@@ -3309,11 +4161,6 @@ msgstr ""
 
 #: .\templates\flame\social\analytics.html:27
 msgid "Last year"
-msgstr ""
-
-#: .\templates\flame\social\analytics.html:31
-#: .\templates\flame\social\campaign-detail.html:39
-msgid "Export Report"
 msgstr ""
 
 #: .\templates\flame\social\analytics.html:44
@@ -3514,11 +4361,6 @@ msgstr ""
 msgid "Add Post"
 msgstr ""
 
-#: .\templates\flame\social\campaign-detail.html:212
-#: .\templates\flame\social\post-calendar.html:61
-msgid "Draft"
-msgstr ""
-
 #: .\templates\flame\social\campaign-detail.html:255
 msgid "No posts in this campaign yet"
 msgstr ""
@@ -3564,10 +4406,6 @@ msgstr ""
 #: .\templates\flame\social\campaign-detail.html:372
 #: .\templates\flame\social\dashboard.html:391
 msgid "End Date"
-msgstr ""
-
-#: .\templates\flame\social\campaign-detail.html:393
-msgid "Save Changes"
 msgstr ""
 
 #: .\templates\flame\social\campaign-detail.html:406
@@ -3673,11 +4511,6 @@ msgstr ""
 msgid "All Posts"
 msgstr ""
 
-#: .\templates\flame\social\dashboard.html:157
-#: .\templates\flame\social\post-calendar.html:55
-msgid "Published"
-msgstr ""
-
 #: .\templates\flame\social\dashboard.html:158
 #: .\templates\flame\social\post-calendar.html:58
 msgid "Scheduled"
@@ -3754,10 +4587,6 @@ msgstr ""
 
 #: .\templates\flame\social\post-calendar.html:19
 msgid "Quick Post"
-msgstr ""
-
-#: .\templates\flame\social\post-calendar.html:23
-msgid "View"
 msgstr ""
 
 #: .\templates\flame\social\post-calendar.html:27
@@ -3867,43 +4696,47 @@ msgstr ""
 msgid "CyberOptix - Premium Laptops Myanmar"
 msgstr ""
 
-#: .\templates\partials\base.html:54
+#: .\templates\partials\base.html:50
 #: .\templates\partials\base_offline.html:115
 msgid "CyberOptix"
 msgstr ""
 
-#: .\templates\partials\base.html:57
+#: .\templates\partials\base.html:53
 #: .\templates\partials\base_offline.html:118
 msgid "Home"
 msgstr ""
 
-#: .\templates\partials\base.html:75
+#: .\templates\partials\base.html:71
 #: .\templates\partials\base_offline.html:136
 msgid "About"
 msgstr ""
 
-#: .\templates\partials\base.html:76
+#: .\templates\partials\base.html:72
 #: .\templates\partials\base_offline.html:137
 msgid "FAQs"
 msgstr ""
 
-#: .\templates\partials\base.html:105
+#: .\templates\partials\base.html:73
+msgid "Recommendations"
+msgstr ""
+
+#: .\templates\partials\base.html:103
 #: .\templates\partials\base_offline.html:166
 msgid "Sign Out"
 msgstr ""
 
-#: .\templates\partials\base.html:109
+#: .\templates\partials\base.html:107
 #: .\templates\partials\base_offline.html:170
 msgid "Sign In"
 msgstr ""
 
-#: .\templates\partials\base.html:112
+#: .\templates\partials\base.html:110
 #: .\templates\partials\base_offline.html:173
 #: .\templates\userauths\sign-in.html:105
 msgid "Sign up"
 msgstr ""
 
-#: .\templates\partials\base.html:132
+#: .\templates\partials\base.html:130
 #: .\templates\partials\base_offline.html:193
 msgid "All"
 msgstr ""
@@ -3995,16 +4828,6 @@ msgstr ""
 
 #: .\templates\userauths\password_reset_comirm.html:36
 msgid "Set New Password"
-msgstr ""
-
-#: .\templates\userauths\password_reset_comirm.html:55
-#: .\userauths\forms.py:236 .\userauths\forms.py:238
-msgid "New Password"
-msgstr ""
-
-#: .\templates\userauths\password_reset_comirm.html:66
-#: .\userauths\forms.py:245 .\userauths\forms.py:247
-msgid "Confirm New Password"
 msgstr ""
 
 #: .\templates\userauths\password_reset_comirm.html:80
@@ -4307,10 +5130,6 @@ msgstr ""
 #: .\templates\userauths\sign-up.html:63
 #: .\templates\userauths\sign-up.html:167
 msgid "Create Account"
-msgstr ""
-
-#: .\templates\userauths\sign-up.html:89 .\userauths\forms.py:12
-msgid "Username"
 msgstr ""
 
 #: .\templates\userauths\sign-up.html:118 .\userauths\forms.py:42
