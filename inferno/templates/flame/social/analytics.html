@@ -1,0 +1,699 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fas fa-chart-bar text-primary"></i>
+                        {% trans "Social Media Analytics" %}
+                    </h2>
+                    <p class="text-muted mb-0">{% trans "Track your social media performance and engagement" %}</p>
+                </div>
+                <div class="btn-group">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" 
+                                id="dateRangeDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-calendar"></i> {{ date_range_display }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="?period=7d">{% trans "Last 7 days" %}</a></li>
+                            <li><a class="dropdown-item" href="?period=30d">{% trans "Last 30 days" %}</a></li>
+                            <li><a class="dropdown-item" href="?period=90d">{% trans "Last 90 days" %}</a></li>
+                            <li><a class="dropdown-item" href="?period=1y">{% trans "Last year" %}</a></li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="exportReport()">
+                        <i class="fas fa-download"></i> {% trans "Export Report" %}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overview Metrics -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {% trans "Total Followers" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ analytics.total_followers|default:0 }}
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="text-success small">
+                                            <i class="fas fa-arrow-up"></i>
+                                            {{ analytics.followers_growth|default:0 }} {% trans "this period" %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        {% trans "Total Engagement" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ analytics.total_engagement|default:0 }}
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="text-success small">
+                                            <i class="fas fa-arrow-up"></i>
+                                            {{ analytics.engagement_rate|default:0|floatformat:1 }}% {% trans "rate" %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-heart fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        {% trans "Total Reach" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ analytics.total_reach|default:0 }}
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="text-info small">
+                                            <i class="fas fa-eye"></i>
+                                            {{ analytics.avg_reach|default:0 }} {% trans "avg per post" %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-broadcast-tower fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        {% trans "Total Posts" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ analytics.total_posts|default:0 }}
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="text-warning small">
+                                            <i class="fas fa-calendar"></i>
+                                            {{ analytics.posts_this_week|default:0 }} {% trans "this week" %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-edit fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Engagement Over Time Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Engagement Over Time" %}
+                            </h6>
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-outline-primary active" onclick="switchMetric('engagement')">
+                                    {% trans "Engagement" %}
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="switchMetric('reach')">
+                                    {% trans "Reach" %}
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="switchMetric('impressions')">
+                                    {% trans "Impressions" %}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="engagementChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Performance -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Platform Performance" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="platformChart"></canvas>
+                            </div>
+                            <div class="mt-4">
+                                {% for platform in platform_stats %}
+                                    <div class="platform-stat mb-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fab fa-{{ platform.platform|lower }} me-2 platform-icon-{{ platform.platform|lower }}"></i>
+                                                <span>{{ platform.platform }}</span>
+                                            </div>
+                                            <strong>{{ platform.engagement_rate|floatformat:1 }}%</strong>
+                                        </div>
+                                        <div class="platform-metrics small text-muted">
+                                            <div class="d-flex justify-content-between">
+                                                <span>{% trans "Posts" %}: {{ platform.total_posts }}</span>
+                                                <span>{% trans "Followers" %}: {{ platform.followers_count }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Top Performing Posts -->
+                <div class="col-lg-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Top Performing Posts" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>{% trans "Post" %}</th>
+                                            <th>{% trans "Platform" %}</th>
+                                            <th>{% trans "Date" %}</th>
+                                            <th>{% trans "Engagement" %}</th>
+                                            <th>{% trans "Reach" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for post in top_posts %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        {% if post.image %}
+                                                            <img src="{{ post.image.url }}" alt="Post" 
+                                                                 class="post-thumb me-3">
+                                                        {% endif %}
+                                                        <div>
+                                                            <p class="mb-1">{{ post.content|truncatechars:50 }}</p>
+                                                            <small class="text-muted">{{ post.hashtags|truncatechars:30 }}</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {% for platform in post.platforms.all %}
+                                                        <span class="badge bg-secondary me-1">
+                                                            <i class="fab fa-{{ platform.platform|lower }}"></i>
+                                                        </span>
+                                                    {% endfor %}
+                                                </td>
+                                                <td>
+                                                    <span class="text-nowrap">{{ post.published_at|date:"M d" }}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="engagement-score">
+                                                        <strong class="text-success">{{ post.total_engagement|default:0 }}</strong>
+                                                        <div class="engagement-breakdown small text-muted">
+                                                            <i class="fas fa-heart"></i> {{ post.likes|default:0 }}
+                                                            <i class="fas fa-comment ms-2"></i> {{ post.comments|default:0 }}
+                                                            <i class="fas fa-share ms-2"></i> {{ post.shares|default:0 }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>{{ post.reach|default:0 }}</strong>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted py-4">
+                                                    {% trans "No posts data available" %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Engagement Breakdown & Best Times -->
+                <div class="col-lg-4">
+                    <!-- Engagement Types -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Engagement Types" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="engagement-type mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span><i class="fas fa-heart text-danger"></i> {% trans "Likes" %}</span>
+                                    <strong>{{ engagement_breakdown.likes|default:0 }}</strong>
+                                </div>
+                                <div class="progress mb-2" style="height: 6px;">
+                                    <div class="progress-bar bg-danger" 
+                                         style="width: {{ engagement_breakdown.likes_percentage|default:0 }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="engagement-type mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span><i class="fas fa-comment text-primary"></i> {% trans "Comments" %}</span>
+                                    <strong>{{ engagement_breakdown.comments|default:0 }}</strong>
+                                </div>
+                                <div class="progress mb-2" style="height: 6px;">
+                                    <div class="progress-bar bg-primary" 
+                                         style="width: {{ engagement_breakdown.comments_percentage|default:0 }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="engagement-type mb-3">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span><i class="fas fa-share text-success"></i> {% trans "Shares" %}</span>
+                                    <strong>{{ engagement_breakdown.shares|default:0 }}</strong>
+                                </div>
+                                <div class="progress mb-2" style="height: 6px;">
+                                    <div class="progress-bar bg-success" 
+                                         style="width: {{ engagement_breakdown.shares_percentage|default:0 }}%"></div>
+                                </div>
+                            </div>
+
+                            <div class="engagement-type">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <span><i class="fas fa-mouse-pointer text-warning"></i> {% trans "Clicks" %}</span>
+                                    <strong>{{ engagement_breakdown.clicks|default:0 }}</strong>
+                                </div>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-warning" 
+                                         style="width: {{ engagement_breakdown.clicks_percentage|default:0 }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best Posting Times -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Best Posting Times" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="best-times">
+                                {% for time_slot in best_posting_times %}
+                                    <div class="time-slot mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>{{ time_slot.time_range }}</strong>
+                                                <div class="small text-muted">{{ time_slot.day_of_week }}</div>
+                                            </div>
+                                            <div class="engagement-indicator">
+                                                <span class="badge bg-success">{{ time_slot.avg_engagement|floatformat:0 }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <p class="text-muted text-center">{% trans "Not enough data available" %}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Growth Trends -->
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Growth Trends" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="growth-metric mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>{% trans "Follower Growth" %}</span>
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i>
+                                        +{{ growth_trends.follower_growth|default:0 }}%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="growth-metric mb-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>{% trans "Engagement Growth" %}</span>
+                                    <span class="text-success">
+                                        <i class="fas fa-arrow-up"></i>
+                                        +{{ growth_trends.engagement_growth|default:0 }}%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="growth-metric">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>{% trans "Reach Growth" %}</span>
+                                    <span class="text-info">
+                                        <i class="fas fa-arrow-up"></i>
+                                        +{{ growth_trends.reach_growth|default:0 }}%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary { border-left: 4px solid #4A5C6A; }
+.border-left-success { border-left: 4px solid #28a745; }
+.border-left-info { border-left: 4px solid #17a2b8; }
+.border-left-warning { border-left: 4px solid #ffc107; }
+
+.platform-icon-facebook { color: #1877f2; }
+.platform-icon-twitter { color: #1da1f2; }
+.platform-icon-instagram { color: #e4405f; }
+.platform-icon-linkedin { color: #0077b5; }
+.platform-icon-youtube { color: #ff0000; }
+
+.platform-stat {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.platform-stat:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.post-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.engagement-breakdown {
+    font-size: 12px;
+}
+
+.engagement-breakdown i {
+    margin-right: 4px;
+}
+
+.time-slot {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.growth-metric {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.growth-metric:last-child {
+    border-bottom: none;
+}
+
+.chart-area {
+    position: relative;
+    height: 320px;
+}
+
+.chart-pie {
+    position: relative;
+    height: 245px;
+}
+
+.text-xs {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .btn-group-sm .btn {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="document.write('<script src=\\'{% static \"assets/libs/chartjs/chart.min.js\" %}\\'><\/script>')"></script>
+<script>
+let engagementChart;
+let currentMetric = 'engagement';
+
+// Initialize charts
+document.addEventListener('DOMContentLoaded', function() {
+    initEngagementChart();
+    initPlatformChart();
+});
+
+function initEngagementChart() {
+    const ctx = document.getElementById('engagementChart').getContext('2d');
+    
+    engagementChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+                {% for day in analytics_data %}
+                    '{{ day.date|date:"M d" }}',
+                {% endfor %}
+            ],
+            datasets: [{
+                label: '{% trans "Engagement" %}',
+                data: [
+                    {% for day in analytics_data %}
+                        {{ day.engagement }},
+                    {% endfor %}
+                ],
+                borderColor: '#4A5C6A',
+                backgroundColor: 'rgba(74, 92, 106, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#4A5C6A',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0,0,0,0.1)'
+                    }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index'
+            }
+        }
+    });
+}
+
+function initPlatformChart() {
+    const ctx = document.getElementById('platformChart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [
+                {% for platform in platform_stats %}
+                    '{{ platform.platform }}',
+                {% endfor %}
+            ],
+            datasets: [{
+                data: [
+                    {% for platform in platform_stats %}
+                        {{ platform.engagement_percentage|default:0 }},
+                    {% endfor %}
+                ],
+                backgroundColor: [
+                    '#4A5C6A',
+                    '#28a745',
+                    '#17a2b8',
+                    '#ffc107',
+                    '#dc3545',
+                    '#6f42c1'
+                ],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            cutout: '60%'
+        }
+    });
+}
+
+function switchMetric(metric) {
+    currentMetric = metric;
+    
+    // Update active button
+    document.querySelectorAll('.btn-group-sm .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Update chart data
+    let data, label, color;
+    
+    switch(metric) {
+        case 'engagement':
+            data = [
+                {% for day in analytics_data %}
+                    {{ day.engagement }},
+                {% endfor %}
+            ];
+            label = '{% trans "Engagement" %}';
+            color = '#4A5C6A';
+            break;
+        case 'reach':
+            data = [
+                {% for day in analytics_data %}
+                    {{ day.reach }},
+                {% endfor %}
+            ];
+            label = '{% trans "Reach" %}';
+            color = '#17a2b8';
+            break;
+        case 'impressions':
+            data = [
+                {% for day in analytics_data %}
+                    {{ day.impressions }},
+                {% endfor %}
+            ];
+            label = '{% trans "Impressions" %}';
+            color = '#28a745';
+            break;
+    }
+    
+    engagementChart.data.datasets[0].data = data;
+    engagementChart.data.datasets[0].label = label;
+    engagementChart.data.datasets[0].borderColor = color;
+    engagementChart.data.datasets[0].backgroundColor = color + '20';
+    engagementChart.data.datasets[0].pointBackgroundColor = color;
+    engagementChart.update();
+}
+
+function exportReport() {
+    // Create loading state
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Exporting..." %}';
+    btn.disabled = true;
+    
+    fetch('{% url "flame:export-social-analytics" %}?period={{ request.GET.period|default:"30d" }}', {
+        method: 'GET',
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob();
+        }
+        throw new Error('Export failed');
+    })
+    .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `social_media_analytics_${new Date().toISOString().split('T')[0]}.pdf`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('{% trans "Failed to export report. Please try again." %}');
+    })
+    .finally(() => {
+        // Reset button
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    });
+}
+
+// Auto refresh data every 5 minutes
+setInterval(function() {
+    fetch('/api/social/analytics-refresh/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update overview metrics
+                document.querySelector('.h5:contains("{{ analytics.total_followers }}")').textContent = data.total_followers;
+                document.querySelector('.h5:contains("{{ analytics.total_engagement }}")').textContent = data.total_engagement;
+                document.querySelector('.h5:contains("{{ analytics.total_reach }}")').textContent = data.total_reach;
+                document.querySelector('.h5:contains("{{ analytics.total_posts }}")').textContent = data.total_posts;
+            }
+        })
+        .catch(error => console.error('Error refreshing data:', error));
+}, 300000); // 5 minutes
+</script>
+{% endblock %}

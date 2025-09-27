@@ -1,0 +1,313 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-undo"></i>
+                        {% trans "Return Order" %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Return Information -->
+                    <div class="alert alert-info">
+                        <h5>
+                            <i class="fas fa-info-circle"></i>
+                            {% trans "Return Request" %}
+                        </h5>
+                        <p class="mb-0">
+                            {% trans "Please provide details about your return request. Our team will review and contact you within 24 hours." %}
+                        </p>
+                    </div>
+
+                    <!-- Order Details -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>{% trans "Order Details" %}</h6>
+                            <p><strong>{% trans "Order Number" %}:</strong> {{ order.order_number }}</p>
+                            <p><strong>{% trans "Order Date" %}:</strong> {{ order.order_date|date:"F d, Y" }}</p>
+                            <p><strong>{% trans "Delivery Date" %}:</strong> {{ order.delivered_at|date:"F d, Y" }}</p>
+                            <p><strong>{% trans "Status" %}:</strong> 
+                                <span class="badge bg-success">{{ order.get_product_status_display }}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>{% trans "Order Total" %}</h6>
+                            <p class="fs-4 text-primary mb-0">
+                                <strong>${{ order.total_amount|floatformat:2 }}</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Return Form -->
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Items to Return -->
+                        <h6>{% trans "Items to return" %}</h6>
+                        <div class="mb-4">
+                            {% for item in order.cartorderitem_set.all %}
+                                <div class="border rounded p-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                               name="return_items" value="{{ item.id }}" 
+                                               id="item_{{ item.id }}" checked>
+                                        <label class="form-check-label w-100" for="item_{{ item.id }}">
+                                            <div class="d-flex align-items-center">
+                                                <img src="{{ item.image }}" alt="{{ item.item }}" 
+                                                     class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">{{ item.item }}</h6>
+                                                    <p class="text-muted mb-1">
+                                                        {% trans "Quantity" %}: {{ item.qty }} × ${{ item.price|floatformat:2 }}
+                                                    </p>
+                                                    <p class="text-primary mb-0">
+                                                        <strong>{% trans "Subtotal" %}: ${{ item.total|floatformat:2 }}</strong>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- Return Reason -->
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">
+                                <strong>{% trans "Reason for return" %} *</strong>
+                            </label>
+                            <select name="reason" id="reason" class="form-select" required>
+                                <option value="">{% trans "Please select a reason" %}</option>
+                                <option value="defective">{% trans "Item is defective/damaged" %}</option>
+                                <option value="wrong_item">{% trans "Wrong item received" %}</option>
+                                <option value="not_as_described">{% trans "Item not as described" %}</option>
+                                <option value="quality_issues">{% trans "Quality issues" %}</option>
+                                <option value="size_fit">{% trans "Size/fit issues" %}</option>
+                                <option value="changed_mind">{% trans "Changed my mind" %}</option>
+                                <option value="arrived_late">{% trans "Item arrived too late" %}</option>
+                                <option value="other">{% trans "Other reason" %}</option>
+                            </select>
+                        </div>
+
+                        <!-- Detailed Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">
+                                <strong>{% trans "Detailed description" %} *</strong>
+                            </label>
+                            <textarea name="description" id="description" 
+                                      class="form-control" rows="4" required
+                                      placeholder="{% trans 'Please provide a detailed description of the issue or reason for return...' %}"></textarea>
+                            <div class="form-text">
+                                {% trans "Please be as specific as possible. Include details about damage, defects, or any other issues." %}
+                            </div>
+                        </div>
+
+                        <!-- Return Method -->
+                        <div class="mb-3">
+                            <label for="return_method" class="form-label">
+                                <strong>{% trans "Preferred return method" %}</strong>
+                            </label>
+                            <select name="return_method" id="return_method" class="form-select">
+                                <option value="pickup">{% trans "Schedule pickup from my address" %}</option>
+                                <option value="dropoff">{% trans "Drop off at store/service center" %}</option>
+                                <option value="mail">{% trans "Mail return (prepaid label)" %}</option>
+                            </select>
+                        </div>
+
+                        <!-- Refund Method -->
+                        <div class="mb-4">
+                            <label for="refund_method" class="form-label">
+                                <strong>{% trans "Preferred refund method" %}</strong>
+                            </label>
+                            <select name="refund_method" id="refund_method" class="form-select">
+                                <option value="original_payment">{% trans "Refund to original payment method" %}</option>
+                                <option value="store_credit">{% trans "Store credit" %}</option>
+                                <option value="exchange">{% trans "Exchange for another item" %}</option>
+                            </select>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" 
+                                   id="agree_terms" name="agree_terms" required>
+                            <label class="form-check-label" for="agree_terms">
+                                {% trans "I agree to the" %} 
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#returnPolicyModal">
+                                    {% trans "return policy and terms" %}
+                                </a> *
+                            </label>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'flame:order-detail' order.order_number %}" 
+                               class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> {% trans "Back to Order" %}
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-paper-plane"></i> {% trans "Submit Return Request" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Return Process -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-route"></i>
+                        {% trans "Return Process" %}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                                <h6 class="mt-2">{% trans "Submit Request" %}</h6>
+                                <p class="small text-muted">{% trans "Fill out the return form" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h6 class="mt-2">{% trans "Review" %}</h6>
+                                <p class="small text-muted">{% trans "We review your request" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <h6 class="mt-2">{% trans "Return Item" %}</h6>
+                                <p class="small text-muted">{% trans "Send item back to us" %}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="process-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <h6 class="mt-2">{% trans "Refund" %}</h6>
+                                <p class="small text-muted">{% trans "Receive your refund" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Return Policy Modal -->
+<div class="modal fade" id="returnPolicyModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-shield-alt"></i>
+                    {% trans "Return Policy" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>{% trans "Return Eligibility" %}</h6>
+                <ul>
+                    <li>{% trans "Items must be returned within 30 days of delivery" %}</li>
+                    <li>{% trans "Items must be in original condition and packaging" %}</li>
+                    <li>{% trans "All accessories and documentation must be included" %}</li>
+                    <li>{% trans "Items must not show signs of wear or damage caused by use" %}</li>
+                </ul>
+
+                <h6 class="mt-4">{% trans "Non-Returnable Items" %}</h6>
+                <ul>
+                    <li>{% trans "Software and digital products" %}</li>
+                    <li>{% trans "Customized or personalized items" %}</li>
+                    <li>{% trans "Items damaged by misuse" %}</li>
+                    <li>{% trans "Items without original packaging" %}</li>
+                </ul>
+
+                <h6 class="mt-4">{% trans "Refund Processing" %}</h6>
+                <ul>
+                    <li>{% trans "Refunds are processed within 5-7 business days after we receive the item" %}</li>
+                    <li>{% trans "Refunds are issued to the original payment method" %}</li>
+                    <li>{% trans "Return shipping costs may be deducted from refund amount" %}</li>
+                    <li>{% trans "Restocking fees may apply for certain items" %}</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.process-step .step-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #4A5C6A;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 24px;
+}
+
+.alert-info {
+    border-left: 4px solid #0dcaf0;
+}
+
+.card-header.bg-warning {
+    border-bottom: none;
+    color: #000 !important;
+}
+
+.form-check-input:checked {
+    background-color: #4A5C6A;
+    border-color: #4A5C6A;
+}
+
+.border {
+    border-color: #dee2e6 !important;
+}
+</style>
+
+<script>
+// Auto-calculate return total when items are selected/deselected
+document.querySelectorAll('input[name="return_items"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        // You can add logic here to calculate return total
+        console.log('Item selection changed');
+    });
+});
+
+// Show/hide additional fields based on reason
+document.getElementById('reason').addEventListener('change', function() {
+    const description = document.getElementById('description');
+    const otherReason = this.value === 'other';
+    
+    if (otherReason) {
+        description.placeholder = '{% trans "Please explain your reason for return in detail..." %}';
+    } else {
+        description.placeholder = '{% trans "Please provide a detailed description of the issue or reason for return..." %}';
+    }
+});
+</script>
+{% endblock %}

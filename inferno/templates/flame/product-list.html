@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
   <style>
@@ -693,19 +694,35 @@
   </style>      
 
 <main>
-
 <div class="top-banner">
-    {% if active_brand  %}
+    {% if active_brand %}
+        <h1>
+            {% blocktrans with brand=active_brand %}
+                {{ brand }} <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
 
-    <h1> {{ active_brand }}&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
-   {% elif active_filter %}
-    <h1> {{ active_filter }} Items&nbsp;<i class="fas fa-laptop me-2"></i> </h1>
+    {% elif active_filter %}
+        <h1>
+            {% blocktrans with filter=active_filter %}
+                {{ filter }} Items <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
 
-{% elif active_category %}
-    <h1> {{ active_category }}&nbsp;<i class="fas fa-laptop me-2"></i></h1>
-{% else %}
-<h1> Products Available in CyberOptix</h1>
-{% endif %}  <div class="nyc-subtitle">Premium laptops for professionals</div>
+    {% elif active_category %}
+        <h1>
+            {% blocktrans with category=active_category %}
+                {{ category }} <i class="fas fa-laptop me-2"></i>
+            {% endblocktrans %}
+        </h1>
+
+    {% else %}
+        <h1>{% trans "Products Available in CyberOptix" %}</h1>
+    {% endif %}
+
+    <div class="nyc-subtitle">
+        {% trans "Premium laptops for professionals" %}
+    </div>
 </div>
 
 <div class="skyline-divider"></div>
@@ -713,13 +730,13 @@
 <div class="container" style="border:1px solid white;">
 
   <div class="filter-group">
-    <h5><i class="fas fa-tag me-2"></i>Shops</h5>
+    <h5><i class="fas fa-tag me-2"></i>{% trans "Shops" %}</h5>
     <div id="brand-filters">
-      <button class="btn active-filter" data-shop="all">All Shops</button>
-      <button class="btn" data-shop="unique"><i class="fas fa-laptop me-2"></i>Unique</button>
-      <button class="btn" data-shop="ict"><i class="fas fa-laptop me-2"></i>ICT</button>
-      <button class="btn" data-shop="citicom"><i class="fas fa-laptop me-2"></i>Citicom</button>
-      <button class="btn" data-shop="innwa"><i class="fas fa-laptop me-2"></i>Innwa</button>
+      <button class="btn active-filter" data-shop="all">{% trans "All Shops" %}</button>
+      <button class="btn" data-shop="unique"><i class="fas fa-laptop me-2"></i>{% trans "Unique" %}</button>
+      <button class="btn" data-shop="ict"><i class="fas fa-laptop me-2"></i>{% trans "ICT" %}</button>
+      <button class="btn" data-shop="citicom"><i class="fas fa-laptop me-2"></i>{% trans "Citicom" %}</button>
+      <button class="btn" data-shop="innwa"><i class="fas fa-laptop me-2"></i>{% trans "Innwa" %}</button>
     </div>
   </div>
 
@@ -735,10 +752,10 @@
           <input 
             type="text" 
             class="form-control search-input border-0 ps-2" 
-            placeholder="Try 'MacBook Pro' or '32GB RAM'..." 
+            placeholder="{% trans "Try 'MacBook Pro' or '32GB RAM'..." %}"
             id="search-input"
             oninput="searchProducts()"
-            aria-label="Search products"
+            aria-label="{% trans "Search products" %}"
           >
           <button 
             class="btn clear-btn" 
@@ -746,7 +763,7 @@
             onclick="resetSearch()"
             id="clear-search"
             style="opacity: 0;"
-            aria-label="Clear search"
+            aria-label="{% trans "Clear search" %}"
           >
             <i class="fas fa-times-circle"></i>
           </button>
@@ -754,9 +771,9 @@
             class="btn search-btn" 
             type="button"
             onclick="executeSearch()"
-            aria-label="Submit search"
+            aria-label="{% trans "Submit search" %}"
           >
-            Search
+            {% trans "Search" %}
           </button>
         </div>
         <div class="search-suggestions mt-2 shadow" id="search-suggestions"></div>
@@ -764,30 +781,18 @@
     </div>
   </div>
 
-  <div class="filter-group" >
-    <div class="d-flex flex-column align-items-center" >
-        <h5><i class="fas fa-tag me-2"></i>Price</h5>
+  <div class="filter-group">
+    <div class="d-flex flex-column align-items-center">
+        <h5><i class="fas fa-tag me-2"></i>{% trans "Price" %}</h5>
         
         <div class="price-filter-container" style="width: 250px;">
-            {% comment %} <!-- Price Range Slider -->
-            <div class="price-slider-container mb-3">
-                <input type="range" 
-                       class="form-range price-slider" 
-                       id="range" 
-                       name="min_price" 
-                       value="{{ min_max_price.price__min|floatformat:2 }}" 
-                       min="{{ min_max_price.price__min }}" 
-                       max="{{ min_max_price.price__max }}" 
-                       oninput="updatePriceDisplay(this.value)">
-            </div> {% endcomment %}
-            
             <!-- Price Display -->
             <div class="price-display d-flex justify-content-between mb-2">
                 <div class="price-min">
-                    <span class="price-value" id="slider-range-value1">${{ min_max_price.price__min|floatformat:2 }}</span>
+                    <span class="price-value" id="slider-range-value1">${% blocktrans with min_price=min_max_price.price__min|floatformat:2 %}{{ min_price }}{% endblocktrans %}</span>
                 </div>
                 <div class="price-max">
-                    <span class="price-value" id="slider-range-value2">${{ min_max_price.price__max|floatformat:2 }}</span>
+                    <span class="price-value" id="slider-range-value2">${% blocktrans with max_price=min_max_price.price__max|floatformat:2 %}{{ max_price }}{% endblocktrans %}</span>
                 </div>
             </div>
             
@@ -799,15 +804,15 @@
                        value="{{ min_max_price.price__min|floatformat:2 }}" 
                        min="{{ min_max_price.price__min }}" 
                        max="{{ min_max_price.price__max }}" 
-                       placeholder="Custom price"
+                       placeholder="{% trans "Custom price" %}"
                        style="width: 100px; padding: 5px 10px;"
                        onkeyup="updateSlider(this.value)">
             </div>
             
             <!-- Apply Button -->
             <div class="price-filter-actions">
-                <button class="btn-filter-apply" type="button" id="price-filter-btn" style="padding: 5px 15px; font-size: 0.8rem;">
-                    Apply
+                <button class="btn btn-filter-apply" type="button" id="price-filter-btn" style="padding: 5px 15px; font-size: 0.8rem;">
+                    {% trans "Apply" %}
                 </button>
             </div>
         </div>

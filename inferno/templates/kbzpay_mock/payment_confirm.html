@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBZPay - Secure Payment</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💳</text></svg>">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" onerror="this.src='{% static "assets/libs/qrcode/qrcode.min.js" %}'"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .payment-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+            max-width: 480px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .merchant-verified {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .merchant-verified svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+        }
+
+        .demo-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #fbbf24;
+            color: #92400e;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        .merchant-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .merchant-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .merchant-logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 12px;
+        }
+
+        .merchant-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .merchant-info p {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .order-details {
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .amount-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin: 24px 0;
+            border: 1px solid #bae6fd;
+        }
+
+        .amount-label {
+            color: #0369a1;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .amount-value {
+            font-size: 38px;
+            font-weight: 800;
+            color: #0c4a6e;
+            line-height: 1;
+        }
+
+        .currency {
+            font-size: 22px;
+            margin-left: 8px;
+            color: #0369a1;
+        }
+
+        .payment-methods {
+            margin: 24px 0;
+        }
+
+        .method-tabs {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 16px;
+        }
+
+        .method-tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #64748b;
+        }
+
+        .method-tab.active {
+            background: white;
+            color: #1e293b;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .method-content {
+            display: none;
+        }
+
+        .method-content.active {
+            display: block;
+        }
+
+        .qr-section {
+            text-align: center;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 2px dashed #d1d5db;
+        }
+
+        .qr-code {
+            margin: 16px auto;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .qr-instructions {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 12px;
+        }
+
+        .session-timer {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timer-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-cancel {
+            background: #f8fafc;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-cancel:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .security-footer {
+            background: #f8fafc;
+            padding: 20px 32px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .security-footer svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 480px) {
+            .payment-container {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .header {
+                padding: 24px;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            .amount-value {
+                font-size: 32px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="header">
+            <div class="demo-badge">DEMO MODE</div>
+            <div class="logo-container">
+                <div class="logo">KBZPay</div>
+                <div class="subtitle">Myanmar's Leading Digital Payment</div>
+                <div class="merchant-verified">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    Verified Merchant
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Session Timer -->
+            <div class="session-timer" id="sessionTimer">
+                <svg class="timer-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                </svg>
+                Session expires in: <span id="countdown">15:00</span>
+            </div>
+
+            <!-- Merchant Info -->
+            <div class="merchant-section">
+                <div class="merchant-header">
+                    <div class="merchant-logo">LM</div>
+                    <div class="merchant-info">
+                        <h3>{{ transaction.merchant_name }}</h3>
+                        <p>Verified Merchant Partner</p>
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Order ID</span>
+                        <span class="detail-value">#{{ transaction.out_trade_no }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Customer</span>
+                        <span class="detail-value">{{ transaction.customer_name|default:"Guest User" }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Transaction ID</span>
+                        <span class="detail-value">{{ transaction.prepay_id }}</span>
+                    </div>
+                    {% if transaction.order_items %}
+                    <div class="detail-row">
+                        <span class="detail-label">Items</span>
+                        <span class="detail-value">{{ transaction.order_items|length }} item{{ transaction.order_items|length|pluralize }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Amount -->
+            <div class="amount-section">
+                <div class="amount-label">Total Amount</div>
+                <div class="amount-value">
+                    {{ transaction.total_amount|floatformat:0 }}
+                    <span class="currency">{{ transaction.currency }}</span>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <div class="method-tabs">
+                    <button class="method-tab active" onclick="switchTab('pin')">PIN Payment</button>
+                    <button class="method-tab" onclick="switchTab('qr')">QR Code</button>
+                </div>
+
+                <div id="pin-method" class="method-content active">
+                    <p style="color: #64748b; font-size: 14px; text-align: center; margin-bottom: 20px;">
+                        Click "Confirm Payment" to proceed with KBZPay PIN verification
+                    </p>
+                </div>
+
+                <div id="qr-method" class="method-content">
+                    <div class="qr-section">
+                        <p style="font-weight: 600; margin-bottom: 12px;">Scan with KBZPay App</p>
+                        <div id="qrcode" class="qr-code"></div>
+                        <div class="qr-instructions">
+                            Open KBZPay app → Scan QR → Confirm payment
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <form method="post" id="paymentForm">
+                {% csrf_token %}
+                <div class="actions">
+                    <button type="submit" name="action" value="cancel" class="btn btn-cancel">
+                        Cancel Payment
+                    </button>
+                    <button type="submit" name="action" value="confirm" class="btn btn-confirm" id="confirmBtn">
+                        Confirm Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="security-footer">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            Secured by KBZPay • Demo Mode • No real charges
+        </div>
+    </div>
+
+    <script>
+        // Session countdown timer
+        let timeLeft = {{ transaction.get_session_timeout_minutes|default:15 }} * 60; // Convert to seconds
+
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('countdown').textContent = display;
+
+            if (timeLeft <= 0) {
+                document.getElementById('sessionTimer').style.background = '#fef2f2';
+                document.getElementById('sessionTimer').style.color = '#dc2626';
+                document.getElementById('countdown').textContent = 'EXPIRED';
+                document.getElementById('confirmBtn').disabled = true;
+                document.getElementById('confirmBtn').textContent = 'Session Expired';
+                return;
+            }
+
+            timeLeft--;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Generate QR Code
+        function generateQRCode() {
+            const qrData = "{{ transaction.qr_code_data|default:'' }}";
+            if (qrData) {
+                new QRCode(document.getElementById("qrcode"), {
+                    text: qrData,
+                    width: 160,
+                    height: 160,
+                    colorDark: "#1e293b",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+            }
+        }
+
+        // Switch between payment method tabs
+        function switchTab(method) {
+            // Update tab buttons
+            document.querySelectorAll('.method-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.method-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(method + '-method').classList.add('active');
+
+            // Generate QR code when QR tab is selected
+            if (method === 'qr' && !document.querySelector('#qrcode canvas')) {
+                setTimeout(generateQRCode, 100);
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            if (e.submitter.value === 'confirm') {
+                e.submitter.innerHTML = '<span class="spinner"></span>Processing...';
+                e.submitter.disabled = true;
+                document.querySelector('.payment-container').classList.add('loading');
+            }
+        });
+
+        // Auto-refresh QR code every 30 seconds
+        setInterval(function() {
+            const qrElement = document.querySelector('#qrcode');
+            if (qrElement && document.getElementById('qr-method').classList.contains('active')) {
+                qrElement.innerHTML = '';
+                generateQRCode();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

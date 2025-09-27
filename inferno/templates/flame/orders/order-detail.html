@@ -1,0 +1,250 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Order Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fas fa-shopping-bag"></i>
+                        {% trans "Order" %} #{{ order.order_number }}
+                    </h2>
+                    <p class="text-muted mb-0">
+                        {% trans "Placed on" %} {{ order.order_date|date:"F d, Y \a\t H:i" }}
+                    </p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-{% if order.product_status == 'delivered' %}success{% elif order.product_status == 'cancelled' %}danger{% elif order.product_status == 'processing' %}warning{% else %}primary{% endif %} fs-6">
+                        {{ order.get_product_status_display }}
+                    </span>
+                    <div class="mt-2">
+                        {% if order.tracking_number %}
+                            <a href="{% url 'flame:track-order' order.order_number %}" 
+                               class="btn btn-outline-primary btn-sm me-2">
+                                <i class="fas fa-truck"></i> {% trans "Track Order" %}
+                            </a>
+                        {% endif %}
+                        {% if can_cancel %}
+                            <a href="{% url 'flame:cancel-order' order.order_number %}" 
+                               class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-times"></i> {% trans "Cancel Order" %}
+                            </a>
+                        {% endif %}
+                        {% if can_return %}
+                            <a href="{% url 'flame:return-order' order.order_number %}" 
+                               class="btn btn-outline-warning btn-sm">
+                                <i class="fas fa-undo"></i> {% trans "Return Order" %}
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Order Items -->
+                <div class="col-lg-8 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">{% trans "Order Items" %}</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            {% for item in order_items %}
+                                <div class="border-bottom p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-2">
+                                            <img src="{{ item.image }}" alt="{{ item.item }}" 
+                                                 class="img-fluid rounded" style="max-height: 80px;">
+                                        </div>
+                                        <div class="col-6">
+                                            <h6 class="mb-1">{{ item.item }}</h6>
+                                            <p class="text-muted mb-0">
+                                                {% trans "Quantity" %}: {{ item.qty }}
+                                            </p>
+                                        </div>
+                                        <div class="col-2 text-center">
+                                            <strong>${{ item.price|floatformat:2 }}</strong>
+                                        </div>
+                                        <div class="col-2 text-end">
+                                            <strong>${{ item.total|floatformat:2 }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Order Timeline -->
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">{% trans "Order Timeline" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                {% for history in tracking_info.status_history %}
+                                    <div class="timeline-item {% if forloop.first %}active{% endif %}">
+                                        <div class="timeline-marker {% if forloop.first %}bg-primary{% else %}bg-secondary{% endif %}">
+                                            <i class="fas fa-circle"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <h6 class="mb-1">{{ history.get_status_display }}</h6>
+                                            <p class="text-muted mb-1">{{ history.timestamp|date:"M d, Y H:i" }}</p>
+                                            {% if history.notes %}
+                                                <p class="mb-0">{{ history.notes }}</p>
+                                            {% endif %}
+                                            {% if history.location %}
+                                                <small class="text-muted">
+                                                    <i class="fas fa-map-marker-alt"></i> {{ history.location }}
+                                                </small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <!-- Order Summary Card -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">{% trans "Order Summary" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>{% trans "Subtotal" %}:</span>
+                                <span>${{ order.price|floatformat:2 }}</span>
+                            </div>
+                            {% if order.shipping_cost %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>{% trans "Shipping" %}:</span>
+                                    <span>${{ order.shipping_cost|floatformat:2 }}</span>
+                                </div>
+                            {% endif %}
+                            {% if order.tax_amount %}
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>{% trans "Tax" %}:</span>
+                                    <span>${{ order.tax_amount|floatformat:2 }}</span>
+                                </div>
+                            {% endif %}
+                            {% if order.discount_amount %}
+                                <div class="d-flex justify-content-between mb-2 text-success">
+                                    <span>{% trans "Discount" %}:</span>
+                                    <span>-${{ order.discount_amount|floatformat:2 }}</span>
+                                </div>
+                            {% endif %}
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>{% trans "Total" %}:</span>
+                                <span class="text-primary">${{ order.total_amount|floatformat:2 }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Information -->
+                    {% if order.delivery_address %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">{% trans "Delivery Information" %}</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h6>{% trans "Delivery Address" %}</h6>
+                                    <p class="mb-0">{{ order.delivery_address }}</p>
+                                    {% if order.delivery_phone %}
+                                        <p class="text-muted mb-0">
+                                            <i class="fas fa-phone"></i> {{ order.delivery_phone }}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                                {% if order.estimated_delivery %}
+                                    <div class="mb-3">
+                                        <h6>{% trans "Estimated Delivery" %}</h6>
+                                        <p class="mb-0">{{ order.estimated_delivery|date:"M d, Y" }}</p>
+                                    </div>
+                                {% endif %}
+                                {% if order.tracking_number %}
+                                    <div>
+                                        <h6>{% trans "Tracking Number" %}</h6>
+                                        <p class="mb-0 font-monospace">{{ order.tracking_number }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Progress Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">{% trans "Order Progress" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="progress mb-3" style="height: 12px;">
+                                <div class="progress-bar bg-primary" role="progressbar" 
+                                     style="width: {{ tracking_info.progress_percentage }}%"
+                                     aria-valuenow="{{ tracking_info.progress_percentage }}" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                            <p class="text-center mb-0">
+                                <strong>{{ tracking_info.progress_percentage }}% {% trans "Complete" %}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #4A5C6A;
+}
+
+.progress-bar {
+    background-color: #4A5C6A;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,191 @@
+    {% load static %}
+    {% load i18n %}
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+<style>
+    
+    .sidebar{
+            background: linear-gradient(to right, var(--primary-dark), var(--card-bg), var(--dark-bg));
+
+    }
+</style>
+ <div class="main-content">
+        <div class="page-title">
+          <div class="title">{% trans "Dashboard" %}</div>
+          <div class="action-buttons">
+            <button class="btn btn-outline">
+              <i class="fas fa-download"></i>
+              {% trans "Export" %}
+            </button>
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i>
+              {% trans "Add New" %}
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_users|default:0 }}</div>
+                <div class="card-label">{% trans "Total Users" %}</div>
+              </div>
+              <div class="card-icon blue">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-info-circle"></i>
+              <span>{% trans "All registered users" %}</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_customers|default:0 }}</div>
+                <div class="card-label">{% trans "Total Customers" %}</div>
+              </div>
+              <div class="card-icon purple">
+                <i class="fas fa-user-friends"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{% blocktrans with count=new_customers_today %}{{ count }} new today{% endblocktrans %}</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{% if is_myanmar %}{{ total_sales|floatformat:2 }} ကျပ်{% else %}${{ total_sales|floatformat:2 }}{% endif %}</div>
+                <div class="card-label">{% trans "Total Revenue" %}</div>
+              </div>
+              <div class="card-icon green">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{% if sales_growth >= 0 %}+{% endif %}{{ sales_growth|floatformat:1 }}% {% trans "from yesterday" %}</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ total_orders|default:0 }}</div>
+                <div class="card-label">{% trans "Total Orders" %}</div>
+              </div>
+              <div class="card-icon red">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{% blocktrans with pending=pending_orders %}{{ pending }} pending{% endblocktrans %}</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="card-header">
+              <div>
+                <div class="card-value">{{ avg_order_value|default:0|floatformat:2 }}</div>
+                <div class="card-label">{% trans "Avg Order Value" %}</div>
+              </div>
+              <div class="card-icon orange">
+                <i class="fas fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i>
+              <span>{% if is_myanmar %}{{ avg_order_value|floatformat:0 }} ကျပ်{% else %}${{ avg_order_value|floatformat:2 }}{% endif %}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-shopping-bag"></i> {% trans "Recent Orders" %}</h3>
+            <button class="btn btn-outline btn-sm">
+              <i class="fas fa-eye"></i> {% trans "View All" %}
+            </button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>{% trans "Order ID" %}</th>
+                <th>{% trans "Customer" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Amount" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Actions" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in recent_orders %}
+              <tr>
+                <td>{{ order.order_number|default:order.id }}</td>
+                <td>{{ order.user.get_full_name|default:order.user.username }}</td>
+                <td>{{ order.order_date|date:"d M Y" }}</td>
+                <td>
+                  {% if is_myanmar %}
+                    {{ order.price|floatformat:0 }} ကျပ်
+                  {% else %}
+                    ${{ order.price|floatformat:2 }}
+                  {% endif %}
+                </td>
+                <td>
+                  <span class="status {% if order.product_status == 'delivered' %}active{% elif order.product_status == 'cancelled' %}cancelled{% else %}pending{% endif %}">
+                    {% if order.product_status == 'delivered' %}
+                      <i class="fas fa-check-circle"></i> {% trans "Completed" %}
+                    {% elif order.product_status == 'cancelled' %}
+                      <i class="fas fa-times-circle"></i> {% trans "Cancelled" %}
+                    {% elif order.product_status == 'pending' %}
+                      <i class="fas fa-clock"></i> {% trans "Pending" %}
+                    {% elif order.product_status == 'shipped' %}
+                      <i class="fas fa-shipping-fast"></i> {% trans "Shipped" %}
+                    {% elif order.product_status == 'processing' %}
+                      <i class="fas fa-cog"></i> {% trans "Processing" %}
+                    {% else %}
+                      <i class="fas fa-info-circle"></i> {{ order.product_status|title }}
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-outline btn-sm" data-cartorder-id="{{ order.id }}">
+                    <i class="fas fa-eye"></i> {% trans "View" %}
+                  </button>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" style="text-align: center; padding: 20px; color: #666;">
+                  <i class="fas fa-shopping-bag" style="font-size: 48px; color: #ddd; margin-bottom: 10px;"></i>
+                  <p>{% trans "No recent orders found" %}</p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>

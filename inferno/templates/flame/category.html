@@ -1,5 +1,6 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 
 	<link rel="stylesheet" type="text/css" href="{% static 'assets/css/category.css' %}">
@@ -12,15 +13,16 @@
 		<div id="product-top-container">
 			<div id="product-top-wrapper">
 				<div id="product-top-text-section">
-					<h1>Latest Trendings</h1>
-					<h2>Best Collections</h2>
+					<h1>{% trans "Latest Trendings" %}</h1>
+					<h2>{% trans "Best Collections" %}</h2>
 					<p>
-						Introducing the latest trending categories: sleek design, and best quality.
-
+						{% blocktrans %}
+							Introducing the latest trending categories: sleek design, and best quality.
+						{% endblocktrans %}
 					</p>
 					<a href="#">
 						<button class="blue-button">
-          <a href="{% url 'flame:product-list' %}" style="text-decoration:none;color: #4A5C6A;"class="filter-option {% if active_brand == '' or active_brand == 'Shops' %}active{% endif %}">Shops</a><br>
+          <a href="{% url 'flame:product-list' %}" style="text-decoration:none;color: #4A5C6A;"class="filter-option {% if active_brand == '' or active_brand == 'Shops' %}active{% endif %}">{% trans "Shops" %}</a><br> 
 						</button>
 					</a>
 				</div>
@@ -34,7 +36,7 @@
 		<div id="product-category container">
 			<div id="product-category-text">
 				<span class="blue-line"></span>
-				<span class="section-category-text">{{categories.count}}&nbsp;Categories</span>
+				<span class="section-category-text">{{categories.count}}&nbsp;{% trans "Categories" %}</span>
 			</div>
             
 			<div id='product-category-wrapper'>
@@ -45,11 +47,15 @@
 						<div class="product-category-desc-section">
 
 						<span class="product-category-type">
-											<a href="{% url 'flame:product-list' %}?category=Laptop" style="text-decoration: none;color:white;"name="Laptop" class="filter-option {% if active_category == 'Laptop' %}active{% endif %}">Laptop</a><br>
+											<a href="{% url 'flame:product-list' %}?category=Laptop" style="text-decoration: none;color:white;"name="Laptop" class="filter-option {% if active_category == 'Laptop' %}active{% endif %}">{% trans "Laptop"%}</a><br>
 
 						</span>
 						<span class="product-category-number">
-							  {{ laptop_count }}&nbsp;items
+							  {% blocktrans count count=laptop_count %}
+        {{ count }} item
+    {% plural %}
+        {{ count }} items
+    {% endblocktrans %}
 						</span>
 						</div>
 					</div>
@@ -60,10 +66,14 @@
 					</div>
 					<div class="product-category-desc-section">
 						<span class="product-category-type">
-											<a href="{% url 'flame:product-list' %}?category=Desktop" style="text-decoration: none;color:white;"name="Desktop" class="filter-option {% if active_category == 'Desktop' %}active{% endif %}">Desktop</a><br>
+											<a href="{% url 'flame:product-list' %}?category=Desktop" style="text-decoration: none;color:white;"name="Desktop" class="filter-option {% if active_category == 'Desktop' %}active{% endif %}">{% trans "Desktop" %}</a><br>
 						</span>
 						<span class="product-category-number">
-                            {{ desktop_count }}&nbsp; items
+                            {% blocktrans count count=desktop_count %}
+                {{ count }} item
+            {% plural %}
+                {{ count }} items
+            {% endblocktrans %}
 						</span>
 					</div>
 				</div>
@@ -74,10 +84,14 @@
 					</div>
 					<div class="product-category-desc-section">
 						<span class="product-category-type">
-											<a href="{% url 'flame:product-list' %}?category=Accessories" style="text-decoration: none;color:white;"name="Accessories" class="filter-option {% if active_category == 'Accessories' %}active{% endif %}">Accessories</a><br>
+											<a href="{% url 'flame:product-list' %}?category=Accessories" style="text-decoration: none;color:white;"name="Accessories" class="filter-option {% if active_category == 'Accessories' %}active{% endif %}">{% trans "Accessories" %}</a><br>
 						</span>
 						<span class="product-category-number">
-                            {{ accessories_count }}&nbsp;items
+                            {% blocktrans count count=accessories_count %}
+                {{ count }} item
+            {% plural %}
+                {{ count }} items
+            {% endblocktrans %}
 						</span>
 					</div>
 				</div>

@@ -1,0 +1,226 @@
+products
+ID,Title,Category,CPU,RAM,Price,Image
+5,2021 Apple MacBook Pro - Silver,Laptop,intel i5,8GB,1297.0,U_Mac1.1.jpg
+6,Apple 2023 MacBook Pro -Space Gray,Laptop,intel i5,4GB,1349.0,U_Mac2.1.jpg
+7,Apple 2023 MacBook Pro-Silver,Accessories,intel i3,8GB,1168.0,U_Mac3.1.jpg
+8,Early 2019 Apple iMac(renewed),Accessories,intel i7,8GB,700.0,U_Mac4.1.jpg
+9,2020 Apple MacBook Air-Gold,Accessories,intel i5,8GB,677.0,U_Mac6.1.jpg
+10,Apple 2024 MacBook Pro -Space Black,Accessories,intel i5,8GB,1798.0,ICT_Macbooklaptop2_MliAqgP.1.jpg
+11,Apple 2024 MacBook Pro- Space Black,Accessories,intel i5,8GB,5898.0,U_Mac8.1.jpg
+13,ASUS ROG Strix G17 Gaming Laptop,Laptop,intel,8,1093.09,ICT_Asuslaptop2_6E8fdps.1.jpg
+14,"Apple MacBook Pro 15""",Laptop,Intel Core i7,4 GB,799.99,Citcom_Apple_Macbook_1_1.jpg
+15,Apple 2023 MacBook Pro,Laptop,Ryzen 5,16 GB,1859.99,Citcom_Apple_Macbook_2_1.jpg
+16,Apple 2024 MacBook Pro,Laptop,Apple M4,128,5898.49,Citcom_Apple_Macbook_3_1.jpg
+17,"Apple MacBook Pro 16.2""",Laptop,Apple M4,1 TB,2699.0,Citcom_Apple_Macbook_4_1.jpg
+18,"Apple 2024 MacBook Air 15""",Laptop,Apple M3,8 GB,1154.09,Citcom_Apple_Macbook_5_1.jpg
+20,Apple MacBook Air MD712LL/B,Laptop,Intel i7,4 GB,240.62,Citcom_Apple_Macbook_6_1_2xSjJvw.jpg
+21,Apple 2023 MacBook Pro,Laptop,intel i7,16 GB,1349.09,Citcom_Apple_Macbook_7_1.jpg
+22,"Apple MacBook Pro 16.2""",Laptop,Ryzen 9,36 GB,3049.0,Citcom_Apple_Macbook_8_1.jpg
+23,Apple 2023 MacBook Air,Laptop,Ryzen 5,8 GB,939.85,Citcom_Apple_Macbook_9_1.jpg
+24,"Apple 2024 MacBook Air 13""",Laptop,Intel i7,16 GB,939.85,Citcom_Apple_Macbook_10_1.jpg
+25,"Acer Aspire Go 15 Slim Laptop  15.6""",Laptop,Intel Core i3,8 GB,507.33,Citcom_Acer_1_1.jpg
+26,"Acer 2023 Newest Chromebook 315 Laptop 15.6""",Laptop,Celeron,4 GB,289.52,Citcom_Acer_2_1.jpg
+27,"2023 Newest Acer Aspire 5 Laptop 15.6""",Laptop,Ryzen 3 3350U,8 GB,721.79,Citcom_Acer_3_1.jpg
+28,"Acer Aspire 5 A515-56-347N Slim Laptop - 15.6""",Laptop,Intel Core i3,8 GB,649.4,Citcom_Acer_4_1.jpg
+29,Acer Chromebook 311 Laptop,Laptop,AMD A Series,4 GB,293.76,Citcom_Acer_5_1.jpg
+30,"Acer Aspire 3 A314-23P-R3QA Slim Laptop 14.0""",Laptop,Ryzen 5,8 GB,583.16,Citcom_Acer_6_1.jpg
+31,Acer 2024 Newest 311 Chromebook Laptop Student Business,Laptop,Celeron N,4 GB,319.87,Citcom_Acer_7_1.jpg
+32,"Acer Aspire 3 A314-42P-R449 (Silver) 14""",Laptop,AMD Ryzen 7 5700U,16 GB,699.0,Citcom_Acer_8_1.jpg
+33,"Acer 2023 Newest Aspire 3 Touchscreen Laptop 15.6""",Laptop,Ryzen 5,8 GB,698.15,Citcom_Acer_9_1.jpg
+34,"Acer Swift Go 14 SFG14-63-R0BY Thin & Light Laptop 14""",Laptop,intel i7,16 GB,1099.0,Citcom_Acer_10_1.jpg
+35,ASUS ROG Strix G16 (2024) Gaming Laptop 16”,Laptop,Intel Core i7,16 GB,1085.33,Citcom_ASUS_1_1.jpg
+36,"ASUS ROG Strix G17 Gaming Laptop 17.3""",Laptop,Ryzen 9,64 GB,1689.0,Citcom_ASUS_2_1.jpg
+37,ASUS Vivobook 15.6” FHD Laptop,Laptop,Ryzen 3,8 GB,177.75,Citcom_ASUS_3_1.jpg
+38,ASUS Vivobook 15.6” FHD Laptop,Laptop,MediaTek Helio,4 GB,135.72,Citcom_ASUS_4_1.jpg
+39,"ASUS TUF Gaming A15 (2023) Gaming Laptop 15.6""",Laptop,Ryzen 9,16 GB,1131.26,Citcom_ASUS_5_1.jpg
+40,"ASUS Chromebook CX1 14"" FHD",Laptop,Celeron,4 GB,1131.26,Citcom_ASUS_6_1.jpg
+41,ASUS 2024 Zenbook S 13 OLED Laptop 13.3”,Laptop,Intel Core i7,16 GB,913.91,Citcom_ASUS_7_1.jpg
+42,ASUS 2023 Vivobook 14 Laptop 14”,Laptop,Intel Core i5,8 GB,277.38,Citcom_ASUS_8_1.jpg
+43,"ASUS Business Vivobook S 16 Flip 2-in-1 Laptop 16""",Laptop,Intel Core i9,40 GB,174.8,Citcom_ASUS_9_1.jpg
+44,"ASUS Zenbook 14 OLED Laptop 14""",Laptop,Intel Core i9,16 GB,943.64,Citcom_ASUS_10_1.jpg
+45,Dell Inspiron 5645 Laptop,Laptop,AMD Ryzen 7,16 GB,570.0,Citcom_DELL_1_1.jpg
+46,"Dell 2023 Inspiron 15 Business Laptop 15.6""",Laptop,Intel Core i5,16 GB,439.95,Citcom_DELL_2_1.jpg
+47,Dell Latitude 7490 14 HD Anti-Glare,Laptop,Intel Core i5,16 GB,197.75,Citcom_DELL_3_1.jpg
+48,"DELL Latitude 7420 Business Laptop, Touchscreen Notebook 14""",Laptop,Intel Core i7,32 GB,494.99,Citcom_DELL_4_1.jpg
+49,Dell Inspiron 16 7640 2-in-1 Laptop 16GB 1TB SSD,Laptop,Core i& Family,16 GB,885.49,Citcom_DELL_5_1.jpg
+50,"Dell Inspiron 15 3520 15.6"" FHD Laptop Computer",Laptop,Intel Core i7,1 TB,574.49,Citcom_DELL_6_1.jpg
+51,2024 Dell Latitude 3550 Business Laptop,Laptop,Core i5,16 GB,899.99,Citcom_DELL_7_1.jpg
+52,"Dell Inspiron 15 Laptop for Business and Students 15.6""",Laptop,Core i5,1 TB,475.99,Citcom_DELL_8_1.jpg
+53,Dell XPS 15 9530 Business Laptop,Laptop,Core i7,32 GB,1429.99,Citcom_DELL_9_1.jpg
+54,"Dell 2024 Inspiron 16 Laptop 16""",Laptop,Ryzen 7,32 GB,940.0,Citcom_DELL_10_1.jpg
+55,"HP 15.6"" Portable Laptop (Include 1 Year Microsoft 365)",Laptop,Pentium,8 GB,194.99,Citcom_HP_1_1.jpg
+56,"HP Victus 15.6 i5 Gaming Laptop, 15.6""",Laptop,Core i5 Family,32 GB,609.97,Citcom_HP_2_1.jpg
+57,"HP Envy 16Business Laptop 16""",Laptop,Core i7 Family,32 GB,1176.49,Citcom_HP_3_1.jpg
+58,"HP 14 Laptop, Intel Celeron N4020",Laptop,Celeron N4020,4 GB,148.99,Citcom_HP_4_1.jpg
+59,HP Chromebook 14 Business & Students Laptop,Laptop,Pentium,4 GB,249.99,Citcom_HP_5_1.jpg
+60,"HP 15.6"" FHD Touchscreen Business Laptop",Laptop,Core i7,32 GB,559.0,Citcom_HP_6_1.jpg
+61,"HP 15.6"" FHD Touchscreen Business Laptop",Laptop,Core i7,16 GB,485.74,Citcom_HP_7_1.jpg
+62,HP Stream 14 inches HD (1366x768) Display,Laptop,Celeron N,4 GB,485.74,Citcom_HP_8_1.jpg
+63,HP 24mh FHD Computer Monitor with 23.8-Inch IPS Display (1080p),Desktop,Ryzen 3,16GB,129.9,HP_D-1.jpg
+64,HP 27h Full HD Monitor - Diagonal - IPS Panel & 75Hz Refresh Rate,Desktop,intel i5,16GB,121.71,HP_D_2_1.jpg
+65,"HP OMEN 27q QHD 165Hz Gaming Monitor, QHD Display (2560 x 1440)",Desktop,intel i5,16GB,169.99,Citcom_HP_D_3_1.jpg
+66,"HP Smart Buy E24T G5 Touch FHD Monitor, Black",Desktop,Ryzen 9,32GB,270.0,Citcom_HP_D_4_1.jpg
+67,"HP V24i 24"" 1080P Computer Monitor Bundle with Docztorm Dock, 24""",Desktop,Ryzen 5,8GB,129.9,Citcom_HP_D_5_1.jpg
+68,"Lenovo Newest Flagship Chromebook, 14''",Laptop,Cortex,4 GB,186.0,Citcom_Lenovo_1_1.jpg
+69,"Lenovo 2022 Newest Ideapad 3 Laptop, 15.6""",Laptop,Core i3,20 GB,199.0,Citcom_Lenovo_2_1.jpg
+70,"Lenovo 2024 IdeaPad 1 Gen 7 Laptop, 15.6""",Laptop,Core i3 Family,24 GB,329.9,Citcom_Lenovo_3_1.jpg
+71,"LENOVO IdeaPad 1 Laptop, 15.6”",Laptop,Celeron,20 GB,370.0,Citcom_Lenovo_4_1.jpg
+72,"Lenovo 2022 Ideapad 3 Laptop, 15.6"" HD Touchscreen",Laptop,Core i3 1115G4,12 GB,289.0,Citcom_Lenovo_5_1.jpg
+73,Lenovo 500w Gen 3 2-in-1 Laptop,Laptop,Core m-38100Y,8 GB,299.98,Citcom_Lenovo_6_1.jpg
+74,"Lenovo Gen 12 ThinkPad X1 Carbon Laptop with Intel Ultra 7 155U Processor 14""",Laptop,Core i7 Family,32 GB,1159.0,Citcom_Lenovo_7_1.jpg
+75,"Lenovo V-Series V15 Business Laptop, 15.6""",Laptop,AMD Ryzen 7,16 GB,489.02,Citcom_Lenovo_8_1.jpg
+76,"Lenovo Legion Pro 7i Gen 9 16"" Gaming Laptop (2024 Model)",Laptop,Intel Core i9,32 GB,2459.0,Citcom_Lenovo_9_1.jpg
+77,"Lenovo ThinkPad T14 Gen 4 21HD002BUS 14"" Notebook",Laptop,Core i7,16 GB,799.99,Citcom_Lenovo_10_1.jpg
+78,MSI Katana A15 AI 15.6” 144Hz FHD Gaming Laptop: Ryzen 7-8845HS,Laptop,AMD Ryzen 7,32 GB,1299.99,Citcom_MSI_1_1.jpg
+79,MSI Prestige 14H 14” FHD+ Business Laptop: Intel Core i5-12500H,Laptop,Core i5-12500H,16 GB,529.96,Citcom_MSI_2_1.jpg
+80,MSI Modern 15H AI 15.6”Business Laptop: Intel Core Ultra 9-185H,Laptop,Core i9,32 GB,916.64,Citcom_MSI_3_1.jpg
+81,MSI Raider GE76 Gaming Laptop: Intel Core i9-12900H,Laptop,Core i9,16 GB,916.64,Citcom_MSI_4_1.jpg
+82,"MSI Prestige 16 AI EVO 16"" UHD+ OLED Ultra Thin Professional Laptop Copilot+ PC",Laptop,Ryzen 9,32 GB,1827.04,Citcom_MSI_5_1.jpg
+83,MSI GE76 Raider Gaming Laptop,Laptop,Core i7,32 GB,1559.0,Citcom_MSI_6_1.jpg
+84,"MSI Stealth 15M Gaming Laptop: 15.6"" 144Hz FHD 1080p Display",Laptop,Core i7,16 GB,799.0,Citcom_MSI_7_1.jpg
+85,MSI Raider 18 HX 18” 120Hz UHD+ Gaming Laptop: Intel Core i9-14900HX,Laptop,Core i9,128 GB,3669.92,Citcom_MSI_8_1.jpg
+86,"MSI Newest GF63 Thin Gaming Laptop, 15.6"" FHD 144Hz",Laptop,Core i5 Family,16 GB,620.0,Citcom_MSI_9_1.jpg
+87,"MSI Modern 15 Laptop: 13th Gen Core i9-13900H, 32GB RAM, 1TB SSD, 15.6""",Laptop,Core i9,32 GB,922.38,Citcom_MSI_10_1.jpg
+89,"ASUS Chromebook CX1, 14"" FHD",Laptop,Celeron,4 GB,120.24,U_Asus1.1.jpg
+90,Lenovo  Flagship Chromebook,Laptop,Cortex,4 GB,174.03,I_Lenovo1_BHp7xbE.1.jpg
+91,Lenovo  V15 Business Laptop,Laptop,AMD Ryzen 7,16 GB,457.97,I_Lenovo2_hd8yfHO.1.jpg
+92,Lenovo IdeaPad Touch Laptop,Laptop,Ryzen 7,16 GB,544.49,I_Lenovo3_pR2uGqP.1.jpg
+93,Lenovo Yoga Business Laptop,Laptop,Ryzen 7,16 GB,869.99,I_Lenovo4_9RPfGfe.1.jpg
+95,Lenovo Legion Pro 7i Gaming Laptop,Laptop,Intel Core i9,32 GB,2769.0,I_Lenovo6_xYx2tMO.1.jpg
+96,Lenovo Flex WUXGA Touchscreen Laptop,Laptop,AMD Ryzen 7,16 GB,489.99,I_Lenovo5_y6C7I8y.1.jpg
+97,Lenovo ThinkPad T14s  Laptop,Laptop,intel i5,8 GB,1119.99,I_Lenovo7_UqgvDX6.1.jpg
+98,Lenovo IdeaPad Touchscreen Laptop,Laptop,UltraSPARC I,32 GB,1099.99,I_Lenovo8_5HkNOMY.1.jpg
+99,Lenovo ThinkPad Laptop,Laptop,Ryzen 7,64 GB,1199.99,I_Lenovo9_jgEMYnF.1.jpg
+100,Lenovo ThinkPad  Workstation Laptop,Laptop,Intel Core Ultra 9,64 GB,3499.0,I_Lenovo10_Q2NozlA.1.jpg
+101,Lenovo ThinkCentre  All-in-One Business Desktop,Desktop,intel i7,64 GB,1089.0,I_Lenovo_D1_LwuWKUe.1.jpg
+102,Lenovo IdeaCentre AIO All-in-One Desktop,Desktop,intel i7,16 GB,729.69,I_Lenovo_D2_OA3v95z.1.jpg
+103,Lenovo L15 Portable Monitor,Desktop,intel i5,8 GB,99.99,I_Lenovo_M1_S644V7o.1.jpg
+104,Lenovo ThinkVision Monitor,Desktop,intel i3,8 GB,106.65,I_Lenovo_M2_ayXMkx8.1.jpg
+105,ASUS Zenbook 14 OLED 2024 Business Laptop,Laptop,intel i3,16 GB,839.09,I_Asus-1.1.jpeg
+106,ASUS TUF A15 Gaming Laptop,Laptop,AMD Ryzen 7,8 GB,599.99,I_Asus-2.1.jpeg
+107,ASUS ROG Gaming Laptop,Laptop,intel i5,16 GB,1223.59,I_Asus-3.1.jpeg
+108,ASUS Vivobook 15 OLED Laptop,Laptop,Ryzen 5,8 GB,725.99,I_Asus-4.1.jpeg
+109,ASUS Vivobook S 16 Flip 2-in-1 Laptop,Laptop,intel i7,8 GB,799.0,I_Asus-5.1.jpeg
+110,ASUS Vivobook Laptop,Laptop,Celeron,4 GB,159.0,I_Asus-6.1.jpeg
+111,ASUS Vivobook 16 Laptop,Laptop,Ryzen 7 5800H,12 GB,412.0,I_Asus-7.1.jpeg
+112,ASUS ProArt  OLED Touch Screen Laptop,Laptop,Ryzen 9,24 GB,1929.0,I_Asus-8.1.jpeg
+113,ASUS Zen AiO FHD Touchscreen Display,Desktop,Ryzen 7,8 GB,1277.81,I_Asus-D1.1.jpeg
+114,ASUS 2023 All-in-One Desktop,Desktop,Ryzen 5,32 GB,799.0,I_Asus-D2.1.jpeg
+115,ASUS AIO Desktop,Desktop,intel i3,8 GB,839.0,I_Asus-D3.1.jpeg
+116,ASUS ROG GA35 G35DX Desktop PC,Desktop,AMD,64 GB,1199.99,I_Asus-D4.1.jpeg
+117,Dell 2023 Inspiron 15 Business Laptop,Laptop,intel i5,16 GB,439.95,I_Dell-1.1.jpg
+118,Dell Inspiron 15 Laptop,Laptop,intel i5,16 GB,475.99,I_Dell-2.1.jpg
+119,Dell XPS 15 9530 Business Laptop,Laptop,intel i3,32 GB,1429.99,I_Dell-3.1.jpg
+120,2024 Dell Latitude Business Laptop,Laptop,intel i7,16 GB,899.99,I_Dell-4.1.jpg
+121,Dell 2024 Inspiron 16 Laptop,Laptop,Ryzen 7,32 GB,940.0,I_Dell-5.1.jpg
+122,Dell Business Inspiron Laptop,Laptop,intel i3,64 GB,719.0,I_Dell-6.1.jpg
+123,Dell Newest Inspiron 2-in-1 Laptop,Laptop,Ryzen 5,8 GB,646.99,I_Dell-7.1.jpg
+124,Dell Latitude 7430 7000 2-in-1 Laptop,Laptop,intel i5,16 GB,910.0,I_Dell-8.1.jpg
+125,Dell Inspiron All-in-One  Touchscreen  Desktop,Desktop,intel i7,8 GB,1168.99,I_Dell_D1.1.jpg
+126,Dell  SFF Desktop Computer,Desktop,intel i5,8 GB,929.0,I_Dell_D2.1.jpg
+127,Dell OptiPlex 7000 7020 Plus Desktop,Desktop,intel i3,8 GB,749.0,I_Dell_D3.1.jpg
+128,Dell Inspiron 3880 Desktop,Desktop,intel i5,8 GB,420.0,I_Dell_D4.1.jpeg
+129,MacBook Pro,Laptop,Apple M1,16 GB,768.88,I_macbook1.1.jpg
+130,MacBook Pro 16 Inches,Laptop,Ryzen 9,32 GB,1666.67,I_macbook2.1.jpg
+131,MacBook Pro 14.2 Inches,Laptop,Apple M3,8 GB,2017.0,I_macbook3.1.jpg
+132,"MacBook Pro 14.2""",Laptop,Apple M4,48 GB,2651.0,I_macbook4.1.jpg
+133,MacBook Air 13.3 Inches,Laptop,intel i7,8 GB,691.0,I_macbook5.1.jpg
+134,MacBook Air 13.6 Inches,Laptop,Apple M2,16 GB,1071.0,I_macbook6.1.jpg
+135,MacBook Air 13 Inches,Laptop,Ryzen 7,16 GB,988.88,I_macbook7.1.jpg
+136,MacBook Pro 16 Inches,Laptop,intel i3,16 GB,499.0,I_macbook8.1.jpg
+137,Apple 2024 iMac All-in-One Desktop,Desktop,Apple M4,8 GB,1249.99,I_macbook_D1.1.jpg
+138,Apple 2023 iMac All-in-One Desktop,Desktop,Apple M4,8 GB,1171.67,I_macbook_D2.1.jpg
+139,Apple Mac Mini Desktop Computer,Desktop,Apple M2 Pro,32 GB,1899.0,I_macbook_D3.1.jpeg
+140,"Apple iMac MF886LLA, 27 Inches",Desktop,intel i7,32 GB,649.0,I_macbook_D4.1.jpeg
+141,"HP 15.6"" Portable Laptop",Laptop,Pentium,16 GB,309.99,I_HP1.1.jpg
+142,HP Chromebook 14  Laptop,Laptop,Pentium,4 GB,249.99,I_HP2.1.jpg
+143,HP 14 Laptop,Laptop,Celeron N4020,4 GB,148.99,I_HP3.1.jpg
+144,HP 2023 Newest Chromebook Laptop,Laptop,Celeron,4 GB,135.99,I_HP4.1.jpg
+145,HP 23.8 inch All-in-One Desktop,Desktop,AMD Athlon XP,8 GB,332.63,I_HP_D1.1.jpg
+146,Acer Aspire 5 14 Slim Laptop,Laptop,Core i5,8 GB,411.84,I_Acer1.1.jpg
+147,Acer 315 15.6 Chromebook,Laptop,1.2GHz Cortex A8 Processor,4 GB,121.99,I_Acer2.1.jpg
+148,"Acer Aspire 3 15.6"" FHD Laptop",Laptop,intel i5,12 GB,650.0,I_Acer3.1.jpg
+149,Acer Nitro Curved PC Gaming Monitor,Desktop,intel i7,8 GB,161.18,I_Acer_D1.1.jpg
+150,Acer Professional Docking Monitor,Desktop,intel i5,8 GB,353.98,I_Acer_D2.1.jpg
+151,Acer Aspire C27-1800-UR12 AIO Desktop,Desktop,Core i5-12450H,16 GB,699.99,U_Acer_D1.1.jpg
+152,acer Nitro 50 N50-656-UR12 Gaming Desktop,Desktop,Core i5,16GB,799.99,U_Acer_D2.1.jpg
+153,"Acer Aspire Desktop, 7th Gen Intel Core i5-7400",Desktop,Core i5,12GB,295.0,U_Acer_D3.1.jpg
+154,"27 Inch 4K 75Hz Monitor, UHD (3840 * 2160)",Desktop,Ryzen 7,8GB,191.96,U_Acer_D4.1.jpg
+155,Acer Chromebook Spin 513 2-in-1 Laptop,Laptop,Qualcomm Snapdragon S4 MSM8270,4GB,299.98,U_Acer1.1.jpg
+156,"Acer Swift Go 16"" Touch WUXGA 2024 Laptop",Laptop,Core i9,32 GB,899.94,U_Acer2.1.jpg
+157,"Acer Nitro V 15 15.6"" FHD 165Hz Gaming Laptop",Laptop,Core i7,32 GB,929.99,U_Acer3.1.jpg
+158,"Acer Swift Go 16-2024 New Laptop - 16""",Laptop,Intel Core i9,32 GB,897.49,U_Acer4.1.jpg
+159,ASUS ROG Strix 3070 Gaming Desktop,Desktop,Ryzen 7,8 GB,1399.0,U_Asus_D2.1.jpg
+160,ASUS 24” (23.8-inch viewable) 1080P Eye Care Monitor (VA24EHF),Desktop,Intel i7,4GB,73.29,U_Asus_D3.1.jpg
+161,ASUS ProArt Display 27” 4K HDR Professional Monitor (PA279CRV),Desktop,Ryzen 7,16GB,407.78,U_Asus_D4.1.jpg
+162,ASUS VivoBook 15 F515 Thin and Light Laptop,Laptop,Core i3,4 GB,298.99,U_Asus2.1.jpg
+163,ASUS Vivobook 15.6” FHD Laptop,Laptop,Ryzen 3,8 GB,206.76,U_Asus3.1.jpg
+164,ASUS TUF A15 Gaming Laptop: 15.6” Full HD 144Hz Display,Laptop,AMD Ryzen 7,8 GB,599.99,Asus4.2.jpg
+165,Dell Inspiron 5415 All In One Desktop,Desktop,Ryzen 5,8GB,819.99,U_Dell_D1.1.jpg
+166,Dell Inspiron 5430 All in One Desktop,Desktop,Core i3,4GB,539.99,U_Dell_D2.1.jpg
+167,Dell S3422DWG Curved Gaming Monitor - 34 Inch,Desktop,Core i3,4GB,232.29,U_Dell_D3.1.jpg
+168,"27 Inch 4K 75Hz Monitor, UHD (3840 * 2160)",Desktop,Ryzen 5,8GB,199.99,U_Dell_D4.1.jpg
+169,"Dell Inspiron Touchscreen Laptop, 15.6"" Business & Student Laptop Computer",Laptop,Intel Core i5,32 GB,498.0,U_Dell1.1.jpg
+170,Dell Inspiron 15 3000 3520 Business Laptop Computer[Windows 11 Pro],Laptop,Core i5,16 GB,465.99,U_Dell2.1.jpg
+171,"Dell Inspiron 15 3511 15.6 Inch Laptop, Full HD LED Non-Touch WVA Display",Laptop,Core i3 Family,8 GB,329.0,U_Dell3.1.jpg
+172,2021 Dell 11.6-inch Convertible 2-in-1 Touchscreen Chromebook,Laptop,Celeron,4 GB,87.0,U_Dell4.1.jpg
+173,"HP 2022 Newest All-in-One Desktop, 21.5"" FHD Display",Desktop,Celeron,8GB,389.0,U_Hp_d1.1.jpg
+174,"HP 24"" All-in-One Desktop, AMD Athlon Silver 3050U Processor",Desktop,Athlon Silver 3050U,4GB,519.0,U_Hp_D2.1.jpg
+175,"HP 527sf Series 5 27"" FHD 1920x1080 IPS Monitor",Desktop,i7,16GB,119.0,U_Hp_D3.1.jpg
+176,"HP Series 5 27 inch FHD Monitor, Full HD Display (1920 x 1080)",Desktop,Core i3,4GB,139.09,U_Hp_D4.1.jpg
+177,"HP Elitebook 660 G11 Business Laptop, 16""",Laptop,intel,8 GB,345.9,U_Hp1_I1E8wDk.1.jpg
+178,"HP Elitebook 665 G11 16"" FHD+ Business Laptop Computer,",Laptop,Ryzen 5,32 GB,769.0,U_Hp2.1.jpg
+179,"HP 15.6"" Portable Laptop (Include 1 Year Microsoft 365),",Laptop,Pentium,16 GB,269.99,U_Hp3.1.jpg
+180,"HP Newest 14"" HD Laptop, Windows 11",Laptop,Celeron,4 GB,167.37,U_Hp4.1.jpg
+181,"Apple iMac 24"" with Retina 4.5K Display",Desktop,8-Core,8GB,899.0,U_Mac_D1.1.jpg
+182,Apple 2024 iMac All-in-One Desktop Computer with M4 chip,Desktop,Apple M4,16 GB,1498.99,U_Mac_D2.1.jpg
+183,Apple 2023 iMac All-in-One Desktop Computer with M3 chip,Desktop,Apple M3,8 GB,1462.0,U_Mac_D3.1.jpg
+184,Early 2019 Apple iMac with 3.0GHz Intel Core i5,Desktop,Core i5,1 TB,700.0,U_Mac_D4.1.jpg
+185,2021 Apple MacBook Pro,Laptop,Apple M1,16 GB,1297.89,U_Mac1.1.jpg
+187,"Lenovo ThinkVision P40w-20 39.7"" 5K2K WUHD Curved Screen WLED LCD Monitor",Desktop,Ryzen 3,4GB,1698.69,U_Lenovo_D1.1.jpg
+188,"Lenovo ThinkVision P34w-20 34.1""",Desktop,Ryzen 5,8GB,512.0,U_Lenovo_D2.1.jpg
+190,Lenovo IdeaCentre AIO All-in-One Desktop 2024 New,Desktop,Ryzen 5,16 GB,999.99,U_Lenovo_D4.1.jpg
+191,Operating System 	Windows 10 Home CPU Model 	Ryzen 5 CPU Speed 	2.1 GHz Graphics Card Description 	I,Laptop,Intel Core Ultra 5,16 GB,345.78,U_Lenovo2.1.jpg
+192,ASUS ROG Swift 27”1440P OLED DSC Gaming Monitor,Desktop,None,None,1100.0,ICT_Asusdesktop1.1.jpg
+193,ASUS TUF Gaming VG27WQ1B 27” Curved Monitor,Desktop,None,None,989.99,ICT_Asusdesktop2.1.jpg
+194,ASUS VA24DQ 23.8” Monitor,Desktop,None,None,320.0,ICT_Asusdesktop4.1.jpg
+195,ASUS Vivobook S 14 OLED Laptop,Laptop,Core i9,16 GB,450.0,ICT_Asuslaptop1.1.jpg
+196,"ASUS ROG Strix G17 Gaming Laptop, 17.3"" FHD 144Hz",Laptop,Ryzen 9,64 GB,1099.0,ICT_Asuslaptop2.1.jpg
+197,"ASUS Vivobook Laptop, 14"" FHD Display",Laptop,Core i3 Family,24 GB,899.0,ICT_Asuslaptop3.1.jpg
+198,"ASUS Vivobook 15.6” FHD Laptop, AMD Ryzen 3 3250U",Laptop,Ryzen 3,8 GB,320.0,ICT_Asuslaptop4.1.jpg
+199,Dell SE2422HX Monitor - 24 inch FHD (1920 x 1080) 16:9 Ratio,Desktop,None,None,389.0,product.jpg
+200,"Dell S2725DS Monitor - 27 Inch, QHD (2560x1440) Display",Desktop,None,None,332.0,ICT_dellDesktop2.1.jpg
+201,"Dell S2725HS 27 Inch Monitor, FHD (1920x1080) Display",Desktop,None,None,445.0,ICT_dellDesktop4.1.jpg
+202,Dell Latitude 5440 Laptop - 14 FHD AG Display,Laptop,Core i7 Family,32 GB,468.0,ICT_dell1.1.jpg
+203,Dell Inspiron 15 3520 (2024) Business Laptop,Laptop,Core i5,32 GB,538.0,ICT_dell2.1.jpg
+205,"Book 9i 2-in-1 13.3"" 2.8K Dual Screen OLED Touch Laptop",Laptop,Core i7,16 GB,1299.99,U_Lenovo3.1.jpg
+206,"Lenovo Legion Pro 9i Gen 9 16"" Gaming Laptop (2024 Model)",Laptop,Core i9,32 GB,399.0,U_Lenovo4.1.jpg
+207,Lenovo ThinkBook 15 Business Laptop,Laptop,Ryzen 7,16 GB,615.76,U_Lenovo5.1.jpg
+208,"Lenovo 14"" Business Laptop Computer, Windows 11 Pro Laptop",Laptop,Core i5,1 TB,569.99,U_Lenovo6.1.jpg
+209,"Lenovo V15 - Special Business Edition - 15.6"" FHD",Laptop,Ryzen 3,16 GB,649.0,U_Lenovo7.1.jpg
+210,Apple 2023 MacBook Pro Laptop M3,Laptop,Apple M3,8 GB,1168.44,U_Mac3.1.jpg
+211,Apple 2024 MacBook Air 15-inch Laptop,Laptop,Apple M3,8 GB,1180.43,U_Mac4.1.jpg
+212,2020 Apple MacBook Air Laptop,Laptop,8-Core,8 GB,677.08,U_Mac6.1.jpg
+213,Apple 2024 MacBook Pro Laptop with M4,Laptop,Apple M4,24 GB,1798.0,U_Mac7.1.jpg
+214,Apple 2024 MacBook Pro Laptop with M4 Max,Laptop,intel,8 GB,5898.0,U_Mac8.1.jpg
+215,ASUS ROG Swift 27”1440P OLED DSC Gaming Monitor (PG27AQDM),Desktop,Intel i7,8GB,899.0,ICT_Asusdesktop1_CE14d5r.1.jpg
+216,ASUS TUF Gaming VG27WQ1B 27” Curved Monitor,Desktop,Ryzen 9,16GB,345.0,ICT_Asusdesktop2_8xj5cK7.1.jpg
+217,"ASUS VA24DQ 23.8” Monitor, 1080P Full HD",Desktop,Intel i5,8GB,599.0,ICT_Asusdesktop4_OmGPUsA.1.jpg
+218,ASUS Vivobook S 14 OLED Laptop,Laptop,Core i9,16 GB,899.99,ICT_Asuslaptop1_YdR9obl.1.jpg
+219,"ASUS ROG Strix G17 Gaming Laptop, 17.3""",Laptop,Ryzen 9,64 GB,999.99,ICT_Asuslaptop2_Vuwdeu0.1.jpg
+220,"ASUS Vivobook Laptop, 14"" FHD Display",Laptop,Core i3 Family,24 GB,788.0,ICT_Asuslaptop3_kMepEAl.1.jpg
+221,ASUS Vivobook 15.6” FHD Laptop,Laptop,Ryzen 3,8 GB,500.99,ICT_Asuslaptop4_c2xzgiq.1.jpg
+222,Dell SE2422HX Monitor - 24 inch FHD (1920 x 1080) 16:9 Ratio,Desktop,Ryzen 3,4GB,389.0,ICT_dellDesktop1.1.jpg
+223,"Dell S2725DS Monitor - 27 Inch, QHD (2560x1440) Display",Desktop,Ryzen 5,8GB,332.0,ICT_dellDesktop2_Ifp1eCo.1.jpg
+224,"Dell S2725HS 27 Inch Monitor, FHD (1920x1080) Display",Desktop,Intel i5,16GB,445.0,ICT_dellDesktop4_FEzCrtV.1.jpg
+225,Dell Latitude 5440 Laptop - 14 FHD AG Display,Laptop,Core i7 Family,32 GB,468.0,ICT_dell1_VvA6Hgi.1.jpg
+226,Dell Inspiron 15 3520 (2024) Business Laptop,Laptop,Core i5,32 GB,538.99,ICT_dell2_5EjZfCm.1.jpg
+227,Dell Newest Inspiron 15 3530 Laptop,Laptop,Core i7 Family,64 GB,689.0,ICT_dell3.1.jpg
+228,Dell Latitude 12 7000 7280 Notebook,Laptop,Core i5,8 GB,789.0,ICT_dell4.1.jpg
+229,"HP 24 Daily All-in-One, 23.8"" FHD 1920 * 1080",Desktop,Core i3,None,678.99,ICT_hpdesktop1.1.jpg
+230,"HP All-in-One Desktop Computer 2024, 21.5"" FHD Display",Desktop,Celeron,8 GB,345.0,ICT_hp2.1.jpg
+231,HP 2024 Premium All-in-One Desktop Computer,Desktop,Celeron,16 GB,999.99,ICT_hpdesktop3.1.jpg
+232,"HP Victus 15.6 i5 Gaming Laptop, 15.6""",Laptop,Core i5 Family,1 TB,599.0,ICT_hp1.1.jpg
+233,"HP Newest 14"" HD Laptop, Windows 11",Laptop,Celeron,64 GB,677.99,ICT_hp2_EyX3gFv.1.jpg
+234,"HP Portable Laptop, Student and Business, 14"" HD Display",Laptop,Celeron,64 GB,345.99,ICT_hp3.1.jpg
+235,u,Laptop,intel i7,8 GB,7.0,ICT_Macbooklaptop2_MDbbdS6.1.jpg

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - KBZPay</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+
+        .success-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            position: relative;
+        }
+
+        .checkmark {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: checkmark 0.8s ease-in-out 0.3s forwards;
+        }
+
+        @keyframes checkmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .success-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        .payment-summary {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .amount-display {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .amount-label {
+            color: #15803d;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .amount-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #14532d;
+            line-height: 1;
+        }
+
+        .currency {
+            font-size: 18px;
+            margin-left: 6px;
+            color: #15803d;
+        }
+
+        .transaction-details {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            color: #10b981;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .order-items {
+            margin-top: 12px;
+        }
+
+        .order-item {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .order-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .item-details {
+            color: #64748b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .receipt-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+
+        .merchant-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .merchant-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .merchant-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+
+        .merchant-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .merchant-info p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .demo-notice {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-notice svg {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+        }
+
+        .auto-close-notice {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            20%, 80% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0;
+            }
+
+            .success-container {
+                border-radius: 0;
+                min-height: 100vh;
+            }
+
+            .success-header {
+                padding: 24px;
+            }
+
+            .content {
+                padding: 24px;
+            }
+
+            .amount-value {
+                font-size: 28px;
+            }
+
+            .receipt-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">
+            <div class="success-icon">
+                <svg class="checkmark" viewBox="0 0 52 52">
+                    <path d="M14 27l10 10L38 17"/>
+                </svg>
+            </div>
+            <h1 class="success-title">Payment Successful!</h1>
+            <p class="success-subtitle">Your transaction has been completed</p>
+        </div>
+
+        <div class="content">
+            <!-- Payment Summary -->
+            <div class="payment-summary">
+                <div class="amount-display">
+                    <div class="amount-label">Amount Paid</div>
+                    <div class="amount-value">
+                        {{ transaction.total_amount|floatformat:0 }}
+                        <span class="currency">{{ transaction.currency }}</span>
+                    </div>
+                </div>
+
+                <!-- Merchant Info -->
+                <div class="merchant-section">
+                    <div class="merchant-header">
+                        <div class="merchant-logo">LM</div>
+                        <div class="merchant-info">
+                            <h4>{{ transaction.merchant_name }}</h4>
+                            <p>Payment processed successfully</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Details -->
+            <div class="transaction-details">
+                <div class="detail-section">
+                    <div class="section-title">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1.447.894L10 15.118l-4.553 1.776A1 1 0 014 16V4zm2 3a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 2a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+                        </svg>
+                        Transaction Information
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Transaction ID</span>
+                        <span class="detail-value">{{ transaction.prepay_id }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Order ID</span>
+                        <span class="detail-value">#{{ transaction.out_trade_no }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Method</span>
+                        <span class="detail-value">KBZPay</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Time</span>
+                        <span class="detail-value">{{ transaction.payment_time|date:"M d, Y g:i A" }}</span>
+                    </div>
+                    {% if transaction.customer_name %}
+                    <div class="detail-row">
+                        <span class="detail-label">Customer</span>
+                        <span class="detail-value">{{ transaction.customer_name }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if transaction.order_items %}
+                <div class="detail-section">
+                    <div class="section-title">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                        </svg>
+                        Order Items ({{ transaction.order_items|length }})
+                    </div>
+                    <div class="order-items">
+                        {% for item in transaction.order_items %}
+                        <div class="order-item">
+                            <div class="item-name">{{ item.name }}</div>
+                            <div class="item-details">
+                                <span>Qty: {{ item.quantity }}</span>
+                                <span>{{ item.total|floatformat:0 }} {{ transaction.currency }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Actions -->
+            <div class="receipt-actions">
+                <button class="btn btn-secondary" onclick="window.print()">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    Print Receipt
+                </button>
+                <button class="btn btn-primary" onclick="closeWindow()">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    Continue Shopping
+                </button>
+            </div>
+
+            <!-- Demo Notice -->
+            <div class="demo-notice">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                </svg>
+                <strong>Demo Mode:</strong> This is a mock payment confirmation for educational purposes. No real charges were made.
+            </div>
+        </div>
+    </div>
+
+    <div class="auto-close-notice" id="autoCloseNotice">
+        Window will close automatically in a few seconds...
+    </div>
+
+    <script>
+        // Notify parent window of success
+        function notifyParent() {
+            if (window.opener) {
+                window.opener.postMessage({
+                    type: 'kbzpay_success',
+                    data: {
+                        prepay_id: '{{ transaction.prepay_id }}',
+                        out_trade_no: '{{ transaction.out_trade_no }}',
+                        status: 'TRADE_SUCCESS',
+                        amount: '{{ transaction.total_amount }}',
+                        currency: '{{ transaction.currency }}'
+                    }
+                }, '*');
+            }
+        }
+
+        // Close window function
+        function closeWindow() {
+            notifyParent();
+            if (window.opener) {
+                window.close();
+            } else {
+                window.history.back();
+            }
+        }
+
+        // Show auto-close notice
+        setTimeout(function() {
+            document.getElementById('autoCloseNotice').style.opacity = '1';
+        }, 2000);
+
+        // Auto-close after 8 seconds
+        setTimeout(function() {
+            closeWindow();
+        }, 8000);
+
+        // Initial notification
+        setTimeout(notifyParent, 1000);
+    </script>
+</body>
+</html>

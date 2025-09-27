@@ -1,0 +1,21 @@
+<!-- templates/flame/includes/price_display.html -->
+{% load myanmar_filter %}
+
+{% get_price_display product as price_info %}
+
+<div class="price-display">
+    {% if price_info.old_price %}
+        <span class="old-price text-muted text-decoration-line-through">
+            {{ price_info.old_price }}
+        </span>
+    {% endif %}
+    
+    <span class="current-price fw-bold">
+        {{ price_info.primary_price }}
+        {% if price_info.secondary_price %}
+            <small class="text-muted d-block">
+                {{ price_info.secondary_price }}
+            </small>
+        {% endif %}
+    </span>
+</div>

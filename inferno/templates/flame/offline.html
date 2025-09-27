@@ -1,0 +1,310 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Offline - LaptopMart Admin" %}</title>
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-cyborg-gaming.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <style>
+        .offline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .offline-icon {
+            font-size: 120px;
+            margin-bottom: 30px;
+            color: #ff6b6b;
+            animation: pulse 2s infinite;
+        }
+
+        .offline-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .offline-message {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .offline-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .offline-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .retry-btn {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .retry-btn:hover {
+            background: #45b7aa;
+            transform: translateY(-2px);
+        }
+
+        .dashboard-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .dashboard-btn:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            animation: blink 1s infinite;
+        }
+
+        .status-indicator.online {
+            background: #4ecdc4;
+            animation: none;
+        }
+
+        .offline-features {
+            max-width: 800px;
+            margin-top: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @media (max-width: 768px) {
+            .offline-title {
+                font-size: 36px;
+            }
+
+            .offline-message {
+                font-size: 18px;
+            }
+
+            .offline-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+
+        <h1 class="offline-title">{% trans "You're Offline" %}</h1>
+
+        <div class="connection-status">
+            <div class="status-indicator" id="connectionStatus"></div>
+            <span id="connectionText">{% trans "No internet connection" %}</span>
+        </div>
+
+        <p class="offline-message">
+            {% trans "Don't worry! You can still access cached admin data and continue working. Some features may be limited until you're back online." %}
+        </p>
+
+        <div class="offline-actions">
+            <button class="offline-btn retry-btn" onclick="checkConnection()">
+                <i class="fas fa-sync-alt"></i>
+                {% trans "Try Again" %}
+            </button>
+            <a href="/admin/dashboard/" class="offline-btn dashboard-btn">
+                <i class="fas fa-tachometer-alt"></i>
+                {% trans "Go to Dashboard" %}
+            </a>
+        </div>
+
+        <div class="offline-features">
+            <h3>{% trans "Available Offline Features" %}</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="feature-title">{% trans "Analytics" %}</div>
+                    <div class="feature-desc">{% trans "View cached analytics data and charts" %}</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-title">{% trans "User Management" %}</div>
+                    <div class="feature-desc">{% trans "Browse user profiles and information" %}</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="feature-title">{% trans "Products" %}</div>
+                    <div class="feature-desc">{% trans "View product catalog and details" %}</div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="feature-title">{% trans "Orders" %}</div>
+                    <div class="feature-desc">{% trans "Access order history and status" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check connection status
+        function updateConnectionStatus() {
+            const indicator = document.getElementById('connectionStatus');
+            const text = document.getElementById('connectionText');
+
+            if (navigator.onLine) {
+                indicator.classList.add('online');
+                text.textContent = '{% trans "Connection restored!" %}';
+
+                // Auto-redirect after 2 seconds if online
+                setTimeout(() => {
+                    window.location.href = '/admin/dashboard/';
+                }, 2000);
+            } else {
+                indicator.classList.remove('online');
+                text.textContent = '{% trans "No internet connection" %}';
+            }
+        }
+
+        function checkConnection() {
+            const btn = document.querySelector('.retry-btn');
+            const icon = btn.querySelector('i');
+
+            // Add spinning animation
+            icon.classList.add('fa-spin');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                updateConnectionStatus();
+                icon.classList.remove('fa-spin');
+                btn.disabled = false;
+
+                if (navigator.onLine) {
+                    window.location.reload();
+                }
+            }, 1000);
+        }
+
+        // Listen for connection changes
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // Initial check
+        updateConnectionStatus();
+
+        // Auto-check every 30 seconds
+        setInterval(() => {
+            if (!navigator.onLine) {
+                fetch('/admin/dashboard/', {
+                    method: 'HEAD',
+                    cache: 'no-cache'
+                }).then(() => {
+                    // If fetch succeeds, we're online
+                    window.location.href = '/admin/dashboard/';
+                }).catch(() => {
+                    // Still offline, do nothing
+                });
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

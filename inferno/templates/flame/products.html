@@ -1,0 +1,223 @@
+{% load static %}
+<!-- File: products.html -->
+<div class="page-title">
+  <div class="title">Products</div>
+</div>
+
+<div class="products-header">
+  <button class="btn btn-success" title="add product " >+ Add product</button>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Title</th>
+      <th>Product Image</th>
+      <th>Price</th>
+      <th>Shop</th>
+      <th>Category</th>
+      <th>Brand</th>
+      <th>Featured</th>
+      <th>Product Status</th>
+            <th>Edit</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for o in products %}
+    <tr>
+      <td>{{ o.user }}</td>
+      <td>{{ o.title }}</td>
+      <td><img src="{{ o.image.url }}" width="50" style="border-radius: 4px;"></td>
+      <td>${{ o.price }}</td>
+      <td>ICT</td>
+      <td>{{ o.category }}</td>
+      <td>{{ o.brand }}</td>
+      <td>
+        {% if o.featured %}
+          <span style="color: green; font-weight: bold;">✔</span>
+        {% else %}
+          <span style="color: red; font-weight: bold;">✘</span>
+        {% endif %}
+      </td>
+      <td>
+        <span class="status-badge {% if o.product_status == 'published' %}active{% else %}inactive{% endif %}">
+          {{ o.product_status }}
+        </span>
+      </td>
+      <td>
+  <button class="edit-icon" title="Edit Order" data-order-id="{{ o.id }}">
+    <i class="fas fa-pencil-alt"></i>
+  </button>
+</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add click event to all OK buttons
+  document.querySelectorAll('.confirm-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const orderId = this.getAttribute('data-order-id');
+      const selectElement = document.getElementById(`status-select-${orderId}`);
+      const newStatus = selectElement.value;
+      
+      updateOrderStatus(orderId, newStatus);
+    });
+  });
+});
+
+function updateOrderStatus(orderId, newStatus) {
+  fetch(`/update-order-status/${orderId}/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({
+      status: newStatus
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Update UI to reflect change
+      const statusElement = document.getElementById(`status-select-${orderId}`);
+      statusElement.value = newStatus;
+      
+      // Show success message
+      alert('Status updated successfully!');
+      
+      // Optional: Reload the page to see changes
+      // window.location.reload();
+    } else {
+      alert('Error updating status: ' + (data.error || 'Unknown error'));
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Failed to update status');
+  });
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+</script>
+<script>
+  
+</script><style>
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .data-table th {
+    background-color: #f5f5f5;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .data-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+  
+  .data-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .status-badge.active {
+    background-color: #e6f7ee;
+    color: #28a745;
+  }
+  
+  .status-badge.inactive {
+    background-color: #fce8e8;
+    color: #dc3545;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+.edit-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #9cc3f7ff;
+  color: black;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-icon:hover {
+  background-color: #076bbdff;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.edit-icon:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Optional pulse animation on hover */
+.edit-icon:hover i {
+  animation: pulse 0.5s ease;
+}
+</style>

@@ -1,0 +1,387 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "CyberOptix - Premium Laptops Myanmar" %}</title>
+
+    <!-- OFFLINE-READY VERSION -->
+    <!-- Local libraries for offline functionality -->
+    <script src="{% static 'assets/libs/qrcode/qrcode.min.js' %}"></script>
+
+    <!-- Fonts - fallback to system fonts if offline -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" onerror="this.disabled=true">
+    <style>
+        /* Fallback font stack for offline */
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+
+    <!-- Icons and CSS with CDN fallback -->
+    <link rel="stylesheet" href="{% static 'assets/libs/fontawesome/all.min.css' %}">
+    <link href="{% static 'assets/libs/boxicons/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/libs/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/libs/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "assets/css/cyberoptixcss.css" %}">
+
+    <!-- Offline Manager -->
+    <script src="{% static 'js/offline-manager.js' %}"></script>
+
+    <script src="{% url 'javascript-catalog' %}"></script>
+    <script src="{% static "assets/js/function.js" %}"></script>
+
+    <!-- Connection Status Indicator -->
+    <style>
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .connection-status.online {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .connection-status.offline {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .offline-notice {
+            display: none;
+            background-color: #ffc107;
+            color: #856404;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 2px solid #e0a800;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+        }
+
+        .offline-notice.show {
+            display: block;
+        }
+
+        /* Myanmar language specific styles */
+        html[lang="my"] {
+            font-family: 'Padauk', 'Myanmar Text', sans-serif;
+        }
+
+        html[lang="my"] .navbar {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Connection Status Indicator -->
+    <div id="connection-status" class="connection-status online">Online</div>
+
+    <!-- Offline Notice -->
+    <div id="offline-notice" class="offline-notice">
+        <i class="fas fa-wifi-slash"></i>
+        {% trans "You're offline. Some features may be limited." %}
+        <button onclick="window.location.reload()" class="btn btn-sm btn-warning ms-2">
+            {% trans "Try Again" %}
+        </button>
+    </div>
+
+    <!-- Header -->
+    <div class="navbar" style="background-color:#4A5C6A;">
+        <div class="logo">
+            <span id="menu-toggle"><i class="fas fa-bars"></i></span>
+            <i class="fas fa-laptop"></i>  {% trans "CyberOptix" %}
+        </div>
+        <nav style="background-color:#4A5C6A;">
+            <a href="{% url "flame:home" %}">{% trans "Home" %}</a>
+            <div class="shop-dropdown">
+                <a class="shop-trigger" style="cursor:pointer;">{% trans "Shop" %}</a>
+                <div class="shop-menu">
+                    {% for s in shop_views %}
+                        <a href="{% url 'flame:shop-detail' s.shop_id %}">
+                            <i class="shop-item">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% if LANGUAGE_CODE == 'my' and s.title_my %}
+                                    {{ s.title_my }}
+                                {% else %}
+                                    {{ s.title }}
+                                {% endif %}
+                                {% trans "Shop" %}</i>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="{% url "flame:About" %}">{% trans "About" %}</a>
+            <a href="{% url "flame:FAQs" %}">{% trans "FAQs" %}</a>
+            {% include 'partials/language_switcher.html' %}
+            <div class="icon-cart">
+                <a href="{% url 'flame:wishlist' %}">
+                    <i class="fas fa-heart"></i>
+                    <span id="wishlist-count" data-shop="shop.shop_id">
+                        {{ wishlist_count }}
+                    </span>
+                </a>
+            </div>
+
+            <div class="icon-cart">
+                <a href="{% url "flame:shop-cart" %}">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-items-count shop-cart-count total-cart-items cart-count" data-shop="shop.shop_id">
+                        {{ total_cart_items }}
+                    </span>
+                </a>
+            </div>
+            <div class="dropdown">
+                <a href="{% url 'flame:home' %}" id="userMenu" class="user-icon dropdown-toggle" style="text-decoration: none; color: #fff;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
+                </a>
+               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                     {% if user.is_authenticated %}
+                        <a href="{% url 'flame:profile' %}" class="dropdown-item">
+                            <i class="fas fa-user" style="font-size: 1rem;"></i> {% trans "Profile" %}
+                        </a>
+                        <a href="{% url 'userauths:sign-out' %}" class="dropdown-item online-only">
+                            <i class="fas fa-sign-out" style="font-size: 1rem;"></i> {% trans "Sign Out" %}
+                        </a>
+                    {% else %}
+                        <a href="{% url 'userauths:sign-in' %}" class="dropdown-item online-only">
+                            <i class="fas fa-sign-in" style="font-size:1rem;"></i> {% trans "Sign In" %}
+                        </a>
+                        <a href="{% url 'userauths:sign-up' %}" class="dropdown-item online-only">
+                            <i class="fas fa-user" style="font-size:1rem;"></i> {% trans "Sign up" %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <div class="menu-icon">
+            <i class="fas fa-bars"></i>
+        </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" id="brand-link" onclick="toggleBrandOptions()">
+            <span>{% trans "Brand" %}</span>
+            <span id="arrow">&#9660;</span>
+        </a>
+        <form method="get" action="{% url 'flame:product-list' %}">
+            <div id="brand-options" style="display: none; margin-left: 40px;">
+                <a href="{% url 'flame:product-list' %}" class="filter-option {% if active_brand == '' or active_brand == 'All' %}active{% endif %}">{% trans "All" %}</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=Apple" class="filter-option {% if active_brand == 'Apple' %}active{% endif %}">Apple</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=Lenovo" class="filter-option {% if active_brand == 'Lenovo' %}active{% endif %}">Lenovo</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=HP" class="filter-option {% if active_brand == 'HP' %}active{% endif %}">HP</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=Dell" class="filter-option {% if active_brand == 'Dell' %}active{% endif %}">Dell</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=Asus" class="filter-option {% if active_brand == 'Asus' %}active{% endif %}">Asus</a><br>
+                <a href="{% url 'flame:product-list' %}?brand=Acer" class="filter-option {% if active_brand == 'Acer' %}active{% endif %}">Acer</a><br>
+            </div>
+                <a href="{% url 'flame:product-list' %}?category=Laptop" name="Laptop" class="filter-option {% if active_category == 'Laptop' or active_category == 'လက်ပ်တော့' %}active{% endif %}">{% trans 'Laptop' %}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Desktop" class="filter-option {% if active_category == 'Desktop' or active_category == 'ဒက်စ်တော့' %}active{% endif %}">{% trans "Desktop" %}</a><br>
+                <a href="{% url 'flame:product-list' %}?category=Accessories" class="filter-option {% if active_category == 'Accessories' or active_category == 'အသုံးအဆောင်ပစ္စည်းများ' %}active{% endif %}">{% trans "Accessories" %}</a><br>
+        </form>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Shopping Cart Modal (Initially hidden) -->
+    <div class="cartTab" >
+        <div class="btn" style="background-color:#B8C2C2;">
+            <button class="closing">CLOSE</button>
+            <button class="checkOut">Check Out</button>
+        </div>
+    </div>
+
+
+    <br><br>
+
+    <!-- Alert Container -->
+<div class="alert-container" id="alertContainer">
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert-message alert-{{ message.tags }}" id="alert-{{ forloop.counter }}">
+            <div class="alert-content">
+                <i class="alert-icon
+                    {% if message.tags == 'success' %}fas fa-check-circle
+                    {% elif message.tags == 'error' or message.tags == 'danger' %}fas fa-exclamation-circle
+                    {% elif message.tags == 'warning' %}fas fa-exclamation-triangle
+                    {% elif message.tags == 'info' %}fas fa-info-circle
+                    {% else %}fas fa-info-circle{% endif %}"></i>
+                <span class="alert-text">{{ message }}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('alert-{{ forloop.counter }}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Enhanced Alert Script -->
+<script>
+// Function to close alert
+function closeAlert(alertId) {
+    const alert = document.getElementById(alertId);
+    if (alert) {
+        alert.classList.add('alert-fadeout');
+        setTimeout(() => {
+            alert.remove();
+        }, 300);
+    }
+}
+
+// Auto-dismiss alerts after 5 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert-message');
+    alerts.forEach((alert, index) => {
+        setTimeout(() => {
+            if (document.contains(alert)) {
+                closeAlert(alert.id);
+            }
+        }, 5000); // 5 seconds delay
+    });
+});
+
+// Function to show new alerts dynamically (for AJAX requests)
+function showDynamicAlert(type, message) {
+    const container = document.getElementById('alertContainer');
+    const alertId = 'alert-dynamic-' + Date.now();
+
+    const iconMap = {
+        'success': 'fas fa-check-circle',
+        'danger': 'fas fa-exclamation-circle',
+        'error': 'fas fa-exclamation-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+
+    const alertHTML = `
+        <div class="alert-message alert-${type}" id="${alertId}">
+            <div class="alert-content">
+                <i class="alert-icon ${iconMap[type] || 'fas fa-info-circle'}"></i>
+                <span class="alert-text">${message}</span>
+            </div>
+            <button class="alert-close" onclick="closeAlert('${alertId}')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="alert-progress"></div>
+        </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', alertHTML);
+
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        closeAlert(alertId);
+    }, 5000);
+}
+</script>
+
+    {% block content %}
+
+
+    {% endblock content%}
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="logo">
+                    <i class="fas fa-laptop"></i>CyberOptix
+                </div><br>
+                <p>{% trans "All Rights Reserved 2024-2025" %}</p>
+            </div>
+            <div class="footer-links">
+                <h4>{% trans "Information" %}</h4>
+                <ul>
+                    <li><a href="{% url 'flame:AboutUs' %}">"{% trans "About Us" %}"</a></li>
+
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>{%trans "Helpful Links" %}</h4>
+                <ul>
+                    <li><a href="{% url 'flame:Services' %}">{% trans "Services" %}</a></li>
+                    <li><a href="{% url 'flame:PrivacyPolicy' %}">{% trans "Privacy Policy" %}</a></li>
+                    <li><a href="{% url 'flame:Terms' %}">{% trans "Terms & Condition" %}</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>{% trans "Contact Us" %}</h4>
+                <p>+959 00090999</p>
+                <p>cyberoptix@gmail.com</p>
+                <div class="social-icons">
+                    <a href="#" class="me-3"><i class="bi bi-facebook" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-instagram" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#" class="me-3"><i class="bi bi-twitter" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                    <a href="#"><i class="bi bi-google" style="font-size: 1.5rem; color: #4A5C6A;"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function toggleBrandOptions() {
+            const brandOptions = document.getElementById('brand-options');
+            const isHidden = brandOptions.style.display === 'none';
+
+            if (isHidden) {
+                // Show all brand options
+                brandOptions.style.display = 'block';
+            } else {
+                // Hide all brand options
+                brandOptions.style.display = 'none';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+  const body      = document.body;
+  const menuToggle= document.getElementById('menu-toggle');
+  const sidebar   = document.getElementById('sidebar');
+  const overlay   = document.getElementById('overlay');
+  const cartIcon  = document.getElementById('shop-icon');       // make sure this exists
+  const closeCartBtn = document.querySelector('.cartTab .closing');
+
+  // Sidebar toggle
+  menuToggle?.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+    body.classList.toggle('shift-right');
+  });
+
+  // Clicking overlay closes sidebar
+  overlay?.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+    body.classList.remove('shift-right');
+  });
+
+});
+    </script>
+</body>
+</html>

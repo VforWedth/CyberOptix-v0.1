@@ -1,0 +1,293 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+
+<main>
+<div class="container">
+    <div class="form-container">
+        <div class="col-1">
+            <div class="image-layer">
+                <div class="featured-words">
+                    <h2>{% trans "Two-Factor" %} <br><span>{% trans "Authentication" %}</span></h2>
+                    <p>{% trans "Enter the verification code from your authenticator app to complete login." %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-2">
+            <form class="login-form" method="POST" action="{% url 'userauths:two-factor-auth' %}">
+                {% csrf_token %}
+                <h2 class="form-title">{% trans "Verify Your Identity" %}</h2>
+                
+                <!-- Messages -->
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} fade-in">
+                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% elif message.tags == 'success' %}check-circle{% else %}info-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <p>{% trans "Logging in as" %} <strong>{{ user.username }}</strong></p>
+                </div>
+                
+                <div class="form-inputs">
+                    <div class="input-box">
+                        <i class="fas fa-key input-icon"></i>
+                        <input type="text" 
+                               name="token" 
+                               class="input-field" 
+                               id="token"
+                               placeholder="{% trans 'Enter 6-digit code' %}" 
+                               maxlength="8"
+                               pattern="[0-9]{6,8}"
+                               autocomplete="one-time-code"
+                               autofocus
+                               required>
+                    </div>
+                    
+                    <div class="2fa-help">
+                        <div class="help-section">
+                            <h4>{% trans "Authenticator App" %}</h4>
+                            <p>{% trans "Open your authenticator app and enter the 6-digit code." %}</p>
+                        </div>
+                        
+                        <div class="help-section">
+                            <h4>{% trans "Backup Code" %}</h4>
+                            <p>{% trans "Or enter one of your 8-character backup codes." %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="input-submit">
+                    <span>{% trans "Verify & Login" %}</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="form-footer">
+                    <div class="alternative-options">
+                        <p><a href="#" onclick="showBackupOptions()">{% trans "Can't access your code?" %}</a></p>
+                        <p><a href="{% url 'userauths:sign-in' %}">{% trans "Back to Login" %}</a></p>
+                    </div>
+                </div>
+                
+                <!-- Hidden backup options -->
+                <div id="backup-options" style="display: none;" class="backup-section">
+                    <h4>{% trans "Recovery Options" %}</h4>
+                    <ul>
+                        <li><a href="#" onclick="showBackupCodes()">{% trans "Use backup code" %}</a></li>
+                        <li><a href="#">{% trans "Account recovery" %}</a></li>
+                        <li><a href="mailto:support@cyberoptix.com">{% trans "Contact support" %}</a></li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.user-info {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+}
+
+.user-avatar {
+    font-size: 48px;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.2fa-help {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #e3f2fd;
+    border-radius: 6px;
+    border-left: 4px solid #2196f3;
+}
+
+.help-section {
+    margin-bottom: 15px;
+}
+
+.help-section:last-child {
+    margin-bottom: 0;
+}
+
+.help-section h4 {
+    margin: 0 0 5px 0;
+    color: #1976d2;
+    font-size: 14px;
+}
+
+.help-section p {
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.alternative-options {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.alternative-options p {
+    margin: 8px 0;
+}
+
+.alternative-options a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.alternative-options a:hover {
+    text-decoration: underline;
+}
+
+.backup-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff3cd;
+    border-radius: 6px;
+    border: 1px solid #ffeaa7;
+}
+
+.backup-section h4 {
+    margin: 0 0 10px 0;
+    color: #856404;
+}
+
+.backup-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.backup-section li {
+    margin-bottom: 5px;
+}
+
+.backup-section a {
+    color: #856404;
+    text-decoration: none;
+}
+
+.backup-section a:hover {
+    text-decoration: underline;
+}
+
+/* Auto-format token input */
+#token {
+    text-align: center;
+    font-size: 18px;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+/* Session timeout warning */
+.session-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 12px;
+}
+</style>
+
+<script>
+// Auto-format token input
+document.getElementById('token').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    
+    if (value.length <= 6) {
+        // Format as 3-digit groups for TOTP codes
+        if (value.length > 3) {
+            value = value.slice(0, 3) + ' ' + value.slice(3);
+        }
+    } else {
+        // Don't format backup codes, just limit length
+        value = value.slice(0, 8);
+    }
+    
+    e.target.value = value;
+});
+
+// Remove spaces when submitting
+document.querySelector('.login-form').addEventListener('submit', function(e) {
+    let tokenField = document.getElementById('token');
+    tokenField.value = tokenField.value.replace(/\s/g, '');
+});
+
+function showBackupOptions() {
+    const backupDiv = document.getElementById('backup-options');
+    if (backupDiv.style.display === 'none') {
+        backupDiv.style.display = 'block';
+    } else {
+        backupDiv.style.display = 'none';
+    }
+}
+
+function showBackupCodes() {
+    document.getElementById('token').placeholder = '{% trans "Enter 8-character backup code" %}';
+    document.getElementById('token').setAttribute('maxlength', '8');
+    document.getElementById('token').setAttribute('pattern', '[A-Za-z0-9]{8}');
+}
+
+// Session timeout countdown
+let timeoutMinutes = 5;
+let timeoutSeconds = timeoutMinutes * 60;
+
+function updateCountdown() {
+    let minutes = Math.floor(timeoutSeconds / 60);
+    let seconds = timeoutSeconds % 60;
+    
+    // Show warning when less than 2 minutes remain
+    if (timeoutSeconds <= 120 && timeoutSeconds > 0) {
+        let warningDiv = document.querySelector('.session-warning');
+        if (!warningDiv) {
+            warningDiv = document.createElement('div');
+            warningDiv.className = 'session-warning';
+            document.querySelector('.form-inputs').prepend(warningDiv);
+        }
+        warningDiv.innerHTML = `⏰ {% trans "Session expires in" %} ${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+    
+    if (timeoutSeconds <= 0) {
+        alert('{% trans "Session expired. Redirecting to login..." %}');
+        window.location.href = '{% url "userauths:sign-in" %}';
+        return;
+    }
+    
+    timeoutSeconds--;
+    setTimeout(updateCountdown, 1000);
+}
+
+// Start countdown
+setTimeout(updateCountdown, 1000);
+
+// Auto-hide messages after 5 seconds
+setTimeout(() => {
+    const messages = document.querySelectorAll('.alert');
+    messages.forEach(msg => {
+        msg.style.animation = 'fadeOut 0.5s';
+        setTimeout(() => msg.remove(), 500);
+    });
+}, 5000);
+</script>
+</main>
+{% endblock content %}

@@ -1,0 +1,197 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>{% trans "My Orders" %}</h2>
+                <div class="order-stats">
+                    <span class="badge bg-primary me-2">
+                        {% trans "Total Orders" %}: {{ page_obj.paginator.count }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Order Filters -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="status" class="form-label">{% trans "Filter by Status" %}</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="">{% trans "All Orders" %}</option>
+                                {% for value, label in status_choices %}
+                                    <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter"></i> {% trans "Filter" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Orders List -->
+            {% if orders %}
+                <div class="row">
+                    {% for order in orders %}
+                        <div class="col-12 mb-4">
+                            <div class="card order-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-0">
+                                            <i class="fas fa-shopping-bag"></i>
+                                            {% trans "Order" %} #{{ order.order_number }}
+                                        </h5>
+                                        <small class="text-muted">
+                                            {% trans "Placed on" %} {{ order.order_date|date:"M d, Y" }}
+                                        </small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-{% if order.product_status == 'delivered' %}success{% elif order.product_status == 'cancelled' %}danger{% elif order.product_status == 'processing' %}warning{% else %}primary{% endif %}">
+                                            {{ order.get_product_status_display }}
+                                        </span>
+                                        <div class="mt-1">
+                                            <strong class="text-primary">${{ order.total_amount|floatformat:2 }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="order-items">
+                                                {% for item in order.cartorderitem_set.all|slice:":3" %}
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <img src="{{ item.image }}" alt="{{ item.item }}" 
+                                                             class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                                        <div>
+                                                            <div class="fw-bold">{{ item.item }}</div>
+                                                            <small class="text-muted">
+                                                                {% trans "Qty" %}: {{ item.qty }} × ${{ item.price }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                {% if order.cartorderitem_set.count > 3 %}
+                                                    <small class="text-muted">
+                                                        {% trans "and" %} {{ order.cartorderitem_set.count|add:"-3" }} {% trans "more items" %}
+                                                    </small>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <div class="btn-group-vertical d-grid gap-2">
+                                                <a href="{% url 'flame:order-detail' order.order_number %}" 
+                                                   class="btn btn-outline-primary btn-sm">
+                                                    <i class="fas fa-eye"></i> {% trans "View Details" %}
+                                                </a>
+                                                {% if order.tracking_number %}
+                                                    <a href="{% url 'flame:track-order' order.order_number %}" 
+                                                       class="btn btn-outline-info btn-sm">
+                                                        <i class="fas fa-truck"></i> {% trans "Track Order" %}
+                                                    </a>
+                                                {% endif %}
+                                                {% if order.can_be_cancelled %}
+                                                    <a href="{% url 'flame:cancel-order' order.order_number %}" 
+                                                       class="btn btn-outline-danger btn-sm">
+                                                        <i class="fas fa-times"></i> {% trans "Cancel" %}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Order Progress Bar -->
+                                    <div class="mt-3">
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 style="width: {{ order.get_order_progress }}%"
+                                                 aria-valuenow="{{ order.get_order_progress }}" 
+                                                 aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ order.get_order_progress }}% {% trans "Complete" %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}">
+                                        {% trans "Previous" %}
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}{% if current_status %}&status={{ current_status }}{% endif %}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}">
+                                        {% trans "Next" %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                    <h4>{% trans "No Orders Yet" %}</h4>
+                    <p class="text-muted">{% trans "You haven't placed any orders yet. Start shopping to see your orders here." %}</p>
+                    <a href="{% url 'flame:product-list' %}" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i> {% trans "Start Shopping" %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.order-card {
+    border: 1px solid #e0e0e0;
+    transition: box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    background-color: #4A5C6A;
+}
+
+.badge {
+    font-size: 0.85em;
+}
+</style>
+{% endblock %}

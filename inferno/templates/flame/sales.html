@@ -1,0 +1,958 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% trans "Admin Sales Dashboard" %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4895ef;
+      --success-color: #4cc9f0;
+      --warning-color: #f8961e;
+      --danger-color: #f72585;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
+      --text-dark: #212529;
+      --text-light: #f8f9fa;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+    
+    /* Layout */
+    .container-fluid {
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+    h5 { font-size: 1.25rem; }
+    h6 { font-size: 1rem; }
+    
+    .small, small {
+      font-size: 0.875em;
+    }
+    
+    .text-muted {
+      color: #6c757d !important;
+    }
+    
+    .fw-semibold {
+      font-weight: 600;
+    }
+    
+    .fw-bold {
+      font-weight: 700;
+    }
+    
+    /* Spacing */
+    .mb-0 { margin-bottom: 0 !important; }
+    .mb-1 { margin-bottom: 0.25rem !important; }
+    .mb-2 { margin-bottom: 0.5rem !important; }
+    .mb-3 { margin-bottom: 1rem !important; }
+    .mb-4 { margin-bottom: 1.5rem !important; }
+    .mb-5 { margin-bottom: 3rem !important; }
+    
+    .mt-0 { margin-top: 0 !important; }
+    .mt-1 { margin-top: 0.25rem !important; }
+    .mt-2 { margin-top: 0.5rem !important; }
+    .mt-3 { margin-top: 1rem !important; }
+    .mt-4 { margin-top: 1.5rem !important; }
+    .mt-5 { margin-top: 3rem !important; }
+    
+    .me-1 { margin-right: 0.25rem !important; }
+    .me-2 { margin-right: 0.5rem !important; }
+    .me-3 { margin-right: 1rem !important; }
+    .me-4 { margin-right: 1.5rem !important; }
+    .me-5 { margin-right: 3rem !important; }
+    
+    .ms-1 { margin-left: 0.25rem !important; }
+    .ms-2 { margin-left: 0.5rem !important; }
+    .ms-3 { margin-left: 1rem !important; }
+    .ms-4 { margin-left: 1.5rem !important; }
+    .ms-5 { margin-left: 3rem !important; }
+    
+    /* Flexbox */
+    .d-flex {
+      display: flex !important;
+    }
+    
+    .align-items-center {
+      align-items: center !important;
+    }
+    
+    .justify-content-between {
+      justify-content: space-between !important;
+    }
+    
+    .flex-grow-1 {
+      flex-grow: 1 !important;
+    }
+    
+    /* Grid */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+    
+    /* Dashboard Specific Styles */
+    .sales-dashboard {
+      padding: 2rem;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+    
+    .sales-dashboard__header {
+      margin-bottom: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .sales-dashboard__header h1 {
+      font-weight: 700;
+      color: var(--dark-color);
+      margin: 0;
+    }
+    
+    .sales-dashboard__header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .sales-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .summary-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+    
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+    }
+    
+    .summary-card__body {
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .summary-card__icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 1.75rem;
+      opacity: 0.2;
+    }
+    
+    .summary-card__title {
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    
+    .summary-card__value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .summary-card__change {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .sales-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    @media (max-width: 992px) {
+      .sales-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .sales-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      height: 100%;
+      transition: var(--transition);
+      border: none;
+    }
+    
+    .sales-card:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+    
+    .sales-card__header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .sales-card__header i {
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+    
+    .sales-card__header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--dark-color);
+    }
+    
+    .sales-card__body {
+      padding: 1.5rem;
+    }
+    
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+    
+    /* Tables */
+    .table {
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #212529;
+      border-collapse: collapse;
+    }
+    
+    .table th {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border: none;
+      text-align: left;
+    }
+    
+    .table td {
+      padding: 0.75rem 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.03);
+      vertical-align: middle;
+    }
+    
+    .table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .table tbody tr:hover {
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .sales-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    
+    /* Status Badges */
+    .status-badge {
+      padding: 0.35rem 0.65rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .status-badge i {
+      font-size: 0.65rem;
+    }
+    
+    .badge-completed {
+      background-color: rgba(25, 135, 84, 0.1);
+      color: #198754;
+    }
+    
+    .badge-processing {
+      background-color: rgba(255, 193, 7, 0.1);
+      color: #d39e00;
+    }
+    
+    .badge-pending {
+      background-color: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+    }
+    
+    .badge-cancelled {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+    }
+    
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, 
+                  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+    
+    .btn-outline-primary {
+      color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    
+    .btn-outline-primary:hover {
+      color: #fff;
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    
+    .btn-outline-secondary {
+      color: #6c757d;
+      border-color: #6c757d;
+    }
+    
+    .btn-outline-secondary:hover {
+      color: #fff;
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+    
+    .rounded-pill {
+      border-radius: 50rem !important;
+    }
+    
+    .btn-dashboard {
+      border-radius: 50px;
+      padding: 0.5rem 1.25rem;
+      font-weight: 500;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    
+    .btn-dashboard-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-dashboard-primary:hover {
+      background-color: var(--secondary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* Progress Bars */
+    .progress {
+      display: flex;
+      height: 1rem;
+      overflow: hidden;
+      background-color: #e9ecef;
+      border-radius: 0.25rem;
+    }
+    
+    .progress-thin {
+      height: 6px;
+      border-radius: 3px;
+    }
+    
+    .progress-bar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      background-color: #0d6efd;
+      transition: width 0.6s ease;
+    }
+    
+    .bg-primary { background-color: #0d6efd !important; }
+    .bg-success { background-color: #198754 !important; }
+    .bg-warning { background-color: #ffc107 !important; }
+    .bg-danger { background-color: #dc3545 !important; }
+    .bg-info { background-color: #0dcaf0 !important; }
+    
+    .product-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .product-progress-bar {
+      flex-grow: 1;
+    }
+    
+    .product-progress-value {
+      font-weight: 600;
+      font-size: 0.875rem;
+      min-width: 40px;
+      text-align: right;
+    }
+    
+    /* Form Controls */
+    .form-select {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      appearance: none;
+    }
+    
+    .form-select-sm {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+      padding-left: 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+    
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 0.35em 0.65em;
+      font-size: 0.75em;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+    }
+    
+    .rounded-pill {
+      border-radius: 50rem !important;
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    .page-item:first-child .page-link {
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+    
+    .page-item:last-child .page-link {
+      border-top-right-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+    
+    .page-item.active .page-link {
+      z-index: 3;
+      color: #fff;
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    
+    .page-item.disabled .page-link {
+      color: #6c757d;
+      pointer-events: none;
+      background-color: #fff;
+      border-color: #dee2e6;
+    }
+    
+    .page-link {
+      position: relative;
+      display: block;
+      color: #0d6efd;
+      text-decoration: none;
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      padding: 0.375rem 0.75rem;
+    }
+    
+    .page-link:hover {
+      z-index: 2;
+      color: #0a58ca;
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+    }
+    
+    .pagination-sm .page-link {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    /* Custom scrollbar for tables */
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: var(--border-radius);
+    }
+    
+    .table-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .table-scroll::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    
+    .table-scroll::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+    
+    .table-scroll::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    
+    /* Color Themes */
+    .theme-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .theme-secondary {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    .theme-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+    
+    .theme-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+    
+    .theme-warning {
+      background-color: var(--warning-color);
+      color: white;
+    }
+    
+    .theme-danger {
+      background-color: var(--danger-color);
+      color: white;
+    }
+    
+    .theme-dark {
+      background-color: var(--dark-color);
+      color: white;
+    }
+    
+    .bg-primary { background-color: var(--primary-color) !important; }
+    .bg-success { background-color: var(--success-color) !important; }
+    .bg-warning { background-color: var(--warning-color) !important; }
+    .bg-danger { background-color: var(--danger-color) !important; }
+    .bg-info { background-color: var(--accent-color) !important; }
+  </style>
+</head>
+<body>
+  <div class="sales-dashboard container-fluid">
+    <!-- Header -->
+    <header class="sales-dashboard__header">
+      <div>
+        <h1 class="mb-0"><i class="fas fa-chart-line me-2"></i>{% trans "Sales Dashboard" %}</h1>
+        <p class="text-muted mb-0">{% trans "Overview of your store's performance" %}</p>
+      </div>
+      <div class="sales-dashboard__header-actions">
+        <a href="{% url 'flame:sales_pdf' %}" class="btn btn-dashboard btn-dashboard-primary">
+          <i class="fas fa-download me-1"></i> {% trans "Export Report" %}
+        </a>
+        <button class="btn btn-outline-secondary rounded-pill">
+          <i class="fas fa-cog"></i>
+        </button>
+      </div>
+    </header>
+    
+    <!-- Summary Cards -->
+    <div class="sales-summary">
+      <!-- Total Sales Card -->
+      <div class="summary-card theme-primary">
+        <div class="summary-card__body">
+          <i class="fas fa-dollar-sign summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Sales" %}</h6>
+          <h3 class="summary-card__value">{% if is_myanmar %}{{ total_sales.total|floatformat:0 }} ကျပ်{% else %}${{ total_sales.total|floatformat:2 }}{% endif %}</h3>
+          <div class="summary-card__change">
+            <i class="fas fa-arrow-up me-1"></i> {% trans "12% vs last month" %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Orders Card -->
+      <div class="summary-card theme-success">
+        <div class="summary-card__body">
+          <i class="fas fa-shopping-cart summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Orders" %}</h6>
+          <h3 class="summary-card__value">{{ total_sales.count|default:"0" }}</h3>
+          <div class="summary-card__change">
+            <i class="fas fa-arrow-up me-1"></i> {% trans "8% vs last month" %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Products Card -->
+      <div class="summary-card theme-warning">
+        <div class="summary-card__body">
+          <i class="fas fa-box-open summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Products" %}</h6>
+          <h3 class="summary-card__value">{{ total_products|default:"0" }}</h3>
+          <div class="summary-card__change">
+            <i class="fas fa-plus me-1"></i> {% trans "3 new this week" %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Customers Card -->
+      <div class="summary-card theme-dark">
+        <div class="summary-card__body">
+          <i class="fas fa-users summary-card__icon"></i>
+          <h6 class="summary-card__title">{% trans "Total Customers" %}</h6>
+          <h3 class="summary-card__value">{{ total_customers|default:"0" }}</h3>
+          <div class="summary-card__change">
+            <i class="fas fa-arrow-up me-1"></i> {% trans "15% vs last month" %}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="sales-content">
+      <!-- Top Products -->
+      <section class="sales-card">
+        <header class="sales-card__header">
+          <i class="fas fa-star"></i>
+          <h2 class="h5 mb-0">{% trans "Top Selling Products" %}</h2>
+        </header>
+        <div class="sales-card__body">
+          <div class="table-scroll">
+            <table class="sales-table table">
+              <thead>
+                <tr>
+                  <th>{% trans "Product" %}</th>
+                  <th>{% trans "Progress" %}</th>
+                  <th>{% trans "Revenue" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in top_products %}
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="me-3" style="width: 40px; height: 40px; background-color: #e9ecef; border-radius: 4px;">
+                        {% if product.product__image %}
+                          <img src="{% if '/media/' in product.product__image %}{{ product.product__image }}{% else %}/media/{{ product.product__image }}{% endif %}"
+                               alt="{{ product.product__title }}"
+                               style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;"
+                               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        {% endif %}
+                        <div style="width: 40px; height: 40px; background-color: #f8f9fa; border-radius: 4px; display: {% if product.product__image %}none{% else %}flex{% endif %}; align-items: center; justify-content: center; color: #6c757d; font-size: 10px;">
+                          <i class="fas fa-image"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="fw-semibold">{{ product.product__title }}</div>
+                        <div class="text-muted small">{{ product.units_sold }} {% trans "units sold" %}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="product-progress">
+                      <div class="product-progress-bar">
+                        <div class="progress progress-thin">
+                          <div class="progress-bar bg-primary" role="progressbar" style="width: {{ product.progress_percentage|default:50 }}%"></div>
+                        </div>
+                      </div>
+                      <div class="product-progress-value">{{ product.progress_percentage|default:50 }}%</div>
+                    </div>
+                  </td>
+                  <td class="fw-semibold">{% if is_myanmar %}{{ product.total_revenue|floatformat:0 }} ကျပ်{% else %}${{ product.total_revenue|floatformat:2 }}{% endif %}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="3" class="text-center text-muted">{% trans "No product data available" %}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Sales by Category -->
+      <section class="sales-card">
+        <header class="sales-card__header">
+          <i class="fas fa-tags"></i>
+          <h2 class="h5 mb-0">{% trans "Sales by Category" %}</h2>
+        </header>
+        <div class="sales-card__body">
+          <div class="chart-container">
+            <canvas id="salesByCategory"></canvas>
+          </div>
+          <div class="mt-4">
+            {% for category in category_sales %}
+            <div class="d-flex align-items-center mb-2">
+              <div class="badge rounded-pill bg-{% cycle 'primary' 'warning' 'success' 'danger' 'info' %} me-2" style="width: 12px; height: 12px;"></div>
+              <div class="flex-grow-1">{{ category.product__category__title }}</div>
+              <div class="fw-semibold">{% if is_myanmar %}{{ category.total_sales|floatformat:0 }} ကျပ်{% else %}${{ category.total_sales|floatformat:2 }}{% endif %}</div>
+            </div>
+            {% empty %}
+            <div class="text-center text-muted">{% trans "No category data available" %}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Recent Sales -->
+    <section class="sales-card">
+      <header class="sales-card__header">
+        <i class="fas fa-clock"></i>
+        <h2 class="h5 mb-0">{% trans "Recent Orders" %}</h2>
+        <div class="ms-auto">
+          <select class="form-select form-select-sm" style="width: 120px;">
+            <option>Last 7 days</option>
+            <option>Last 30 days</option>
+            <option>Last 90 days</option>
+          </select>
+        </div>
+      </header>
+      <div class="sales-card__body">
+        <div class="table-scroll">
+          <table class="sales-table table">
+            <thead>
+              <tr>
+                <th>{% trans "Order ID" %}</th>
+                <th>{% trans "Customer" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Amount" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Action" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in recent_orders %}
+              <tr>
+                <td class="fw-semibold">{{ order.order_number|default:order.id }}</td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="avatar me-2" style="width: 30px; height: 30px; background-color: #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; font-weight: bold;">
+                      {{ order.user.first_name.0|default:order.user.username.0|upper }}
+                    </div>
+                    <div>{{ order.user.get_full_name|default:order.user.username }}</div>
+                  </div>
+                </td>
+                <td>{{ order.order_date|date:"M d, Y" }}</td>
+                <td class="fw-semibold">{% if is_myanmar %}{{ order.price|floatformat:0 }} ကျပ်{% else %}${{ order.price|floatformat:2 }}{% endif %}</td>
+                <td>
+                  <span class="status-badge {% if order.product_status == 'delivered' %}badge-completed{% elif order.product_status == 'processing' %}badge-processing{% elif order.product_status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
+                    {% if order.product_status == 'delivered' %}
+                      <i class="fas fa-check-circle"></i> {% trans "Completed" %}
+                    {% elif order.product_status == 'processing' %}
+                      <i class="fas fa-sync-alt"></i> {% trans "Processing" %}
+                    {% elif order.product_status == 'pending' %}
+                      <i class="fas fa-clock"></i> {% trans "Pending" %}
+                    {% else %}
+                      <i class="fas fa-times-circle"></i> {% trans "Cancelled" %}
+                    {% endif %}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary">{% trans "View" %}</button>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center text-muted">{% trans "No recent orders available" %}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div class="text-muted small">Showing 1 to 5 of 24 entries</div>
+          <nav>
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Chart JS -->
+  <script>
+    // Sales by Category (Doughnut Chart) - Dynamic Data with Safety Checks
+
+    // Safely generate category labels with proper escaping
+    const categoryLabels = [
+      {% for category in category_sales %}'{{ category.product__category__title|escapejs }}'{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
+
+    // Generate category data with validation
+    const categoryData = [
+      {% for category in category_sales %}{{ category.total_sales|floatformat:2|default:0 }}{% if not forloop.last %},{% endif %}{% endfor %}
+    ];
+
+    const categoryColors = ['#4361ee','#f8961e','#4cc9f0','#f72585','#17a2b8','#6c757d','#28a745','#dc3545','#ffc107','#20c997'];
+
+    // Check if we have data before initializing the chart
+    if (categoryLabels.length > 0 && categoryData.length > 0) {
+      console.log('Initializing pie chart with data:', {labels: categoryLabels, data: categoryData});
+
+      try {
+        new Chart(document.getElementById('salesByCategory'), {
+          type: 'doughnut',
+          data: {
+            labels: categoryLabels,
+            datasets: [{
+              data: categoryData,
+              backgroundColor: categoryColors.slice(0, categoryLabels.length),
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '70%',
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    let label = context.label || '';
+                    let value = context.raw || 0;
+                    let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    let percentage = Math.round((value / total) * 100);
+                    const currency = {% if is_myanmar %}'ကျပ်'{% else %}'$'{% endif %};
+                    const prefix = {% if is_myanmar %}''{% else %}'$'{% endif %};
+                    const suffix = {% if is_myanmar %}' ကျပ်'{% else %}''{% endif %};
+                    return `${label}: ${prefix}${value.toLocaleString()}${suffix} (${percentage}%)`;
+                  }
+                }
+              }
+            }
+          }
+        });
+
+      } catch (error) {
+        console.error('Error initializing pie chart:', error);
+        // Show error message in the chart container
+        const chartContainer = document.getElementById('salesByCategory').parentElement;
+        if (chartContainer) {
+          chartContainer.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-exclamation-triangle mb-2"></i><br>Error loading chart data</div>';
+        }
+      }
+
+    } else {
+      console.log('No data available for pie chart. Labels:', categoryLabels.length, 'Data:', categoryData.length);
+      // Show "No data available" message
+      const chartContainer = document.getElementById('salesByCategory').parentElement;
+      if (chartContainer) {
+        chartContainer.innerHTML = '<div class="text-center text-muted p-4"><i class="fas fa-chart-pie mb-2"></i><br>No sales data available by category<br><small>Try adjusting the date range or add some orders</small></div>';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,579 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>
+                        <i class="fab fa-facebook text-primary"></i>
+                        {% trans "Social Media Management" %}
+                    </h2>
+                    <p class="text-muted mb-0">{% trans "Manage your social media presence and campaigns" %}</p>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+                        <i class="fas fa-plus"></i> {% trans "New Post" %}
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#campaignModal">
+                        <i class="fas fa-bullhorn"></i> {% trans "New Campaign" %}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="row mb-4">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        {% trans "Total Posts" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ total_posts }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-edit fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        {% trans "Engagement Rate" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ engagement_rate|floatformat:2 }}%
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-heart fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        {% trans "Active Campaigns" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        {{ active_campaigns }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-bullhorn fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        {% trans "Followers Growth" %}
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        +{{ followers_growth|floatformat:0 }}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Status -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Platform Status" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for account in social_accounts %}
+                                    <div class="col-lg-3 col-md-6 mb-3">
+                                        <div class="platform-card text-center">
+                                            <i class="fab fa-{{ account.platform|lower }} fa-3x platform-icon-{{ account.platform|lower }}"></i>
+                                            <h6 class="mt-2">{{ account.platform }}</h6>
+                                            <p class="text-muted small mb-1">@{{ account.username }}</p>
+                                            <span class="badge {% if account.is_active %}bg-success{% else %}bg-danger{% endif %}">
+                                                {% if account.is_active %}{% trans "Connected" %}{% else %}{% trans "Disconnected" %}{% endif %}
+                                            </span>
+                                            <div class="mt-2">
+                                                <small class="text-muted">{{ account.followers_count }} {% trans "followers" %}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Recent Posts -->
+                <div class="col-lg-8">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Recent Posts" %}
+                            </h6>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" 
+                                        data-bs-toggle="dropdown">
+                                    {% trans "Filter" %}
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="?status=all">{% trans "All Posts" %}</a></li>
+                                    <li><a class="dropdown-item" href="?status=published">{% trans "Published" %}</a></li>
+                                    <li><a class="dropdown-item" href="?status=scheduled">{% trans "Scheduled" %}</a></li>
+                                    <li><a class="dropdown-item" href="?status=draft">{% trans "Drafts" %}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {% for post in recent_posts %}
+                                <div class="post-item border-bottom mb-3 pb-3">
+                                    <div class="d-flex align-items-start">
+                                        {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="Post image" 
+                                                 class="post-thumbnail me-3">
+                                        {% endif %}
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <div>
+                                                    <p class="mb-1">{{ post.content|truncatechars:100 }}</p>
+                                                    <div class="post-meta">
+                                                        {% for platform in post.platforms.all %}
+                                                            <span class="badge bg-secondary me-1">
+                                                                <i class="fab fa-{{ platform.platform|lower }}"></i>
+                                                                {{ platform.platform }}
+                                                            </span>
+                                                        {% endfor %}
+                                                        <small class="text-muted ms-2">
+                                                            {% if post.status == 'scheduled' %}
+                                                                <i class="fas fa-clock"></i> {{ post.scheduled_date|date:"M d, Y g:i A" }}
+                                                            {% else %}
+                                                                <i class="fas fa-calendar"></i> {{ post.created_at|date:"M d, Y" }}
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="post-actions">
+                                                    <span class="badge 
+                                                        {% if post.status == 'published' %}bg-success
+                                                        {% elif post.status == 'scheduled' %}bg-warning
+                                                        {% elif post.status == 'draft' %}bg-secondary
+                                                        {% else %}bg-danger{% endif %}">
+                                                        {{ post.get_status_display }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {% if post.status == 'published' %}
+                                                <div class="engagement-stats mt-2">
+                                                    <small class="text-muted">
+                                                        <i class="fas fa-heart text-danger"></i> {{ post.likes|default:0 }}
+                                                        <i class="fas fa-share text-primary ms-2"></i> {{ post.shares|default:0 }}
+                                                        <i class="fas fa-comment text-success ms-2"></i> {{ post.comments|default:0 }}
+                                                    </small>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="text-center py-4">
+                                    <i class="fas fa-edit fa-2x text-gray-400 mb-3"></i>
+                                    <p class="text-muted">{% trans "No posts yet" %}</p>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postModal">
+                                        {% trans "Create Your First Post" %}
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Posts & Analytics -->
+                <div class="col-lg-4">
+                    <!-- Scheduled Posts -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "Upcoming Posts" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            {% for post in scheduled_posts %}
+                                <div class="scheduled-post mb-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="mb-1 small">{{ post.content|truncatechars:50 }}</p>
+                                            <small class="text-muted">{{ post.scheduled_date|date:"M d, g:i A" }}</small>
+                                        </div>
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="text-center py-3">
+                                    <i class="fas fa-clock fa-2x text-gray-400 mb-2"></i>
+                                    <p class="text-muted small mb-0">{% trans "No scheduled posts" %}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                {% trans "This Week's Performance" %}
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="stat-item d-flex justify-content-between mb-3">
+                                <span>{% trans "Total Reach" %}</span>
+                                <strong>{{ weekly_stats.reach|default:0 }}</strong>
+                            </div>
+                            <div class="stat-item d-flex justify-content-between mb-3">
+                                <span>{% trans "Impressions" %}</span>
+                                <strong>{{ weekly_stats.impressions|default:0 }}</strong>
+                            </div>
+                            <div class="stat-item d-flex justify-content-between mb-3">
+                                <span>{% trans "Engagement" %}</span>
+                                <strong>{{ weekly_stats.engagement|default:0 }}</strong>
+                            </div>
+                            <div class="stat-item d-flex justify-content-between">
+                                <span>{% trans "Clicks" %}</span>
+                                <strong>{{ weekly_stats.clicks|default:0 }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Post Modal -->
+<div class="modal fade" id="postModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-edit"></i> {% trans "Create New Post" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="postContent" class="form-label">{% trans "Content" %}</label>
+                        <textarea class="form-control" id="postContent" name="content" rows="4" 
+                                  placeholder="{% trans 'What would you like to share?' %}" required></textarea>
+                        <div class="form-text">
+                            <span id="charCount">0</span>/280 {% trans "characters" %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="postImage" class="form-label">{% trans "Image" %} {% trans "(optional)" %}</label>
+                        <input type="file" class="form-control" id="postImage" name="image" accept="image/*">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{% trans "Platforms" %}</label>
+                        <div class="platform-selection">
+                            {% for account in social_accounts %}
+                                {% if account.is_active %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                               name="platforms" value="{{ account.id }}" id="platform_{{ account.id }}">
+                                        <label class="form-check-label" for="platform_{{ account.id }}">
+                                            <i class="fab fa-{{ account.platform|lower }}"></i>
+                                            {{ account.platform }} (@{{ account.username }})
+                                        </label>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="schedulePost">
+                            <label class="form-check-label" for="schedulePost">
+                                {% trans "Schedule for later" %}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 d-none" id="scheduleDateField">
+                        <label for="scheduleDate" class="form-label">{% trans "Schedule Date & Time" %}</label>
+                        <input type="datetime-local" class="form-control" id="scheduleDate" name="scheduled_date">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitPost()">
+                    <i class="fas fa-paper-plane"></i> 
+                    <span id="postButtonText">{% trans "Post Now" %}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Campaign Modal -->
+<div class="modal fade" id="campaignModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-bullhorn"></i> {% trans "Create Campaign" %}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="campaignForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="campaignName" class="form-label">{% trans "Campaign Name" %}</label>
+                        <input type="text" class="form-control" id="campaignName" name="name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="campaignDescription" class="form-label">{% trans "Description" %}</label>
+                        <textarea class="form-control" id="campaignDescription" name="description" rows="3"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="campaignStartDate" class="form-label">{% trans "Start Date" %}</label>
+                            <input type="date" class="form-control" id="campaignStartDate" name="start_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="campaignEndDate" class="form-label">{% trans "End Date" %}</label>
+                            <input type="date" class="form-control" id="campaignEndDate" name="end_date" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="campaignBudget" class="form-label">{% trans "Budget" %} {% trans "(optional)" %}</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="campaignBudget" name="budget" step="0.01">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {% trans "Cancel" %}
+                </button>
+                <button type="button" class="btn btn-primary" onclick="submitCampaign()">
+                    <i class="fas fa-save"></i> {% trans "Create Campaign" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary { border-left: 4px solid #4A5C6A; }
+.border-left-success { border-left: 4px solid #28a745; }
+.border-left-info { border-left: 4px solid #17a2b8; }
+.border-left-warning { border-left: 4px solid #ffc107; }
+
+.platform-card {
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.platform-card:hover {
+    border-color: #4A5C6A;
+    transform: translateY(-2px);
+}
+
+.platform-icon-facebook { color: #1877f2; }
+.platform-icon-twitter { color: #1da1f2; }
+.platform-icon-instagram { color: #e4405f; }
+.platform-icon-linkedin { color: #0077b5; }
+.platform-icon-youtube { color: #ff0000; }
+
+.post-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.post-item:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.engagement-stats i {
+    margin-right: 4px;
+}
+
+.scheduled-post {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.stat-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.platform-selection .form-check {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.text-xs { font-size: 0.75rem; }
+
+@media (max-width: 768px) {
+    .platform-card {
+        margin-bottom: 15px;
+    }
+}
+</style>
+
+<script>
+// Character counter for post content
+document.getElementById('postContent').addEventListener('input', function() {
+    const charCount = this.value.length;
+    document.getElementById('charCount').textContent = charCount;
+    
+    if (charCount > 280) {
+        document.getElementById('charCount').style.color = '#dc3545';
+    } else {
+        document.getElementById('charCount').style.color = '#6c757d';
+    }
+});
+
+// Schedule toggle
+document.getElementById('schedulePost').addEventListener('change', function() {
+    const scheduleDateField = document.getElementById('scheduleDateField');
+    const postButtonText = document.getElementById('postButtonText');
+    
+    if (this.checked) {
+        scheduleDateField.classList.remove('d-none');
+        postButtonText.textContent = '{% trans "Schedule Post" %}';
+    } else {
+        scheduleDateField.classList.add('d-none');
+        postButtonText.textContent = '{% trans "Post Now" %}';
+    }
+});
+
+// Submit post
+function submitPost() {
+    const form = document.getElementById('postForm');
+    const formData = new FormData(form);
+    
+    fetch('{% url "flame:create-social-post" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while creating the post.');
+    });
+}
+
+// Submit campaign
+function submitCampaign() {
+    const form = document.getElementById('campaignForm');
+    const formData = new FormData(form);
+    
+    fetch('{% url "flame:create-campaign" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while creating the campaign.');
+    });
+}
+
+// Auto-refresh data every 2 minutes
+setInterval(function() {
+    fetch('/api/social-stats/')
+        .then(response => response.json())
+        .then(data => {
+            // Update overview cards with new data
+            // This would update the stats dynamically
+        })
+        .catch(error => console.error('Error updating stats:', error));
+}, 120000);
+</script>
+{% endblock %}

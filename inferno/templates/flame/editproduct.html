@@ -1,0 +1,267 @@
+{% load static %}
+{% load i18n %}
+
+<style>
+/* Edit Product page styling */
+.page-title {
+  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 3px solid #667eea;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+}
+
+.page-title .title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.edit-order-form {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-control, .form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-control:focus, .form-select:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.form-check:hover {
+  border-color: #667eea;
+  background: white;
+}
+
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.form-check-label {
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+  margin-left: 12px;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(108, 117, 125, 0.3);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%23667eea' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+}
+
+.current-image {
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.current-image img {
+  max-height: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .edit-order-form {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .page-title .title {
+    font-size: 24px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+</style>
+
+<div class="page-title">
+  <div class="title">{% trans "Edit Product" %} #{{ product.id }}</div>
+</div>
+
+<div class="edit-order-form">
+  <form id="product-edit-form" method="post" data-product-id="{{ product.id }}">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label for="id_title" class="form-label">{% trans "Title" %}</label>
+      <input type="text" name="title" id="id_title"
+             class="form-control"
+             value="{{ form.title.value|default_if_none:'' }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_price" class="form-label">{% trans "Price" %}</label>
+      <input type="number" name="price" id="id_price"
+             class="form-control" step="0.01"
+             value="{{ form.price.value|default_if_none:'' }}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_image" class="form-label">{% trans "Image" %}</label>
+      <input type="file" name="image" id="id_image"
+             class="form-control" accept="image/*">
+      {% if form.instance.image %}
+        <div class="current-image">
+          <img src="{{ form.instance.image.url }}" alt="{% trans 'Current Image' %}">
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" name="featured" id="id_featured"
+             class="form-check-input" {% if form.featured.value %}checked{% endif %}>
+      <label class="form-check-label" for="id_featured">{% trans "Featured" %}</label>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_product_status" class="form-label">{% trans "Product Status" %}</label>
+      <select name="product_status" id="id_product_status" class="form-select" required>
+        {% for value, label in form.product_status.field.choices %}
+          <option value="{{ value }}"
+                  {% if form.product_status.value == value %}selected{% endif %}>
+            {{ label }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_category" class="form-label">{% trans "Category" %}</label>
+      <select name="category" id="id_category" class="form-select">
+        {% for category in category %}
+          <option value="{{ category.id }}"
+                  {% if form.category.value == category.id %}selected{% endif %}>
+            {{ category.title }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_shop" class="form-label">{% trans "Shop" %}</label>
+      <select name="shop" id="id_shop" class="form-select">
+        {% for shop in shops %}
+          <option value="{{ shop.id }}"
+                  {% if form.shop.value == shop.id %}selected{% endif %}>
+            {{ shop.title }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_brand" class="form-label">{% trans "Brand" %}</label>
+      <select name="brand" id="id_brand" class="form-select">
+        {% for brand in brand %}
+          <option value="{{ brand.id }}"
+                  {% if form.brand.value == brand.id %}selected{% endif %}>
+            {{ brand.title }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-actions mt-4">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> {% trans "Save Changes" %}
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="history.back()">
+        <i class="fas fa-times"></i> {% trans "Cancel" %}
+      </button>
+    </div>
+  </form>
+</div>

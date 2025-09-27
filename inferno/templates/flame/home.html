@@ -1,5 +1,7 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load myanmar_filter %}
 {% block content %}
         
         
@@ -556,7 +558,7 @@
     <div class="hero">
       <video autoplay loop muted>
           <source src="{% static 'assets/images/Homevd.mp4' %}" type="video/mp4">
-          Your browser does not support the video tag.
+          {% trans "Your browser does not support the video tag."%}
 
       </video>
       <form action="{% url 'flame:search' %}" method="GET">
@@ -564,22 +566,22 @@
           <div class="filters">
          <a href="{% url 'flame:product-list' %}?items=Discount Items" 
    class="filter-option btn btn-light {% if active_filter == 'Discount ' %}active{% endif %}">
-   Discounted item
+   {% trans "Discounted items" %}
 </a>
 
 <a href="{% url 'flame:product-list' %}?items=New Items" 
    class="filter-option  btn btn-light {% if active_filter == 'New ' %}active{% endif %}">
-   New Item
+   {% trans "New Items"%}
 </a>
-              <input type="text" name="q" class="input" placeholder="Search by Brand">
+              <input type="text" name="q" class="input" placeholder="{% trans "Search by Brand"%}">
 <button type="submit"><i class="fas fa-search"></i></button>
 
           </div>
                           </form>
 
       <div class="content" style="text-decoration:none">
-          <h5> Best laptops for a refined lifestyle.</h5>
-              <button > <a href="{% url 'flame:category-list' %}" style="color:white;text-decoration:none;">Start Shopping</a></button>
+          <h5> {% trans "Best laptops for a refined lifestyle."%}</h5>
+              <button > <a href="{% url 'flame:category-list' %}" style="color:white;text-decoration:none;">{% trans "Start Shopping" %}</a></button>
       </div>
     </div>
       
@@ -595,8 +597,8 @@
     <hr>
     <div class="products" id="shoppingSection">
         <div class="title">
-            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">Shops</h1><br>
-            <h2 style="text-align:center;color:#4A5C6A;font-weight:Times New Roman;">Discover the perfect laptops and everyday essentials at unbeatable prices, tailored to meet all your needs with quality and convenience.</h2><br>
+            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;">{% trans "Shops"%}</h1><br>
+            <h2 style="text-align:center;color:#4A5C6A;font-weight:Times New Roman;">{% trans "Discover the perfect laptops and everyday essentials at unbeatable prices, tailored to meet all your needs with quality and convenience."%}</h2><br>
         </div>
         <br><br>
         
@@ -606,7 +608,7 @@
       <img src="{{s.image.url}}" alt="Shop">
       <div class="shop-info">
           <h5>{{s.title}}</h5>
-          <a href="{% url 'flame:shop-detail' s.shop_id %}">View Shop</a>
+          <a href="{% url 'flame:shop-detail' s.shop_id %}">{% trans "View Shop"%}</a>
       </div>
   </div>
   {% endfor %}
@@ -621,7 +623,7 @@
     <hr>
 
     <div class="products" id="newpro">
-        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> Most Popular Items </h1><br>
+        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> {% trans "Most Popular Items"%} </h1><br>
         <div class="carousel-container">
             {% for product in popular_items %}
     <div class="card">
@@ -644,12 +646,29 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
-                    </div>
+    {% include 'flame/price_display.html' with product=product %}
+                {% comment %} {% if is_myanmar %}
+                {% if product.old_price and product.old_price > product.price %}
+                    <span class="old-price">
+                        {{ product.old_price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                    </span>
+                {% endif %}
+                <span class="current-price current-product-price-{{product.id}}">
+                    {{ product.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </span>
+                <small class="price-usd-reference">
+                    (${{ product.price|floatformat:2|to_myanmar_numerals }})
+                </small>
+            {% else %}
+                {% if product.old_price and product.old_price > product.price %}
+                    <span class="old-price">${{product.old_price|floatformat:2}}</span>
+                {% endif %}
+                <span class="current-price current-product-price-{{product.id}}">${{product.price|floatformat:2}}</span>
+            {% endif %}{% endcomment %}
+                    </div> 
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" style="border:none;text-decoration: none;">
-                    <button class="btn" >View Product</button>
+                    <button class="btn" >{% trans "View Product"%}</button>
                 </a>
 
                 </div>
@@ -663,7 +682,7 @@
   
     
     <div class="products" id="newpro">
-        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> New Items </h1><br>
+        <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;"> {% trans "New Items "%}</h1><br>
         <div class="carousel-container">
           
                 {% for product in items %}
@@ -688,12 +707,11 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
+                        {% include 'flame/price_display.html' with product=product %}
                     </div>
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">
-                    <button class="btn" >View Product</button>
+                    <button class="btn" >{% trans "View Product"%}</button>
                 </a>
 
                 </div>
@@ -705,7 +723,7 @@
         <hr>
         <br>
         <div class="products">
-            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;" id="dpro">Discount Items </h1><be><br>
+            <h1 style="text-align:center;font-weight: bold;font-weight:Times New Roman;color:#4A5C6A;" id="dpro">{% trans "Discount Items "%}</h1><be><br>
             <div class="carousel-container">
                
                             {% for product in discounted_items %}
@@ -718,7 +736,15 @@
         <input type="hidden" class="product-title-{{ product.id }}" value="{{ product.title }}">
                 
                              <div class="discount-badge">
-        -{{ product.get_percentage|floatformat:0 }}%
+         {% if product.get_percentage > 0 %}
+        <span class="tab-btn">
+            {% if current_language == 'my' %}
+                -{{ product.get_percentage|floatformat:0|to_myanmar_numerals }}%
+            {% else %}
+                -{{ product.get_percentage|floatformat:0 }}%
+            {% endif %}
+        </span>
+    {% endif %}
     </div>
                
                 <button class="favorite-btn add-to-wishlist"  data-product-item="{{product.id}}">
@@ -731,12 +757,11 @@
 </div>
                 <div class="card-footer">
  <div class="price-container">
-                        <span class="old-price">${{product.old_price|default:"0"}}</span>
-                        <span class="current-price">${{product.price}}</span>
+                        {% include 'flame/price_display.html' with product=product %}
                     </div>
                      
                 <a href="{% url 'flame:shop-product-detail' product.shop.shop_id product.p_id %}" class="btn btn-primary" style="border:none;text-decoration: none;">
-                    <button class="btn" >View Product</button>
+                    <button class="btn" >{% trans "View Product"%}</button>
                 </a>
 
                 </div>

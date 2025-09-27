@@ -1,0 +1,377 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-5">
+                <h2>
+                    <i class="fas fa-magic text-primary"></i>
+                    {% trans "Personalized Recommendations" %}
+                </h2>
+                <p class="lead text-muted">
+                    {% trans "Discover products tailored just for you based on your interests and shopping history" %}
+                </p>
+            </div>
+
+            {% if recommendation_groups %}
+                {% for group_name, products in recommendation_groups.items %}
+                    <div class="recommendation-section mb-5">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="recommendation-icon me-3">
+                                <i class="fas fa-{% if 'Popular' in group_name %}fire{% elif 'Similar' in group_name %}heart{% elif 'Trending' in group_name %}trending-up{% elif 'Collaborative' in group_name %}users{% else %}star{% endif %}"></i>
+                            </div>
+                            <div>
+                                <h3 class="mb-0">{{ group_name }}</h3>
+                                <p class="text-muted mb-0">
+                                    {% if 'Popular' in group_name %}
+                                        {% trans "Products that are currently popular among all customers" %}
+                                    {% elif 'Collaborative' in group_name %}
+                                        {% trans "Products loved by customers with similar taste" %}
+                                    {% elif 'Content' in group_name %}
+                                        {% trans "Products similar to ones you've viewed or bought" %}
+                                    {% elif 'Trending' in group_name %}
+                                        {% trans "Hot products trending right now" %}
+                                    {% else %}
+                                        {% trans "Specially curated for you" %}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% for product in products %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                    <div class="product-card h-100">
+                                        <div class="product-image-container">
+                                            <img src="{{ product.image.url }}" 
+                                                 alt="{{ product.title }}" 
+                                                 class="product-image">
+                                            
+                                            <!-- Quick Actions -->
+                                            <div class="product-overlay">
+                                                <div class="product-actions">
+                                                    <a href="{% url 'flame:product-detail' product.p_id %}" 
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <button class="btn btn-outline-light btn-sm add-to-cart" 
+                                                            data-product-id="{{ product.id }}">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-light btn-sm add-to-wishlist" 
+                                                            data-product-id="{{ product.id }}">
+                                                        <i class="fas fa-heart"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Badges -->
+                                            {% if product.featured %}
+                                                <span class="product-badge featured">
+                                                    <i class="fas fa-star"></i> {% trans "Featured" %}
+                                                </span>
+                                            {% endif %}
+                                            {% if product.old_price and product.old_price > product.price %}
+                                                <span class="product-badge discount">
+                                                    {{ product.get_percentage|floatformat:0 }}% {% trans "OFF" %}
+                                                </span>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="product-info p-3">
+                                            <h6 class="product-title">
+                                                <a href="{% url 'flame:product-detail' product.p_id %}" 
+                                                   class="text-decoration-none">
+                                                    {{ product.title|truncatechars:50 }}
+                                                </a>
+                                            </h6>
+
+                                            <!-- Rating -->
+                                            <div class="product-rating mb-2">
+                                                {% with avg_rating=product.get_average_rating %}
+                                                    {% if avg_rating %}
+                                                        <div class="stars">
+                                                            {% for i in "12345" %}
+                                                                <i class="fas fa-star {% if forloop.counter <= avg_rating %}text-warning{% else %}text-muted{% endif %}"></i>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <span class="rating-count text-muted small">
+                                                            ({{ product.get_review_count }})
+                                                        </span>
+                                                    {% else %}
+                                                        <div class="stars">
+                                                            {% for i in "12345" %}
+                                                                <i class="far fa-star text-muted"></i>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <span class="rating-count text-muted small">
+                                                            (0 {% trans "reviews" %})
+                                                        </span>
+                                                    {% endif %}
+                                                {% endwith %}
+                                            </div>
+
+                                            <!-- Price -->
+                                            <div class="product-price">
+                                                {% if product.old_price and product.old_price > product.price %}
+                                                    <span class="old-price text-muted">
+                                                        ${{ product.old_price|floatformat:2 }}
+                                                    </span>
+                                                {% endif %}
+                                                <span class="current-price text-primary fw-bold">
+                                                    ${{ product.price|floatformat:2 }}
+                                                </span>
+                                            </div>
+
+                                            <!-- Stock Status -->
+                                            <div class="stock-status mt-2">
+                                                {% if product.get_available_stock > 0 %}
+                                                    <span class="badge bg-success">
+                                                        <i class="fas fa-check"></i> {% trans "In Stock" %}
+                                                    </span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">
+                                                        <i class="fas fa-times"></i> {% trans "Out of Stock" %}
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if products|length >= 8 %}
+                            <div class="text-center mt-4">
+                                <a href="{% url 'flame:product-list' %}?recommendation_type={{ group_name|lower }}" 
+                                   class="btn btn-outline-primary">
+                                    {% trans "View More" %} {{ group_name }}
+                                    <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    {% if not forloop.last %}
+                        <hr class="my-5">
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <!-- No Recommendations Yet -->
+                <div class="text-center py-5">
+                    <div class="mb-4">
+                        <i class="fas fa-magic fa-4x text-muted"></i>
+                    </div>
+                    <h3>{% trans "No Recommendations Yet" %}</h3>
+                    <p class="text-muted mb-4">
+                        {% trans "Start browsing and shopping to get personalized recommendations based on your interests!" %}
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'flame:product-list' %}" class="btn btn-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                            {% trans "Browse Products" %}
+                        </a>
+                        <a href="{% url 'flame:category-list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-th-large"></i>
+                            {% trans "Shop by Category" %}
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.recommendation-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #4A5C6A, #6c757d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #4A5C6A;
+}
+
+.product-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-badge.featured {
+    background: #ffd700;
+    color: #000;
+}
+
+.product-badge.discount {
+    background: #dc3545;
+    color: white;
+}
+
+.product-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.product-title a:hover {
+    color: #4A5C6A;
+}
+
+.stars {
+    display: inline-block;
+}
+
+.old-price {
+    text-decoration: line-through;
+    font-size: 0.9em;
+}
+
+.current-price {
+    font-size: 1.1em;
+}
+
+.recommendation-section {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .product-overlay {
+        opacity: 1;
+        background: rgba(0,0,0,0.5);
+    }
+    
+    .recommendation-section {
+        padding: 20px;
+    }
+}
+</style>
+
+<script>
+// Add to cart functionality
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.dataset.productId;
+        
+        // Add your add to cart logic here
+        fetch(`/add-to-cart/?product_id=${productId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success message
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                this.classList.remove('btn-outline-light');
+                this.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i>';
+                    this.classList.remove('btn-success');
+                    this.classList.add('btn-outline-light');
+                }, 2000);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+
+// Add to wishlist functionality
+document.querySelectorAll('.add-to-wishlist').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.dataset.productId;
+        
+        // Add your wishlist logic here
+        fetch(`/add-to-wishlist/?product_id=${productId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                this.innerHTML = '<i class="fas fa-heart"></i>';
+                this.classList.remove('btn-outline-light');
+                this.classList.add('btn-danger');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+</script>
+{% endblock %}

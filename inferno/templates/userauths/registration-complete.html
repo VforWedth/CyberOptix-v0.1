@@ -1,0 +1,368 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+
+<main>
+<div class="container">
+    <div class="form-container">
+        <div class="col-1">
+            <div class="image-layer">
+                <div class="featured-words">
+                    <h2>🎉 {% trans "Welcome to" %} <br><span>CyberOptix</span></h2>
+                    <p>{% trans "Your account has been created successfully! Please check your email to get started." %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-2">
+            <div class="success-container">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h2 class="success-title">{% trans "Registration Successful!" %}</h2>
+                
+                <div class="success-message">
+                    <h3>{% trans "What happens next?" %}</h3>
+                    
+                    <div class="step-list">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>📧 {% trans "Check Your Email" %}</h4>
+                                <p>{% trans "We've sent a verification email to your inbox. Click the verification link to activate your account." %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>✅ {% trans "Verify Your Account" %}</h4>
+                                <p>{% trans "Email verification is required to access all features and make purchases securely." %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>🛒 {% trans "Start Shopping" %}</h4>
+                                <p>{% trans "Browse thousands of laptops, add to wishlist, and enjoy exclusive deals!" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="{% url 'userauths:sign-in' %}" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        {% trans "Go to Login" %}
+                    </a>
+                    <a href="{% url 'flame:home' %}" class="btn-secondary">
+                        <i class="fas fa-home"></i>
+                        {% trans "Browse Products" %}
+                    </a>
+                </div>
+                
+                <div class="help-section">
+                    <h4>{% trans "Didn't receive the email?" %}</h4>
+                    <div class="help-options">
+                        <button onclick="resendEmail()" class="link-button">
+                            <i class="fas fa-envelope"></i>
+                            {% trans "Resend verification email" %}
+                        </button>
+                        <a href="mailto:support@cyberoptix.com" class="link-button">
+                            <i class="fas fa-life-ring"></i>
+                            {% trans "Contact support" %}
+                        </a>
+                    </div>
+                    
+                    <div class="email-tips">
+                        <p><strong>{% trans "Email not in inbox?" %}</strong></p>
+                        <ul>
+                            <li>{% trans "Check your spam/junk folder" %}</li>
+                            <li>{% trans "Make sure you entered the correct email address" %}</li>
+                            <li>{% trans "Wait a few minutes - emails can take time to arrive" %}</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="security-notice">
+                    <h4>🔒 {% trans "Security Notice" %}</h4>
+                    <p>{% trans "For your protection, we require email verification before you can make purchases. This helps keep your account secure." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.success-container {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 80px;
+    color: #28a745;
+    margin-bottom: 20px;
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+.success-title {
+    color: #28a745;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.success-message {
+    background-color: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.success-message h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+}
+
+.step-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.step-content p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+    background-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.help-section {
+    background-color: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.help-section h4 {
+    text-align: center;
+    color: #1976d2;
+    margin-bottom: 15px;
+}
+
+.help-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: #1976d2;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.link-button:hover {
+    background-color: rgba(25, 118, 210, 0.1);
+}
+
+.email-tips {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #bbdefb;
+}
+
+.email-tips p {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    color: #1976d2;
+}
+
+.email-tips ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #555;
+}
+
+.email-tips li {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.security-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: left;
+}
+
+.security-notice h4 {
+    margin: 0 0 8px 0;
+    color: #856404;
+}
+
+.security-notice p {
+    margin: 0;
+    color: #856404;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-number {
+        align-self: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .help-options {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+
+<script>
+function resendEmail() {
+    // Show loading state
+    const button = event.target;
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Sending..." %}';
+    button.disabled = true;
+    
+    // Simulate API call (replace with actual resend endpoint)
+    setTimeout(() => {
+        alert('{% trans "Verification email has been resent! Please check your inbox." %}');
+        button.innerHTML = originalText;
+        button.disabled = false;
+    }, 2000);
+}
+
+// Auto-refresh page every 30 seconds to check if user verified via another tab
+let checkCount = 0;
+const maxChecks = 40; // 20 minutes max
+
+function checkVerificationStatus() {
+    if (checkCount >= maxChecks) return;
+    
+    // In production, make an AJAX call to check verification status
+    // fetch('/auth/check-verification-status/')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.is_verified) {
+    //             window.location.href = '{% url "flame:home" %}';
+    //         }
+    //     });
+    
+    checkCount++;
+    setTimeout(checkVerificationStatus, 30000); // Check every 30 seconds
+}
+
+// Start checking after 30 seconds
+setTimeout(checkVerificationStatus, 30000);
+</script>
+</main>
+{% endblock content %}

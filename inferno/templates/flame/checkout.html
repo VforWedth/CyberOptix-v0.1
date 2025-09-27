@@ -1,153 +1,2257 @@
+<!-- templates/flame/checkout.html -->
 {% extends 'partials/base.html' %}
 {% load math_filters %}
+{% load myanmar_filter %}
 {% load static %}
+{% load i18n %}
+
 {% block content %}
-
-
 <link rel="stylesheet" type="text/css" href="{% static 'assets/css/checkout.css' %}">
-    <style>
-      
-    </style>
+
 <body style="background-color:rgb(21, 40, 56);">
     <div class="container">
-        {% comment %} <h2>Checkout</h2>
-        {% if total_cart_items  %}
-        <p>There {% if total_cart_items == 1 %}is{% else %} are {%endif%}<span id="cart-count">{{ item_count }}</span> products{{total_cart_items|pluralize}} in your cart</p>
-        {% else %}
-        <p>You don't have any items in your cart. Go back and Continue Browsing</p>
-        {%endif%} {% endcomment %}
-        {% if order %}
-        <h2>Checking out from {{ shop.title }}</h2>
+        <!-- Connection Status Indicator -->
+        <div id="connection-status-bar" class="alert alert-info" style="display: none;">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-wifi-slash me-3"></i>
+                <div>
+                    <strong>{% trans "Offline Mode" %}</strong><br>
+                    <small>{% trans "You can still place Cash on Delivery orders. They will be submitted when you're back online." %}</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Information Section -->
+        {% if shop %}
+        <h2>{% trans "Checking out from" %} {{ shop.title }}</h2>
         <div class="shop-info">
-            <p>PayPal Account: {{ shop.paypal_email }}</p>
-            <p>Order ID: #{{ shop.id }}</p>
+            {% if shop.paypal_email %}
+            <p>{% trans "PayPal Account:" %} {{ shop.paypal_email }}</p>
+            {% endif %}
+            <p>
+                {% trans "Order ID:" %} 
+                {% if is_myanmar %}
+                    #{{ order.id|to_myanmar_numerals }}
+                {% else %}
+                    #{{ order.id }}
+                {% endif %}
+            </p>
+            
+            {% if is_myanmar %}
+            <div class="exchange-rate-info">
+                <p class="text-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Current Exchange Rate:" %} 
+                    ၁ USD = {{ exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                </p>
+            </div>
+            {% endif %}
         </div>
         {% else %}
-        <h2>General Order Checkout</h2>
+        <h2>{% trans "Checkout" %}</h2>
         {% endif %}
 
-        {% comment %} <div class="coupon-box">
-            <input type="text" placeholder="Enter Coupon Code">
-            <button>Apply Coupon</button>
-        </div> {% endcomment %}
         <div class="checkout-content">
+            <!-- Billing Details -->
             <div class="billing-details">
-                <h3>Billing Details</h3>
+                <h3>{% trans "Billing Details" %}</h3>
                 
-                <form>
-                    <input type="text" value = "{{ request.user.username|title }}" placeholder="First name *" required>
-                    <input type="text" value = "{{ active_address.mobile }}"placeholder="Mobile" required>
-                    <input type="text" value = "{{ active_address.address }}"  placeholder="Address *" required>
-                    {% comment %} <input type="text" placeholder="Address line 2"> {% endcomment %}
-                    {% comment %}
-                    <select required>
-                        <option>Select an option...</option>
-                    </select>
-                     <input type="text" placeholder="City / Town *" required>
-                    <input type="text" placeholder="Postcode / ZIP *" required>
-                    <input type="text" placeholder="Phone *" required>
-                    <input type="email" placeholder="Email address *" required>
-                    <input type="text" placeholder="Company Name">
-                    <textarea placeholder="Additional Information"></textarea> {% endcomment %}
-                </form>
-                
-            </div>
-            <div class="order-summary">
-                <h3>Your Order</h3>
-                {% comment %} <p><strong>Product</strong> <strong>Name</strong> <strong>Count</strong> <strong>Price</strong><strong>Subtotal</strong></p> {% endcomment %}
-                
-                <p><strong>Subtotal:</strong> <span id="subtotal">${{ cart_total_amount|floatformat:2 }}</span></p>
-                <div class="cart-items">
-                {% for item in order.cartorderitem_set.all %}
-                    <div class="item checkout-item" data-item-id="{{item_id}}" data-shop-id="{% if group.type == 'shop' %}{{ group.shop.shop_id }}{% endif %}">
-                        <img src="{{item.image}}" alt="{{item.title}}">
-                        <p>{{item.item}} x {{item.qty}} - ${{item.price|floatformat:2}}</p>
-                        <p><strong class="item-subtotal">${{ item.price|multiply:item.qty|floatformat:2 }}</strong></p>
+                <form id="billing-form">
+                    <input type="text"
+                           value="{{ request.user.username|title }}"
+                           placeholder="{% trans 'Name' %} *"
+                           data-field="name"
+                           required>
+
+                    <input type="text"
+                           value="{% if active_address %}{{ active_address.mobile }}{% endif %}"
+                           placeholder="{% trans 'Mobile' %}"
+                           data-field="mobile"
+                           required>
+
+                    <!-- Shipping Address Section -->
+                    <div class="shipping-address-section">
+                        <h4>{% trans "Shipping Address" %}</h4>
+
+                        <!-- State Dropdown -->
+                        <div class="address-field">
+                            <label for="state-select">{% trans "State/Region" %} *</label>
+                            <select id="state-select" name="state" data-field="state" required>
+                                <option value="">{% trans "Select State/Region" %}</option>
+                                {% for state in myanmar_states %}
+                                <option value="{{ state.id }}"
+                                        {% if active_address.state_id == state.id %}selected{% endif %}>
+                                    {% if is_myanmar and state.name_mm %}
+                                        {{ state.name_mm }}
+                                    {% else %}
+                                        {{ state.name }}
+                                    {% endif %}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- City Dropdown -->
+                        <div class="address-field">
+                            <label for="city-select">{% trans "City/Town" %} *</label>
+                            <select id="city-select" name="city" data-field="city" required disabled>
+                                <option value="">{% trans "Select City/Town" %}</option>
+                            </select>
+                        </div>
+
+                        <!-- Township Dropdown -->
+                        <div class="address-field">
+                            <label for="township-select">{% trans "Township" %}</label>
+                            <select id="township-select" name="township" data-field="township" disabled>
+                                <option value="">{% trans "Select Township" %}</option>
+                            </select>
+                        </div>
+
+                        <!-- Street Address -->
+                        <div class="address-field">
+                            <label for="street-address">{% trans "Street Address" %}</label>
+                            <input type="text"
+                                   id="street-address"
+                                   name="street_address"
+                                   data-field="street-address"
+                                   value="{% if active_address %}{{ active_address.street_address }}{% endif %}"
+                                   placeholder="{% trans 'Building No, Street Name' %}">
+                        </div>
+
+                        <!-- Landmark -->
+                        <div class="address-field">
+                            <label for="landmark">{% trans "Near Landmark" %}</label>
+                            <input type="text"
+                                   id="landmark"
+                                   name="landmark"
+                                   data-field="landmark"
+                                   value="{% if active_address %}{{ active_address.landmark }}{% endif %}"
+                                   placeholder="{% trans 'Near landmark for easy delivery' %}">
+                        </div>
                     </div>
-                {% endfor %}
+                </form>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>{% trans "Your Order" %}</h3>
+                
+                <!-- Order Items from cart_items -->
+                <div class="cart-items">
+                    {% if cart_items %}
+                        {% for item in cart_items %}
+                        <div class="item checkout-item">
+                            <img src="{{ item.image }}" alt="{{ item.title }}">
+                            <div class="item-info">
+                                <p class="item-title">{{ item.title }}</p>
+                                <p class="item-qty">
+                                    {% trans "Qty:" %} {{ item.qty_display }} × {{ item.price_display }}
+                                    {% if item.price_usd_display %}
+                                        <small>{{ item.price_usd_display }}</small>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <p class="item-total">
+                                <strong>{{ item.total_display }}</strong>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    {% elif order.cartorderitem_set.all %}
+                        <!-- Fallback to order items if cart_items not available -->
+                        {% for item in order.cartorderitem_set.all %}
+                        <div class="item checkout-item">
+                            <img src="{{ item.image }}" alt="{{ item.item }}">
+                            <div class="item-info">
+                                <p class="item-title">{{ item.item }}</p>
+                                <p class="item-qty">
+                                    {% trans "Qty:" %} 
+                                    {% if is_myanmar %}
+                                        {{ item.qty|to_myanmar_numerals }} × 
+                                        {{ item.price|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                        <small>({{ item.price|floatformat:2|to_myanmar_numerals }} USD)</small>
+                                    {% else %}
+                                        {{ item.qty }} × ${{ item.price|floatformat:2 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <p class="item-total">
+                                <strong>
+                                    {% if is_myanmar %}
+                                        {{ item.total|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                    {% else %}
+                                        ${{ item.total|floatformat:2 }}
+                                    {% endif %}
+                                </strong>
+                            </p>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-                <div>
-                    {{ paypal_payment_button.render|safe }}
+                
+                <!-- Order Total -->
+                <div class="order-total-section">
+                    <hr>
+                    <p class="subtotal-row">
+                        <strong>{% trans "Subtotal:" %}</strong>
+                        <span id="subtotal">{{ cart_total_display }}</span>
+                        {% if cart_total_usd_display %}
+                            <small>{{ cart_total_usd_display }}</small>
+                        {% endif %}
+                    </p>
                     
+                    <p class="shipping-row">
+                        <strong>{% trans "Shipping:" %}</strong>
+                        <span id="shipping-fee">{% trans "Please select address" %}</span>
+                    </p>
+                    
+                    <hr>
+                    
+                    <p class="total-row">
+                        <strong>{% trans "Total:" %}</strong>
+                        <strong class="order-total" id="order-total-display">
+                            {{ cart_total_display }}
+                            {% if cart_total_usd_display %}
+                                <small class="d-block" id="order-total-usd">{{ cart_total_usd_display }}</small>
+                            {% endif %}
+                        </strong>
+                    </p>
                 </div>
-                <div class="paypal-branding">
-                  <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" 
-                       alt="Powered by PayPal">
+                
+                {% if is_myanmar %}
+                <div class="payment-notice alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Note: Payment will be processed in USD" %}
                 </div>
+                {% endif %}
+                
+                <!-- Payment Method Selection -->
+                <div class="payment-method-selection">
+                    <h3>{% trans "Choose Payment Method" %}</h3>
+                    
+                    <div class="payment-method-options">
+                        <!-- Cash on Delivery (Default) -->
+                        <div class="payment-option">
+                            <input type="radio" id="cod-payment" name="payment_type" value="cod" data-payment-type="cod" checked>
+                            <label for="cod-payment" class="payment-option-label">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                <strong>{% trans "Cash on Delivery" %}</strong>
+                                <small>{% trans "Pay when you receive your order" %}</small>
+                            </label>
+                        </div>
 
-                <div id="qr-code" style="width:200px; height:200px; margin:20px auto;"></div>
+                        <!-- Online Payments -->
+                        <div class="payment-option">
+                            <input type="radio" id="online-payment" name="payment_type" value="online" data-payment-type="online" class="online-only">
+                            <label for="online-payment" class="payment-option-label">
+                                <i class="fas fa-credit-card"></i>
+                                <strong>{% trans "Online Payments" %}</strong>
+                                <small>{% trans "PayPal, Stripe, KBZPay" %}</small>
+                            </label>
+                        </div>
+                    </div>
 
-                <button class="btn btn-primary back-to-cart" id="stripe-checkout-button" style="background-color: #6772e5;"><i class="fab fa-stripe mr-2"></i> Pay with Stripe</button><br>
-                <button class="back-to-cart"><a href="{% url 'flame:product-list' %}" style="text-decoration: none;color: inherit;">Go back to Explore More</a></button>
+                </div>
+                
+                <!-- Online Payment Options (hidden by default) -->
+                <div id="online-payment-section" class="payment-buttons online-only" style="display: none;">
+                    <!-- PayPal -->
+                    <div class="paypal-button-container">
+                        <button type="button"
+                                class="btn btn-primary back-to-cart"
+                                id="paypal-payment-button"
+                                style="background-color: #0070ba; border-color: #0070ba; width: 100%; margin-bottom: 15px;">
+                            <i class="fab fa-paypal mr-2"></i>
+                            {% trans "Pay with PayPal" %}
+                        </button>
+                        <div id="paypal-form-container" style="display: none;"></div>
+                    </div>
+
+                    <div class="paypal-branding">
+                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg"
+                             alt="Powered by PayPal">
+                    </div>
+
+                    <div id="qr-code" style="width:200px; height:200px; margin:20px auto;"></div>
+
+                    <!-- Stripe -->
+                    <button class="btn btn-primary back-to-cart" 
+                            id="stripe-checkout-button" 
+                            style="background-color: #6772e5;">
+                        <i class="fab fa-stripe mr-2"></i> 
+                        {% trans "Pay with Stripe" %}
+                    </button>
+                    
+                    <br>
+                    
+                    <!-- KBZPay for Myanmar -->
+                    <div class="kbzpay-section mt-3">
+                        <div class="payment-divider">
+                            <span>{% trans "or pay locally with" %}</span>
+                        </div>
+                        
+                        <!-- Demo Mode Notice -->
+                        <div class="alert alert-info demo-notice mb-3" style="font-size: 0.85em; padding: 8px 12px;">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-graduation-cap me-2"></i>
+                                <div>
+                                    <strong>{% trans "Educational Demo Mode" %}</strong><br>
+                                    <small>{% trans "KBZPay integration running in demonstration mode for educational purposes" %}</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button"
+                                class="btn btn-success kbzpay-button"
+                                id="kbzpay-button"
+                                data-order-id="{{ order.id|default:'' }}"
+                                style="background-color: #00a651; border-color: #00a651; width: 100%; margin-top: 10px;">
+                            <img src="{% static 'assets/images/kbzpay-logo.png' %}"
+                                 alt="KBZPay"
+                                 style="height: 24px; margin-right: 8px; vertical-align: middle;"
+                                 onerror="this.style.display='none';">
+                            <span style="vertical-align: middle;">
+                                {% trans "Pay with KBZPay" %}
+                                <small>(Demo)</small>
+                                {% if is_myanmar %}
+                                    - {{ cart_total_amount|multiply:exchange_rate|floatformat:0|to_myanmar_numerals }} ကျပ်
+                                {% endif %}
+                            </span>
+                        </button>
+                            
+                            <div class="kbzpay-info mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-shield-alt"></i>
+                                    {% trans "Secure payment via 2C2P gateway" %}
+                                    <br>
+                                    {% if is_myanmar %}
+                                        <strong>{% trans "Educational Testing:" %}</strong> 
+                                        အစစ်အမှန် ငွေကောက်ခံမှုသည် ၁၀၀-၁,၀၀၀ ကျပ်သာ ဖြစ်သည်
+                                    {% else %}
+                                        <strong>{% trans "Educational Testing:" %}</strong> 
+                                        {% trans "Actual charge will be 100-1000 MMK for testing purposes" %}
+                                    {% endif %}
+                                </small>
+                            </div>
+                            
+                    </div>
+                </div>
+                
+                <!-- Cash on Delivery Section (shown by default) -->
+                <div id="cod-payment-section" class="payment-section" style="display: block;">
+                    <div class="cod-info">
+                        <div class="alert alert-success">
+                            <h5><i class="fas fa-hand-holding-usd"></i> {% trans "Cash on Delivery" %}</h5>
+                            <p>{% trans "You will pay for your order when it's delivered to your address." %}</p>
+                            <ul class="mb-0">
+                                <li>{% trans "No online payment required" %}</li>
+                                <li>{% trans "Pay with cash to the delivery person" %}</li>
+                                <li>{% trans "Order will be processed immediately" %}</li>
+                                {% comment %} {% if is_myanmar %}
+                                <li>ငွေကောက်ခံမှု {{ cart_total_display }} ဖြစ်သည်</li>
+                                {% else %}
+                                <li>{% blocktrans with amount=cart_total_display %}Total amount: {{ amount }}{% endblocktrans %}</li>
+                                {% endif %} {% endcomment %}
+                            </ul>
+                        </div>
+                        
+                        <form method="post" action="{% url 'flame:cod-payment' sid %}" id="cod-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="payment_method" value="cod">
+                            <!-- Hidden address fields will be populated by JavaScript -->
+                            <input type="hidden" name="state" id="cod-state">
+                            <input type="hidden" name="city" id="cod-city">
+                            <input type="hidden" name="township" id="cod-township">
+                            <input type="hidden" name="street_address" id="cod-street-address">
+                            <input type="hidden" name="landmark" id="cod-landmark">
+                            <input type="hidden" name="shipping_fee" id="cod-shipping-fee">
+                            <input type="hidden" name="mobile" id="cod-mobile">
+                            <button type="submit" class="btn btn-success btn-lg back-to-cart" id="cod-submit-btn" style="width: 100%; margin-top: 15px;">
+                                <i class="fas fa-hand-holding-usd me-2"></i>
+                                {% trans "Confirm Cash on Delivery Order" %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                    
+                    <br>
+                    
+                    <!-- Back Button -->
+                    <button class="back-to-cart">
+                        <a href="{% url 'flame:product-list' %}" 
+                           style="text-decoration: none;color: inherit;">
+                            {% trans "Go back to Explore More" %}
+                        </a>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <script src={% static 'assets/js/function.js' %}></script>
+    
+    <script src="{% static 'assets/js/function.js' %}"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" onerror="this.src='{% static "assets/libs/qrcode/qrcode.min.js" %}'"></script>
+    
     <script>
+        // Myanmar Address System and Shipping Fee Calculation
+        const addressSystem = {
+            shopId: '{{ sid }}',
+            exchangeRate: {{ exchange_rate }},
+            isMyanmar: {{ is_myanmar|yesno:"true,false" }},
+            cartSubtotal: {{ cart_total_amount }},
+            currentShippingFee: 0,
+            addressData: {},
+            offlineAddressData: null, // Will be loaded from JSON
 
-          // Initialize Stripe
+            init: async function() {
+                // Load address data immediately for offline compatibility
+                await this.loadOfflineAddressData();
+
+                // Restore cached form state before binding events
+                await this.restoreCachedFormState();
+
+                this.bindEvents();
+                this.loadActiveAddress();
+                this.bindFormSubmission();
+            },
+
+            // Load offline address data using OfflineManager
+            async loadOfflineAddressData() {
+                try {
+                    if (window.offlineManager) {
+                        this.offlineAddressData = await window.offlineManager.getCachedAddressData();
+                        if (!this.offlineAddressData) {
+                            console.log('No cached address data, loading from server via OfflineManager...');
+                            this.offlineAddressData = await window.offlineManager.loadAddressData();
+                        }
+
+                        if (this.offlineAddressData) {
+                            console.log(`Loaded address data via OfflineManager: ${this.offlineAddressData.states?.length || 0} states, ${this.offlineAddressData.cities?.length || 0} cities, ${this.offlineAddressData.townships?.length || 0} townships`);
+                            this.enableAddressDropdowns();
+                        } else {
+                            console.error('Failed to load address data via OfflineManager');
+                        }
+                    } else {
+                        console.error('OfflineManager not available, falling back to direct fetch');
+                        const response = await fetch('/static/data/myanmar_address_data.json');
+                        this.offlineAddressData = await response.json();
+                        console.log(`Loaded offline address data directly: ${this.offlineAddressData.states?.length || 0} states, ${this.offlineAddressData.cities?.length || 0} cities, ${this.offlineAddressData.townships?.length || 0} townships`);
+                        this.enableAddressDropdowns();
+                    }
+                } catch (error) {
+                    console.error('Failed to load offline address data:', error);
+                }
+            },
+
+            // Enhanced function to ensure dropdowns are ready with fallback mechanisms
+            async enableAddressDropdowns() {
+                console.log('Address system initialized - dropdowns ready for dynamic loading');
+
+                const stateSelect = document.getElementById('state-select');
+
+                // Check if states are available, if not, load from offline data
+                if (stateSelect && stateSelect.children.length <= 1) {
+                    console.log('No states found in dropdown, loading from offline data...');
+                    await this.loadStatesFromOfflineData();
+                }
+
+                // If a state is already selected, load cities immediately
+                if (stateSelect && stateSelect.value) {
+                    console.log('Auto-loading cities for pre-selected state:', stateSelect.value);
+                    this.loadCities(stateSelect.value);
+                }
+            },
+
+            // Load states from offline data if server-rendered states are not available
+            async loadStatesFromOfflineData() {
+                try {
+                    let states = [];
+
+                    if (window.offlineManager) {
+                        states = await window.offlineManager.getStates();
+                        console.log('OfflineManager returned', states.length, 'states');
+                    } else if (this.offlineAddressData) {
+                        states = this.offlineAddressData.states || [];
+                        console.log('Using local offline data:', states.length, 'states');
+                    }
+
+                    if (states && states.length > 0) {
+                        this.populateStateDropdown(states);
+                        console.log('States loaded from offline data successfully');
+                    } else {
+                        console.error('No states available from offline data');
+                    }
+                } catch (error) {
+                    console.error('Error loading states from offline data:', error);
+                }
+            },
+
+            // Helper function to populate state dropdown
+            populateStateDropdown: function(states) {
+                const stateSelect = document.getElementById('state-select');
+                const currentLang = document.documentElement.lang || 'en';
+
+                // Clear existing options except the default one
+                stateSelect.innerHTML = '<option value="">{% trans "Select State/Region" %}</option>';
+
+                states.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.id;
+
+                    // Use Myanmar name if available and current language is Myanmar
+                    if (currentLang === 'my' && state.name_mm) {
+                        option.textContent = state.name_mm;
+                    } else {
+                        option.textContent = state.name;
+                    }
+
+                    stateSelect.appendChild(option);
+                });
+
+                stateSelect.disabled = false;
+            },
+
+            // Cache current form state to localStorage
+            cacheFormState: function() {
+                const formState = {
+                    state: document.getElementById('state-select').value,
+                    city: document.getElementById('city-select').value,
+                    township: document.getElementById('township-select').value,
+                    streetAddress: document.getElementById('street-address').value,
+                    landmark: document.getElementById('landmark').value,
+                    mobile: document.querySelector('[data-field="mobile"]').value,
+                    timestamp: Date.now()
+                };
+
+                localStorage.setItem('checkout_form_state', JSON.stringify(formState));
+                console.log('Form state cached:', formState);
+            },
+
+            // Restore cached form state from localStorage
+            async restoreCachedFormState() {
+                try {
+                    const cachedState = localStorage.getItem('checkout_form_state');
+                    if (!cachedState) {
+                        console.log('No cached form state found');
+                        return;
+                    }
+
+                    const formState = JSON.parse(cachedState);
+                    console.log('Restoring cached form state:', formState);
+
+                    // Check if cache is not too old (24 hours)
+                    const maxAge = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+                    if (Date.now() - formState.timestamp > maxAge) {
+                        console.log('Cached form state is too old, clearing it');
+                        localStorage.removeItem('checkout_form_state');
+                        return;
+                    }
+
+                    // Restore text fields
+                    if (formState.streetAddress) {
+                        const streetInput = document.getElementById('street-address');
+                        if (streetInput) streetInput.value = formState.streetAddress;
+                    }
+
+                    if (formState.landmark) {
+                        const landmarkInput = document.getElementById('landmark');
+                        if (landmarkInput) landmarkInput.value = formState.landmark;
+                    }
+
+                    if (formState.mobile) {
+                        const mobileInput = document.querySelector('[data-field="mobile"]');
+                        if (mobileInput) mobileInput.value = formState.mobile;
+                    }
+
+                    // Restore state selection
+                    if (formState.state) {
+                        const stateSelect = document.getElementById('state-select');
+
+                        // If state is not available, try to load states from offline data
+                        if (stateSelect.children.length <= 1) {
+                            await this.loadStatesFromOfflineData();
+                        }
+
+                        // Set state value
+                        stateSelect.value = formState.state;
+
+                        // Load cities for the selected state
+                        if (formState.state) {
+                            console.log('Loading cities for cached state:', formState.state);
+                            await this.loadCitiesAndRestoreSelection(formState.state, formState.city, formState.township);
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Error restoring cached form state:', error);
+                    localStorage.removeItem('checkout_form_state'); // Clear invalid cache
+                }
+            },
+
+            // Load cities and restore city/township selection
+            async loadCitiesAndRestoreSelection(stateId, cityId = null, townshipId = null) {
+                try {
+                    console.log('Loading cities for state:', stateId, 'with city:', cityId, 'township:', townshipId);
+
+                    // Try API first
+                    let cities = [];
+                    try {
+                        const response = await fetch(`/api/cities-by-state/?state_id=${stateId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            cities = data.cities || [];
+                            console.log('API success: Loaded', cities.length, 'cities');
+                        }
+                    } catch (error) {
+                        console.warn('API failed, using offline data:', error.message);
+                    }
+
+                    // Fallback to offline data
+                    if (cities.length === 0) {
+                        if (window.offlineManager) {
+                            cities = await window.offlineManager.getCitiesByState(stateId);
+                        } else if (this.offlineAddressData) {
+                            cities = this.offlineAddressData.cities.filter(city => city.state_id == stateId);
+                        }
+                        console.log('Using offline data:', cities.length, 'cities');
+                    }
+
+                    // Populate cities dropdown
+                    this.populateCityDropdown(cities, cityId);
+
+                    // If city was selected, load townships
+                    if (cityId && cities.some(c => c.id == cityId)) {
+                        console.log('Loading townships for cached city:', cityId);
+                        await this.loadTownshipsAndRestoreSelection(cityId, townshipId);
+                    }
+
+                    // Calculate shipping after restoration
+                    this.calculateShipping();
+
+                } catch (error) {
+                    console.error('Error in loadCitiesAndRestoreSelection:', error);
+                }
+            },
+
+            // Load townships and restore township selection
+            async loadTownshipsAndRestoreSelection(cityId, townshipId = null) {
+                try {
+                    console.log('Loading townships for city:', cityId, 'with township:', townshipId);
+
+                    let townships = [];
+
+                    // Try API first
+                    try {
+                        const response = await fetch(`/api/townships-by-city/?city_id=${cityId}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            townships = data.townships || [];
+                            console.log('API success: Loaded', townships.length, 'townships');
+                        }
+                    } catch (error) {
+                        console.warn('API failed for townships, using offline data:', error.message);
+                    }
+
+                    // Fallback to offline data
+                    if (townships.length === 0) {
+                        if (window.offlineManager) {
+                            townships = await window.offlineManager.getTownshipsByCity(cityId);
+                        } else if (this.offlineAddressData) {
+                            townships = this.offlineAddressData.townships.filter(township => township.city_id == cityId);
+                        }
+                        console.log('Using offline data:', townships.length, 'townships');
+                    }
+
+                    // Populate townships dropdown
+                    this.populateTownshipDropdown(townships, townshipId);
+
+                } catch (error) {
+                    console.error('Error in loadTownshipsAndRestoreSelection:', error);
+                }
+            },
+
+            bindEvents: function() {
+                // State change event
+                document.getElementById('state-select').addEventListener('change', (e) => {
+                    const stateId = e.target.value;
+                    this.loadCities(stateId);
+                    this.resetTownships();
+                    this.calculateShipping();
+                    this.cacheFormState(); // Cache state changes
+                });
+
+                // City change event
+                document.getElementById('city-select').addEventListener('change', (e) => {
+                    const cityId = e.target.value;
+                    this.loadTownships(cityId);
+                    this.calculateShipping();
+                    this.cacheFormState(); // Cache city changes
+                });
+
+                // Township change event
+                document.getElementById('township-select').addEventListener('change', () => {
+                    this.calculateShipping();
+                    this.cacheFormState(); // Cache township changes
+                });
+
+                // Cache form state when text fields change
+                document.getElementById('street-address').addEventListener('input', () => {
+                    this.cacheFormState();
+                });
+
+                document.getElementById('landmark').addEventListener('input', () => {
+                    this.cacheFormState();
+                });
+
+                const mobileInput = document.querySelector('[data-field="mobile"]');
+                if (mobileInput) {
+                    mobileInput.addEventListener('input', () => {
+                        this.cacheFormState();
+                    });
+                }
+            },
+
+            loadActiveAddress: function() {
+                {% if active_address and active_address.state %}
+                // Load cities for the active address state
+                this.loadCities('{{ active_address.state.id }}', '{{ active_address.city.id|default:"" }}');
+                {% if active_address.city %}
+                // Load townships for the active address city
+                setTimeout(() => {
+                    this.loadTownships('{{ active_address.city.id }}', '{{ active_address.township.id|default:"" }}');
+                }, 500);
+                {% endif %}
+                {% endif %}
+            },
+
+            loadCities: function(stateId, selectedCityId = null) {
+                console.log('Loading cities for state:', stateId);
+                const citySelect = document.getElementById('city-select');
+
+                if (!stateId) {
+                    citySelect.innerHTML = '<option value="">{% trans "Select City/Town" %}</option>';
+                    citySelect.disabled = true;
+                    this.resetTownships();
+                    return;
+                }
+
+                // Immediately enable dropdown and show loading
+                citySelect.disabled = false;
+                citySelect.innerHTML = '<option value="">{% trans "Loading cities..." %}</option>';
+
+                // Always try API first for dynamic, real-time data
+                fetch(`/api/cities-by-state/?state_id=${stateId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('API success: Loaded', data.cities?.length || 0, 'cities');
+                        this.populateCityDropdown(data.cities, selectedCityId);
+                        this.calculateShipping(); // Calculate shipping with fresh data
+                    })
+                    .catch(error => {
+                        console.warn('API failed, trying offline data:', error.message);
+                        // Fallback to offline data
+                        this.loadCitiesOffline(stateId, selectedCityId);
+                    });
+            },
+
+            // Helper function to populate city dropdown
+            populateCityDropdown: function(cities, selectedCityId = null) {
+                const citySelect = document.getElementById('city-select');
+
+                citySelect.innerHTML = '<option value="">{% trans "Select City/Town" %}</option>';
+
+                if (cities && cities.length > 0) {
+                    cities.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.id;
+
+                        if (this.isMyanmar && city.name_mm) {
+                            option.textContent = city.name_mm;
+                        } else {
+                            option.textContent = city.name;
+                        }
+
+                        if (selectedCityId && city.id == selectedCityId) {
+                            option.selected = true;
+                        }
+
+                        citySelect.appendChild(option);
+                    });
+
+                    console.log('City dropdown populated with', cities.length, 'options');
+                } else {
+                    citySelect.innerHTML = '<option value="">{% trans "No cities available" %}</option>';
+                }
+
+                // Ensure dropdown is enabled
+                citySelect.disabled = false;
+                this.resetTownships(); // Reset townships when cities change
+            },
+
+            loadTownships: function(cityId, selectedTownshipId = null) {
+                console.log('Loading townships for city:', cityId);
+                const townshipSelect = document.getElementById('township-select');
+
+                if (!cityId) {
+                    townshipSelect.innerHTML = '<option value="">{% trans "Select Township" %}</option>';
+                    townshipSelect.disabled = true;
+                    return;
+                }
+
+                // Immediately enable dropdown and show loading
+                townshipSelect.disabled = false;
+                townshipSelect.innerHTML = '<option value="">{% trans "Loading townships..." %}</option>';
+
+                // Always try API first for dynamic, real-time data
+                fetch(`/api/townships-by-city/?city_id=${cityId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('API success: Loaded', data.townships?.length || 0, 'townships');
+                        this.populateTownshipDropdown(data.townships, selectedTownshipId);
+                    })
+                    .catch(error => {
+                        console.warn('API failed, trying offline data:', error.message);
+                        // Fallback to offline data
+                        this.loadTownshipsOffline(cityId, selectedTownshipId);
+                    });
+            },
+
+            // Helper function to populate township dropdown
+            populateTownshipDropdown: function(townships, selectedTownshipId = null) {
+                const townshipSelect = document.getElementById('township-select');
+
+                townshipSelect.innerHTML = '<option value="">{% trans "Select Township" %}</option>';
+
+                if (townships && townships.length > 0) {
+                    townships.forEach(township => {
+                        const option = document.createElement('option');
+                        option.value = township.id;
+
+                        if (this.isMyanmar && township.name_mm) {
+                            option.textContent = township.name_mm;
+                        } else {
+                            option.textContent = township.name;
+                        }
+
+                        if (selectedTownshipId && township.id == selectedTownshipId) {
+                            option.selected = true;
+                        }
+
+                        townshipSelect.appendChild(option);
+                    });
+
+                    console.log('Township dropdown populated with', townships.length, 'options');
+                    townshipSelect.disabled = false;
+                } else {
+                    console.log('No townships available for this city');
+                    townshipSelect.innerHTML = '<option value="">{% trans "No townships available" %}</option>';
+                    townshipSelect.disabled = true;
+                }
+            },
+
+            resetTownships: function() {
+                const townshipSelect = document.getElementById('township-select');
+                townshipSelect.innerHTML = '<option value="">{% trans "Select Township" %}</option>';
+                townshipSelect.disabled = true;
+            },
+
+            calculateShipping: function() {
+                const cityId = document.getElementById('city-select').value;
+                const shippingElement = document.getElementById('shipping-fee');
+
+                if (!cityId) {
+                    shippingElement.textContent = this.isMyanmar ? 'မြို့တော်ကို ရွေးချယ်ပေးပါ' : 'Please select city';
+                    this.updateTotal(0);
+                    return;
+                }
+
+                shippingElement.textContent = this.isMyanmar ? 'တွက်ချက်နေသည်...' : 'Calculating...';
+
+                fetch(`/api/calculate-shipping/?shop_id=${this.shopId}&customer_city_id=${cityId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            shippingElement.textContent = this.isMyanmar ?
+                                'ပို့ဆောင်ခ တွက်ချက်ရာတွင် အမှားအယွင်း' :
+                                'Error calculating shipping';
+                            this.updateTotal(0);
+                            return;
+                        }
+
+                        // Display shipping fee
+                        shippingElement.innerHTML = data.shipping_fee_display;
+
+                        // Add alternative currency display
+                        if (data.shipping_fee_alt_display) {
+                            shippingElement.innerHTML += `<br><small>${data.shipping_fee_alt_display}</small>`;
+                        }
+
+                        // Show same city/state info
+                        if (data.is_same_city) {
+                            shippingElement.innerHTML += `<br><small class="text-success"><i class="fas fa-check"></i> {% trans "Same city delivery" %}</small>`;
+                        } else if (data.is_same_state) {
+                            shippingElement.innerHTML += `<br><small class="text-info"><i class="fas fa-info"></i> {% trans "Same state delivery" %}</small>`;
+                        }
+
+                        // Update total with shipping
+                        if (this.isMyanmar) {
+                            this.currentShippingFee = data.shipping_fee_mmk;
+                            this.updateTotal(data.shipping_fee_mmk); // Always pass MMK in Myanmar mode
+                        } else {
+                            this.currentShippingFee = data.shipping_fee_usd;
+                            this.updateTotal(data.shipping_fee_usd); // Always pass USD in English mode
+                        }
+                        this.storeAddressData(); // Update stored address data
+                    })
+                    .catch(error => {
+                        console.error('Error calculating shipping:', error);
+
+                        // Offline fallback - use intelligent shipping calculation
+                        if (!navigator.onLine) {
+                            const shipping = this.calculateOfflineShipping(cityId);
+
+                            if (this.isMyanmar) {
+                                shippingElement.innerHTML = `
+                                    ${shipping.mmk.toLocaleString()} ကျပ် (${shipping.description})
+                                    <br><small class="text-warning">
+                                        <i class="fas fa-wifi-slash"></i> ခန့်မှန်းခြေ ပို့ဆောင်ခ (အော့ဖ်လိုင်း)
+                                    </small>
+                                `;
+                                this.currentShippingFee = shipping.mmk;
+                                this.updateTotal(shipping.mmk); // Pass MMK value directly
+                            } else {
+                                shippingElement.innerHTML = `
+                                    $${shipping.usd} (${shipping.description})
+                                    <br><small class="text-warning">
+                                        <i class="fas fa-wifi-slash"></i> Estimated shipping (offline)
+                                    </small>
+                                `;
+                                this.currentShippingFee = shipping.usd;
+                                this.updateTotal(shipping.usd); // Pass USD value directly
+                            }
+                        } else {
+                            shippingElement.textContent = this.isMyanmar ?
+                                'ပို့ဆောင်ခ တွက်ချက်ရာတွင် အမှားအယွင်း' :
+                                'Error calculating shipping';
+                            this.updateTotal(0);
+                        }
+                    });
+            },
+
+            updateTotal: function(shippingFee) {
+                let newTotal;
+
+                if (this.isMyanmar) {
+                    // In Myanmar mode, add MMK shipping to MMK subtotal
+                    const subtotalMmk = this.cartSubtotal * this.exchangeRate;
+                    newTotal = subtotalMmk + shippingFee;
+
+                    const totalDisplay = this.formatMyanmarCurrency(newTotal);
+                    const totalUsdDisplay = this.formatUsdCurrency((this.cartSubtotal + (shippingFee / this.exchangeRate)));
+
+                    document.getElementById('order-total-display').innerHTML = totalDisplay;
+                    const usdElement = document.getElementById('order-total-usd');
+                    if (usdElement) {
+                        usdElement.textContent = `(${totalUsdDisplay})`;
+                    }
+                } else {
+                    // In English mode, add USD shipping to USD subtotal
+                    newTotal = this.cartSubtotal + shippingFee;
+
+                    const totalDisplay = this.formatUsdCurrency(newTotal);
+                    document.getElementById('order-total-display').textContent = totalDisplay;
+
+                    const usdElement = document.getElementById('order-total-usd');
+                    if (usdElement) {
+                        usdElement.style.display = 'none';
+                    }
+                }
+            },
+
+            formatMyanmarCurrency: function(amount) {
+                const formatted = Math.round(amount).toLocaleString('en-US');
+                return this.convertToMyanmarNumerals(formatted) + ' ကျပ်';
+            },
+
+            formatUsdCurrency: function(amount) {
+                return '$' + amount.toFixed(2);
+            },
+
+            convertToMyanmarNumerals: function(text) {
+                const numeralMap = {
+                    '0': '၀', '1': '၁', '2': '၂', '3': '၃', '4': '၄',
+                    '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
+                };
+
+                let result = text.toString();
+                for (const [eng, myan] of Object.entries(numeralMap)) {
+                    result = result.replace(new RegExp(eng, 'g'), myan);
+                }
+                return result;
+            },
+
+            bindFormSubmission: function() {
+                // Update COD form hidden fields before submission
+                const codForm = document.getElementById('cod-form');
+                if (codForm) {
+                    codForm.addEventListener('submit', (e) => {
+                        // Update hidden fields with current address data
+                        document.getElementById('cod-state').value = document.getElementById('state-select').value;
+                        document.getElementById('cod-city').value = document.getElementById('city-select').value;
+                        document.getElementById('cod-township').value = document.getElementById('township-select').value || '';
+                        document.getElementById('cod-street-address').value = document.getElementById('street-address').value;
+                        document.getElementById('cod-landmark').value = document.getElementById('landmark').value;
+                        // For COD, use the appropriate currency based on user's preference
+                        const codShippingFee = this.isMyanmar ?
+                            (this.addressData.shipping_fee_mmk || this.currentShippingFee) :
+                            (this.addressData.shipping_fee || this.currentShippingFee);
+                        document.getElementById('cod-shipping-fee').value = codShippingFee;
+                        const mobileInput = document.querySelector('[data-field="mobile"]');
+                        if (mobileInput) {
+                            document.getElementById('cod-mobile').value = mobileInput.value;
+                        }
+
+                        // Check if offline
+                        if (!navigator.onLine && window.offlineManager) {
+                            e.preventDefault();
+                            this.handleOfflineCODSubmission();
+                            return false;
+                        }
+
+                        // Validate required fields
+                        if (!document.getElementById('cod-state').value || !document.getElementById('cod-city').value) {
+                            e.preventDefault();
+                            this.showValidationError('address_required');
+                            return false;
+                        }
+                    });
+                }
+
+                // Store address data for PayPal/Stripe payments
+                this.storeAddressData();
+            },
+
+            storeAddressData: function() {
+                // Calculate shipping fee in USD for PayPal/Stripe (always USD)
+                let shippingFeeUSD = this.currentShippingFee;
+                if (this.isMyanmar) {
+                    // Convert MMK to USD for international payments
+                    shippingFeeUSD = this.currentShippingFee / this.exchangeRate;
+                }
+
+                // Collect current address data
+                this.addressData = {
+                state: document.getElementById('state-select').value,
+                city: document.getElementById('city-select').value,
+                township: document.getElementById('township-select').value || '',
+                street_address: document.getElementById('street-address').value,
+                landmark: document.getElementById('landmark').value,
+                mobile: document.querySelector('[data-field="mobile"]').value || '',
+                shipping_fee: parseFloat(shippingFeeUSD.toFixed(2)), // Always store USD for international payments
+                shipping_fee_mmk: this.isMyanmar ? this.currentShippingFee : Math.round(this.currentShippingFee * this.exchangeRate), // Also store MMK for COD
+                shop_id: this.shopId
+                };
+                
+                // Store in session storage for immediate access
+                sessionStorage.setItem('checkout_address', JSON.stringify(this.addressData));
+
+                // Store in Django session via AJAX for payment processing
+                // Store if we have at least state and city (minimum required)
+                if (this.addressData.state && this.addressData.city) {
+                    fetch('/api/store-checkout-address/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify(this.addressData)
+                    }).then(response => {
+                        if (!response.ok) {
+                            return response.json().then(error => {
+                                throw new Error(error.error || 'Failed to store address data');
+                            });
+                        }
+                        return response.json();
+                    }).catch(error => {
+                        console.error('Error storing address data:', error);
+                        // Don't show error to user for address storage - it's non-critical
+                        console.log('Address will be retrieved from user profile if needed');
+                    });
+                }
+            },
+
+
+            // Load cities from offline data (fallback only)
+            async loadCitiesOffline(stateId, selectedCityId = null) {
+                console.log('Loading cities from offline data for state:', stateId);
+
+                try {
+                    let cities = [];
+
+                    if (window.offlineManager) {
+                        cities = await window.offlineManager.getCitiesByState(stateId);
+                        console.log('OfflineManager returned', cities.length, 'cities for state:', stateId);
+                    } else if (this.offlineAddressData) {
+                        // Fallback to local data if OfflineManager not available
+                        cities = this.offlineAddressData.cities.filter(city => city.state_id == stateId);
+                        console.log('Using local offline data:', cities.length, 'cities for state:', stateId);
+                    }
+
+                    if (cities && cities.length > 0) {
+                        this.populateCityDropdown(cities, selectedCityId);
+                        this.showOfflineNotice('cities');
+                    } else {
+                        console.warn('No cities found for state:', stateId);
+                        const citySelect = document.getElementById('city-select');
+                        citySelect.innerHTML = '<option value="">{% trans "No cities found" %}</option>';
+                        citySelect.disabled = true;
+                    }
+                } catch (error) {
+                    console.error('Error loading cities offline:', error);
+                    const citySelect = document.getElementById('city-select');
+                    citySelect.innerHTML = '<option value="">{% trans "Offline data not available" %}</option>';
+                    citySelect.disabled = true;
+                }
+            },
+
+            // Load townships from offline data (fallback only)
+            async loadTownshipsOffline(cityId, selectedTownshipId = null) {
+                console.log('Loading townships from offline data for city:', cityId);
+
+                try {
+                    let townships = [];
+
+                    if (window.offlineManager) {
+                        townships = await window.offlineManager.getTownshipsByCity(cityId);
+                        console.log('OfflineManager returned', townships.length, 'townships for city:', cityId);
+                    } else if (this.offlineAddressData) {
+                        // Fallback to local data if OfflineManager not available
+                        townships = this.offlineAddressData.townships.filter(township => township.city_id == cityId);
+                        console.log('Using local offline data:', townships.length, 'townships for city:', cityId);
+                    }
+
+                    if (townships && townships.length > 0) {
+                        this.populateTownshipDropdown(townships, selectedTownshipId);
+                        this.showOfflineNotice('townships');
+                    } else {
+                        console.log('No townships found for city:', cityId, '- this is normal for some cities');
+                        const townshipSelect = document.getElementById('township-select');
+                        townshipSelect.innerHTML = '<option value="">{% trans "No townships available" %}</option>';
+                        townshipSelect.disabled = false; // Keep enabled as township is optional
+                    }
+                } catch (error) {
+                    console.error('Error loading townships offline:', error);
+                    const townshipSelect = document.getElementById('township-select');
+                    townshipSelect.innerHTML = '<option value="">{% trans "Offline data not available" %}</option>';
+                    townshipSelect.disabled = true;
+                }
+            },
+
+            // Show offline notice
+            showOfflineNotice: function(type) {
+                // Remove any existing offline notices
+                const existingNotice = document.querySelector('.offline-address-notice');
+                if (existingNotice) {
+                    existingNotice.remove();
+                }
+
+                // Create new notice
+                const notice = document.createElement('div');
+                notice.className = 'alert alert-warning offline-address-notice mt-2';
+                notice.innerHTML = `
+                    <i class="fas fa-wifi-slash me-2"></i>
+                    <small>{% trans "Using cached data (offline mode)" %}</small>
+                `;
+
+                // Add notice after the address field section
+                const addressSection = document.querySelector('.shipping-address-section');
+                if (addressSection) {
+                    addressSection.appendChild(notice);
+                }
+
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    if (notice.parentNode) {
+                        notice.remove();
+                    }
+                }, 3000);
+            },
+
+            // Offline shipping calculation matching database rates
+            calculateOfflineShipping: function(cityId) {
+                if (!this.offlineAddressData || !cityId) {
+                    return {
+                        usd: 1.00,
+                        mmk: 3000,
+                        description: 'estimated'
+                    };
+                }
+
+                // Find the city in offline data
+                let city = null;
+                let state = null;
+                for (const s of this.offlineAddressData.states) {
+                    city = s.cities.find(c => c.id == cityId);
+                    if (city) {
+                        state = s;
+                        break;
+                    }
+                }
+
+                if (!city) {
+                    return {
+                        usd: 1.00,
+                        mmk: 3000,
+                        description: 'estimated'
+                    };
+                }
+
+                // Use same logic as backend API to ensure consistency
+                let shippingMMK = 3000; // Default: 3,000 MMK
+                let shippingUSD = 1.00;  // Default: $1.00
+                let description = 'standard';
+
+                // Check if we can determine same city/state logic
+                // Note: In offline mode, we can't know shop location, so use conservative defaults
+
+                // Major cities get slightly better rates (same as backend "same city" logic)
+                const majorCities = ['Yangon', 'Mandalay', 'Naypyidaw', 'Nay Pyi Taw'];
+                if (majorCities.some(major => city.name.includes(major) || city.name_mm?.includes(major))) {
+                    shippingMMK = 1000;  // Same as backend "same city" rate
+                    shippingUSD = 0.30;
+                    description = 'major city';
+                }
+                // Remote areas get higher rates (same as backend "different state" logic)
+                else if (['Chin', 'Kachin', 'Shan', 'Kayah', 'Kayin', 'Rakhine', 'Tanintharyi'].includes(state.name)) {
+                    shippingMMK = 5000;  // Same as backend "different state" rate
+                    shippingUSD = 1.50;
+                    description = 'remote area';
+                }
+                // All other areas use default rate (same as backend "same state" logic)
+                else {
+                    shippingMMK = 3000;  // Same as backend "same state" rate
+                    shippingUSD = 1.00;
+                    description = 'standard';
+                }
+
+                return {
+                    usd: shippingUSD,
+                    mmk: shippingMMK,
+                    description: description
+                };
+            },
+
+            // Language-agnostic alert system
+            showValidationError: function(errorType) {
+                const messages = {
+                    'address_required': {
+                        'en': 'Please select your state and city before placing the order.',
+                        'my': 'အမှာစာမတင်မီ ပြည်နယ်နှင့် မြို့တော်ကို ရွေးချယ်ပေးပါ။'
+                    },
+                    'street_required': {
+                        'en': 'Please enter your street address.',
+                        'my': 'လမ်းလိပ်စာကို ထည့်သွင်းပေးပါ။'
+                    }
+                };
+
+                const language = this.isMyanmar ? 'my' : 'en';
+                const message = messages[errorType][language];
+                alert(message);
+            },
+
+            showOfflineOrderSuccess: function() {
+                const successMessage = document.createElement('div');
+                successMessage.className = 'alert alert-success mt-3';
+
+                if (this.isMyanmar) {
+                    successMessage.innerHTML = `
+                        <h5><i class="fas fa-check-circle"></i> အမှာစာ အောင်မြင်စွာ တင်ပြီးပါပြီ!</h5>
+                        <p>သင့် Cash on Delivery အမှာစာကို သိမ်းဆည်းထားပြီး အွန်လိုင်းပြန်ရောက်သောအခါ အလိုအလျောက် တင်သွင်းပေးပါမည်။</p>
+                        <ul class="mb-0">
+                            <li>ချိတ်ဆက်မှု ပြန်လည်ရရှိသောအခါ အမှာစာကို လုပ်ဆောင်ပါမည်</li>
+                            <li>တင်သွင်းပြီးပါက အတည်ပြုချက် ရရှိပါမည်</li>
+                            <li>တောင်းဆိုထားသည့်အတိုင်း ပေးပို့သည့်အခါ ငွေပေးချေမည်</li>
+                        </ul>
+                    `;
+                } else {
+                    successMessage.innerHTML = `
+                        <h5><i class="fas fa-check-circle"></i> Order Placed Successfully!</h5>
+                        <p>Your Cash on Delivery order has been saved and will be submitted automatically when you're back online.</p>
+                        <ul class="mb-0">
+                            <li>Order will be processed when connection is restored</li>
+                            <li>You'll receive confirmation once submitted</li>
+                            <li>Payment on delivery as requested</li>
+                        </ul>
+                    `;
+                }
+
+                const codSection = document.getElementById('cod-payment-section');
+                codSection.appendChild(successMessage);
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+            },
+
+            // Handle offline COD submission
+            handleOfflineCODSubmission: function() {
+                // Validate required fields
+                const state = document.getElementById('state-select').value;
+                const city = document.getElementById('city-select').value;
+                const streetAddress = document.getElementById('street-address').value;
+
+                if (!state || !city) {
+                    this.showValidationError('address_required');
+                    return;
+                }
+
+                if (!streetAddress.trim()) {
+                    this.showValidationError('street_required');
+                    return;
+                }
+
+                // Collect order data
+                const orderData = {
+                    type: 'cod_order',
+                    shop_id: this.shopId,
+                    payment_method: 'cod',
+                    address: {
+                        state: state,
+                        city: city,
+                        township: document.getElementById('township-select').value || '',
+                        street_address: streetAddress,
+                        landmark: document.getElementById('landmark').value || ''
+                    },
+                    shipping_fee: this.currentShippingFee,
+                    cart_data: JSON.parse(sessionStorage.getItem('cart_data') || '{}'),
+                    timestamp: new Date().toISOString(),
+                    customer_name: document.querySelector('[data-field="name"]').value,
+                    customer_mobile: document.querySelector('[data-field="mobile"]').value
+                };
+
+                // Save to offline manager
+                if (window.offlineManager) {
+                    window.offlineManager.saveOfflineOrder(orderData);
+                }
+
+                // Update button state
+                const submitBtn = document.getElementById('cod-submit-btn');
+                const buttonText = this.isMyanmar ?
+                    'အမှာစာ တန်းစီထားပြီး (အော့ဖ်လိုင်း)' :
+                    'Order Queued (Offline)';
+                submitBtn.innerHTML = `
+                    <i class="fas fa-clock me-2"></i>
+                    ${buttonText}
+                `;
+                submitBtn.disabled = true;
+                submitBtn.classList.replace('btn-success', 'btn-warning');
+
+                // Show success message
+                this.showOfflineOrderSuccess();
+
+                // Clear cart
+                sessionStorage.removeItem(`cart_data`);
+            }
+        };
+
+        // Connection status management
+        function updateConnectionStatus() {
+            const statusBar = document.getElementById('connection-status-bar');
+            const onlineElements = document.querySelectorAll('.online-only');
+
+            if (!navigator.onLine) {
+                // Show offline status
+                statusBar.style.display = 'block';
+                statusBar.className = 'alert alert-warning';
+
+                // Disable online payment options
+                onlineElements.forEach(element => {
+                    element.style.opacity = '0.5';
+                    element.style.pointerEvents = 'none';
+                    if (element.tagName === 'INPUT') {
+                        element.disabled = true;
+                    }
+                });
+
+                // Ensure COD is selected and enabled
+                const codRadio = document.getElementById('cod-payment');
+                if (codRadio && !codRadio.checked) {
+                    codRadio.checked = true;
+                    // Trigger change event to update UI
+                    codRadio.dispatchEvent(new Event('change'));
+                }
+            } else {
+                // Hide offline status
+                statusBar.style.display = 'none';
+
+                // Re-enable online payment options
+                onlineElements.forEach(element => {
+                    element.style.opacity = '1';
+                    element.style.pointerEvents = 'auto';
+                    if (element.tagName === 'INPUT') {
+                        element.disabled = false;
+                    }
+                });
+            }
+        }
+
+        // Initialize Stripe
         const stripe = Stripe('{{ stripe_public_key }}');
-        
-        
-document.addEventListener('DOMContentLoaded', () => {
-  const btn       = document.getElementById('stripe-checkout-button');
-  const qrBox     = document.getElementById('qr-code');
-  const shopId    = '{{ sid }}';
-  const csrfToken = '{{ csrf_token }}';
 
-  btn.addEventListener('click', async () => {
-    btn.disabled   = true;
-    btn.textContent= 'Generating QR…';
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize connection status monitoring
+            updateConnectionStatus();
+            window.addEventListener('online', updateConnectionStatus);
+            window.addEventListener('offline', updateConnectionStatus);
 
-    // 1) Create session
-    const resp = await fetch(`/api/create-checkout-session/${shopId}/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
-      },
-      body: JSON.stringify({})
-    });
-    const data = await resp.json();
-    if (!resp.ok || data.error) {
-      alert(data.error || 'Could not start checkout.');
-      return;
+            // Initialize Address System
+            addressSystem.init();
+
+            // Payment method switching functionality - Language agnostic
+            const onlineRadio = document.querySelector('input[data-payment-type="online"]');
+            const codRadio = document.querySelector('input[data-payment-type="cod"]');
+            const onlineSection = document.getElementById('online-payment-section');
+            const codSection = document.getElementById('cod-payment-section');
+
+            function switchPaymentMethod() {
+                if (onlineRadio && onlineRadio.checked) {
+                    onlineSection.style.display = 'block';
+                    codSection.style.display = 'none';
+                } else if (codRadio && codRadio.checked) {
+                    onlineSection.style.display = 'none';
+                    codSection.style.display = 'block';
+                }
+            }
+
+            // Add event listeners with null checks
+            if (onlineRadio) {
+                onlineRadio.addEventListener('change', switchPaymentMethod);
+            }
+            if (codRadio) {
+                codRadio.addEventListener('change', switchPaymentMethod);
+            }
+
+            // Initialize with default selection
+            switchPaymentMethod();
+            
+            const btn = document.getElementById('stripe-checkout-button');
+            const qrBox = document.getElementById('qr-code');
+            const shopId = '{{ sid }}';
+            const csrfToken = '{{ csrf_token }}';
+            
+            btn.addEventListener('click', async () => {
+                // Validate minimum address info before proceeding
+                if (!addressSystem.addressData.state || !addressSystem.addressData.city) {
+                    addressSystem.showAddressError('Please select your state and city before proceeding with payment');
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = '{% trans "Generating QR..." %}';
+
+                try {
+                    // Create session
+                    const resp = await fetch(`/api/create-checkout-session/${shopId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify({})
+                    });
+
+                    const data = await resp.json();
+                    if (!resp.ok || data.error) {
+                        addressSystem.showAddressError(data.error || '{% trans "Could not start checkout. Please check your address information." %}');
+                        btn.disabled = false;
+                        btn.textContent = '{% trans "Pay with Stripe" %}';
+                        return;
+                    }
+                    
+                    // Render QR code
+                    if (qrBox) {
+                        qrBox.innerHTML = ''; // Clear existing QR
+                        new QRCode(qrBox, {
+                            text: data.checkout_url,
+                            width: 200,
+                            height: 200
+                        });
+                    }
+                    
+                    // Update button
+                    btn.textContent = '{% trans "Scan QR to Pay or Click Here" %}';
+                    btn.disabled = false;
+                    btn.onclick = () => window.location = data.checkout_url;
+                    
+                    // Start polling for payment status
+                    const pollInterval = setInterval(async () => {
+                        try {
+                            const statusResp = await fetch(
+                                `/api/stripe-session-status/?session_id=${data.session_id}`
+                            );
+                            const statusData = await statusResp.json();
+                            if (statusData.paid) {
+                                clearInterval(pollInterval);
+                                window.location = data.success_url;
+                            }
+                        } catch(e) {
+                            console.error('Polling error', e);
+                        }
+                    }, 3000);
+                } catch (error) {
+                    console.error('Error:', error);
+                    // alert('{% trans "An error occurred. Please try again." %}');
+                    btn.disabled = false;
+                    btn.textContent = '{% trans "Pay with Stripe" %}';
+                }
+            });
+
+            // Add PayPal button validation and dynamic payment creation
+            const paypalButton = document.getElementById('paypal-payment-button');
+            if (paypalButton) {
+                paypalButton.addEventListener('click', async function(e) {
+                    e.preventDefault();
+
+                    // Validate minimum address before PayPal submission
+                    if (!addressSystem.addressData.state || !addressSystem.addressData.city) {
+                        addressSystem.showAddressError('Please select your state and city before proceeding with PayPal payment');
+                        return;
+                    }
+
+                    // Set button loading state
+                    paypalButton.disabled = true;
+                    const originalText = paypalButton.innerHTML;
+                    paypalButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>{% trans "Creating PayPal Payment..." %}';
+
+                    try {
+                        // Create dynamic PayPal payment with shipping
+                        const response = await fetch(`/api/create-paypal-payment/${shopId}/`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': csrfToken
+                            },
+                            body: JSON.stringify(addressSystem.addressData)
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            // Hide the button and show the generated form
+                            paypalButton.style.display = 'none';
+                            const formContainer = document.getElementById('paypal-form-container');
+                            formContainer.innerHTML = data.form_html;
+                            formContainer.style.display = 'block';
+
+                            // Auto-submit the PayPal form
+                            const paypalForm = formContainer.querySelector('form');
+                            if (paypalForm) {
+                                paypalForm.submit();
+                            }
+                        } else {
+                            throw new Error(data.error || 'Failed to create PayPal payment');
+                        }
+                    } catch (error) {
+                        console.error('PayPal payment error:', error);
+                        addressSystem.showAddressError('Failed to create PayPal payment: ' + error.message);
+
+                        // Reset button
+                        paypalButton.disabled = false;
+                        paypalButton.innerHTML = originalText;
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <style>
+    /* Additional styles for better display */
+    .shop-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
     }
 
-    // 2) Render the QR code for customers to scan
-    new QRCode(qrBox, {
-      text: data.checkout_url,
-      width: 200,
-      height: 200
-    });
+    /* Shipping Address Styles */
+    .shipping-address-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        border: 1px solid #e9ecef;
+    }
 
-    // 3) Also let them click the same button
-    btn.textContent = 'Scan QR to Pay or Click Here';
-    btn.disabled    = false;
-    btn.onclick     = () => window.location = data.checkout_url;
+    .shipping-address-section h4 {
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+    }
 
-    // 4) Start polling for payment status
-    const pollInterval = setInterval(async () => {
-      try {
-        const statusResp = await fetch(
-          `/api/stripe-session-status/?session_id=${data.session_id}`
-        );
-        const statusData = await statusResp.json();
-        if (statusData.paid) {
-          clearInterval(pollInterval);
-          window.location = data.success_url;
+    .address-field {
+        margin-bottom: 15px;
+    }
+
+    .address-field label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    .address-field select,
+    .address-field input[type="text"] {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        border-radius: 6px;
+        font-size: 14px;
+        background: white;
+        transition: all 0.3s ease;
+    }
+
+    .address-field select:focus,
+    .address-field input[type="text"]:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .address-field select:disabled {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        cursor: not-allowed;
+        border-color: #dee2e6;
+    }
+
+    .address-field select option {
+        padding: 10px;
+    }
+
+    /* Shipping fee display */
+    #shipping-fee {
+        font-weight: 500;
+    }
+
+    #shipping-fee .text-success {
+        color: #28a745 !important;
+    }
+
+    #shipping-fee .text-info {
+        color: #17a2b8 !important;
+    }
+
+    #shipping-fee small {
+        display: block;
+        margin-top: 3px;
+        font-size: 0.85em;
+    }
+
+    /* Myanmar language specific */
+    html[lang="my"] .shipping-address-section,
+    html[lang="my"] .address-field label,
+    html[lang="my"] .address-field select,
+    html[lang="my"] .address-field input {
+        font-family: 'Padauk', sans-serif;
+    }
+
+    html[lang="my"] #shipping-fee {
+        font-family: 'Padauk', sans-serif;
+    }
+
+    /* Responsive design for address form */
+    @media (max-width: 768px) {
+        .shipping-address-section {
+            padding: 15px;
+            margin: 15px 0;
         }
-      } catch(e) {
-        console.error('Polling error', e);
-      }
-    }, 3000); // every 3 seconds
-  });
-});
-</script>
-    </body>
-    <br><br><br>
-    <hr>
-      
+
+        .address-field select,
+        .address-field input[type="text"] {
+            padding: 10px 12px;
+            font-size: 14px;
+        }
+
+        .shipping-address-section h4 {
+            font-size: 1.1em;
+        }
+    }
+    
+    .exchange-rate-info {
+        background: #d1ecf1;
+        border: 1px solid #bee5eb;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 10px;
+    }
+    
+    .checkout-item {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .checkout-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 15px;
+        border-radius: 4px;
+    }
+    
+    .item-info {
+        flex: 1;
+    }
+    
+    .item-title {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+    
+    .item-qty {
+        color: #6c757d;
+        font-size: 0.9em;
+    }
+    
+    .item-total {
+        text-align: right;
+        min-width: 120px;
+    }
+    
+    .order-total-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    
+    .subtotal-row, .shipping-row, .total-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    }
+    
+    .total-row {
+        font-size: 1.2em;
+        color: #333;
+    }
+    
+    .payment-notice {
+        padding: 10px 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+    }
+    
+    .payment-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    /* KBZPay Payment Styles */
+    .kbzpay-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        background: #f8f9fa;
+    }
+    
+    .payment-divider {
+        text-align: center;
+        margin: 15px 0;
+        position: relative;
+    }
+    
+    .payment-divider:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #dee2e6;
+        z-index: 1;
+    }
+    
+    .payment-divider span {
+        background: #f8f9fa;
+        padding: 0 15px;
+        color: #6c757d;
+        font-size: 0.9em;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .kbzpay-button {
+        transition: all 0.3s ease;
+        font-weight: 500;
+        border-radius: 6px;
+    }
+    
+    .kbzpay-button:hover {
+        background-color: #008a43 !important;
+        border-color: #008a43 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 166, 81, 0.3);
+    }
+    
+    .kbzpay-button:active {
+        transform: translateY(0);
+    }
+    
+    .kbzpay-info {
+        text-align: center;
+        border-top: 1px solid #dee2e6;
+        padding-top: 10px;
+    }
+    
+    /* Myanmar language specific */
+    html[lang="my"] .order-total,
+    html[lang="my"] .item-total {
+        font-family: 'Padauk', sans-serif;
+    }
+    
+    html[lang="my"] .kbzpay-info {
+        font-family: 'Padauk', sans-serif;
+    }
+    
+    /* Payment Method Selection Styles */
+    .payment-method-selection {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    
+    .payment-method-options {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .payment-option {
+        flex: 1;
+    }
+    
+    .payment-option input[type="radio"] {
+        display: none;
+    }
+    
+    .payment-option-label {
+        display: block;
+        background: white;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #333;
+    }
+    
+    .payment-option-label:hover {
+        border-color: #3498db;
+        background: #f0f8ff;
+    }
+    
+    .payment-option input[type="radio"]:checked + .payment-option-label {
+        border-color: #3498db;
+        background: #e8f4fd;
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+    }
+    
+    .payment-option-label i {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #3498db;
+    }
+    
+    .payment-option-label strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.1em;
+    }
+    
+    .payment-option-label small {
+        color: #666;
+        font-size: 0.9em;
+    }
+    
+    .cod-info {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+    }
+    
+    .cod-info .alert {
+        margin-bottom: 15px;
+    }
+    
+    .cod-info ul {
+        margin-left: 20px;
+    }
+    
+    /* Myanmar language specific for COD */
+    html[lang="my"] .payment-option-label,
+    html[lang="my"] .cod-info {
+        font-family: 'Padauk', sans-serif;
+    }
+    
+    @media (max-width: 768px) {
+        .payment-method-options {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .payment-option-label {
+            padding: 12px;
+        }
+        
+        .payment-option-label i {
+            font-size: 1.5em;
+        }
+    }
+    </style>
+
+    <!-- Include KBZPay Mock JS SDK -->
+    <script src="{% static 'js/kbzpay-mock.js' %}"></script>
+
+    <!-- KBZPay Integration Script -->
+    <script>
+        // Enhanced KBZPay Payment Handler
+        class KBZPaymentHandler {
+            constructor() {
+                this.isProcessing = false;
+                this.paymentWindow = null;
+                this.statusCheckInterval = null;
+                this.init();
+            }
+
+            init() {
+                const kbzButton = document.getElementById('kbzpay-button');
+                if (kbzButton) {
+                    kbzButton.addEventListener('click', this.handlePayment.bind(this));
+                }
+            }
+
+            async handlePayment(e) {
+                e.preventDefault();
+
+                if (this.isProcessing) return;
+
+                const button = e.target;
+                const orderId = button.dataset.orderId;
+
+                if (!orderId || orderId === 'undefined' || orderId === '') {
+                    this.showNotification('Order ID not found. Please refresh the page.', 'error');
+                    return;
+                }
+
+                try {
+                    this.setButtonLoading(button, true);
+                    this.isProcessing = true;
+
+                    // Show connecting notification
+                    this.showNotification('Connecting to KBZPay...', 'info');
+
+                    const paymentData = await this.initiatePayment(orderId);
+
+                    if (paymentData.success) {
+                        this.showNotification('Opening KBZPay payment window...', 'info');
+
+                        // Small delay for better UX
+                        await this.delay(800);
+
+                        this.openPaymentWindow(paymentData, orderId, button);
+                    } else {
+                        throw new Error(paymentData.message || 'Failed to initialize payment');
+                    }
+
+                } catch (error) {
+                    console.error('Payment error:', error);
+                    this.showNotification(error.message || 'Payment initialization failed', 'error');
+                    this.resetButton(button);
+                }
+            }
+
+            async initiatePayment(orderId) {
+                const response = await fetch(`/payment/kbzpay/initiate/${orderId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({})
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                return await response.json();
+            }
+
+            openPaymentWindow(paymentData, orderId, button) {
+                // Use enhanced KBZPayJS SDK
+                KBZPayJS.pay(paymentData.qrcode, (result) => {
+                    this.handlePaymentResult(result, orderId, button);
+                });
+
+                // Set up payment monitoring
+                this.startPaymentMonitoring(orderId, button);
+            }
+
+            handlePaymentResult(result, orderId, button) {
+                console.log('Payment result:', result);
+
+                switch (result.code) {
+                    case 0: // Success
+                        this.showNotification('Payment completed! Verifying...', 'success');
+                        this.verifyAndRedirect(orderId);
+                        break;
+
+                    case 1: // Canceled
+                        this.showNotification('Payment was canceled', 'warning');
+                        this.resetButton(button);
+                        break;
+
+                    case 2: // Window closed
+                        this.showNotification('Payment window was closed', 'info');
+                        this.resetButton(button);
+                        break;
+
+                    default: // Error
+                        this.showNotification(result.msg || 'Payment failed', 'error');
+                        this.resetButton(button);
+                }
+            }
+
+            async verifyAndRedirect(orderId) {
+                try {
+                    // Multiple verification attempts
+                    for (let attempt = 1; attempt <= 3; attempt++) {
+                        await this.delay(1000 * attempt); // Progressive delay
+
+                        const status = await this.checkPaymentStatus(orderId);
+
+                        if (status.success && status.paid) {
+                            this.showNotification('Payment verified! Redirecting...', 'success');
+                            await this.delay(1500);
+                            window.location.href = `{% url 'flame:payment-completed' sid %}`;
+                            return;
+                        }
+                    }
+
+                    // If we get here, verification failed
+                    this.showNotification('Payment verification failed. Please contact support.', 'error');
+
+                } catch (error) {
+                    console.error('Verification error:', error);
+                    this.showNotification('Failed to verify payment status', 'error');
+                }
+            }
+
+            async checkPaymentStatus(orderId) {
+                const response = await fetch(`/payment/kbzpay/status/${orderId}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                return await response.json();
+            }
+
+            startPaymentMonitoring(orderId, button) {
+                // Monitor payment status in background
+                this.statusCheckInterval = setInterval(async () => {
+                    try {
+                        const status = await this.checkPaymentStatus(orderId);
+                        if (status.success && status.paid) {
+                            clearInterval(this.statusCheckInterval);
+                            this.showNotification('Payment confirmed!', 'success');
+                            this.verifyAndRedirect(orderId);
+                        }
+                    } catch (error) {
+                        // Silent fail for background checks
+                        console.log('Background status check failed:', error);
+                    }
+                }, 3000); // Check every 3 seconds
+
+                // Clear interval after 10 minutes
+                setTimeout(() => {
+                    if (this.statusCheckInterval) {
+                        clearInterval(this.statusCheckInterval);
+                    }
+                }, 600000);
+            }
+
+            setButtonLoading(button, loading) {
+                if (loading) {
+                    button.disabled = true;
+                    button.dataset.originalText = button.innerHTML;
+                    button.innerHTML = `
+                        <span style="display: inline-flex; align-items: center;">
+                            <svg style="animation: spin 1s linear infinite; width: 16px; height: 16px; margin-right: 8px;" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none" opacity="0.25"/>
+                                <path d="M4 12a8 8 0 018-8" stroke="currentColor" stroke-width="4" fill="none"/>
+                            </svg>
+                            Processing Payment...
+                        </span>
+                    `;
+                } else {
+                    this.resetButton(button);
+                }
+            }
+
+            resetButton(button) {
+                this.isProcessing = false;
+                button.disabled = false;
+                if (button.dataset.originalText) {
+                    button.innerHTML = button.dataset.originalText;
+                }
+                if (this.statusCheckInterval) {
+                    clearInterval(this.statusCheckInterval);
+                }
+            }
+
+            showNotification(message, type = 'info') {
+                // Remove existing notifications
+                const existing = document.querySelectorAll('.payment-notification');
+                existing.forEach(n => n.remove());
+
+                // Create notification
+                const notification = document.createElement('div');
+                notification.className = `payment-notification notification-${type}`;
+                notification.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        z-index: 10000;
+                        padding: 16px 20px;
+                        border-radius: 8px;
+                        color: white;
+                        font-weight: 600;
+                        font-size: 14px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        background: ${this.getNotificationColor(type)};
+                        display: flex;
+                        align-items: center;
+                        max-width: 300px;
+                        animation: slideInRight 0.3s ease-out;
+                    ">
+                        ${this.getNotificationIcon(type)}
+                        <span style="margin-left: 8px;">${message}</span>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                // Auto remove after 4 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease-in forwards';
+                    setTimeout(() => notification.remove(), 300);
+                }, 4000);
+            }
+
+            getNotificationColor(type) {
+                const colors = {
+                    info: '#3b82f6',
+                    success: '#10b981',
+                    warning: '#f59e0b',
+                    error: '#ef4444'
+                };
+                return colors[type] || colors.info;
+            }
+
+            getNotificationIcon(type) {
+                const icons = {
+                    info: '💳',
+                    success: '✅',
+                    warning: '⚠️',
+                    error: '❌'
+                };
+                return icons[type] || icons.info;
+            }
+
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        };
+
+        // Add error handling method to address system
+        addressSystem.showAddressError = function(message) {
+            // Remove existing error messages
+            const existingErrors = document.querySelectorAll('.address-error-message');
+            existingErrors.forEach(error => error.remove());
+
+            // Create error message
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'address-error-message alert alert-danger';
+            errorDiv.style.cssText = 'margin: 10px 0; padding: 10px; border-radius: 5px;';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>Address Error:</strong> ${message}
+            `;
+
+            // Insert after shipping address section
+            const shippingSection = document.querySelector('.shipping-address-section');
+            if (shippingSection) {
+                shippingSection.insertAdjacentElement('afterend', errorDiv);
+            }
+
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.remove();
+                }
+            }, 10000);
+        }
+
+        // CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize payment handler when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                new KBZPaymentHandler();
+            });
+        } else {
+            new KBZPaymentHandler();
+        }
+    </script>
+</body>
+
+<br><br><br>
+<hr>
+
 {% endblock content %}
